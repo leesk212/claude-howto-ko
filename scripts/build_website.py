@@ -1137,7 +1137,7 @@ def main() -> int:
         repo_url=args.repo_url,
         branch=args.branch,
         language=args.lang,
-        landing=False,  # Korean-only fork: README.md is the index, like other translated sites
+        landing=True,
     )
 
     try:

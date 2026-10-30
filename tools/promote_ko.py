@@ -46,6 +46,53 @@ def git(*a: str) -> str:
 tracked = [Path(p) for p in git("ls-files").splitlines()]
 ko_files = [p for p in tracked if p.parts[0] == "ko"]
 ko_targets = {Path(*p.parts[1:]) for p in ko_files}
+KO_SITE = Path(__file__).resolve().parent / "ko_site"
+
+
+# --- 0. Korean landing roadmap (needs English + Korean side by side) ---------
+def _headings(text: str) -> list[str]:
+    out, inside = [], False
+    for line in text.split("\n"):
+        if re.match(r"^\s*(```|~~~)", line):
+            inside = not inside
+            continue
+        m = None if inside else re.match(r"^#{1,6}\s+(.+?)\s*$", line)
+        if m:
+            out.append(m.group(1))
+    return out
+
+
+def build_ko_roadmap() -> str | None:
+    """Copy roadmap.json with Korean labels and headings mapped by position.
+
+    The Korean files keep the English heading order (enforced by the
+    structure check), so the n-th heading of the English page is the n-th
+    heading of the Korean page.
+    """
+    import json
+
+    labels_file = KO_SITE / "roadmap_labels.ko.json"
+    if not labels_file.exists():
+        return None
+    labels = json.loads(labels_file.read_text(encoding="utf-8"))
+    src = ROOT / "scripts/website_templates/roadmap.json"
+    data = json.loads(src.read_text(encoding="utf-8"))
+    for level in data["levels"]:
+        level.update(labels["levels"].get(level["id"], {}))
+        for mod in level["modules"]:
+            en_h = _headings((ROOT / mod["source"]).read_text(encoding="utf-8"))
+            ko_h = _headings((KO / mod["source"]).read_text(encoding="utf-8"))
+            assert len(en_h) == len(ko_h), f"heading count differs: {mod['source']}"
+            for lesson in mod.get("lessons", []):
+                i = en_h.index(lesson["heading"])
+                lesson["heading"] = ko_h[i]
+                key = f"{mod['id']}/{lesson['id']}"
+                lesson["title"] = labels["lessons"].get(key, lesson["title"])
+            mod.update(labels["modules"].get(mod["id"], {}))
+    return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
+
+
+ko_roadmap = build_ko_roadmap()
 
 # --- 1. delete English docs + other languages -------------------------------
 for p in tracked:
@@ -191,26 +238,44 @@ s = s.replace(
     'site_title: str = "Claude Code How-To Guide"',
     'site_title: str = "Claude Code 사용 가이드"',
 )
-s = s.replace(
-    'landing=(args.lang == "en"),',
-    "landing=False,  # Korean-only fork: README.md is the index, like other translated sites",
-)
-assert "landing=False" in s
+tpl_dir = ROOT / "scripts/website_templates"
+if ko_roadmap is not None:
+    # Same landing page as the upstream site, in Korean: always render it
+    # (the source tree is Korean even though the build runs as --lang en).
+    s = s.replace('landing=(args.lang == "en"),', "landing=True,")
+    assert "landing=True," in s
+    (tpl_dir / "roadmap.json").write_text(ko_roadmap, encoding="utf-8")
+    for name in ("landing.html.j2", "landing.js"):
+        shutil.copyfile(KO_SITE / name, tpl_dir / name)
+    # landing.js tests assert the UI strings; keep them in step with the
+    # Korean copy (longest literal first so "Copy" doesn't eat "Copy failed")
+    tw = ROOT / "scripts/tests/test_build_website.py"
+    tt = tw.read_text(encoding="utf-8")
+    for en, ko in [
+        ("Unable to copy to clipboard", "클립보드에 복사하지 못했습니다"),
+        ("Copied to clipboard", "클립보드에 복사했습니다"),
+        ("Copy failed", "복사 실패"),
+        ("Copied", "복사됨"),
+        ("Copy", "복사"),
+        ("Not started", "시작 전"),
+        ("In progress", "진행 중"),
+    ]:
+        tt = tt.replace(f'"{en}"', f'"{ko}"').replace(f">{en}<", f">{ko}<")
+    tw.write_text(tt, encoding="utf-8")
+else:
+    s = s.replace('landing=(args.lang == "en"),', "landing=False,")
+    tw = ROOT / "scripts/tests/test_build_website.py"
+    tt = tw.read_text(encoding="utf-8").replace(
+        "    def test_landing_real_repo(",
+        '    @pytest.mark.skip(reason="no Korean landing roadmap")\n'
+        "    def test_landing_real_repo(",
+        1,
+    )
+    tw.write_text(tt, encoding="utf-8")
 bw.write_text(s, encoding="utf-8")
 
-tw = ROOT / "scripts/tests/test_build_website.py"
-tt = tw.read_text(encoding="utf-8")
-tt = tt.replace(
-    "    def test_landing_real_repo(",
-    '    @pytest.mark.skip(reason="Korean-only fork: English landing roadmap does not apply")\n    def test_landing_real_repo(',
-    1,
-)
-if "import pytest" not in tt:
-    tt = "import pytest\n" + tt
-tw.write_text(tt, encoding="utf-8")
-
 for tpl in ("page.html.j2", "landing.html.j2"):
-    f = ROOT / "scripts/website_templates" / tpl
+    f = tpl_dir / tpl
     x = f.read_text(encoding="utf-8").replace('<html lang="en"', '<html lang="ko"')
     x = x.replace(">Edit on GitHub<", ">GitHub에서 편집<").replace(">Home<", ">홈<")
     f.write_text(x, encoding="utf-8")

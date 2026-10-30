@@ -1003,7 +1003,6 @@ class TestLanding:
                 skip_vendor=True,
             )
 
-    @pytest.mark.skip(reason="Korean-only fork: English landing roadmap does not apply")
     def test_landing_real_repo(self, tmp_path: Path, logger: logging.Logger) -> None:
         """Every heading in the shipped roadmap.json must resolve to an anchor."""
         repo_root = Path(__file__).resolve().parents[2]
@@ -1080,7 +1079,7 @@ function makeEnvironment(spec) {
   const copy = element(null, [], { "data-copy": "echo copied" });
   const label = element();
   label.classList.add("copy-label");
-  label.textContent = "Copy";
+  label.textContent = "복사";
   copy.querySelector = (selector) => selector === ".copy-label" ? label : null;
   const document = {
     documentElement: element(null, ["no-js"]),
@@ -1174,13 +1173,13 @@ async function runRapidClicks() {
   const label = env.copy.querySelector(".copy-label");
   const status = env.document.getElementById("copy-status");
   env.copy.dispatch("click");
-  assert.strictEqual(label.textContent, "Copied");
+  assert.strictEqual(label.textContent, "복사됨");
   spec.exec = "false";
   env.copy.dispatch("click");
-  assert.strictEqual(label.textContent, "Copy failed");
+  assert.strictEqual(label.textContent, "복사 실패");
   env.flushTimers();
-  assert.strictEqual(label.textContent, "Copy");
-  assert.strictEqual(status.textContent, "Unable to copy to clipboard");
+  assert.strictEqual(label.textContent, "복사");
+  assert.strictEqual(status.textContent, "클립보드에 복사하지 못했습니다");
   assert.strictEqual(env.copy.classList.contains("copied"), false);
 
   const pending = makeEnvironment({ clipboard: "deferred", exec: "false" });
@@ -1190,19 +1189,19 @@ async function runRapidClicks() {
   pending.copy.dispatch("click");
   pending.resolveClipboard();
   await new Promise((resolve) => setImmediate(resolve));
-  assert.strictEqual(pending.copy.querySelector(".copy-label").textContent, "Copy failed");
-  assert.strictEqual(pending.document.getElementById("copy-status").textContent, "Unable to copy to clipboard");
+  assert.strictEqual(pending.copy.querySelector(".copy-label").textContent, "복사 실패");
+  assert.strictEqual(pending.document.getElementById("copy-status").textContent, "클립보드에 복사하지 못했습니다");
   pending.flushTimers();
-  assert.strictEqual(pending.copy.querySelector(".copy-label").textContent, "Copy");
+  assert.strictEqual(pending.copy.querySelector(".copy-label").textContent, "복사");
   return { name: "rapid-clicks" };
 }
 
 const cases = [
-  ["clipboard-success", "resolve", "false", "Copied", "Copied to clipboard", true, 0, 1, "echo copied"],
-  ["legacy-false", null, "false", "Copy failed", "Unable to copy to clipboard", false, 1, 0, null],
-  ["legacy-throw", null, "throw", "Copy failed", "Unable to copy to clipboard", false, 1, 0, null],
-  ["rejection-legacy-success", "reject", "true", "Copied", "Copied to clipboard", true, 1, 1, "echo copied"],
-  ["rejection-legacy-false", "reject", "false", "Copy failed", "Unable to copy to clipboard", false, 1, 1, "echo copied"],
+  ["clipboard-success", "resolve", "false", "복사됨", "클립보드에 복사했습니다", true, 0, 1, "echo copied"],
+  ["legacy-false", null, "false", "복사 실패", "클립보드에 복사하지 못했습니다", false, 1, 0, null],
+  ["legacy-throw", null, "throw", "복사 실패", "클립보드에 복사하지 못했습니다", false, 1, 0, null],
+  ["rejection-legacy-success", "reject", "true", "복사됨", "클립보드에 복사했습니다", true, 1, 1, "echo copied"],
+  ["rejection-legacy-false", "reject", "false", "복사 실패", "클립보드에 복사하지 못했습니다", false, 1, 1, "echo copied"],
 ];
 Promise.all([
   ...cases.map(([name, clipboard, exec]) => runCase({ name, clipboard, exec })),

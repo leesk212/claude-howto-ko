@@ -12,9 +12,9 @@
   var STORAGE_KEY = "claude-howto.progress.v1";
   var VALID_STATUS = { "not-started": true, "in-progress": true, "done": true };
   var STATUS_LABEL = {
-    "not-started": "Not started",
-    "in-progress": "In progress",
-    done: "Done",
+    "not-started": "시작 전",
+    "in-progress": "진행 중",
+    done: "완료",
   };
 
   var reducedMotion = false;
@@ -43,8 +43,8 @@
     themeToggle.setAttribute(
       "aria-label",
       currentTheme() === "dark"
-        ? "Switch to light theme"
-        : "Switch to dark theme"
+        ? "밝은 테마로 전환"
+        : "어두운 테마로 전환"
     );
   }
 
@@ -277,7 +277,7 @@
           var t = station.querySelector(".station-title");
           modTitle = t ? t.textContent.trim() : "";
         }
-        var verb = done + inProgress === 0 ? "Start" : "Continue";
+        var verb = done + inProgress === 0 ? "시작" : "이어서 학습";
         continueBtn.hidden = false;
         allDone.hidden = true;
         if (link) continueBtn.setAttribute("href", link.getAttribute("href"));
@@ -385,7 +385,7 @@
   var resetBtn = document.getElementById("reset-btn");
   if (resetBtn) {
     resetBtn.addEventListener("click", function () {
-      if (!window.confirm("Reset all lesson progress? This cannot be undone.")) {
+      if (!window.confirm("모든 레슨 진행 상황을 초기화할까요? 이 작업은 되돌릴 수 없습니다.")) {
         return;
       }
       mem.lessons = {};
@@ -595,11 +595,11 @@
           btn.classList.toggle("copied", copied);
           if (copyStatus) {
             copyStatus.textContent = copied
-              ? "Copied to clipboard"
-              : "Unable to copy to clipboard";
+              ? "클립보드에 복사했습니다"
+              : "클립보드에 복사하지 못했습니다";
           }
           if (label) {
-            label.textContent = copied ? "Copied" : "Copy failed";
+            label.textContent = copied ? "복사됨" : "복사 실패";
             feedbackTimer = window.setTimeout(function () {
               label.textContent = originalLabel;
               btn.classList.remove("copied");

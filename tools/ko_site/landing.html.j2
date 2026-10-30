@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{{ site_title }} — 주말에 끝내는 Claude Code</title>
+  <meta
+    name="description"
+    content="claude 입력부터 에이전트, 훅, 스킬, MCP 서버 오케스트레이션까지 — 시각적 튜토리얼, 바로 복사해 쓰는 템플릿, 단계별 학습 경로를 제공하는 Claude Code 가이드입니다."
+  />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfaf7" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+  <link rel="icon" href="assets/resources/logos/claude-howto-logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css" />
+  <link rel="stylesheet" href="assets/landing.css" />
+  <script>
+    // Apply the saved theme before paint to avoid flash of unstyled content.
+    (function () {
+      try {
+        var saved = localStorage.getItem('claude-howto-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
+  <script src="assets/landing.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#roadmap">로드맵으로 건너뛰기</a>
+
+  {# ============ Sticky nav ============ #}
+  <header class="nav" id="top">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html" aria-label="Claude How-To 홈">
+        <img
+          src="assets/resources/logos/claude-howto-logo.svg"
+          alt="claude-howto"
+          class="nav-logo logo-light"
+          onerror="this.style.display='none'"
+        />
+        <img
+          src="assets/resources/logos/claude-howto-logo-dark.svg"
+          alt="claude-howto"
+          class="nav-logo logo-dark"
+          onerror="this.style.display='none'"
+        />
+      </a>
+      <nav class="nav-links" id="nav-menu" aria-label="주 메뉴">
+        <a href="#why">특징</a>
+        <a href="#vs-docs">공식 문서와 비교</a>
+        <a href="#roadmap">로드맵</a>
+        <a href="{{ guide_url }}">가이드</a>
+        <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm nav-cta" href="#roadmap">학습 시작</a>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="어두운 테마로 전환"
+        >
+          <svg class="ti-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <circle cx="10" cy="10" r="4" />
+            <path d="M10 1.8v2.2M10 16v2.2M1.8 10H4M16 10h2.2M4.2 4.2l1.6 1.6M14.2 14.2l1.6 1.6M15.8 4.2l-1.6 1.6M5.8 14.2l-1.6 1.6" stroke-linecap="round" />
+          </svg>
+          <svg class="ti-moon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+          </svg>
+        </button>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="메뉴 열기/닫기"
+        >
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path class="menu-open" d="M3 5.5h14M3 10h14M3 14.5h14" stroke-linecap="round" />
+            <path class="menu-close" d="M5 5l10 10M15 5L5 15" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {# ============ Hero ============ #}
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow-row reveal" style="--d: 0s">
+            <p class="eyebrow">~/claude-howto · 주말 커리큘럼</p>
+            {% if version %}<span class="version-pill">v{{ version }} 기준</span>{% endif %}
+          </div>
+          <h1 class="hero-title reveal" style="--d: 0.08s">
+            주말에 끝내는<br /><em>Claude&nbsp;Code</em>
+          </h1>
+          <p class="hero-sub reveal" style="--d: 0.16s">
+            <code>claude</code> 입력부터 에이전트, 훅, 스킬, MCP 서버
+            오케스트레이션까지 — 시각적 튜토리얼, 바로 복사해 쓰는 템플릿,
+            단계별 학습 경로로 익힙니다.
+          </p>
+          <div class="hero-cta reveal" style="--d: 0.24s">
+            <a class="btn btn-primary" href="#roadmap">로드맵 시작하기</a>
+            <a class="btn btn-ghost" href="{{ guide_url }}">가이드 읽기</a>
+          </div>
+          <dl class="hero-stats reveal" style="--d: 0.32s">
+            <div class="stat">
+              <dt>모듈</dt>
+              <dd>{{ module_count }}</dd>
+            </div>
+            <div class="stat">
+              <dt>소요 시간</dt>
+              <dd>11–13시간</dd>
+            </div>
+            <div class="stat">
+              <dt>언어</dt>
+              <dd>5</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div
+          class="hero-term reveal"
+          style="--d: 0.2s"
+          role="img"
+          aria-label="짧은 Claude Code 세션의 터미널 기록: claude 실행, /init 및 /self-assessment 실행, 훅 동작, 서브에이전트의 작업 위임"
+        >
+          <div class="term">
+            <div class="term-bar">
+              <span class="term-dot"></span>
+              <span class="term-dot"></span>
+              <span class="term-dot"></span>
+              <span class="term-title">~/project — claude</span>
+            </div>
+            <div class="term-body" id="terminal">
+              <div class="t-line" data-t="cmd"><span class="t-pp">$</span><span class="t-tt">claude</span></div>
+              <div class="t-line" data-t="out" data-c="dim">Claude Code · working in ~/project</div>
+              <div class="t-line" data-t="cmd"><span class="t-pp t-pp-in">&gt;</span><span class="t-tt">/init</span></div>
+              <div class="t-line" data-t="out" data-c="ok">✓ wrote CLAUDE.md — 6 rules, 3 imports</div>
+              <div class="t-line" data-t="cmd"><span class="t-pp t-pp-in">&gt;</span><span class="t-tt">/self-assessment</span></div>
+              <div class="t-line" data-t="out" data-c="info">→ level: intermediate · start at 03-skills</div>
+              <div class="t-line" data-t="cmd"><span class="t-pp t-pp-in">&gt;</span><span class="t-tt">add rate limiting to the api</span></div>
+              <div class="t-line" data-t="out" data-c="warn">⚡ hook PreToolUse → ruff check . — passed</div>
+              <div class="t-line" data-t="out" data-c="ok">◆ Explore agent → mapped 14 routes — done</div>
+              <div class="t-line" data-t="cmd"><span class="t-pp">$</span><span class="t-tt"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {# ============ Why / value ============ #}
+    <section class="section" id="why">
+      <p class="kicker reveal">이 가이드를 써야 하는 이유</p>
+      <h2 class="section-title reveal">공식 문서는 <em>무엇</em>을 알려 줍니다.<br />이 가이드는 <em>어떻게</em>를 보여 줍니다.</h2>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" />
+              <path d="M10 6.5h4a3 3 0 0 1 3 3V14M14 17.5h-4a3 3 0 0 1-3-3V10" />
+            </svg>
+          </div>
+          <h3>기본은 시각 자료</h3>
+          <p>
+            Mermaid 다이어그램으로 각 기능의 내부 동작을 보여 주므로
+            <em>어떻게</em>뿐 아니라 <em>왜</em>까지 이해할 수 있습니다.
+          </p>
+        </article>
+        <article class="card reveal" style="--d: 0.08s">
+          <div class="card-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+              <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+            </svg>
+          </div>
+          <h3>복사해 쓰는 템플릿</h3>
+          <p>
+            실무에 바로 쓸 수 있는 슬래시 명령어, CLAUDE.md 파일, 훅 스크립트, MCP
+            설정, 플러그인 번들을 제공합니다 — 오늘 바로 프로젝트에 넣어 보세요.
+          </p>
+        </article>
+        <article class="card reveal" style="--d: 0.16s">
+          <div class="card-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="6" cy="19" r="2.5" />
+              <circle cx="18" cy="5" r="2.5" />
+              <path d="M8 17.5 10 15a10 10 0 0 1 6-7.5" />
+              <path d="M8.5 19H15" stroke-dasharray="2 2.6" />
+            </svg>
+          </div>
+          <h3>단계별 학습 경로</h3>
+          <p>
+            학습자에게 필요한 순서로 배열한 10개 모듈로 11–13시간 만에 입문자에서
+            파워 유저가 됩니다. 다음에 무엇을 배울지 고민할 필요가 없습니다.
+          </p>
+        </article>
+        <article class="card reveal" style="--d: 0.24s">
+          <div class="card-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11.5 11 14l4.5-5" />
+              <circle cx="12" cy="12" r="9" />
+            </svg>
+          </div>
+          <h3>자가 진단 내장</h3>
+          <p>
+            Claude Code 안에서 <code>/self-assessment</code> 또는 <code>/lesson-quiz</code>를
+            실행해 부족한 부분을 찾고 맞춤 학습 경로를 받으세요.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    {# ============ Docs vs guide ============ #}
+    <section class="section" id="vs-docs">
+      <p class="kicker reveal">공식 문서와 이 가이드 비교</p>
+      <h2 class="section-title reveal">같은 도구, 다른 역할</h2>
+      <p class="section-sub reveal">
+        이 가이드는
+        <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener noreferrer">공식 문서</a>를
+        보완합니다 — 공식 문서는 레퍼런스이고, 이 가이드는 커리큘럼입니다.
+      </p>
+      <div class="versus reveal">
+        <div class="versus-head" role="presentation">
+          <span></span>
+          <span class="v-docs">공식 문서</span>
+          <span class="v-guide">이 가이드</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">형식</span>
+          <span class="v-docs">레퍼런스 문서</span>
+          <span class="v-guide">Mermaid 다이어그램을 곁들인 시각적 튜토리얼</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">깊이</span>
+          <span class="v-docs">기능 설명</span>
+          <span class="v-guide">내부 동작 원리</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">예제</span>
+          <span class="v-docs">기본 코드 조각</span>
+          <span class="v-guide">바로 쓸 수 있는 실무용 템플릿</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">구성</span>
+          <span class="v-docs">기능별 구성</span>
+          <span class="v-guide">단계적 학습 경로(입문에서 고급까지)</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">온보딩</span>
+          <span class="v-docs">스스로 학습</span>
+          <span class="v-guide">예상 소요 시간이 포함된 안내형 로드맵</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">자가 진단</span>
+          <span class="v-docs">없음</span>
+          <span class="v-guide">맞춤 학습 경로를 만들어 주는 대화형 퀴즈</span>
+        </div>
+      </div>
+    </section>
+
+    {# ============ Roadmap ============ #}
+    <section class="section roadmap" id="roadmap">
+      <p class="kicker reveal">로드맵</p>
+      <h2 class="section-title reveal">하나의 노선, 열 개의 역</h2>
+      <p class="section-sub reveal">
+        3개 레벨, 모듈 {{ module_count }}개, 레슨 {{ lesson_count }}개로 구성됩니다.
+        진행 상황은 브라우저에 저장되므로 학습하면서 레슨을 체크하세요.
+      </p>
+
+      <div class="progress-panel reveal" id="progress-panel">
+        <div class="ring-wrap" role="img" aria-label="전체 진행률">
+          <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="52" />
+            <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
+          </svg>
+          <div class="ring-label">
+            <span class="ring-pct" id="ring-pct">0%</span>
+            <span class="ring-cap">완료</span>
+          </div>
+        </div>
+        <div class="progress-mid">
+          <p class="counts">
+            <span>완료 <b id="c-done">0</b></span>
+            <span class="counts-sep" aria-hidden="true">·</span>
+            <span>진행 중 <b id="c-prog">0</b></span>
+            <span class="counts-sep" aria-hidden="true">·</span>
+            <span>시작 전 <b id="c-todo">{{ lesson_count }}</b></span>
+          </p>
+          <div class="progress-actions">
+            <a class="btn btn-primary btn-sm" id="continue-btn" href="#roadmap">이어서 학습</a>
+            <span class="all-done" id="all-done" hidden>모두 완료 — 로드맵을 마쳤습니다.</span>
+            <button class="btn btn-ghost btn-sm" id="reset-btn" type="button">진행 상황 초기화</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="subway" id="subway">
+        <div class="track" aria-hidden="true"><div class="track-fill" id="track-fill"></div></div>
+        {% for level in levels %}
+        <section class="level" aria-labelledby="level-{{ level.id }}">
+          <header class="level-head reveal">
+            <p class="level-name">{{ level.name }}</p>
+            <h3 class="level-title" id="level-{{ level.id }}">{{ level.title }}</h3>
+            <p class="level-sum">{{ level.summary }}</p>
+          </header>
+          <ol class="stations">
+            {% for module in level.modules %}
+            <li class="station reveal" data-module="{{ module.id }}" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">{{ module.number }}</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="{{ module.lessons[0].href if module.lessons else module.url }}">{{ module.title }}</a>
+                    </h4>
+                    <p class="station-tag">{{ module.tagline }}</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">{{ module.time }}</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/{{ module.lesson_count }}</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-{{ module.id }}"
+                >
+                  <span>레슨 {{ module.lesson_count }}개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-{{ module.id }}">
+                  {% for lesson in module.lessons %}
+                  <li class="lesson" data-lesson="{{ lesson.full_id }}" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'{{ lesson.title }}' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="{{ lesson.href }}">{{ lesson.title }}</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </article>
+            </li>
+            {% endfor %}
+          </ol>
+        </section>
+        {% endfor %}
+      </div>
+    </section>
+
+    {# ============ Get started ============ #}
+    <section class="section" id="get-started">
+      <p class="kicker reveal">시작하기</p>
+      <h2 class="section-title reveal">15분 만에 첫 워크플로 만들기</h2>
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step-num" aria-hidden="true">01</span>
+          <h3>저장소 복제</h3>
+          <p>모든 내용이 마크다운이며 템플릿도 포함되어 있어 설치할 것이 없습니다.</p>
+          <div class="code">
+            <code>git clone {{ repo_url }}.git</code>
+            <button class="copy" type="button" data-copy="git clone {{ repo_url }}.git" aria-label="clone 명령어 복사">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+                <path d="M10.5 5.5V4a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 4v5A1.5 1.5 0 0 0 4 10.5h1.5" />
+              </svg>
+              <span class="copy-label">복사</span>
+            </button>
+          </div>
+        </li>
+        <li class="step reveal" style="--d: 0.08s">
+          <span class="step-num" aria-hidden="true">02</span>
+          <h3>자가 진단 받기</h3>
+          <p>Claude Code 안에서 내 레벨을 확인하고 이미 아는 내용은 건너뛰세요.</p>
+          <div class="code">
+            <code>/self-assessment</code>
+            <button class="copy" type="button" data-copy="/self-assessment" aria-label="self-assessment 명령어 복사">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+                <path d="M10.5 5.5V4a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 4v5A1.5 1.5 0 0 0 4 10.5h1.5" />
+              </svg>
+              <span class="copy-label">복사</span>
+            </button>
+          </div>
+        </li>
+        <li class="step reveal" style="--d: 0.16s">
+          <span class="step-num" aria-hidden="true">03</span>
+          <h3>로드맵 따라가기</h3>
+          <p>내 레벨에 맞는 모듈부터 학습하세요 — 진행 상황은 위에서 확인할 수 있습니다.</p>
+          <a class="step-link" href="#roadmap">내 레벨에서 시작하기 →</a>
+        </li>
+      </ol>
+      <span class="sr-only" id="copy-status" role="status" aria-live="polite"></span>
+    </section>
+  </main>
+
+  {# ============ Footer ============ #}
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <img
+          src="assets/resources/logos/claude-howto-logo.svg"
+          alt=""
+          class="footer-logo logo-light"
+          onerror="this.style.display='none'"
+        />
+        <img
+          src="assets/resources/logos/claude-howto-logo-dark.svg"
+          alt=""
+          class="footer-logo logo-dark"
+          onerror="this.style.display='none'"
+        />
+        <p class="footer-note">
+          커뮤니티가 만드는 Claude Code 가이드입니다. 마크다운 원본이 기준입니다.
+        </p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">프로젝트</p>
+        <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="{{ repo_url }}/blob/{{ branch }}/LICENSE" target="_blank" rel="noopener noreferrer">MIT 라이선스</a>
+        <a href="{{ repo_url }}/blob/{{ branch }}/CHANGELOG.md" target="_blank" rel="noopener noreferrer">변경 이력</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">다른 언어</p>
+        <a href="https://github.com/luongnv89/claude-howto" target="_blank" rel="noopener noreferrer" lang="en">English</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/vi/README.md" target="_blank" rel="noopener noreferrer" lang="vi">Tiếng Việt</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/zh/README.md" target="_blank" rel="noopener noreferrer" lang="zh">中文</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/ja/README.md" target="_blank" rel="noopener noreferrer" lang="ja">日本語</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/uk/README.md" target="_blank" rel="noopener noreferrer" lang="uk">Українська</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">문서</p>
+        <a href="{{ guide_url }}">가이드</a>
+        <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener noreferrer">공식 문서</a>
+        {% if version %}<span class="footer-version">v{{ version }} 기준</span>{% endif %}
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>claude-howto · MIT 라이선스</span>
+      <span>원문: <a href="https://github.com/luongnv89/claude-howto" target="_blank" rel="noopener noreferrer">luongnv89/claude-howto</a> (MIT) · 한국어 번역판</span>
+      <a href="#top" class="footer-top">맨 위로 ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

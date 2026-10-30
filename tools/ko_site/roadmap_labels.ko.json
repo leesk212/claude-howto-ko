@@ -1,0 +1,133 @@
+{
+  "levels": {
+    "beginner": {
+      "name": "레벨 1 — 입문",
+      "title": "시작하기",
+      "summary": "첫날부터 생산성을 높입니다. 명령어, 메모리, 안전한 되감기, CLI 기본기를 익힙니다."
+    },
+    "intermediate": {
+      "name": "레벨 2 — 중급",
+      "title": "워크플로 구축",
+      "summary": "스킬과 훅으로 자동화하고, 실시간 데이터를 연결하며, 서브에이전트에 작업을 위임합니다."
+    },
+    "advanced": {
+      "name": "레벨 3 — 고급",
+      "title": "파워 유저",
+      "summary": "계획을 세우고, 헤드리스·예약 실행을 활용한 뒤, 모든 것을 팀용 플러그인으로 패키징합니다."
+    }
+  },
+  "modules": {
+    "slash-commands": {
+      "title": "슬래시 명령어",
+      "tagline": "내장 명령어, 사용자 정의 명령어, 팀 단축 명령어를 다룹니다.",
+      "time": "30분"
+    },
+    "memory": {
+      "title": "메모리",
+      "tagline": "세션이 바뀌어도 유지되는 CLAUDE.md, 규칙, 자동 메모리를 다룹니다.",
+      "time": "45분"
+    },
+    "checkpoints": {
+      "title": "체크포인트",
+      "tagline": "과감한 시도를 하고 키 한 번으로 되감습니다.",
+      "time": "45분"
+    },
+    "cli": {
+      "title": "CLI",
+      "tagline": "대화형 모드와 출력(print) 모드, 플래그, 스크립팅을 다룹니다.",
+      "time": "30분"
+    },
+    "skills": {
+      "title": "스킬",
+      "tagline": "Claude가 필요할 때만 불러오는 재사용 가능한 전문 지식입니다.",
+      "time": "1시간"
+    },
+    "hooks": {
+      "title": "훅",
+      "tagline": "모든 도구 호출과 이벤트에 품질 게이트와 자동화를 적용합니다.",
+      "time": "1시간"
+    },
+    "mcp": {
+      "title": "MCP",
+      "tagline": "GitHub, 데이터베이스, API를 실시간 도구로 연결합니다.",
+      "time": "1시간"
+    },
+    "subagents": {
+      "title": "서브에이전트",
+      "tagline": "자체 컨텍스트와 도구를 가진 전문 에이전트에 작업을 위임합니다.",
+      "time": "1.5시간"
+    },
+    "advanced-features": {
+      "title": "고급 기능",
+      "tagline": "계획 모드, 자동 모드, 권한, 헤드리스 실행 등을 다룹니다.",
+      "time": "2–3시간"
+    },
+    "plugins": {
+      "title": "플러그인",
+      "tagline": "명령어, 에이전트, 훅, MCP를 한 번에 설치할 수 있게 묶습니다.",
+      "time": "2시간"
+    }
+  },
+  "lessons": {
+    "slash-commands/overview": "개요",
+    "slash-commands/built-in": "내장 명령어 레퍼런스",
+    "slash-commands/custom": "사용자 정의 명령어(현재는 스킬)",
+    "slash-commands/mcp-prompts": "명령어로 쓰는 MCP 프롬프트",
+    "slash-commands/create": "나만의 명령어 만들기",
+    "slash-commands/best-practices": "모범 사례",
+    "memory/overview": "개요",
+    "memory/quick-start": "빠른 시작: 메모리 초기화",
+    "memory/hierarchy": "메모리 계층 구조",
+    "memory/rules": "모듈식 규칙 시스템",
+    "memory/auto-memory": "자동 메모리",
+    "checkpoints/overview": "개요",
+    "checkpoints/accessing": "체크포인트 열기",
+    "checkpoints/rewind": "되감기 옵션",
+    "checkpoints/patterns": "워크플로 패턴",
+    "checkpoints/git": "체크포인트와 Git",
+    "cli/overview": "개요",
+    "cli/commands": "CLI 명령어",
+    "cli/flags": "핵심 플래그",
+    "cli/output": "출력과 형식",
+    "cli/use-cases": "활용도 높은 사용 사례",
+    "skills/overview": "개요",
+    "skills/progressive-disclosure": "점진적 공개",
+    "skills/create": "사용자 정의 스킬 만들기",
+    "skills/invocation": "스킬 호출 제어",
+    "skills/subagents": "서브에이전트에서 스킬 실행",
+    "skills/manage": "스킬 관리",
+    "hooks/overview": "개요",
+    "hooks/configuration": "설정",
+    "hooks/types": "훅 유형",
+    "hooks/events": "훅 이벤트",
+    "hooks/io": "훅 입력과 출력",
+    "hooks/prompt-hooks": "프롬프트 기반 훅",
+    "hooks/debugging": "훅 디버깅",
+    "mcp/overview": "개요",
+    "mcp/install": "설치 방법",
+    "mcp/scopes": "MCP 범위",
+    "mcp/resources": "@ 멘션으로 리소스 사용",
+    "mcp/tool-search": "MCP 도구 검색",
+    "mcp/serve": "MCP 서버로 쓰는 Claude",
+    "subagents/overview": "개요",
+    "subagents/configuration": "설정",
+    "subagents/built-in": "내장 서브에이전트",
+    "subagents/chaining": "서브에이전트 연결",
+    "subagents/background": "백그라운드 서브에이전트",
+    "subagents/worktree": "워크트리 격리",
+    "subagents/teams": "에이전트 팀",
+    "advanced-features/overview": "개요",
+    "advanced-features/planning": "계획 모드",
+    "advanced-features/thinking": "확장 사고",
+    "advanced-features/auto-mode": "자동 모드",
+    "advanced-features/scheduled": "예약 작업",
+    "advanced-features/permissions": "권한 모드",
+    "advanced-features/headless": "헤드리스 모드",
+    "plugins/overview": "개요",
+    "plugins/architecture": "플러그인 아키텍처",
+    "plugins/structure": "플러그인 정의 구조",
+    "plugins/marketplace": "플러그인 마켓플레이스",
+    "plugins/testing": "플러그인 테스트",
+    "plugins/publishing": "플러그인 배포"
+  }
+}

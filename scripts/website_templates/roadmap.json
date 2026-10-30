@@ -2,54 +2,118 @@
   "levels": [
     {
       "id": "beginner",
-      "name": "Level 1 — Beginner",
-      "title": "Getting started",
-      "summary": "Get productive on day one: commands, memory, safe rewinds and the CLI basics.",
+      "name": "레벨 1 — 입문",
+      "title": "시작하기",
+      "summary": "첫날부터 생산성을 높입니다. 명령어, 메모리, 안전한 되감기, CLI 기본기를 익힙니다.",
       "modules": [
         {
           "id": "slash-commands",
           "number": "01",
-          "title": "Slash Commands",
+          "title": "슬래시 명령어",
           "source": "01-slash-commands/README.md",
-          "time": "30 min",
-          "tagline": "Built-in commands, custom commands and team shortcuts.",
+          "time": "30분",
+          "tagline": "내장 명령어, 사용자 정의 명령어, 팀 단축 명령어를 다룹니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "built-in", "title": "Built-in commands reference", "heading": "Built-in Commands Reference"},
-            {"id": "custom", "title": "Custom commands (now skills)", "heading": "Custom Commands (Now Skills)"},
-            {"id": "mcp-prompts", "title": "MCP prompts as commands", "heading": "MCP Prompts as Commands"},
-            {"id": "create", "title": "Create your own commands", "heading": "Creating Your Own Commands"},
-            {"id": "best-practices", "title": "Best practices", "heading": "Best Practices"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "built-in",
+              "title": "내장 명령어 레퍼런스",
+              "heading": "내장 명령어 참조"
+            },
+            {
+              "id": "custom",
+              "title": "사용자 정의 명령어(현재는 스킬)",
+              "heading": "사용자 정의 명령어 (이제 스킬)"
+            },
+            {
+              "id": "mcp-prompts",
+              "title": "명령어로 쓰는 MCP 프롬프트",
+              "heading": "MCP 프롬프트를 명령어로"
+            },
+            {
+              "id": "create",
+              "title": "나만의 명령어 만들기",
+              "heading": "나만의 명령어 생성"
+            },
+            {
+              "id": "best-practices",
+              "title": "모범 사례",
+              "heading": "모범 사례"
+            }
           ]
         },
         {
           "id": "memory",
           "number": "02",
-          "title": "Memory",
+          "title": "메모리",
           "source": "02-memory/README.md",
-          "time": "45 min",
-          "tagline": "CLAUDE.md, rules and auto memory that persist across sessions.",
+          "time": "45분",
+          "tagline": "세션이 바뀌어도 유지되는 CLAUDE.md, 규칙, 자동 메모리를 다룹니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "quick-start", "title": "Quick start: initialize memory", "heading": "Quick Start: Initializing Memory"},
-            {"id": "hierarchy", "title": "The memory hierarchy", "heading": "Memory Hierarchy in Claude Code"},
-            {"id": "rules", "title": "Modular rules system", "heading": "Modular Rules System"},
-            {"id": "auto-memory", "title": "Auto memory", "heading": "Auto Memory"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "quick-start",
+              "title": "빠른 시작: 메모리 초기화",
+              "heading": "빠른 시작: 메모리 초기화"
+            },
+            {
+              "id": "hierarchy",
+              "title": "메모리 계층 구조",
+              "heading": "Claude Code의 메모리 계층 구조"
+            },
+            {
+              "id": "rules",
+              "title": "모듈식 규칙 시스템",
+              "heading": "모듈식 규칙 시스템"
+            },
+            {
+              "id": "auto-memory",
+              "title": "자동 메모리",
+              "heading": "자동 메모리"
+            }
           ]
         },
         {
           "id": "checkpoints",
           "number": "08",
-          "title": "Checkpoints",
+          "title": "체크포인트",
           "source": "08-checkpoints/README.md",
-          "time": "45 min",
-          "tagline": "Try bold ideas and rewind in one keystroke.",
+          "time": "45분",
+          "tagline": "과감한 시도를 하고 키 한 번으로 되감습니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "accessing", "title": "Accessing checkpoints", "heading": "Accessing Checkpoints"},
-            {"id": "rewind", "title": "Rewind options", "heading": "Rewind Options"},
-            {"id": "patterns", "title": "Workflow patterns", "heading": "Workflow Patterns"},
-            {"id": "git", "title": "Checkpoints and Git", "heading": "Integration with Git"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "accessing",
+              "title": "체크포인트 열기",
+              "heading": "체크포인트 접근 방법"
+            },
+            {
+              "id": "rewind",
+              "title": "되감기 옵션",
+              "heading": "되감기 옵션"
+            },
+            {
+              "id": "patterns",
+              "title": "워크플로 패턴",
+              "heading": "워크플로 패턴"
+            },
+            {
+              "id": "git",
+              "title": "체크포인트와 Git",
+              "heading": "Git과의 통합"
+            }
           ]
         },
         {
@@ -57,55 +121,127 @@
           "number": "10",
           "title": "CLI",
           "source": "10-cli/README.md",
-          "time": "30 min",
-          "tagline": "Interactive and print mode, flags and scripting.",
+          "time": "30분",
+          "tagline": "대화형 모드와 출력(print) 모드, 플래그, 스크립팅을 다룹니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "commands", "title": "CLI commands", "heading": "CLI Commands"},
-            {"id": "flags", "title": "Core flags", "heading": "Core Flags"},
-            {"id": "output", "title": "Output and formats", "heading": "Output & Format"},
-            {"id": "use-cases", "title": "High-value use cases", "heading": "High-Value Use Cases"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "commands",
+              "title": "CLI 명령어",
+              "heading": "CLI 명령"
+            },
+            {
+              "id": "flags",
+              "title": "핵심 플래그",
+              "heading": "핵심 플래그"
+            },
+            {
+              "id": "output",
+              "title": "출력과 형식",
+              "heading": "출력 및 형식"
+            },
+            {
+              "id": "use-cases",
+              "title": "활용도 높은 사용 사례",
+              "heading": "고가치 사용 사례"
+            }
           ]
         }
       ]
     },
     {
       "id": "intermediate",
-      "name": "Level 2 — Intermediate",
-      "title": "Building workflows",
-      "summary": "Automate with skills and hooks, then connect live data and delegate to subagents.",
+      "name": "레벨 2 — 중급",
+      "title": "워크플로 구축",
+      "summary": "스킬과 훅으로 자동화하고, 실시간 데이터를 연결하며, 서브에이전트에 작업을 위임합니다.",
       "modules": [
         {
           "id": "skills",
           "number": "03",
-          "title": "Skills",
+          "title": "스킬",
           "source": "03-skills/README.md",
-          "time": "1 hour",
-          "tagline": "Reusable expertise Claude loads only when it needs it.",
+          "time": "1시간",
+          "tagline": "Claude가 필요할 때만 불러오는 재사용 가능한 전문 지식입니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "progressive-disclosure", "title": "Progressive disclosure", "heading": "How Skills Work: Progressive Disclosure"},
-            {"id": "create", "title": "Create custom skills", "heading": "Creating Custom Skills"},
-            {"id": "invocation", "title": "Control skill invocation", "heading": "Controlling Skill Invocation"},
-            {"id": "subagents", "title": "Run skills in subagents", "heading": "Running Skills in Subagents"},
-            {"id": "manage", "title": "Manage skills", "heading": "Managing Skills"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "progressive-disclosure",
+              "title": "점진적 공개",
+              "heading": "스킬 작동 방식: 점진적 공개"
+            },
+            {
+              "id": "create",
+              "title": "사용자 정의 스킬 만들기",
+              "heading": "사용자 지정 스킬 생성"
+            },
+            {
+              "id": "invocation",
+              "title": "스킬 호출 제어",
+              "heading": "스킬 호출 제어"
+            },
+            {
+              "id": "subagents",
+              "title": "서브에이전트에서 스킬 실행",
+              "heading": "서브에이전트에서 스킬 실행"
+            },
+            {
+              "id": "manage",
+              "title": "스킬 관리",
+              "heading": "스킬 관리"
+            }
           ]
         },
         {
           "id": "hooks",
           "number": "06",
-          "title": "Hooks",
+          "title": "훅",
           "source": "06-hooks/README.md",
-          "time": "1 hour",
-          "tagline": "Quality gates and automation on every tool call and event.",
+          "time": "1시간",
+          "tagline": "모든 도구 호출과 이벤트에 품질 게이트와 자동화를 적용합니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "configuration", "title": "Configuration", "heading": "Configuration"},
-            {"id": "types", "title": "Hook types", "heading": "Hook Types"},
-            {"id": "events", "title": "Hook events", "heading": "Hook Events"},
-            {"id": "io", "title": "Hook input and output", "heading": "Hook Input and Output"},
-            {"id": "prompt-hooks", "title": "Prompt-based hooks", "heading": "Prompt-Based Hooks"},
-            {"id": "debugging", "title": "Debugging hooks", "heading": "Debugging"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "configuration",
+              "title": "설정",
+              "heading": "구성"
+            },
+            {
+              "id": "types",
+              "title": "훅 유형",
+              "heading": "훅 유형"
+            },
+            {
+              "id": "events",
+              "title": "훅 이벤트",
+              "heading": "훅 이벤트"
+            },
+            {
+              "id": "io",
+              "title": "훅 입력과 출력",
+              "heading": "훅 입력 및 출력"
+            },
+            {
+              "id": "prompt-hooks",
+              "title": "프롬프트 기반 훅",
+              "heading": "프롬프트 기반 훅"
+            },
+            {
+              "id": "debugging",
+              "title": "훅 디버깅",
+              "heading": "디버깅"
+            }
           ]
         },
         {
@@ -113,73 +249,177 @@
           "number": "05",
           "title": "MCP",
           "source": "05-mcp/README.md",
-          "time": "1 hour",
-          "tagline": "Connect GitHub, databases and APIs as live tools.",
+          "time": "1시간",
+          "tagline": "GitHub, 데이터베이스, API를 실시간 도구로 연결합니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "install", "title": "Installation methods", "heading": "MCP Installation Methods"},
-            {"id": "scopes", "title": "MCP scopes", "heading": "MCP Scopes"},
-            {"id": "resources", "title": "Resources via @ mentions", "heading": "MCP Resources via @ Mentions"},
-            {"id": "tool-search", "title": "MCP tool search", "heading": "MCP Tool Search"},
-            {"id": "serve", "title": "Claude as an MCP server", "heading": "Claude as MCP Server (`claude mcp serve`)"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "install",
+              "title": "설치 방법",
+              "heading": "MCP 설치 방법"
+            },
+            {
+              "id": "scopes",
+              "title": "MCP 범위",
+              "heading": "MCP 스코프"
+            },
+            {
+              "id": "resources",
+              "title": "@ 멘션으로 리소스 사용",
+              "heading": "@ 멘션을 통한 MCP 리소스"
+            },
+            {
+              "id": "tool-search",
+              "title": "MCP 도구 검색",
+              "heading": "MCP 도구 검색"
+            },
+            {
+              "id": "serve",
+              "title": "MCP 서버로 쓰는 Claude",
+              "heading": "MCP 서버로서의 Claude (`claude mcp serve`)"
+            }
           ]
         },
         {
           "id": "subagents",
           "number": "04",
-          "title": "Subagents",
+          "title": "서브에이전트",
           "source": "04-subagents/README.md",
-          "time": "1.5 hours",
-          "tagline": "Delegate to specialists with their own context and tools.",
+          "time": "1.5시간",
+          "tagline": "자체 컨텍스트와 도구를 가진 전문 에이전트에 작업을 위임합니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "configuration", "title": "Configuration", "heading": "Configuration"},
-            {"id": "built-in", "title": "Built-in subagents", "heading": "Built-in Subagents"},
-            {"id": "chaining", "title": "Chaining subagents", "heading": "Chaining Subagents"},
-            {"id": "background", "title": "Background subagents", "heading": "Background Subagents"},
-            {"id": "worktree", "title": "Worktree isolation", "heading": "Worktree Isolation"},
-            {"id": "teams", "title": "Agent teams", "heading": "Agent Teams (Experimental)"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "configuration",
+              "title": "설정",
+              "heading": "구성"
+            },
+            {
+              "id": "built-in",
+              "title": "내장 서브에이전트",
+              "heading": "내장 서브에이전트"
+            },
+            {
+              "id": "chaining",
+              "title": "서브에이전트 연결",
+              "heading": "서브에이전트 체이닝"
+            },
+            {
+              "id": "background",
+              "title": "백그라운드 서브에이전트",
+              "heading": "백그라운드 서브에이전트"
+            },
+            {
+              "id": "worktree",
+              "title": "워크트리 격리",
+              "heading": "워크트리 격리"
+            },
+            {
+              "id": "teams",
+              "title": "에이전트 팀",
+              "heading": "에이전트 팀 (실험적)"
+            }
           ]
         }
       ]
     },
     {
       "id": "advanced",
-      "name": "Level 3 — Advanced",
-      "title": "Power user",
-      "summary": "Plan, run headless and on a schedule, then package everything as a plugin for your team.",
+      "name": "레벨 3 — 고급",
+      "title": "파워 유저",
+      "summary": "계획을 세우고, 헤드리스·예약 실행을 활용한 뒤, 모든 것을 팀용 플러그인으로 패키징합니다.",
       "modules": [
         {
           "id": "advanced-features",
           "number": "09",
-          "title": "Advanced Features",
+          "title": "고급 기능",
           "source": "09-advanced-features/README.md",
-          "time": "2–3 hours",
-          "tagline": "Planning, auto mode, permissions, headless runs and more.",
+          "time": "2–3시간",
+          "tagline": "계획 모드, 자동 모드, 권한, 헤드리스 실행 등을 다룹니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "planning", "title": "Planning mode", "heading": "Planning Mode"},
-            {"id": "thinking", "title": "Extended thinking", "heading": "Extended Thinking"},
-            {"id": "auto-mode", "title": "Auto mode", "heading": "Auto Mode"},
-            {"id": "scheduled", "title": "Scheduled tasks", "heading": "Scheduled Tasks"},
-            {"id": "permissions", "title": "Permission modes", "heading": "Permission Modes"},
-            {"id": "headless", "title": "Headless mode", "heading": "Headless Mode"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "planning",
+              "title": "계획 모드",
+              "heading": "계획 모드"
+            },
+            {
+              "id": "thinking",
+              "title": "확장 사고",
+              "heading": "확장 사고"
+            },
+            {
+              "id": "auto-mode",
+              "title": "자동 모드",
+              "heading": "자동 모드"
+            },
+            {
+              "id": "scheduled",
+              "title": "예약 작업",
+              "heading": "예약된 작업"
+            },
+            {
+              "id": "permissions",
+              "title": "권한 모드",
+              "heading": "권한 모드"
+            },
+            {
+              "id": "headless",
+              "title": "헤드리스 모드",
+              "heading": "헤드리스 모드"
+            }
           ]
         },
         {
           "id": "plugins",
           "number": "07",
-          "title": "Plugins",
+          "title": "플러그인",
           "source": "07-plugins/README.md",
-          "time": "2 hours",
-          "tagline": "Bundle commands, agents, hooks and MCP into one install.",
+          "time": "2시간",
+          "tagline": "명령어, 에이전트, 훅, MCP를 한 번에 설치할 수 있게 묶습니다.",
           "lessons": [
-            {"id": "overview", "title": "Overview", "heading": "Overview"},
-            {"id": "architecture", "title": "Plugin architecture", "heading": "Plugin Architecture"},
-            {"id": "structure", "title": "Plugin definition structure", "heading": "Plugin Definition Structure"},
-            {"id": "marketplace", "title": "Plugin marketplace", "heading": "Plugin Marketplace"},
-            {"id": "testing", "title": "Test a plugin", "heading": "Testing a Plugin"},
-            {"id": "publishing", "title": "Publish a plugin", "heading": "Publishing a Plugin"}
+            {
+              "id": "overview",
+              "title": "개요",
+              "heading": "개요"
+            },
+            {
+              "id": "architecture",
+              "title": "플러그인 아키텍처",
+              "heading": "플러그인 아키텍처"
+            },
+            {
+              "id": "structure",
+              "title": "플러그인 정의 구조",
+              "heading": "플러그인 정의 구조"
+            },
+            {
+              "id": "marketplace",
+              "title": "플러그인 마켓플레이스",
+              "heading": "플러그인 마켓플레이스"
+            },
+            {
+              "id": "testing",
+              "title": "플러그인 테스트",
+              "heading": "플러그인 테스트"
+            },
+            {
+              "id": "publishing",
+              "title": "플러그인 배포",
+              "heading": "플러그인 게시"
+            }
           ]
         }
       ]
