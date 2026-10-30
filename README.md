@@ -13,8 +13,8 @@
   </a>
 </p>
 
-[![GitHub Stars](https://img.shields.io/github/stars/luongnv89/claude-howto?style=flat&color=gold)](https://github.com/luongnv89/claude-howto/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/luongnv89/claude-howto?style=flat)](https://github.com/luongnv89/claude-howto/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/leesk212/claude-howto-ko?style=flat&color=gold)](https://github.com/leesk212/claude-howto-ko/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/leesk212/claude-howto-ko?style=flat)](https://github.com/leesk212/claude-howto-ko/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-2.1.310-brightgreen)](CHANGELOG.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-2.1+-purple)](https://code.claude.com)
@@ -112,7 +112,7 @@ Claude Code의 진정한 강점은 기능 조합에 있습니다. 슬래시 명�
 - **지속적인 유지보수** — Claude Code의 모든 릴리스에 맞춰 업데이트 (최신 버전: v2.1.310, 2026년 10월)
 - **커뮤니티 중심 운영** — 실전 설정을 공유하는 개발자들의 기여
 
-[![Star History Chart](https://api.star-history.com/svg?repos=luongnv89/claude-howto&type=Date)](https://star-history.com/#luongnv89/claude-howto&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=leesk212/claude-howto-ko&type=Date)](https://star-history.com/#leesk212/claude-howto-ko&Date)
 
 ---
 
@@ -151,8 +151,8 @@ Claude Code의 진정한 강점은 기능 조합에 있습니다. 슬래시 명�
 
 ```bash
 # 1. Clone the guide
-git clone https://github.com/luongnv89/claude-howto.git
-cd claude-howto
+git clone https://github.com/leesk212/claude-howto-ko.git
+cd claude-howto-ko
 
 # 2. Copy your first slash command
 mkdir -p /path/to/your-project/.claude/commands

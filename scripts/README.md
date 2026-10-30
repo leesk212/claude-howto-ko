@@ -170,8 +170,8 @@ options:
   --root, -r ROOT       Source root (default: repo root)
   --output, -o OUTPUT   Output directory (default: <repo>/site)
   --lang LANG           Language to build: en | vi | zh | ja | uk | ko
-  --repo-url URL        GitHub repo for blob links (default: luongnv89/claude-howto)
-  --branch BRANCH       Branch for blob links (default: main)
+  --repo-url URL        GitHub repo for blob links (default: leesk212/claude-howto-ko)
+  --branch BRANCH       Branch for blob links (default: ko)
   --verbose, -v         Enable verbose logging
 ```
 

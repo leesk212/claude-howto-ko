@@ -62,8 +62,8 @@ Claude How To는 Claude Code를 위한 시각적이고 예제 중심의 가이�
 
 ### 1. Fork 및 Clone
 ```bash
-git clone https://github.com/luongnv89/claude-howto.git
-cd claude-howto
+git clone https://github.com/leesk212/claude-howto-ko.git
+cd claude-howto-ko
 ```
 
 ### 2. 브랜치 생성

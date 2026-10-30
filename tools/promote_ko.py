@@ -193,6 +193,52 @@ for p in ko_files:
     new.write_text(data, encoding="utf-8")
 shutil.rmtree(KO)
 
+# --- fork identity: badges, star history and clone commands point here ------
+# (attribution, language links, security advisories and CHANGELOG history stay
+# on upstream on purpose)
+FORK_SLUG = "leesk212/claude-howto-ko"
+UP_SLUG = "luongnv89/claude-howto"
+identity = {
+    "README.md": [
+        (
+            f"img.shields.io/github/stars/{UP_SLUG}",
+            f"img.shields.io/github/stars/{FORK_SLUG}",
+        ),
+        (
+            f"img.shields.io/github/forks/{UP_SLUG}",
+            f"img.shields.io/github/forks/{FORK_SLUG}",
+        ),
+        (f"github.com/{UP_SLUG}/stargazers", f"github.com/{FORK_SLUG}/stargazers"),
+        (
+            f"github.com/{UP_SLUG}/network/members",
+            f"github.com/{FORK_SLUG}/network/members",
+        ),
+        (
+            f"star-history.com/svg?repos={UP_SLUG}",
+            f"star-history.com/svg?repos={FORK_SLUG}",
+        ),
+        (f"star-history.com/#{UP_SLUG}", f"star-history.com/#{FORK_SLUG}"),
+    ],
+    "scripts/README.md": [
+        (f"(default: {UP_SLUG})", f"(default: {FORK_SLUG})"),
+        (
+            "Branch for blob links (default: main)",
+            f"Branch for blob links (default: {BRANCH})",
+        ),
+    ],
+}
+clone_old = f"git clone https://github.com/{UP_SLUG}.git\ncd claude-howto\n"
+clone_new = f"git clone https://github.com/{FORK_SLUG}.git\ncd claude-howto-ko\n"
+for rel in ("README.md", "CONTRIBUTING.md", ".github/TESTING.md"):
+    identity.setdefault(rel, []).append((clone_old, clone_new))
+for rel, pairs in identity.items():
+    f = ROOT / rel
+    txt = f.read_text(encoding="utf-8")
+    for old, new in pairs:
+        assert old in txt, f"{rel}: {old!r} not found"
+        txt = txt.replace(old, new)
+    f.write_text(txt, encoding="utf-8")
+
 # --- README banner -----------------------------------------------------------
 readme = ROOT / "README.md"
 t = readme.read_text(encoding="utf-8")
