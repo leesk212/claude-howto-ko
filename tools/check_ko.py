@@ -68,7 +68,8 @@ for p in sys.argv[1:]:
         print(f"MISSING ko/{p}")
         ok_all = False
         continue
-    en, ko = open(en_p).read(), open(ko_p).read()
+    en = Path(en_p).read_text(encoding="utf-8")
+    ko = Path(ko_p).read_text(encoding="utf-8")
     a, b = stats(en), stats(ko)
     issues = [
         k for k in ("headings", "code_blocks", "mermaid", "table_rows") if a[k] != b[k]
