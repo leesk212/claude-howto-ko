@@ -327,10 +327,14 @@ for tpl in ("page.html.j2", "landing.html.j2"):
     f.write_text(x, encoding="utf-8")
 
 pages = ROOT / ".github/workflows/pages.yml"
-y = pages.read_text(encoding="utf-8").replace(
-    "      - main\n", f"      - {BRANCH}\n", 1
-)
-pages.write_text(y, encoding="utf-8")
+if (KO_SITE / "pages.yml").exists():
+    # build + push to gh-pages (Pages source: "Deploy from a branch")
+    shutil.copyfile(KO_SITE / "pages.yml", pages)
+else:
+    y = pages.read_text(encoding="utf-8").replace(
+        "      - main\n", f"      - {BRANCH}\n", 1
+    )
+    pages.write_text(y, encoding="utf-8")
 # workflows that only make sense upstream (multi-language releases / main-branch CI)
 for wf in ("release.yml",):
     (ROOT / ".github/workflows" / wf).unlink(missing_ok=True)
