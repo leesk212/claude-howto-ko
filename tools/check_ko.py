@@ -6,6 +6,7 @@ Usage (from a docs/ko-translation checkout): python3 -I tools/check_ko.py <relpa
 import os
 import re
 import sys
+from pathlib import Path
 
 R = os.getcwd()  # run from the docs/ko-translation checkout root
 
