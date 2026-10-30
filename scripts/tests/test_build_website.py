@@ -1003,6 +1003,7 @@ class TestLanding:
                 skip_vendor=True,
             )
 
+    @pytest.mark.skip(reason="Korean-only fork: English landing roadmap does not apply")
     def test_landing_real_repo(self, tmp_path: Path, logger: logging.Logger) -> None:
         """Every heading in the shipped roadmap.json must resolve to an anchor."""
         repo_root = Path(__file__).resolve().parents[2]

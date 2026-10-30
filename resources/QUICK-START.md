@@ -1,19 +1,23 @@
-# Quick Start - Brand Assets
+<!-- i18n-source: resources/QUICK-START.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-## Copy Assets to Your Project
+# 빠른 시작 - 브랜드 에셋
+
+## 프로젝트에 에셋 복사하기
 
 ```bash
-# Copy all resources to your web project
+# 모든 리소스를 웹 프로젝트에 복사
 cp -r resources/ /path/to/your/website/
 
-# Or just the favicons for web
+# 또는 웹용 파비콘만 복사
 cp resources/favicons/* /path/to/your/website/public/
 ```
 
-## Add to HTML (Copy & Paste)
+## HTML에 추가하기 (복사 후 붙여넣기)
 
 ```html
-<!-- Favicons -->
+<!-- 파비콘 -->
 <link rel="icon" type="image/svg+xml" href="/resources/favicons/favicon-32.svg" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/resources/favicons/favicon-16.svg" sizes="16x16">
 <link rel="apple-touch-icon" href="/resources/favicons/favicon-128.svg">
@@ -21,7 +25,7 @@ cp resources/favicons/* /path/to/your/website/public/
 <meta name="theme-color" content="#000000">
 ```
 
-## Use in Markdown/Documentation
+## Markdown/문서에서 사용하기
 
 ```markdown
 # Claude How To
@@ -31,21 +35,21 @@ cp resources/favicons/* /path/to/your/website/public/
 ![Icon](resources/icons/claude-howto-icon.svg)
 ```
 
-## Recommended Sizes
+## 권장 크기
 
 | Purpose | Size | File |
 |---------|------|------|
-| Website header | 520×120 | `logos/claude-howto-logo.svg` |
-| App icon | 256×256 | `icons/claude-howto-icon.svg` |
-| Browser tab | 32×32 | `favicons/favicon-32.svg` |
-| Mobile home screen | 128×128 | `favicons/favicon-128.svg` |
-| Desktop app | 256×256 | `favicons/favicon-256.svg` |
-| Small avatar | 64×64 | `favicons/favicon-64.svg` |
+| 웹사이트 헤더 | 520×120 | `logos/claude-howto-logo.svg` |
+| 앱 아이콘 | 256×256 | `icons/claude-howto-icon.svg` |
+| 브라우저 탭 | 32×32 | `favicons/favicon-32.svg` |
+| 모바일 홈 화면 | 128×128 | `favicons/favicon-128.svg` |
+| 데스크톱 앱 | 256×256 | `favicons/favicon-256.svg` |
+| 작은 아바타 | 64×64 | `favicons/favicon-64.svg` |
 
-## Color Values
+## 색상 값
 
 ```css
-/* Use these in your CSS */
+/* CSS에서 다음 값을 사용하세요 */
 --color-primary: #000000;
 --color-secondary: #6B7280;
 --color-accent: #22C55E;
@@ -53,37 +57,37 @@ cp resources/favicons/* /path/to/your/website/public/
 --color-bg-dark: #0A0A0A;
 ```
 
-## Icon Design Meaning
+## 아이콘 디자인의 의미
 
-**Compass with Code Bracket**:
-- Compass ring = Navigation, structured learning path
-- Green north needle = Direction, progress, guidance
-- Black south needle = Grounding, solid foundation
-- `>` bracket = Terminal prompt, code, CLI context
-- Tick marks = Precision, structured steps
+**코드 브래킷이 있는 나침반**:
+- 나침반 링 = 내비게이션, 체계적인 학습 경로
+- 초록 북쪽 바늘 = 방향, 진전, 안내
+- 검정 남쪽 바늘 = 기반, 탄탄한 토대
+- `>` 브래킷 = 터미널 프롬프트, 코드, CLI 컨텍스트
+- 눈금 표시 = 정밀함, 체계적인 단계
 
-This symbolizes "finding your way through code with clear guidance."
+이는 "명확한 안내를 받으며 코드 속에서 길을 찾는 것"을 상징합니다.
 
-## What to Use Where
+## 용도별 사용 에셋
 
-### Website
-- **Header**: Logo (`logos/claude-howto-logo.svg`)
-- **Favicon**: 32px (`favicons/favicon-32.svg`)
-- **Social preview**: Icon (`icons/claude-howto-icon.svg`)
+### 웹사이트
+- **헤더**: 로고 (`logos/claude-howto-logo.svg`)
+- **파비콘**: 32px (`favicons/favicon-32.svg`)
+- **소셜 미리보기**: 아이콘 (`icons/claude-howto-icon.svg`)
 
 ### GitHub
-- **README badge**: Icon (`icons/claude-howto-icon.svg`) at 64-128px
-- **Repository avatar**: Icon (`icons/claude-howto-icon.svg`)
+- **README 배지**: 아이콘 (`icons/claude-howto-icon.svg`), 64-128px
+- **저장소 아바타**: 아이콘 (`icons/claude-howto-icon.svg`)
 
-### Social Media
-- **Profile picture**: Icon (`icons/claude-howto-icon.svg`)
-- **Banner**: Logo (`logos/claude-howto-logo.svg`)
-- **Thumbnail**: Icon at 256×256px
+### 소셜 미디어
+- **프로필 사진**: 아이콘 (`icons/claude-howto-icon.svg`)
+- **배너**: 로고 (`logos/claude-howto-logo.svg`)
+- **썸네일**: 256×256px 아이콘
 
-### Documentation
-- **Chapter headers**: Logo or icon (scaled to fit)
-- **Navigation icons**: Favicon (32-64px)
+### 문서
+- **챕터 헤더**: 로고 또는 아이콘(크기에 맞게 조절)
+- **내비게이션 아이콘**: 파비콘 (32-64px)
 
 ---
 
-See [README.md](README.md) for complete documentation.
+전체 문서는 [README.md](README.md)를 참고하세요.

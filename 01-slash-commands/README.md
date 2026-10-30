@@ -1,187 +1,191 @@
+<!-- i18n-source: 01-slash-commands/README.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
   <img alt="Claude How To" src="../resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Slash Commands
+# 슬래시 명령어
 
-## Overview
+## 개요
 
-Slash commands are shortcuts that control Claude's behavior during an interactive session. They come in several types:
+슬래시 명령어는 대화형 세션 동안 Claude의 동작을 제어하는 단축키입니다. 여러 유형이 있습니다:
 
-- **Built-in commands**: Provided by Claude Code (`/help`, `/clear`, `/model`)
-- **Skills**: User-defined commands created as `SKILL.md` files (`/optimize`, `/pr`)
-- **Plugin commands**: Commands from installed plugins (`/frontend-design:frontend-design`)
-- **MCP prompts**: Commands from MCP servers (`/mcp__github__list_prs`)
+- **내장 명령어**: Claude Code에서 제공합니다 (`/help`, `/clear`, `/model`)
+- **스킬**: `SKILL.md` 파일로 생성된 사용자 정의 명령어입니다 (`/optimize`, `/pr`)
+- **플러그인 명령어**: 설치된 플러그인에서 제공하는 명령어입니다 (`/frontend-design:frontend-design`)
+- **MCP 프롬프트**: MCP 서버에서 제공하는 명령어입니다 (`/mcp__github__list_prs`)
 
-> **Note**: Custom slash commands have been merged into skills. Files in `.claude/commands/` still work, but skills (`.claude/skills/`) are now the recommended approach. Both create `/command-name` shortcuts. See the [Skills Guide](../03-skills/) for the full reference.
+> **참고**: 사용자 정의 슬래시 명령어는 스킬로 통합되었습니다. `.claude/commands/`에 있는 파일은 여전히 작동하지만, 스킬(`.claude/skills/`)이 이제 권장되는 방식입니다. 두 가지 모두 `/command-name` 단축키를 생성합니다. 전체 참조는 [스킬 가이드](../03-skills/)를 참조하십시오.
 
-## Built-in Commands Reference
+## 내장 명령어 참조
 
-Built-in commands are shortcuts for common actions. There are **60+ built-in commands** and **about 20 bundled skills** (some feature-gated) available. Type `/` in Claude Code to see the full list, or type `/` followed by any letters to filter.
+내장 명령어는 일반적인 작업을 위한 단축키입니다. **60개 이상의 내장 명령어**와 **약 20개의 번들 스킬**(일부는 기능 플래그로 제한됨)이 제공됩니다. Claude Code에서 `/`를 입력하여 전체 목록을 보거나, `/` 뒤에 글자를 입력하여 필터링할 수 있습니다.
 
-> **Note**: Since v2.1.236, pressing Enter on a mistyped slash command — or on a command that is not available in the current session — reports an error instead of silently running the closest fuzzy match. Unambiguous prefixes and defined aliases still run as before.
+> **참고**: v2.1.236부터 잘못 입력한 슬래시 명령어나 현재 세션에서 사용할 수 없는 명령어에서 Enter를 누르면, 가장 가까운 퍼지 매치를 조용히 실행하는 대신 오류를 보고합니다. 모호하지 않은 접두사와 정의된 별칭은 이전처럼 실행됩니다.
 
-| Command | Purpose |
+| Command | 목적 |
 |---------|---------|
-| `/add-dir <path>` | Add working directory |
-| `/advisor [model\|off]` | Configure the advisor. Opens as an interactive dialog; in the desktop app, Remote Control, and headless (`-p` / Agent SDK) sessions it takes a text form instead — bare `/advisor`, `/advisor <model>`, or `/advisor off` (v2.1.260+) |
-| `/agents` | No longer a working command: the interactive wizard was removed in v2.1.198, and since v2.1.281 `/agents` no longer appears in the `/` menu or `/help` — typing it only explains where the wizard went. Ask Claude to create or manage subagents, or edit `.claude/agents/` files directly |
-| `/artifacts` | List artifacts you own or that are shared with you, then attach one to the session, open it in your browser, or copy its link (v2.1.208+). Deleting one with `d` asks to confirm: 1 or Enter keeps it, 2 deletes it, Esc cancels (v2.1.305) |
-| `/auto-mode-setup` | Draft `autoMode.environment` entries from your project and recent sessions, review the draft, and save it to your user settings. Pro/Max/Team: v2.1.228+ (v2.1.233+ on native Windows); Enterprise or Console API key: v2.1.283+. Also available on Bedrock, Vertex, Foundry, the Claude apps gateway and telemetry-off sessions since v2.1.304 |
-| `/branch [name]` | Switch into a copy of the conversation at this point, preserving the original (return to it with `/resume`) |
-| `/fork [prompt]` | Copy the current conversation into a new **background session** and keep working here; the two are independent from that point on and the copy gets its own row in `claude agents` (v2.1.212+). Except when the copy edits in place, Claude Code instructs it to create a worktree of its own before making code changes (isolation instruction requires v2.1.221+) |
-| `/subtask <task>` | Spawn a **forked subagent** that inherits the full conversation and works on the task while you keep going; its result returns to this conversation when it finishes (v2.1.212+) |
-| `/btw [question]` | Ask an ephemeral side question while Claude is working on the main task; doesn't pollute the main conversation context. Bare `/btw` reopens your last side question (v2.1.212+) |
-| `/cd <path>` | Move the session to a new working directory without breaking the prompt cache (added v2.1.169) |
-| `/chrome` | Configure Chrome browser integration |
-| `/clear` | Clear conversation (aliases: `/reset`, `/new`) |
-| `/color [color\|default]` | Set prompt bar color. Bare `/color` (no args) picks a random session color (v2.1.128+); pass a color name or hex to set explicitly. |
-| `/compact [instructions]` | Compact conversation with optional focus instructions. A failed compact now displays as an error in the UI instead of silently doing nothing (v2.1.216) |
-| `/config` | Open Settings (alias: `/settings`) |
-| `/context` | Visualize context usage as colored grid. Shows an explicit warning when usage is over the context window limit (v2.1.216) |
-| `/copy [N]` | Copy assistant response to clipboard; `w` writes to file |
-| `/cost` | Typing-shortcut alias for `/usage` — opens the cost tab (v2.1.118+) |
-| `/desktop` | Continue in Desktop app (alias: `/app`) |
-| `/diff` | Interactive diff viewer for uncommitted changes. In fullscreen rendering it instead opens a diff panel beside the conversation that stays open while you keep working — it lists changed files with added/removed line counts and refreshes every time Claude edits a file or runs a shell command; run `/diff` again or click `✕` to close it (v2.1.260+). The classic renderer opens the viewer in place of the prompt |
-| `/doctor` | Diagnose installation health — openable while Claude is responding; a bundled skill: Claude checks your setup and proposes fixes it applies after you confirm (`claude doctor` runs read-only diagnostics); on Pro, Max, Team, and Enterprise plans the checkup also proposes the changes `/usage` recommends (v2.1.305; skipped while Remote Control is connected); `/doctor prompt-audit` (also `/checkup prompt-audit`) audits CLAUDE.md files, skills, agents, and commands for prompting patterns written for older models (v2.1.283) |
-| `/effort [low\|medium\|high\|xhigh\|max\|auto\|ultracode [on\|off]]` | Set effort level via interactive arrow-key slider. Levels: `low` → `medium` → `high` → `xhigh` (new in v2.1.111) → `max`. Default is `medium` on Opus 5.5 (the default model since v2.1.280), Sonnet 5.5, and Haiku 5.5, `high` on Opus 5, Sonnet 5, and Opus 4.8, and `xhigh` on Opus 4.7; `xhigh` needs Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, or Opus 4.7; `max` works on Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 and Sonnet 4.6. A level saved before `/effort` became per-model doesn't apply to newly released models such as Opus 5.5 (v2.1.280). The slider also has an **Ultracode** toggle (Tab, or `/effort ultracode [on\|off]`) — not a model effort level: it has Claude orchestrate dynamic workflows at whichever effort level the session runs at. Since v2.1.284 it no longer forces `xhigh` and stays on when you change the level; `/effort ultracode` lasts for the session, and the `ultracode` setting makes it persist |
-| `/exit` | Exit the REPL (alias: `/quit`) |
-| `/export [filename]` | Export the current conversation to a file or clipboard |
-| `/usage-credits` | Configure extra usage for rate limits (renamed from `/extra-usage` in v2.1.144; `/extra-usage` still works as an alias) |
-| `/fast [on\|off]` | Toggle fast mode. Applies to Opus 5.5 (the fast-mode default since v2.1.280), Opus 5, and Opus 4.8 |
-| `/feedback` | Submit feedback. Since v2.1.141, can attach recent sessions (last 24h or 7d) so reports spanning more than one session include context. As of v2.1.178, `/bug` requires a description before it can be submitted. |
-| `/focus` | Toggle focus view (added v2.1.110; replaces `Ctrl+O` for focus toggle) |
-| `/goal <statement>` | Register a session-level completion condition; Claude keeps working until the goal is met. `/goal clear` removes it. Active goal appears in the status line, with a live overlay panel showing elapsed time, turn count, and token usage (added v2.1.139). |
-| `/help` | Show help |
-| `/hooks` | View hook configurations |
-| `/ide` | Manage IDE integrations |
-| `/init` | Initialize `CLAUDE.md`. Set `CLAUDE_CODE_NEW_INIT=1` for interactive flow |
-| `/insights` | Generate session analysis report |
-| `/install-github-app` | Set up GitHub Actions app |
-| `/install-slack-app` | Install Slack app |
-| `/keybindings` | Open keybindings configuration |
-| `/fewer-permission-prompts` | Analyze recent Bash/MCP tool calls and add a prioritized allowlist to `.claude/settings.json` to reduce permission prompts (added v2.1.111) |
-| `/login` | Switch Anthropic accounts |
-| `/logout` | Sign out from your Anthropic account |
-| `/mcp` | Manage MCP servers and OAuth |
-| `/memory` | Edit `CLAUDE.md`, toggle auto-memory |
-| `/mobile` | QR code for mobile app (aliases: `/ios`, `/android`) |
-| `/model [model]` | Select model with left/right arrows for effort. Since v2.1.153, the choice is **saved as the default** for new sessions (matching the IDE); press `s` after selecting to apply it to the current session only. (The keybinding `modelPicker:setAsDefault` was renamed to `modelPicker:thisSessionOnly`; the old `d` action is now `s`.) From v2.1.219 the picker showed the merged Opus row as "Opus (1M context)"; v2.1.283 drops that label from the Opus and Default rows where Opus already has a 1M window (the window is unchanged). |
-| `/output-style [name]` | List and switch output styles (re-added in v2.1.269 after being removed in v2.1.91). With no argument it lists the styles and marks the current one. Works in headless and Remote Control sessions; the selection is saved to `.claude/settings.local.json` |
-| `/passes` | Share free week of Claude Code |
-| `/permissions` | View/update permissions (alias: `/allowed-tools`) |
-| `/plan [description]` | Enter plan mode |
-| `/plugin` | Manage plugins |
-| `/proactive` | Alias for `/loop` (added v2.1.105) |
-| `/powerup` | Discover features through interactive lessons with animated demos |
-| `/privacy-settings` | Privacy settings (Pro/Max only) |
-| `/release-notes` | View changelog |
-| `/recap` | Show session recap / summary when returning to a session (added v2.1.108) |
-| `/reload-plugins` | Reload active plugins. Since v2.1.221 most installs activate immediately, so this is only needed when the install summary says `Run /reload-plugins to activate.` Available in headless sessions as of v2.1.260, so it also appears in the Claude Code Desktop and SDK command lists |
-| `/reload-skills` | Re-scan skill directories without restarting the session (added v2.1.152). Since v2.1.304 it sends Claude only new or changed skills; compaction now re-sends the skill list by itself, so you don't need `/reload-skills` after compacting |
-| `/remote-control` | Remote control from claude.ai (alias: `/rc`) |
-| `/remote-env` | Configure default remote environment |
-| `/rename [name]` | Rename session |
-| `/resume [session]` | Resume conversation (alias: `/continue`) |
-| `/review [low\|medium\|high\|xhigh\|max\|ultra] [--fix] [--comment] [pr#\|branch\|path]` | Alias of `/code-review` (v2.1.223): reviews the current diff, or a PR number, branch, or path you pass — e.g. `/review 1234`. Takes the same effort levels and flags. With no level given, it reuses the last `low`–`max` level you typed |
-| `/rewind` | Rewind conversation and/or code (aliases: `/checkpoint`, `/undo`) |
-| `/sandbox` | Toggle sandbox mode |
-| `/schedule [description]` | Create, update, list, or run cloud scheduled tasks (formerly routines). Alias: `/routines` |
-| `/scroll-speed` | Open an interactive dialog to tune mouse-wheel scroll speed in fullscreen mode: press ←/→ to adjust, `r` to reset, Enter to save. Saved to `~/.claude/settings.json` (added v2.1.139). |
-| `/security-review` | Analyze branch for security vulnerabilities |
-| `/skill-doctor` | Show which loaded skills go unused and what each one costs in context, so you can decide which to turn off. The report opens in the `/plugin` manager's **Stats** tab; in non-interactive `-p` mode it prints as text. Over Remote Control it replies `Skill usage reports are not available on this connection.` — run it in the terminal on the machine hosting the session (requires v2.1.252+) |
-| `/skills` | List available skills |
-| `/stats` | Typing-shortcut alias for `/usage` — opens the stats tab (daily usage, sessions, streaks) (v2.1.118+) |
-| `/stickers` | Order Claude Code stickers |
-| `/status` | Show version, model, account, and a `Session kind` row reading `background job · attached`, `background job · unattended`, or `interactive` (row added v2.1.221). Openable while Claude is responding |
-| `/statusline` | Configure status line |
-| `/tasks` | List/manage background tasks |
-| `/team-onboarding` | Generate a teammate ramp-up guide from your last 30 days of Claude Code sessions, commands, and MCP usage; on Team and Enterprise plans it also returns a share link (new in v2.1.101) |
-| `/teleport` | Resume a Claude Code on the web session in this terminal; opens a picker of your web sessions (alias: `/tp`). Requires a claude.ai subscription |
-| `/terminal-setup` | Configure terminal keybindings |
-| `/theme` | Open theme picker / manage custom themes (v2.1.118). Define custom themes via JSON in `~/.claude/themes/<name>.json` |
-| `/tui [default\|fullscreen]` | Set the terminal UI renderer (`fullscreen` gives flicker-free rendering) and relaunch into it; a bare `/tui` prints the current renderer (added v2.1.110) |
-| `/ultrareview` | Comprehensive cloud-based multi-agent code review (added v2.1.111). The preferred invocation is now `/code-review ultra`; `/ultrareview` remains as an alias. Includes 3 free runs on Pro and Max, then requires usage credits |
-| `/upgrade` | Open upgrade page for higher plan tier |
-| `/usage` | Canonical usage dashboard (v2.1.118) — combines plan usage limits, rate limits, cost, and daily session stats. `/cost` and `/stats` are typing-shortcut aliases that open specific tabs. Warns about max effort, workflows, always-on context and large tool results (v2.1.299); since v2.1.305 each warning is a one-line fix and pressing `f` applies the ones Claude Code can make |
-| `/voice` | Toggle push-to-talk voice dictation |
-| `/workflows` | View running and completed dynamic workflow runs (added v2.1.154). See [Dynamic Workflows](../09-advanced-features/README.md#dynamic-workflows) |
+| `/add-dir <path>` | 작업 디렉터리 추가 |
+| `/advisor [model\|off]` | 어드바이저를 구성합니다. 대화형 대화 상자로 열리며, 데스크톱 앱, 원격 제어, 헤드리스(`-p` / Agent SDK) 세션에서는 텍스트 형식을 사용합니다 — 인자 없는 `/advisor`, `/advisor <model>`, 또는 `/advisor off` (v2.1.260+) |
+| `/agents` | 더 이상 작동하는 명령어가 아닙니다: 대화형 마법사는 v2.1.198에서 제거되었고, v2.1.281부터 `/agents`는 `/` 메뉴나 `/help`에 나타나지 않습니다 — 입력하면 마법사가 어디로 갔는지만 설명합니다. Claude에게 서브에이전트 생성·관리를 요청하거나 `.claude/agents/` 파일을 직접 편집하십시오 |
+| `/artifacts` | 내가 소유하거나 나와 공유된 아티팩트를 나열한 다음, 세션에 첨부하거나 브라우저에서 열거나 링크를 복사합니다 (v2.1.208+). `d`로 삭제하면 확인을 요청합니다: 1 또는 Enter는 유지, 2는 삭제, Esc는 취소 (v2.1.305) |
+| `/auto-mode-setup` | 프로젝트와 최근 세션에서 `autoMode.environment` 항목 초안을 작성하고, 초안을 검토한 뒤 사용자 설정에 저장합니다. Pro/Max/Team: v2.1.228+ (네이티브 Windows는 v2.1.233+); Enterprise 또는 Console API 키: v2.1.283+. v2.1.304부터 Bedrock, Vertex, Foundry, Claude 앱 게이트웨이, 텔레메트리 꺼짐 세션에서도 사용할 수 있습니다 |
+| `/branch [name]` | 현재 시점의 대화 사본으로 전환하며 원본은 보존합니다 (`/resume`으로 원본으로 돌아갈 수 있음) |
+| `/fork [prompt]` | 현재 대화를 새 **백그라운드 세션**으로 복사하고 여기서 계속 작업합니다. 그 시점부터 두 세션은 독립적이며, 사본은 `claude agents`에 자체 행을 갖습니다 (v2.1.212+). 사본이 제자리에서 편집하는 경우를 제외하고, Claude Code는 코드를 변경하기 전에 자체 워크트리를 만들도록 지시합니다 (격리 지시는 v2.1.221+ 필요) |
+| `/subtask <task>` | 전체 대화를 상속하는 **포크된 서브에이전트**를 생성하여, 사용자가 계속 작업하는 동안 해당 작업을 수행합니다. 완료되면 결과가 이 대화로 돌아옵니다 (v2.1.212+) |
+| `/btw [question]` | Claude가 주 작업을 수행하는 동안 임시 보조 질문을 합니다. 주 대화 컨텍스트를 오염시키지 않습니다. 인자 없는 `/btw`는 마지막 보조 질문을 다시 엽니다 (v2.1.212+) |
+| `/cd <path>` | 프롬프트 캐시를 깨뜨리지 않고 세션을 새 작업 디렉터리로 이동합니다 (v2.1.169에 추가) |
+| `/chrome` | Chrome 브라우저 통합 구성 |
+| `/clear` | 대화 지우기 (별칭: `/reset`, `/new`) |
+| `/color [color\|default]` | 프롬프트 바 색상을 설정합니다. 인자 없이 `/color`를 사용하면 임의의 세션 색상을 선택합니다 (v2.1.128+). 색상 이름 또는 16진수를 전달하여 명시적으로 설정합니다. |
+| `/compact [instructions]` | 선택적 포커스 지침을 사용하여 대화를 압축합니다. 압축에 실패하면 이제 아무 일도 없이 넘어가지 않고 UI에 오류로 표시됩니다 (v2.1.216) |
+| `/config` | 설정 열기 (별칭: `/settings`) |
+| `/context` | 컨텍스트 사용량을 컬러 그리드로 시각화합니다. 사용량이 컨텍스트 창 한도를 넘으면 명시적인 경고를 표시합니다 (v2.1.216) |
+| `/copy [N]` | 어시스턴트 응답을 클립보드에 복사합니다. `w`는 파일에 씁니다 |
+| `/cost` | `/usage`의 타이핑 단축 별칭 — 비용 탭을 엽니다 (v2.1.118+) |
+| `/desktop` | 데스크톱 앱에서 계속 (별칭: `/app`) |
+| `/diff` | 커밋되지 않은 변경 사항에 대한 대화형 Diff 뷰어. 전체 화면 렌더링에서는 대신 대화 옆에 Diff 패널을 열어 작업을 계속하는 동안 열린 상태로 유지합니다 — 추가/삭제된 줄 수와 함께 변경된 파일을 나열하며, Claude가 파일을 편집하거나 셸 명령을 실행할 때마다 새로 고칩니다. `/diff`를 다시 실행하거나 `✕`를 클릭하면 닫힙니다 (v2.1.260+). 클래식 렌더러는 프롬프트 자리에 뷰어를 엽니다 |
+| `/doctor` | 설치 상태를 진단합니다 — Claude가 응답 중일 때도 열 수 있습니다. 번들 스킬로서 Claude가 설정을 점검하고 수정 사항을 제안하며, 사용자가 확인하면 적용합니다(`claude doctor`는 읽기 전용 진단을 실행). Pro, Max, Team, Enterprise 플랜에서는 점검 시 `/usage`가 권장하는 변경 사항도 제안합니다 (v2.1.305, 원격 제어가 연결된 동안에는 건너뜀). `/doctor prompt-audit`(또는 `/checkup prompt-audit`)는 CLAUDE.md 파일, 스킬, 에이전트, 명령어에서 이전 모델용으로 작성된 프롬프트 패턴을 점검합니다 (v2.1.283) |
+| `/effort [low\|medium\|high\|xhigh\|max\|auto\|ultracode [on\|off]]` | 대화형 화살표 키 슬라이더로 노력 수준을 설정합니다. 수준: `low` → `medium` → `high` → `xhigh` (v2.1.111에 새로 추가) → `max`. 기본값은 Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5에서 `medium`, Opus 5, Sonnet 5, Opus 4.8에서 `high`, Opus 4.7에서 `xhigh`입니다. `xhigh`는 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8 또는 Opus 4.7이 필요합니다. `max`는 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동합니다. `/effort`가 모델별 설정이 되기 전에 저장된 수준은 Opus 5.5처럼 새로 출시된 모델에는 적용되지 않습니다 (v2.1.280). 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on\|off]`)도 있습니다 — 모델 노력 수준이 아니며, 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하게 합니다. v2.1.284부터 더 이상 `xhigh`를 강제하지 않으며 수준을 바꿔도 켜진 상태로 유지됩니다. `/effort ultracode`는 세션 동안 유지되며, `ultracode` 설정을 사용하면 영구적으로 유지됩니다 |
+| `/exit` | REPL 종료 (별칭: `/quit`) |
+| `/export [filename]` | 현재 대화를 파일 또는 클립보드로 내보냅니다 |
+| `/usage-credits` | 속도 제한을 위한 추가 사용량 구성 (v2.1.144에서 `/extra-usage`에서 이름 변경, `/extra-usage`는 여전히 별칭으로 작동) |
+| `/fast [on\|off]` | 빠른 모드 전환. Opus 5.5(v2.1.280부터 빠른 모드 기본값), Opus 5, Opus 4.8에 적용됩니다 |
+| `/feedback` | 피드백 제출. v2.1.141부터 최근 세션(지난 24시간 또는 7일)을 첨부할 수 있어 여러 세션에 걸친 보고서에 컨텍스트가 포함됩니다. v2.1.178부터 `/bug`는 제출 전에 설명이 필요합니다. |
+| `/focus` | 포커스 뷰 전환 (v2.1.110에 추가, 포커스 토글용 `Ctrl+O`를 대체) |
+| `/goal <statement>` | 세션 수준 완료 조건을 등록합니다. Claude는 목표가 달성될 때까지 계속 작업합니다. `/goal clear`는 이를 제거합니다. 활성 목표는 상태 표시줄에 나타나며, 경과 시간, 턴 수, 토큰 사용량을 보여주는 라이브 오버레이 패널이 함께 표시됩니다 (v2.1.139에 추가). |
+| `/help` | 도움말 표시 |
+| `/hooks` | 훅 구성 보기 |
+| `/ide` | IDE 통합 관리 |
+| `/init` | `CLAUDE.md` 초기화. 대화형 흐름을 위해 `CLAUDE_CODE_NEW_INIT=1` 설정 |
+| `/insights` | 세션 분석 보고서 생성 |
+| `/install-github-app` | GitHub Actions 앱 설정 |
+| `/install-slack-app` | Slack 앱 설치 |
+| `/keybindings` | 키 바인딩 구성 열기 |
+| `/fewer-permission-prompts` | 최근 Bash/MCP 도구 호출을 분석하고 권한 프롬프트를 줄이기 위해 `.claude/settings.json`에 우선순위가 지정된 허용 목록을 추가합니다 (v2.1.111에 추가) |
+| `/login` | Anthropic 계정 전환 |
+| `/logout` | Anthropic 계정에서 로그아웃 |
+| `/mcp` | MCP 서버 및 OAuth 관리 |
+| `/memory` | `CLAUDE.md` 편집, 자동 메모리 전환 |
+| `/mobile` | 모바일 앱용 QR 코드 (별칭: `/ios`, `/android`) |
+| `/model [model]` | 모델을 선택하고 왼쪽/오른쪽 화살표로 노력 수준을 조정합니다. v2.1.153부터 선택은 새 세션의 **기본값으로 저장됩니다** (IDE와 동일). 선택 후 `s`를 누르면 현재 세션에만 적용합니다. (`modelPicker:setAsDefault` 키 바인딩이 `modelPicker:thisSessionOnly`로 이름이 변경되었고, 이전 `d` 동작은 이제 `s`입니다.) v2.1.219부터 선택기는 병합된 Opus 행을 "Opus (1M context)"로 표시했으며, v2.1.283은 Opus가 이미 1M 창을 가진 Opus 및 Default 행에서 해당 레이블을 제거합니다 (창 크기는 변하지 않음). |
+| `/output-style [name]` | 출력 스타일을 나열하고 전환합니다 (v2.1.91에서 제거된 후 v2.1.269에서 다시 추가). 인자가 없으면 스타일 목록을 보여주고 현재 스타일을 표시합니다. 헤드리스 및 원격 제어 세션에서도 작동하며, 선택은 `.claude/settings.local.json`에 저장됩니다 |
+| `/passes` | Claude Code 무료 주간 이용권 공유 |
+| `/permissions` | 권한 보기/업데이트 (별칭: `/allowed-tools`) |
+| `/plan [description]` | 계획 모드 진입 |
+| `/plugin` | 플러그인 관리 |
+| `/proactive` | `/loop`의 별칭 (v2.1.105에 추가) |
+| `/powerup` | 애니메이션 데모가 있는 대화형 레슨을 통해 기능 발견 |
+| `/privacy-settings` | 개인 정보 설정 (Pro/Max 전용) |
+| `/release-notes` | 변경 로그 보기 |
+| `/recap` | 세션으로 돌아올 때 세션 요약 표시 (v2.1.108에 추가) |
+| `/reload-plugins` | 활성 플러그인 다시 로드. v2.1.221부터 대부분의 설치가 즉시 활성화되므로, 설치 요약에 `Run /reload-plugins to activate.`가 표시될 때만 필요합니다. v2.1.260부터 헤드리스 세션에서도 사용할 수 있어 Claude Code Desktop 및 SDK 명령어 목록에도 나타납니다 |
+| `/reload-skills` | 세션을 다시 시작하지 않고 스킬 디렉터리를 다시 스캔합니다 (v2.1.152에 추가). v2.1.304부터 새로 추가되거나 변경된 스킬만 Claude에 보냅니다. 이제 압축 시 스킬 목록을 자동으로 다시 보내므로, 압축 후에 `/reload-skills`를 실행할 필요가 없습니다 |
+| `/remote-control` | claude.ai에서 원격 제어 (별칭: `/rc`) |
+| `/remote-env` | 기본 원격 환경 구성 |
+| `/rename [name]` | 세션 이름 변경 |
+| `/resume [session]` | 대화 재개 (별칭: `/continue`) |
+| `/review [low\|medium\|high\|xhigh\|max\|ultra] [--fix] [--comment] [pr#\|branch\|path]` | `/code-review`의 별칭 (v2.1.223): 현재 Diff 또는 전달한 PR 번호, 브랜치, 경로를 검토합니다 — 예: `/review 1234`. 동일한 노력 수준과 플래그를 사용합니다. 수준을 지정하지 않으면 마지막으로 입력한 `low`–`max` 수준을 재사용합니다 |
+| `/rewind` | 대화 및/또는 코드 되감기 (별칭: `/checkpoint`, `/undo`) |
+| `/sandbox` | 샌드박스 모드 전환 |
+| `/schedule [description]` | 클라우드 예약 작업(이전 명칭: 루틴)을 생성, 업데이트, 나열 또는 실행합니다. 별칭: `/routines` |
+| `/scroll-speed` | 전체 화면 모드에서 마우스 휠 스크롤 속도를 조정하는 대화형 대화 상자를 엽니다: ←/→로 조정, `r`로 초기화, Enter로 저장. `~/.claude/settings.json`에 저장됩니다 (v2.1.139에 추가). |
+| `/security-review` | 브랜치의 보안 취약점 분석 |
+| `/skill-doctor` | 로드된 스킬 중 사용되지 않는 스킬과 각 스킬이 컨텍스트에서 차지하는 비용을 보여주어, 어떤 스킬을 끌지 결정할 수 있게 합니다. 보고서는 `/plugin` 관리자의 **Stats** 탭에서 열리며, 비대화형 `-p` 모드에서는 텍스트로 출력됩니다. 원격 제어에서는 `Skill usage reports are not available on this connection.`이라고 응답하므로, 세션을 호스팅하는 머신의 터미널에서 실행하십시오 (v2.1.252+ 필요) |
+| `/skills` | 사용 가능한 스킬 나열 |
+| `/stats` | `/usage`의 타이핑 단축 별칭 — 통계 탭(일일 사용량, 세션, 연속 기록)을 엽니다 (v2.1.118+) |
+| `/stickers` | Claude Code 스티커 주문 |
+| `/status` | 버전, 모델, 계정, 그리고 `background job · attached`, `background job · unattended` 또는 `interactive`를 표시하는 `Session kind` 행을 보여줍니다 (행은 v2.1.221에 추가). Claude가 응답 중일 때도 열 수 있습니다 |
+| `/statusline` | 상태 표시줄 구성 |
+| `/tasks` | 백그라운드 작업 나열/관리 |
+| `/team-onboarding` | 지난 30일간의 Claude Code 세션, 명령어, MCP 사용량으로 팀원 온보딩 가이드를 생성합니다. Team 및 Enterprise 플랜에서는 공유 링크도 반환합니다 (v2.1.101에 새로 추가) |
+| `/teleport` | 웹의 Claude Code 세션을 이 터미널에서 재개합니다. 웹 세션 선택기를 엽니다 (별칭: `/tp`). claude.ai 구독이 필요합니다 |
+| `/terminal-setup` | 터미널 키 바인딩 구성 |
+| `/theme` | 테마 선택기 열기 / 사용자 정의 테마 관리 (v2.1.118). `~/.claude/themes/<name>.json`의 JSON으로 사용자 정의 테마 정의 |
+| `/tui [default\|fullscreen]` | 터미널 UI 렌더러를 설정하고(`fullscreen`은 깜박임 없는 렌더링 제공) 해당 렌더러로 다시 실행합니다. 인자 없는 `/tui`는 현재 렌더러를 출력합니다 (v2.1.110에 추가) |
+| `/ultrareview` | 포괄적인 클라우드 기반 다중 에이전트 코드 리뷰 (v2.1.111에 추가). 이제 권장 호출 방식은 `/code-review ultra`이며, `/ultrareview`는 별칭으로 남아 있습니다. Pro 및 Max에서 무료 실행 3회가 포함되며, 이후에는 사용량 크레딧이 필요합니다 |
+| `/upgrade` | 상위 플랜 티어 업그레이드 페이지 열기 |
+| `/usage` | 표준 사용량 대시보드 (v2.1.118) — 플랜 사용량 제한, 속도 제한, 비용, 일일 세션 통계를 결합합니다. `/cost`와 `/stats`는 특정 탭을 여는 타이핑 단축 별칭입니다. max 노력 수준, 워크플로, 상시 로드 컨텍스트, 큰 도구 결과에 대해 경고합니다 (v2.1.299). v2.1.305부터 각 경고는 한 줄짜리 수정 사항이며, `f`를 누르면 Claude Code가 적용할 수 있는 수정을 적용합니다 |
+| `/voice` | 눌러서 말하기 음성 받아쓰기 전환 |
+| `/workflows` | 실행 중이거나 완료된 동적 워크플로 실행 보기 (v2.1.154에 추가). [동적 워크플로](../09-advanced-features/README.md#동적-워크플로) 참조 |
 
-> **Why `/cd` matters:** changing directories used to lose cache warmth (making the next turn slower and costlier); `/cd` preserves the prompt cache across the switch.
+> **`/cd`가 중요한 이유:** 예전에는 디렉터리를 변경하면 캐시 워밍이 손실되어 다음 턴이 느려지고 비용이 늘었습니다. `/cd`는 전환 후에도 프롬프트 캐시를 보존합니다.
 
-### Bundled Skills
+### 번들 스킬
 
-These skills ship with Claude Code and are invoked like slash commands:
+이러한 스킬은 Claude Code와 함께 제공되며 슬래시 명령어처럼 호출됩니다:
 
-| Skill | Purpose |
+| Skill | 목적 |
 |-------|---------|
-| `/batch <instruction>` | Orchestrate large-scale parallel changes using worktrees |
-| `/claude-api` | Load Claude API reference for project language. Subcommands include `api-version` (move code to a newer API version, v2.1.307+) and `managed-agents-secure` (audit a Managed Agent's settings, v2.1.304+) |
-| `/dataviz` | Chart and dashboard design guidance with a runnable color-palette validator (v2.1.198) |
-| `/debug [description]` | Enable debug logging |
-| `/design [description]` | Create a **design canvas** — a multi-artboard visual design (UI mockups, screen flows, landing pages, posters) published as an artifact and refined visually rather than in code. Use it instead of hand-writing HTML when the layout is what you want to iterate on. Requires v2.1.265+, a session where artifacts are available, and an account with the Design template; not available on Bedrock, Vertex, Foundry, or Claude Platform on AWS. Standalone Claude Design (claude.ai/design) closes by December 14, 2026. `/design consent` and `/design revoke` grant or withdraw Claude's access to Claude Design; when Claude asks you to run `/design consent`, type it at the prompt yourself. |
-| `/loop [interval] [prompt]` | Run prompt repeatedly on interval |
-| `/code-review [low\|medium\|high\|xhigh\|max\|ultra] [--fix] [--comment] [--max-findings n\|all\|default] [pr#\|branch\|path]` | Review the current diff — or a PR number, branch, or path you pass — for correctness bugs. Pass `--fix` to apply findings, `--comment` to post them as inline GitHub PR comments, or `ultra` to run a deep cloud review; with `ultra` on a `github.com` PR target, `--post` preselects posting the findings to the PR. With no effort level given, the review reuses the last level you typed (v2.1.223). Originally absorbed `/simplify` in v2.1.147, but `/simplify` returned as a distinct command in v2.1.154. Pass `--max-findings <n>\|all` to report more or fewer findings than the usual limit; the choice is reused until you pass `--max-findings default` (v2.1.288) |
-| `/simplify` | Run a cleanup-only review (reuse / simplification / efficiency / altitude) and apply the fixes; does **not** hunt for bugs — use `/code-review` for that. Briefly an alias of `/code-review --fix` (v2.1.152), it became cleanup-only in v2.1.154 |
+| `/batch <instruction>` | 워크트리를 사용하여 대규모 병렬 변경을 조율합니다 |
+| `/claude-api` | 프로젝트 언어에 맞는 Claude API 참조를 로드합니다. 하위 명령어로 `api-version`(코드를 최신 API 버전으로 이전, v2.1.307+)과 `managed-agents-secure`(Managed Agent의 설정 점검, v2.1.304+)가 있습니다 |
+| `/dataviz` | 실행 가능한 색상 팔레트 검증기를 포함한 차트 및 대시보드 디자인 가이드 (v2.1.198) |
+| `/debug [description]` | 디버그 로깅 활성화 |
+| `/design [description]` | **디자인 캔버스**를 만듭니다 — 아티팩트로 게시되고 코드가 아닌 시각적으로 다듬는 다중 아트보드 비주얼 디자인(UI 목업, 화면 흐름, 랜딩 페이지, 포스터)입니다. 레이아웃 자체를 반복 개선하고 싶을 때 HTML을 직접 작성하는 대신 사용하십시오. v2.1.265+, 아티팩트를 사용할 수 있는 세션, Design 템플릿이 있는 계정이 필요하며, Bedrock, Vertex, Foundry, Claude Platform on AWS에서는 사용할 수 없습니다. 독립형 Claude Design(claude.ai/design)은 2026년 12월 14일까지 종료됩니다. `/design consent`와 `/design revoke`는 Claude Design에 대한 Claude의 접근 권한을 부여하거나 철회합니다. Claude가 `/design consent` 실행을 요청하면 프롬프트에 직접 입력하십시오. |
+| `/loop [interval] [prompt]` | 지정된 간격으로 프롬프트를 반복 실행합니다 |
+| `/code-review [low\|medium\|high\|xhigh\|max\|ultra] [--fix] [--comment] [--max-findings n\|all\|default] [pr#\|branch\|path]` | 현재 Diff 또는 전달한 PR 번호, 브랜치, 경로에서 정확성 버그를 검토합니다. `--fix`를 전달하면 발견 사항을 적용하고, `--comment`는 GitHub PR 인라인 댓글로 게시하며, `ultra`는 심층 클라우드 리뷰를 실행합니다. `github.com` PR 대상에 `ultra`를 사용할 때 `--post`는 발견 사항을 PR에 게시하도록 미리 선택합니다. 노력 수준을 지정하지 않으면 마지막으로 입력한 수준을 재사용합니다 (v2.1.223). 원래 v2.1.147에서 `/simplify`를 흡수했지만, v2.1.154에서 `/simplify`는 별도 명령어로 돌아왔습니다. `--max-findings <n>\|all`을 전달하면 일반적인 한도보다 많거나 적은 발견 사항을 보고하며, `--max-findings default`를 전달할 때까지 이 선택이 재사용됩니다 (v2.1.288) |
+| `/simplify` | 정리 전용 검토(재사용 / 단순화 / 효율성 / 추상화 수준)를 실행하고 수정 사항을 적용합니다. 버그를 찾지 **않습니다** — 버그를 찾으려면 `/code-review`를 사용하십시오. 잠시 `/code-review --fix`의 별칭이었다가 (v2.1.152), v2.1.154에서 정리 전용이 되었습니다 |
 
-### Deprecated Commands
+### 지원 중단된 명령어
 
-| Command | Status |
+| Command | 상태 |
 |---------|--------|
-| `/pr-comments` | Removed in v2.1.91 — ask Claude directly to view PR comments |
-| `/vim` | Removed in v2.1.92 — use /config → Editor mode |
+| `/pr-comments` | v2.1.91에서 제거됨 — PR 댓글을 보려면 Claude에게 직접 요청하십시오 |
+| `/vim` | v2.1.92에서 제거됨 — `/config` → 편집기 모드를 사용하십시오 |
 
-### Recent Changes
+### 최근 변경 사항
 
-- `/fork` and `/subtask` swapped roles in **v2.1.212**. `/fork` now copies the conversation into a new independent background session; the forked-subagent behavior it used to have moved to the new `/subtask` command. History: `/fork` was an alias for `/branch` from v2.1.77 to v2.1.161; from v2.1.161 to v2.1.211 it started a forked subagent (what `/subtask` does now). When agent view is turned off, `/subtask` is unavailable and `/fork` keeps the forked-subagent behavior
-- `/resume` (no arguments) opens a picker of past sessions — including ones removed from the visible list — and resumes the chosen one as a background session (v2.1.212)
-- `/resume` and `claude --resume` on a session that is running in the background open that session instead of refusing, and `claude --resume <id> "prompt"` sends the prompt as its next turn (v2.1.285)
-- `/output-style` was deprecated (v2.1.73) and removed (v2.1.91), then **re-added in v2.1.269** — it is a live command again in v2.1.278, and works in headless and Remote Control sessions. Output styles also remain available via `/config` → Output style or the `outputStyle` setting; the built-ins are Default, Proactive, Explanatory, Learning, and Concise (added in v2.1.237)
-- `/review` became a full alias of `/code-review` — same targets, effort levels, and flags (v2.1.223). History: it first moved onto the `/code-review medium` engine in v2.1.186 while remaining PR-only
-- `/effort` command added; `max` level available on Opus 4.6+ (originally Opus 4.6-only)
-- `/voice` command added for push-to-talk voice dictation
-- `/schedule` command added for creating/managing scheduled tasks
-- `/color` command added for prompt bar customization
-- /pr-comments removed in v2.1.91 — ask Claude directly to view PR comments
-- /vim removed in v2.1.92 — use /config → Editor mode instead
-- `/ultraplan` was removed in v2.1.222 — use plan mode instead
-- /powerup added for interactive feature lessons
-- /sandbox added for toggling sandbox mode
-- `/model` picker now shows human-readable labels (e.g., "Sonnet 4.6") instead of raw model IDs
-- `/resume` supports `/continue` alias
-- MCP prompts are available as `/mcp__<server>__<prompt>` commands (see [MCP Prompts as Commands](#mcp-prompts-as-commands))
-- `/team-onboarding` added for auto-generating teammate ramp-up guides (v2.1.101)
-- `/tui` command added for flicker-free fullscreen TUI rendering (v2.1.110)
-- `/focus` command added for focus view toggle; `Ctrl+O` now only toggles verbose transcript (v2.1.110)
-- `/recap` command added to manually trigger session context recap (v2.1.108)
-- `/undo` added as alias for `/rewind` (v2.1.108); it remains an alias of `/rewind`, alongside `/checkpoint`
-- `/proactive` added as alias for `/loop` (v2.1.105)
-- `/effort` gained interactive arrow-key slider and new `xhigh` level between `high` and `max`; default effort raised to `xhigh` for Opus 4.7 plans (v2.1.111). On Opus 4.8 the default is `high` (v2.1.154); Opus 5 also defaults to `high` (v2.1.219)
-- `/ultrareview` added for comprehensive cloud-based multi-agent code review (v2.1.111)
-- `/fewer-permission-prompts` added to analyze Bash/MCP tool calls and reduce permission prompts via an allowlist in `.claude/settings.json` (v2.1.111)
-- Auto mode no longer requires the `--enable-auto-mode` flag for Max subscribers on Opus 4.7 (v2.1.112)
-- `/goal` added — session-level completion condition that Claude works toward across turns; live overlay shows elapsed time, turn count, and token usage (v2.1.139)
-- `/scroll-speed` added — tune mouse-wheel scroll speed of the TUI live-preview pane; persists per-machine (v2.1.139)
-- `/reload-skills` added — re-scan skill directories without restarting the session (v2.1.152)
-- `/model` now saves the selected model as the default for new sessions; press `s` for session-only (keybinding `modelPicker:setAsDefault` → `modelPicker:thisSessionOnly`) (v2.1.153)
-- `/workflows` added — view running and completed dynamic workflow runs (v2.1.154)
-- `/simplify` returned as a distinct cleanup-only review command (reuse / simplification / efficiency / altitude), separate from `/code-review`'s bug hunt (v2.1.154)
-- `/status` gained a `Session kind` row distinguishing attached and unattended background jobs from interactive sessions (v2.1.221)
-- Plugin installs now activate immediately when it is safe to do so; `/reload-plugins` is only needed when the install summary asks for it (v2.1.221)
-- `/ultraplan` removed — use plan mode (v2.1.222)
-- `/code-review` and `/review` remember the last effort level you typed when you omit one (v2.1.223)
-- `/code-review ultra` became the preferred entry point for cloud multi-agent review; `/ultrareview` stays as an alias (v2.1.223)
-- `/code-review` at `high`, `xhigh`, and `max` effort now runs in a background agent like the other levels (v2.1.232)
-- The startup tip suggesting you create custom subagents, and the matching nudge in the `/powerup` tour, were removed (v2.1.232)
-- `/permissions` can now be opened while Claude is working — rule changes apply to the rest of the current turn (v2.1.234)
-- `/add-dir <path>` can now be used while Claude is working; the `/add-dir`, `/autocompact`, `/theme`, `/help`, `/config`, and `/advisor` dialogs open mid-turn **in the fullscreen TUI**, instead of queuing until Claude finishes responding (`/bug` already opened immediately, since v2.1.232) (v2.1.234)
+- `/fork`와 `/subtask`의 역할이 **v2.1.212**에서 서로 바뀌었습니다. `/fork`는 이제 대화를 독립적인 새 백그라운드 세션으로 복사하며, 기존의 포크된 서브에이전트 동작은 새 `/subtask` 명령어로 옮겨졌습니다. 이력: `/fork`는 v2.1.77부터 v2.1.161까지 `/branch`의 별칭이었고, v2.1.161부터 v2.1.211까지는 포크된 서브에이전트를 시작했습니다(현재 `/subtask`의 동작). 에이전트 뷰가 꺼져 있으면 `/subtask`를 사용할 수 없으며 `/fork`가 포크된 서브에이전트 동작을 유지합니다
+- 인자 없는 `/resume`은 지난 세션 선택기를 열고 — 표시 목록에서 제거된 세션 포함 — 선택한 세션을 백그라운드 세션으로 재개합니다 (v2.1.212)
+- 백그라운드에서 실행 중인 세션에 `/resume`이나 `claude --resume`을 사용하면 거부하지 않고 해당 세션을 열며, `claude --resume <id> "prompt"`는 프롬프트를 다음 턴으로 보냅니다 (v2.1.285)
+- `/output-style`은 지원 중단(v2.1.73)되고 제거(v2.1.91)되었다가 **v2.1.269에서 다시 추가**되었습니다 — v2.1.278에서 다시 사용 가능한 명령어이며, 헤드리스 및 원격 제어 세션에서도 작동합니다. 출력 스타일은 `/config` → Output style 또는 `outputStyle` 설정으로도 사용할 수 있으며, 내장 스타일은 Default, Proactive, Explanatory, Learning, Concise입니다 (v2.1.237에 추가)
+- `/review`가 `/code-review`의 완전한 별칭이 되었습니다 — 동일한 대상, 노력 수준, 플래그 (v2.1.223). 이력: v2.1.186에서 처음 `/code-review medium` 엔진으로 옮겨졌으나 PR 전용으로 유지되었습니다
+- `/effort` 명령어가 추가되었습니다. `max` 수준은 Opus 4.6+에서 사용할 수 있습니다 (원래 Opus 4.6 전용)
+- 눌러서 말하기 음성 받아쓰기를 위한 `/voice` 명령어가 추가되었습니다
+- 예약 작업 생성/관리를 위한 `/schedule` 명령어가 추가되었습니다
+- 프롬프트 바 사용자 정의를 위한 `/color` 명령어가 추가되었습니다
+- `/pr-comments`가 v2.1.91에서 제거됨 — PR 댓글을 보려면 Claude에게 직접 요청하십시오
+- `/vim`이 v2.1.92에서 제거됨 — 대신 `/config` → 편집기 모드를 사용하십시오
+- `/ultraplan`이 v2.1.222에서 제거되었습니다 — 대신 계획 모드를 사용하십시오
+- 대화형 기능 레슨을 위한 `/powerup`이 추가되었습니다
+- 샌드박스 모드 전환을 위한 `/sandbox`가 추가되었습니다
+- `/model` 선택기는 이제 원시 모델 ID 대신 사람이 읽을 수 있는 레이블(예: "Sonnet 4.6")을 표시합니다
+- `/resume`은 `/continue` 별칭을 지원합니다
+- MCP 프롬프트는 `/mcp__<server>__<prompt>` 명령어로 사용할 수 있습니다 ([MCP 프롬프트를 명령어로](#mcp-프롬프트를-명령어로) 참조)
+- 팀원 온보딩 가이드를 자동 생성하는 `/team-onboarding`이 추가되었습니다 (v2.1.101)
+- 깜박임 없는 전체 화면 TUI 렌더링을 위한 `/tui` 명령어가 추가되었습니다 (v2.1.110)
+- 포커스 뷰 전환을 위한 `/focus` 명령어가 추가되었습니다. `Ctrl+O`는 이제 자세한 대화록만 전환합니다 (v2.1.110)
+- 세션 컨텍스트 요약을 수동으로 트리거하는 `/recap` 명령어가 추가되었습니다 (v2.1.108)
+- `/undo`가 `/rewind`의 별칭으로 추가되었습니다 (v2.1.108). `/checkpoint`와 함께 여전히 `/rewind`의 별칭입니다
+- `/proactive`가 `/loop`의 별칭으로 추가되었습니다 (v2.1.105)
+- `/effort`에 대화형 화살표 키 슬라이더와 `high`와 `max` 사이의 새 `xhigh` 수준이 추가되었습니다. Opus 4.7 플랜의 기본 노력 수준은 `xhigh`로 상향되었습니다 (v2.1.111). Opus 4.8의 기본값은 `high`이며 (v2.1.154), Opus 5도 기본값이 `high`입니다 (v2.1.219)
+- 포괄적인 클라우드 기반 다중 에이전트 코드 리뷰를 위한 `/ultrareview`가 추가되었습니다 (v2.1.111)
+- Bash/MCP 도구 호출을 분석하고 `.claude/settings.json`의 허용 목록으로 권한 프롬프트를 줄이는 `/fewer-permission-prompts`가 추가되었습니다 (v2.1.111)
+- Opus 4.7의 Max 구독자는 자동 모드에 더 이상 `--enable-auto-mode` 플래그가 필요하지 않습니다 (v2.1.112)
+- `/goal` 추가 — Claude가 여러 턴에 걸쳐 달성하려는 세션 수준 완료 조건. 라이브 오버레이에 경과 시간, 턴 수, 토큰 사용량이 표시됩니다 (v2.1.139)
+- `/scroll-speed` 추가 — TUI 라이브 미리보기 창의 마우스 휠 스크롤 속도를 조정하며, 머신별로 유지됩니다 (v2.1.139)
+- `/reload-skills` 추가 — 세션을 다시 시작하지 않고 스킬 디렉터리를 다시 스캔합니다 (v2.1.152)
+- `/model`은 이제 선택한 모델을 새 세션의 기본값으로 저장합니다. 세션 전용으로 적용하려면 `s`를 누르십시오 (키 바인딩 `modelPicker:setAsDefault` → `modelPicker:thisSessionOnly`) (v2.1.153)
+- `/workflows` 추가 — 실행 중이거나 완료된 동적 워크플로 실행을 봅니다 (v2.1.154)
+- `/simplify`가 `/code-review`의 버그 찾기와 별개인 정리 전용 검토 명령어(재사용 / 단순화 / 효율성 / 추상화 수준)로 돌아왔습니다 (v2.1.154)
+- `/status`에 연결된(attached) 백그라운드 작업, 무인(unattended) 백그라운드 작업, 대화형 세션을 구분하는 `Session kind` 행이 추가되었습니다 (v2.1.221)
+- 플러그인 설치가 안전한 경우 즉시 활성화됩니다. `/reload-plugins`는 설치 요약에서 요청할 때만 필요합니다 (v2.1.221)
+- `/ultraplan` 제거 — 계획 모드를 사용하십시오 (v2.1.222)
+- `/code-review`와 `/review`는 노력 수준을 생략하면 마지막으로 입력한 수준을 기억합니다 (v2.1.223)
+- `/code-review ultra`가 클라우드 다중 에이전트 리뷰의 권장 진입점이 되었으며, `/ultrareview`는 별칭으로 유지됩니다 (v2.1.223)
+- `high`, `xhigh`, `max` 노력 수준의 `/code-review`도 이제 다른 수준처럼 백그라운드 에이전트에서 실행됩니다 (v2.1.232)
+- 사용자 정의 서브에이전트 생성을 제안하던 시작 팁과 `/powerup` 투어의 해당 안내가 제거되었습니다 (v2.1.232)
+- `/permissions`를 이제 Claude가 작업 중일 때도 열 수 있으며, 규칙 변경은 현재 턴의 나머지 부분에 적용됩니다 (v2.1.234)
+- `/add-dir <path>`를 이제 Claude가 작업 중일 때도 사용할 수 있습니다. `/add-dir`, `/autocompact`, `/theme`, `/help`, `/config`, `/advisor` 대화 상자는 **전체 화면 TUI에서** Claude가 응답을 마칠 때까지 대기하지 않고 턴 도중에 열립니다 (`/bug`는 v2.1.232부터 이미 즉시 열렸음) (v2.1.234)
 
-### `/goal` — Session-Level Completion Condition
+### `/goal` — 세션 수준 완료 조건
 
-> **New in v2.1.139**
+> **v2.1.139에 새로 추가**
 
-Use `/goal` to register a completion condition for the current session. Claude works toward it across turns, and an overlay panel shows elapsed time, turn count, and tokens used. Clear it with `/goal clear`. Works in interactive mode, `claude -p`, and Remote Control.
+`/goal`을 사용하여 현재 세션의 완료 조건을 등록하십시오. Claude는 여러 턴에 걸쳐 이를 달성하기 위해 작업하며, 오버레이 패널에 경과 시간, 턴 수, 사용된 토큰이 표시됩니다. `/goal clear`로 지울 수 있습니다. 대화형 모드, `claude -p`, 원격 제어에서 작동합니다.
 
 ```
 User: /goal Migrate the payments service from REST to gRPC and get the integration tests passing.
@@ -192,74 +196,74 @@ User: start by listing the REST endpoints
 Claude: [does the work, panel updates]
 ```
 
-**Check-in on stalled background tasks (v2.1.234):** while a goal is active, if a background task makes no progress for 30+ minutes, Claude checks in with a status update instead of silently continuing. Tune the threshold (in minutes) with the `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` environment variable, or set it to `0` to disable check-ins entirely.
+**정체된 백그라운드 작업 확인 (v2.1.234):** 목표가 활성화된 동안 백그라운드 작업이 30분 이상 진행되지 않으면, Claude는 조용히 계속하는 대신 상태 업데이트로 확인합니다. 임계값(분 단위)은 `CLAUDE_CODE_GOAL_CHECKIN_MINUTES` 환경 변수로 조정하거나, `0`으로 설정하여 확인을 완전히 비활성화할 수 있습니다.
 
-### `/team-onboarding` — Teammate Ramp-Up Guide
+### `/team-onboarding` — 팀원 온보딩 가이드
 
-> **New in v2.1.101**
+> **v2.1.101에 새로 추가**
 
-Use `/team-onboarding` to generate a teammate ramp-up guide from your project's local Claude Code usage. Claude analyzes your sessions, commands, and MCP server usage from the past 30 days, then produces an onboarding guide that helps new developers become productive quickly. For claude.ai subscribers on Team and Enterprise plans, it also returns a share link teammates can open directly in Claude Code.
+`/team-onboarding`을 사용하여 프로젝트의 로컬 Claude Code 사용량에서 팀원 온보딩 가이드를 생성하십시오. Claude는 지난 30일간의 세션, 명령어, MCP 서버 사용량을 분석한 다음, 신규 개발자가 빠르게 생산성을 높일 수 있도록 돕는 온보딩 가이드를 생성합니다. Team 및 Enterprise 플랜의 claude.ai 구독자에게는 팀원이 Claude Code에서 바로 열 수 있는 공유 링크도 반환합니다.
 
-It's a built-in command — nothing to install.
+이것은 내장 명령어이므로 설치할 필요가 없습니다.
 
-**Usage:**
+**사용법:**
 
 ```bash
 claude /team-onboarding
 ```
 
-The generated guide draws on:
+생성된 가이드는 다음을 바탕으로 합니다:
 
-- Workflows that recur across your recent sessions
-- The commands you run most often
-- The [MCP servers](../05-mcp/README.md) you use
+- 최근 세션에서 반복되는 워크플로
+- 가장 자주 실행하는 명령어
+- 사용하는 [MCP 서버](../05-mcp/README.md)
 
-**Availability:** Shipped in Claude Code v2.1.101 (April 11, 2026).
+**가용성:** Claude Code v2.1.101 (2026년 4월 11일)에 출시되었습니다.
 
-## Custom Commands (Now Skills)
+## 사용자 정의 명령어 (이제 스킬)
 
-Custom slash commands have been **merged into skills**. Both approaches create commands you can invoke with `/command-name`:
+사용자 정의 슬래시 명령어는 **스킬로 통합**되었습니다. 두 가지 접근 방식 모두 `/command-name`으로 호출할 수 있는 명령어를 생성합니다:
 
-| Approach | Location | Status |
+| 접근 방식 | 위치 | 상태 |
 |----------|----------|--------|
-| **Skills (Recommended)** | `.claude/skills/<name>/SKILL.md` | Current standard |
-| **Legacy Commands** | `.claude/commands/<name>.md` | Still works |
+| **스킬 (권장)** | `.claude/skills/<name>/SKILL.md` | 현재 표준 |
+| **레거시 명령어** | `.claude/commands/<name>.md` | 여전히 작동 |
 
-If a skill and a command share the same name, the **skill takes precedence**. For example, when both `.claude/commands/review.md` and `.claude/skills/review/SKILL.md` exist, the skill version is used.
+스킬과 명령어가 같은 이름을 공유하는 경우, **스킬이 우선합니다**. 예를 들어, `.claude/commands/review.md`와 `.claude/skills/review/SKILL.md`가 모두 존재하는 경우, 스킬 버전이 사용됩니다.
 
-### Migration Path
+### 마이그레이션 경로
 
-Your existing `.claude/commands/` files continue to work without changes. To migrate to skills:
+기존 `.claude/commands/` 파일은 변경 없이 계속 작동합니다. 스킬로 마이그레이션하려면:
 
-**Before (Command):**
+**이전 (명령어):**
 ```
 .claude/commands/optimize.md
 ```
 
-**After (Skill):**
+**이후 (스킬):**
 ```
 .claude/skills/optimize/SKILL.md
 ```
 
-### Why Skills?
+### 왜 스킬인가?
 
-Skills offer additional features over legacy commands:
+스킬은 레거시 명령어에 비해 추가 기능을 제공합니다:
 
-- **Directory structure**: Bundle scripts, templates, and reference files
-- **Auto-invocation**: Claude can trigger skills automatically when relevant
-- **Invocation control**: Choose whether users, Claude, or both can invoke
-- **Subagent execution**: Run skills in isolated contexts with `context: fork`
-- **Progressive disclosure**: Load additional files only when needed
+- **디렉터리 구조**: 스크립트, 템플릿 및 참조 파일 번들
+- **자동 호출**: Claude는 관련성이 있을 때 스킬을 자동으로 트리거할 수 있습니다
+- **호출 제어**: 사용자, Claude 또는 둘 다 호출할 수 있는지 선택
+- **서브에이전트 실행**: `context: fork`로 격리된 컨텍스트에서 스킬 실행
+- **점진적 공개**: 필요할 때만 추가 파일 로드
 
-### Creating a Custom Command as a Skill
+### 스킬로 사용자 정의 명령어 생성하기
 
-Create a directory with a `SKILL.md` file:
+`SKILL.md` 파일이 있는 디렉터리를 생성하십시오:
 
 ```bash
 mkdir -p .claude/skills/my-command
 ```
 
-**File:** `.claude/skills/my-command/SKILL.md`
+**파일:** `.claude/skills/my-command/SKILL.md`
 
 ```yaml
 ---
@@ -276,26 +280,26 @@ Instructions for Claude to follow when this command is invoked.
 3. Third step
 ```
 
-### Frontmatter Reference
+### 프런트매터 참조
 
-| Field | Purpose | Default |
+| 필드 | 목적 | 기본값 |
 |-------|---------|---------|
-| `name` | Command name (becomes `/name`) | Directory name |
-| `description` | Brief description (helps Claude know when to use it) | First non-empty line |
-| `argument-hint` | Expected arguments for auto-completion | None |
-| `allowed-tools` | Tools the command can use without permission | Inherits |
-| `model` | Specific model to use | Inherits |
-| `disable-model-invocation` | If `true`, only user can invoke (not Claude) | `false` |
-| `user-invocable` | If `false`, hide from `/` menu | `true` |
-| `context` | Set to `fork` to run in isolated subagent | None |
-| `agent` | Agent type when using `context: fork` | `general-purpose` |
-| `hooks` | Hooks registered when the skill runs (any hook event; they stay active for the rest of the session) | None |
+| `name` | 명령어 이름 ( `/name`이 됨) | 디렉터리 이름 |
+| `description` | 간략한 설명 (Claude가 언제 사용해야 할지 아는 데 도움이 됨) | 비어 있지 않은 첫 줄 |
+| `argument-hint` | 자동 완성을 위한 예상 인수 | 없음 |
+| `allowed-tools` | 명령어가 권한 없이 사용할 수 있는 도구 | 상속됨 |
+| `model` | 사용할 특정 모델 | 상속됨 |
+| `disable-model-invocation` | `true`인 경우, 사용자만 호출할 수 있습니다 (Claude는 아님) | `false` |
+| `user-invocable` | `false`인 경우, `/` 메뉴에서 숨깁니다 | `true` |
+| `context` | `fork`로 설정하면 격리된 서브에이전트에서 실행됩니다 | 없음 |
+| `agent` | `context: fork`를 사용할 때의 에이전트 유형 | `general-purpose` |
+| `hooks` | 스킬이 실행될 때 등록되는 훅 (모든 훅 이벤트 사용 가능, 세션의 나머지 동안 활성 상태 유지) | 없음 |
 
-### Arguments
+### 인수
 
-Commands can receive arguments:
+명령어는 인수를 받을 수 있습니다:
 
-**All arguments with `$ARGUMENTS`:**
+**`$ARGUMENTS`를 사용한 모든 인수:**
 
 ```yaml
 ---
@@ -306,9 +310,9 @@ description: Fix a GitHub issue by number
 Fix issue #$ARGUMENTS following our coding standards
 ```
 
-Usage: `/fix-issue 123` → `$ARGUMENTS` becomes "123"
+사용법: `/fix-issue 123` → `$ARGUMENTS`가 "123"이 됩니다
 
-**Individual arguments with `$0`, `$1`, etc.:**
+**`$0`, `$1` 등을 사용한 개별 인수:**
 
 ```yaml
 ---
@@ -319,15 +323,15 @@ description: Review a PR with priority
 Review PR #$0 with priority $1
 ```
 
-Usage: `/review-pr 456 high` → `$0`="456", `$1`="high"
+사용법: `/review-pr 456 high` → `$0`="456", `$1`="high"
 
-`${CLAUDE_PROJECT_DIR}` resolves to the absolute path of the project root (v2.1.196).
+`${CLAUDE_PROJECT_DIR}`는 프로젝트 루트의 절대 경로로 해석됩니다 (v2.1.196).
 
-### Dynamic Context with Shell Commands
+### 셸 명령어를 통한 동적 컨텍스트
 
-Execute bash commands before the prompt using `` !`command` ``:
+`` !`command` ``를 사용하여 프롬프트 전에 bash 명령어를 실행하십시오:
 
-> **Note (v2.1.299)**: `UserPromptSubmit` hooks run before the command expands, so a hook that blocks the prompt also stops these `!` commands from running.
+> **참고 (v2.1.299)**: `UserPromptSubmit` 훅은 명령어가 확장되기 전에 실행되므로, 프롬프트를 차단하는 훅은 이러한 `!` 명령어의 실행도 막습니다.
 
 ```yaml
 ---
@@ -348,57 +352,57 @@ allowed-tools: Bash(git *)
 Based on the above changes, create a single git commit.
 ```
 
-### File References
+### 파일 참조
 
-Include file contents using `@`:
+`@`를 사용하여 파일 내용을 포함하십시오:
 
 ```markdown
 Review the implementation in @src/utils/helpers.js
 Compare @src/old-version.js with @src/new-version.js
 ```
 
-## Plugin Commands
+## 플러그인 명령어
 
-Plugins can provide custom commands:
+플러그인은 사용자 정의 명령어를 제공할 수 있습니다:
 
 ```
 /plugin-name:command-name
 ```
 
-Or simply `/command-name` when there are no naming conflicts.
+또는 이름 충돌이 없는 경우 단순히 `/command-name`입니다.
 
-**Examples:**
+**예시:**
 ```bash
 /frontend-design:frontend-design
 /commit-commands:commit
 ```
 
-## MCP Prompts as Commands
+## MCP 프롬프트를 명령어로
 
-MCP servers can expose prompts as slash commands:
+MCP 서버는 프롬프트를 슬래시 명령어로 노출할 수 있습니다:
 
 ```
 /mcp__<server-name>__<prompt-name> [arguments]
 ```
 
-**Examples:**
+**예시:**
 ```bash
 /mcp__github__list_prs
 /mcp__github__pr_review 456
 /mcp__jira__create_issue "Bug title" high
 ```
 
-### MCP Permission Syntax
+### MCP 권한 구문
 
-Control MCP server access in permissions:
+권한에서 MCP 서버 액세스를 제어합니다:
 
-- `mcp__github` - Access entire GitHub MCP server
-- `mcp__github__*` - Wildcard access to all tools
-- `mcp__github__get_issue` - Specific tool access
+- `mcp__github` - 전체 GitHub MCP 서버 액세스
+- `mcp__github__*` - 모든 도구에 대한 와일드카드 액세스
+- `mcp__github__get_issue` - 특정 도구 액세스
 
-> **v2.1.299+:** A rule reaches only the server it names — `mcp__github` no longer matches a server named `github__x` or `github_`. For a server whose normalized name contains `__`, write `mcp__<whole normalized name>__*` (the same applies to subagent `tools:` lists).
+> **v2.1.299+:** 규칙은 이름을 지정한 서버에만 적용됩니다 — `mcp__github`는 더 이상 `github__x`나 `github_`라는 이름의 서버와 일치하지 않습니다. 정규화된 이름에 `__`가 포함된 서버는 `mcp__<정규화된 전체 이름>__*`으로 작성하십시오 (서브에이전트 `tools:` 목록에도 동일하게 적용됩니다).
 
-## Command Architecture
+## 명령어 아키텍처
 
 ```mermaid
 graph TD
@@ -415,7 +419,7 @@ graph TD
     J --> K["Return Results"]
 ```
 
-## Command Lifecycle
+## 명령어 수명 주기
 
 ```mermaid
 sequenceDiagram
@@ -435,97 +439,97 @@ sequenceDiagram
     Claude->>User: Returns results
 ```
 
-## Available Commands in This Folder
+## 이 폴더에서 사용 가능한 명령어
 
-These example commands can be installed as skills or legacy commands.
+이 예시 명령어는 스킬 또는 레거시 명령어로 설치할 수 있습니다.
 
-### 1. `/optimize` - Code Optimization
+### 1. `/optimize` - 코드 최적화
 
-Analyzes code for performance issues, memory leaks, and optimization opportunities.
+성능 문제, 메모리 누수 및 최적화 기회를 위해 코드를 분석합니다.
 
-**Usage:**
+**사용법:**
 ```
 /optimize
 [Paste your code]
 ```
 
-### 2. `/pr` - Pull Request Preparation
+### 2. `/pr` - Pull Request 준비
 
-Guides through PR preparation checklist including linting, testing, and commit formatting.
+린팅, 테스트, 커밋 형식 지정을 포함한 PR 준비 체크리스트를 안내합니다.
 
-**Usage:**
+**사용법:**
 ```
 /pr
 ```
 
-**Screenshot:**
+**스크린샷:**
 ![/pr](pr-slash-command.png)
 
-### 3. `/generate-api-docs` - API Documentation Generator
+### 3. `/generate-api-docs` - API 문서 생성기
 
-Generates comprehensive API documentation from source code.
+소스 코드에서 포괄적인 API 문서를 생성합니다.
 
-**Usage:**
+**사용법:**
 ```
 /generate-api-docs
 ```
 
-### 4. `/commit` - Git Commit with Context
+### 4. `/commit` - 컨텍스트가 있는 Git 커밋
 
-Creates a git commit with dynamic context from your repository.
+저장소의 동적 컨텍스트를 사용하여 Git 커밋을 생성합니다.
 
-**Usage:**
+**사용법:**
 ```
 /commit [optional message]
 ```
 
-### 5. `/push-all` - Stage, Commit, and Push
+### 5. `/push-all` - 스테이지, 커밋 및 푸시
 
-Stages all changes, creates a commit, and pushes to remote with safety checks.
+모든 변경 사항을 스테이징하고, 커밋을 생성하며, 안전 검사를 통해 원격으로 푸시합니다.
 
-**Usage:**
+**사용법:**
 ```
 /push-all
 ```
 
-**Safety Checks:**
-- Secrets: `.env*`, `*.key`, `*.pem`, `credentials.json`
-- API Keys: Detects real keys vs. placeholders
-- Large files: `>10MB` without Git LFS
-- Build artifacts: `node_modules/`, `dist/`, `__pycache__/`
+**안전 검사:**
+- 시크릿: `.env*`, `*.key`, `*.pem`, `credentials.json`
+- API 키: 실제 키와 플레이스홀더 감지
+- 대용량 파일: Git LFS 없이 `>10MB`
+- 빌드 아티팩트: `node_modules/`, `dist/`, `__pycache__/`
 
-### 6. `/doc-refactor` - Documentation Restructuring
+### 6. `/doc-refactor` - 문서 재구성
 
-Restructures project documentation for clarity and accessibility.
+명확성과 접근성을 위해 프로젝트 문서를 재구성합니다.
 
-**Usage:**
+**사용법:**
 ```
 /doc-refactor
 ```
 
-### 7. `/setup-ci-cd` - CI/CD Pipeline Setup
+### 7. `/setup-ci-cd` - CI/CD 파이프라인 설정
 
-Implements pre-commit hooks and GitHub Actions for quality assurance.
+품질 보증을 위해 Pre-commit Hook 및 GitHub Actions를 구현합니다.
 
-**Usage:**
+**사용법:**
 ```
 /setup-ci-cd
 ```
 
-### 8. `/unit-test-expand` - Test Coverage Expansion
+### 8. `/unit-test-expand` - 테스트 커버리지 확장
 
-Increases test coverage by targeting untested branches and edge cases.
+테스트되지 않은 분기 및 엣지 케이스를 대상으로 하여 테스트 커버리지를 증가시킵니다.
 
-**Usage:**
+**사용법:**
 ```
 /unit-test-expand
 ```
 
-## Installation
+## 설치
 
-### As Skills (Recommended)
+### 스킬로 (권장)
 
-Copy to your skills directory:
+스킬 디렉터리에 복사합니다:
 
 ```bash
 # Create skills directory
@@ -538,9 +542,9 @@ for cmd in optimize pr commit; do
 done
 ```
 
-### As Legacy Commands
+### 레거시 명령어로
 
-Copy to your commands directory:
+명령어 디렉터리에 복사합니다:
 
 ```bash
 # Project-wide (team)
@@ -552,11 +556,11 @@ mkdir -p ~/.claude/commands
 cp 01-slash-commands/*.md ~/.claude/commands/ && rm ~/.claude/commands/README.md
 ```
 
-## Creating Your Own Commands
+## 나만의 명령어 생성
 
-### Skill Template (Recommended)
+### 스킬 템플릿 (권장)
 
-Create `.claude/skills/my-command/SKILL.md`:
+`.claude/skills/my-command/SKILL.md`를 생성하십시오:
 
 ```yaml
 ---
@@ -585,9 +589,9 @@ allowed-tools: Bash(npm *), Read, Grep
 - What to include
 ```
 
-### User-Only Command (No Auto-Invocation)
+### 사용자 전용 명령어 (자동 호출 없음)
 
-For commands with side effects that Claude shouldn't trigger automatically:
+Claude가 자동으로 트리거해서는 안 되는 부작용이 있는 명령어의 경우:
 
 ```yaml
 ---
@@ -605,58 +609,58 @@ Deploy the application to production:
 4. Verify deployment
 ```
 
-## Best Practices
+## 모범 사례
 
-| Do | Don't |
+| 권장 사항 | 비권장 사항 |
 |------|---------|
-| Use clear, action-oriented names | Create commands for one-time tasks |
-| Include `description` with trigger conditions | Build complex logic in commands |
-| Keep commands focused on single task | Hardcode sensitive information |
-| Use `disable-model-invocation` for side effects | Skip the description field |
-| Use `!` prefix for dynamic context | Assume Claude knows current state |
-| Organize related files in skill directories | Put everything in one file |
+| 명확하고 행동 지향적인 이름을 사용하십시오 | 일회성 작업을 위한 명령어를 생성하십시오 |
+| 트리거 조건이 있는 `description`을 포함하십시오 | 명령어에 복잡한 논리를 구축하십시오 |
+| 명령어를 단일 작업에 집중하십시오 | 민감한 정보를 하드코딩하십시오 |
+| 부작용이 있는 경우 `disable-model-invocation`을 사용하십시오 | 설명 필드를 건너뛰십시오 |
+| 동적 컨텍스트에 `!` 접두사를 사용하십시오 | Claude가 현재 상태를 안다고 가정하십시오 |
+| 관련 파일을 스킬 디렉터리에 정리하십시오 | 모든 것을 하나의 파일에 넣으십시오 |
 
-## Troubleshooting
+## 문제 해결
 
-### Command Not Found
+### 명령어를 찾을 수 없음
 
-**Solutions:**
-- Check file is in `.claude/skills/<name>/SKILL.md` or `.claude/commands/<name>.md`
-- Verify the `name` field in frontmatter matches expected command name
-- Restart Claude Code session
-- Run `/help` to see available commands
+**해결책:**
+- 파일이 `.claude/skills/<name>/SKILL.md` 또는 `.claude/commands/<name>.md`에 있는지 확인하십시오
+- 프런트매터의 `name` 필드가 예상 명령어 이름과 일치하는지 확인하십시오
+- Claude Code 세션을 다시 시작하십시오
+- `/help`를 실행하여 사용 가능한 명령어를 확인하십시오
 
-### Command Not Executing as Expected
+### 명령어가 예상대로 실행되지 않음
 
-**Solutions:**
-- Add more specific instructions
-- Include examples in the skill file
-- Check `allowed-tools` if using bash commands
-- Test with simple inputs first
+**해결책:**
+- 더 구체적인 지침을 추가하십시오
+- 스킬 파일에 예시를 포함하십시오
+- bash 명령어를 사용하는 경우 `allowed-tools`를 확인하십시오
+- 먼저 간단한 입력으로 테스트하십시오
 
-### Skill vs Command Conflict
+### 스킬과 명령어 충돌
 
-If both exist with the same name, the **skill takes precedence**. Remove one or rename it.
+같은 이름의 스킬과 명령어가 모두 존재하는 경우, **스킬이 우선합니다**. 둘 중 하나를 제거하거나 이름을 변경하십시오.
 
-## Related Guides
+## 관련 가이드
 
-- **[Skills](../03-skills/)** - Full reference for skills (auto-invoked capabilities)
-- **[Memory](../02-memory/)** - Persistent context with CLAUDE.md
-- **[Subagents](../04-subagents/)** - Delegated AI agents
-- **[Plugins](../07-plugins/)** - Bundled command collections
-- **[Hooks](../06-hooks/)** - Event-driven automation
+- **[스킬](../03-skills/)** - 스킬(자동 호출 가능한 기능)에 대한 전체 참조
+- **[메모리](../02-memory/)** - CLAUDE.md를 사용한 영구 컨텍스트
+- **[서브에이전트](../04-subagents/)** - 위임된 AI 에이전트
+- **[플러그인](../07-plugins/)** - 번들 명령어 컬렉션
+- **[훅](../06-hooks/)** - 이벤트 기반 자동화
 
-## Additional Resources
+## 추가 자료
 
-- [Official Interactive Mode Documentation](https://code.claude.com/docs/en/interactive-mode) - Built-in commands reference
-- [Official Skills Documentation](https://code.claude.com/docs/en/skills) - Complete skills reference
-- [CLI Reference](https://code.claude.com/docs/en/cli-reference) - Command-line options
+- [공식 대화형 모드 문서](https://code.claude.com/docs/en/interactive-mode) - 내장 명령어 참조
+- [공식 스킬 문서](https://code.claude.com/docs/en/skills) - 완전한 스킬 참조
+- [CLI 참조](https://code.claude.com/docs/en/cli-reference) - 명령줄 옵션
 
 ---
 
-**Last Updated**: October 26, 2026
-**Claude Code Version**: 2.1.310
-**Sources**:
+**최종 업데이트**: 2026년 10월 26일
+**Claude Code 버전**: 2.1.310
+**출처**:
 - https://code.claude.com/docs/en/output-styles
 - https://code.claude.com/docs/en/skills
 - https://code.claude.com/docs/en/slash-commands
@@ -694,6 +698,6 @@ If both exist with the same name, the **skill takes precedence**. Remove one or 
 - https://code.claude.com/docs/en/routines#where-the-name-routines-still-appears
 - https://code.claude.com/docs/en/artifacts#find-an-artifact-again
 - https://code.claude.com/docs/en/auto-mode-config#generate-environment-entries-with-auto-mode-setup
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
 
-*Part of the [Claude How To](../) guide series*
+*[Claude How To](../) 가이드 시리즈의 일부입니다*

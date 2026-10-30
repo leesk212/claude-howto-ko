@@ -1,36 +1,41 @@
 ---
 name: doc-generator
-description: Generate comprehensive, accurate API documentation from source code. Use when creating or updating API documentation, generating OpenAPI specs, or when users mention API docs, endpoints, or documentation.
+description: 소스 코드로부터 포괄적이고 정확한 API 문서를 생성합니다. API 문서를 생성하거나 업데이트할 때, OpenAPI 사양을 생성할 때, 또는 사용자가 API 문서, 엔드포인트, 문서를 언급할 때 사용합니다.
 ---
+<!-- i18n-source: 03-skills/doc-generator/SKILL.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-# API Documentation Generator Skill
+# API 문서 생성기 기능
 
-## Generates
+## 생성 항목
 
-- OpenAPI/Swagger specifications
-- API endpoint documentation
-- SDK usage examples
-- Integration guides
-- Error code references
-- Authentication guides
+- OpenAPI/Swagger 사양
+- API 엔드포인트 문서
+- SDK 사용 예제
+- 통합 가이드
+- 오류 코드 참조
+- 인증 가이드
 
-## Documentation Structure
 
-### For Each Endpoint
+## 문서 구조
+
+### 각 엔드포인트별
+
 
 ````markdown
 ## GET /api/v1/users/:id
 
-### Description
-Brief explanation of what this endpoint does
+### 설명
+이 엔드포인트가 수행하는 작업에 대한 간단한 설명
 
-### Parameters
+### 매개변수
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | id | string | Yes | User ID |
 
-### Response
+### 응답
 
 **200 Success**
 ```json
@@ -50,7 +55,7 @@ Brief explanation of what this endpoint does
 }
 ```
 
-### Examples
+### 예제
 
 **cURL**
 ```bash
@@ -77,8 +82,8 @@ user = response.json()
 
 ---
 
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/skills
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

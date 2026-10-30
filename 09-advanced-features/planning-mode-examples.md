@@ -1,542 +1,547 @@
-# Planning Mode Examples
+<!-- i18n-source: 09-advanced-features/planning-mode-examples.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-Real-world examples demonstrating effective use of planning mode in Claude Code.
+# 계획 모드 예제(Planning Mode Examples)
 
-## Example 1: Building a REST API
+Claude Code에서 계획 모드를 효과적으로 사용하는 실제 예제입니다.
 
-### Without Planning Mode
+## 예제 1: REST API 구축
 
-```
-User: Build a REST API for a blog
-
-Claude: I'll create the API...
-[Starts coding immediately, may miss requirements]
-```
-
-### With Planning Mode
+### 계획 모드 없이
 
 ```
-User: /plan Build a REST API for a blog
+User: 블로그용 REST API 만들어줘
 
-Claude: Let me create a comprehensive plan for the blog API.
+Claude: API를 생성하겠습니다...
+[즉시 코딩 시작, 요구사항 일부 누락 가능]
+```
 
-## Blog REST API Implementation Plan
+### 계획 모드 사용
 
-### Phase 1: Project Setup (15 min)
-1. Initialize Node.js project with Express
-2. Set up TypeScript configuration
-3. Install dependencies (express, pg, jwt, joi)
-4. Configure environment variables
-5. Set up project structure
+```
+User: /plan 블로그용 REST API 만들어줘
 
-### Phase 2: Database Layer (30 min)
-6. Design database schema
-   - users table (id, email, password_hash, created_at)
-   - posts table (id, user_id, title, content, published, created_at, updated_at)
-   - comments table (id, post_id, user_id, content, created_at)
-7. Create migration files
-8. Set up database connection pool
-9. Implement database models
+Claude: 블로그 API에 대한 전체 계획을 작성하겠습니다.
 
-### Phase 3: Authentication (45 min)
-10. Implement user registration endpoint
-11. Implement login endpoint with JWT
-12. Create authentication middleware
-13. Add password hashing with bcrypt
-14. Implement token refresh logic
+## 블로그 REST API 구현 계획
 
-### Phase 4: Posts API (40 min)
-15. GET /api/posts - List all published posts (with pagination)
-16. GET /api/posts/:id - Get single post
-17. POST /api/posts - Create new post (auth required)
-18. PUT /api/posts/:id - Update post (auth required, ownership check)
-19. DELETE /api/posts/:id - Delete post (auth required, ownership check)
-20. GET /api/users/:id/posts - Get user's posts
+### 1단계: 프로젝트 설정 (15분)
+1. Node.js + Express 프로젝트 초기화
+2. TypeScript 설정 구성
+3. 의존성 설치 (express, pg, jwt, joi)
+4. 환경 변수 설정
+5. 프로젝트 구조 구성
 
-### Phase 5: Comments API (30 min)
-21. GET /api/posts/:id/comments - Get post comments
-22. POST /api/posts/:id/comments - Add comment (auth required)
-23. DELETE /api/comments/:id - Delete comment (auth required, ownership check)
+### 2단계: 데이터베이스 계층 (30분)
+6. DB 스키마 설계
+   - users 테이블 (id, email, password_hash, created_at)
+   - posts 테이블 (id, user_id, title, content, published, created_at, updated_at)
+   - comments 테이블 (id, post_id, user_id, content, created_at)
+7. 마이그레이션 파일 생성
+8. DB 연결 풀 구성
+9. 모델 구현
 
-### Phase 6: Validation & Error Handling (30 min)
-24. Add request validation with Joi
-25. Implement global error handler
-26. Add input sanitization
-27. Implement rate limiting
+### 3단계: 인증 (45분)
+10. 회원가입 API
+11. 로그인 API (JWT)
+12. 인증 미들웨어
+13. bcrypt 비밀번호 해싱
+14. 토큰 갱신 로직
 
-### Phase 7: Testing (60 min)
-28. Write unit tests for models
-29. Write integration tests for auth endpoints
-30. Write integration tests for posts endpoints
-31. Write integration tests for comments endpoints
-32. Achieve 80%+ code coverage
+### 4단계: 게시글 API (40분)
+15. GET /api/posts (페이지네이션)
+16. GET /api/posts/:id
+17. POST /api/posts (인증 필요)
+18. PUT /api/posts/:id (권한 체크)
+19. DELETE /api/posts/:id
+20. GET /api/users/:id/posts
 
-### Phase 8: Documentation & Deployment (30 min)
-33. Generate API documentation with Swagger
-34. Create README with setup instructions
-35. Add Docker configuration
-36. Set up CI/CD pipeline
+### 5단계: 댓글 API (30분)
+21. 댓글 조회
+22. 댓글 생성
+23. 댓글 삭제
 
-**Estimated Time**: 4.5 hours
-**Files to Create**: ~25
-**Key Technologies**: Express, PostgreSQL, JWT, TypeScript
+### 6단계: 검증 및 에러 처리 (30분)
+24. Joi 검증
+25. 글로벌 에러 핸들러
+26. 입력 sanitization
+27. rate limiting
 
-**API Endpoints Summary**:
-- Authentication: 2 endpoints
-- Posts: 6 endpoints
-- Comments: 3 endpoints
-- Total: 11 endpoints
+### 7단계: 테스트 (60분)
+28. 단위 테스트
+29. 통합 테스트 (auth)
+30. 통합 테스트 (posts)
+31. 통합 테스트 (comments)
+32. 테스트 커버리지 80%+
 
-Ready to proceed? (yes/no/modify)
+### 8단계: 문서 및 배포 (30분)
+33. Swagger 문서 생성
+34. README 작성
+35. Docker 설정
+36. CI/CD 구성
+
+**예상 시간**: 4.5시간
+**생성 파일 수**: 약 25개
+**핵심 기술**: Express, PostgreSQL, JWT, TypeScript
+
+**API 요약**:
+- 인증: 2개
+- 게시글: 6개
+- 댓글: 3개
+- 총 11개 엔드포인트
+
+이대로 진행할까요? (yes/no/modify)
 
 User: yes
 
-Claude: Starting Phase 1: Project Setup...
-[Implements each phase systematically]
+Claude: Phase 1부터 순차적으로 진행합니다...
+[단계별로 구현 진행]
 ```
 
-## Example 2: Database Migration
+## 예제 2: 데이터베이스 마이그레이션
 
-### With Planning Mode
-
-```
-User: /plan Migrate from MongoDB to PostgreSQL
-
-Claude: This is a complex migration. Let me create a detailed plan.
-
-## MongoDB to PostgreSQL Migration Plan
-
-### Phase 1: Analysis & Preparation (Day 1)
-1. Analyze current MongoDB schema
-2. Identify data relationships and constraints
-3. Document current data volume and growth rate
-4. Design equivalent PostgreSQL schema
-5. Plan data type mappings
-6. Identify potential migration challenges
-
-### Phase 2: PostgreSQL Setup (Day 1)
-7. Set up PostgreSQL database
-8. Create schema with tables, indexes, constraints
-9. Set up connection pooling
-10. Configure backup strategy
-
-### Phase 3: Dual-Write Implementation (Day 2-3)
-11. Create database abstraction layer
-12. Implement dual-write to both databases
-13. Add data consistency checks
-14. Deploy dual-write to staging
-15. Monitor for issues
-
-### Phase 4: Data Migration (Day 4)
-16. Create data export scripts for MongoDB
-17. Create data import scripts for PostgreSQL
-18. Implement data transformation logic
-19. Run initial migration on copy of production data
-20. Validate migrated data integrity
-
-### Phase 5: Gradual Cutover (Day 5-7)
-21. Enable dual-write in production
-22. Migrate historical data in batches
-23. Continuously validate data consistency
-24. Monitor both databases
-25. Fix any data synchronization issues
-
-### Phase 6: PostgreSQL Primary (Day 8)
-26. Switch read operations to PostgreSQL
-27. Monitor query performance
-28. Optimize slow queries
-29. Continue dual-write for safety
-
-### Phase 7: MongoDB Retirement (Day 9-10)
-30. Stop writing to MongoDB
-31. Keep MongoDB as backup for 2 weeks
-32. Remove MongoDB dependencies from code
-33. Archive MongoDB data
-34. Decommission MongoDB instance
-
-**Estimated Time**: 10 days
-**Risk Level**: High
-**Rollback Strategy**: Keep MongoDB running with dual-write
-**Success Criteria**:
-- Zero data loss
-- <5% performance regression
-- All tests passing
-
-**Key Risks**:
-1. Data inconsistency during migration
-2. Query performance degradation
-3. Application downtime
-4. Data loss
-
-**Mitigation**:
-- Dual-write pattern for safety
-- Gradual cutover
-- Continuous monitoring
-- Quick rollback capability
-
-Proceed with this plan? (yes/no/modify)
-
-User: Modify - let's add a rollback plan for each phase
-
-Claude: Updated plan with rollback procedures for each phase...
-```
-
-## Example 3: Frontend Refactoring
+### 계획 모드 사용
 
 ```
-User: /plan Refactor our React app from class components to hooks
+User: /plan MongoDB에서 PostgreSQL로 마이그레이션
 
-Claude: I'll create a systematic refactoring plan.
+Claude: 복잡한 작업이므로 상세 계획을 수립하겠습니다.
 
-## React Class to Hooks Migration Plan
+## MongoDB → PostgreSQL 마이그레이션 계획
 
-### Phase 1: Preparation & Analysis (2 hours)
-1. Audit all class components (find all .jsx/.tsx files)
-2. Categorize by complexity:
-   - Simple (state only): ~15 components
-   - Medium (lifecycle methods): ~23 components
-   - Complex (multiple lifecycle, refs): ~8 components
-3. Identify third-party libraries that need updates
-4. Create component dependency graph
-5. Plan migration order (leaf nodes first)
+### 1단계: 분석 및 준비 (Day 1)
+1. 기존 MongoDB 스키마 분석
+2. 데이터 관계 및 구조 파악
+3. 데이터 규모 및 성장률 분석
+4. PostgreSQL 스키마 설계
+5. 데이터 타입 매핑 정의
+6. 마이그레이션 리스크 분석
 
-### Phase 2: Setup & Tooling (1 hour)
-6. Update React to v18+
-7. Set up ESLint rules for hooks
-8. Create conversion templates
-9. Set up automated tests
-10. Create checkpoint before starting
+### 2단계: PostgreSQL 구성 (Day 1)
+7. DB 설치 및 설정
+8. 테이블/인덱스/제약조건 생성
+9. 커넥션 풀 설정
+10. 백업 전략 구성
 
-### Phase 3: Migrate Simple Components (4 hours)
-11. Convert simple stateful components (15 components)
-12. Replace this.state with useState
-13. Replace this.setState with state setters
-14. Test each component after conversion
-15. Update tests
+### 3단계: Dual-write 구현 (Day 2~3)
+11. DB 추상화 계층 생성
+12. MongoDB + PostgreSQL 동시 쓰기
+13. 데이터 일관성 검증 로직
+14. 스테이징 환경 테스트
+15. 모니터링 구성
 
-### Phase 4: Migrate Medium Components (8 hours)
-16. Convert components with lifecycle methods (23 components)
-17. Replace componentDidMount with useEffect
-18. Replace componentDidUpdate with useEffect
-19. Replace componentWillUnmount with useEffect cleanup
-20. Test thoroughly
+### 4단계: 데이터 마이그레이션 (Day 4)
+16. MongoDB export 스크립트
+17. PostgreSQL import 스크립트
+18. 데이터 변환 로직
+19. 테스트 데이터 마이그레이션
+20. 무결성 검증
 
-### Phase 5: Migrate Complex Components (12 hours)
-21. Convert complex components (8 components)
-22. Replace refs with useRef
-23. Extract custom hooks for shared logic
-24. Handle edge cases (multiple useEffect)
-25. Extensive testing
+### 5단계: 점진적 전환 (Day 5~7)
+21. 프로덕션 dual-write 활성화
+22. 배치 단위 데이터 이동
+23. 실시간 일관성 체크
+24. 모니터링 강화
+25. 문제 발생 시 롤백 대응
 
-### Phase 6: Shared Logic Extraction (6 hours)
-26. Identify duplicated logic across components
-27. Create custom hooks:
-    - useAuth
-    - useFetch
-    - useLocalStorage
-    - useDebounce
-28. Refactor components to use custom hooks
-29. Test custom hooks independently
+### 6단계: PostgreSQL 전환 (Day 8)
+26. 읽기 트래픽 PostgreSQL 전환
+27. 성능 분석
+28. 쿼리 최적화
+29. MongoDB 유지 (안전장치)
 
-### Phase 7: Performance Optimization (4 hours)
-30. Add React.memo where needed
-31. Optimize with useCallback
-32. Optimize with useMemo
-33. Profile and fix performance regressions
+### 7단계: MongoDB 종료 (Day 9~10)
+30. MongoDB write 중단
+31. 2주간 백업 유지
+32. 코드 제거
+33. 데이터 아카이빙
+34. 인프라 제거
 
-### Phase 8: Cleanup & Documentation (2 hours)
-34. Remove unused class component utilities
-35. Update documentation
-36. Update coding guidelines
-37. Create migration guide for team
+**예상 기간**: 10일
+**위험도**: 높음
+**롤백 전략**: MongoDB 유지 + dual-write 유지
+**성공 기준**:
+- 데이터 손실 0건
+- 성능 저하 5% 미만
+- 모든 테스트 통과
 
-**Estimated Time**: 5 days (39 hours)
-**Files to Modify**: 46 components
-**Risk Level**: Medium
+**주요 리스크**
+- 데이터 불일치
+- 성능 저하
+- 다운타임
+- 데이터 손실
 
-**Migration Order**:
-1. Leaf components (no dependencies)
-2. Mid-level components
-3. Top-level container components
-4. App.jsx (last)
+**완화 전략**
+- Dual-write
+- 단계적 전환
+- 실시간 모니터링
+- 빠른 롤백
 
-**Testing Strategy**:
-- Unit tests for each component
-- Integration tests for user flows
-- Visual regression tests
-- Performance benchmarks
+이대로 진행할까요? (yes/no/modify)
 
-**Success Metrics**:
-- All tests passing
-- No visual regressions
-- Performance maintained or improved
-- Bundle size not significantly increased
+User: modify - 각 단계별 롤백 추가
 
-Proceed? (yes/no/modify)
+Claude: 각 단계별 롤백 포함하여 계획을 업데이트하겠습니다...
 ```
 
-## Example 4: Security Implementation
+## 예제 3: 프론트엔드 리팩터링
 
 ```
-User: /plan Implement comprehensive security for our web app
+User: /plan React 앱을 class component에서 hooks로 리팩터링해줘
 
-Claude: Let me create a thorough security implementation plan.
+Claude: 체계적인 리팩터링 계획을 수립하겠습니다.
 
-## Web Application Security Implementation Plan
+## React Class → Hooks 마이그레이션 계획
 
-### Phase 1: Security Audit (Day 1)
-1. Run automated security scanners (npm audit, Snyk)
-2. Review dependencies for vulnerabilities
-3. Check OWASP Top 10 compliance
-4. Audit authentication flows
-5. Review data handling practices
-6. Document current security gaps
+### 1단계: 준비 및 분석 (2시간)
+1. 모든 class component 감사 (전체 .jsx/.tsx 파일 탐색)
+2. 복잡도 기준 분류:
+   - 단순 (state만 사용): 약 15개 컴포넌트
+   - 중간 (lifecycle 포함): 약 23개 컴포넌트
+   - 복잡 (여러 lifecycle + refs): 약 8개 컴포넌트
+3. 외부 라이브러리 의존성 확인
+4. 컴포넌트 의존성 그래프 생성
+5. 마이그레이션 순서 결정 (leaf node 우선)
 
-### Phase 2: Authentication Hardening (Day 2-3)
-7. Implement strong password requirements
-8. Add password strength meter
-9. Implement rate limiting on login
-10. Add account lockout after failed attempts
-11. Implement 2FA (TOTP)
-12. Add session management improvements
-13. Implement secure password reset flow
+### 2단계: 환경 설정 (1시간)
+6. React v18+ 업그레이드
+7. ESLint hooks 규칙 적용
+8. 변환 템플릿 생성
+9. 테스트 환경 구성
+10. 시작 전 체크포인트 생성
 
-### Phase 3: Authorization & Access Control (Day 3-4)
-14. Implement RBAC (Role-Based Access Control)
-15. Add permission checks on all endpoints
-16. Implement principle of least privilege
-17. Add audit logging for sensitive operations
-18. Implement resource-level permissions
+### 3단계: 단순 컴포넌트 마이그레이션 (4시간)
+11. 단순 state 컴포넌트 변환 (15개)
+12. this.state → useState 변경
+13. this.setState → setter 함수 변경
+14. 각 컴포넌트 테스트
+15. 테스트 코드 업데이트
 
-### Phase 4: Data Protection (Day 4-5)
-19. Implement encryption at rest (sensitive fields)
-20. Ensure TLS/SSL for all communications
-21. Implement secure session storage
-22. Add PII data masking in logs
-23. Implement data retention policies
-24. Add secure file upload handling
+### 4단계: 중간 컴포넌트 마이그레이션 (8시간)
+16. lifecycle 포함 컴포넌트 변환 (23개)
+17. componentDidMount → useEffect
+18. componentDidUpdate → useEffect
+19. componentWillUnmount → cleanup 함수
+20. 전체 테스트 수행
 
-### Phase 5: Input Validation & Sanitization (Day 5-6)
-25. Implement input validation on all endpoints
-26. Add XSS protection (Content Security Policy)
-27. Implement SQL injection prevention (parameterized queries)
-28. Add CSRF protection
-29. Implement request size limits
-30. Add file upload type validation
+### 5단계: 복잡 컴포넌트 마이그레이션 (12시간)
+21. 복잡 컴포넌트 변환 (8개)
+22. useRef 적용
+23. 공통 로직 custom hook으로 분리
+24. edge case 처리
+25. 집중 테스트
 
-### Phase 6: Security Headers & Configuration (Day 6)
-31. Add security headers:
-    - Strict-Transport-Security
-    - X-Content-Type-Options
-    - X-Frame-Options
-    - X-XSS-Protection
-    - Content-Security-Policy
-32. Configure CORS properly
-33. Disable unnecessary HTTP methods
-34. Remove server version headers
+### 6단계: 공통 로직 추출 (6시간)
+26. 중복 로직 분석
+27. custom hooks 생성:
+   - useAuth
+   - useFetch
+   - useLocalStorage
+   - useDebounce
+28. 컴포넌트 리팩터링
+29. hook 단위 테스트
 
-### Phase 7: Monitoring & Logging (Day 7)
-35. Implement security event logging
-36. Add anomaly detection
-37. Set up intrusion detection
-38. Implement real-time alerting
-39. Create security dashboard
+### 7단계: 성능 최적화 (4시간)
+30. React.memo 적용
+31. useCallback 최적화
+32. useMemo 적용
+33. 성능 프로파일링 및 개선
 
-### Phase 8: Testing & Documentation (Day 8-9)
-40. Perform penetration testing
-41. Run security scanners
-42. Test all security features
-43. Create security documentation
-44. Train team on security practices
-45. Create incident response plan
+### 8단계: 정리 및 문서화 (2시간)
+34. 불필요한 class 유틸 제거
+35. 문서 업데이트
+36. 코딩 가이드 수정
+37. 마이그레이션 가이드 작성
 
-### Phase 9: Compliance & Policies (Day 10)
-46. GDPR compliance check
-47. Create privacy policy
-48. Implement data subject rights
-49. Add cookie consent
-50. Create security policies documentation
+**예상 시간**: 5일 (39시간)
+**수정 파일 수**: 46개 컴포넌트
+**리스크 수준**: 중간
 
-**Estimated Time**: 10 days
-**Risk Level**: Critical
-**Priority**: High
+**마이그레이션 순서**
+1. 의존성 없는 leaf 컴포넌트
+2. 중간 레벨 컴포넌트
+3. 상위 container 컴포넌트
+4. App.jsx (마지막)
 
-**Security Improvements Summary**:
-- Authentication: 7 enhancements
-- Authorization: 5 enhancements
-- Data Protection: 6 enhancements
-- Input Validation: 6 enhancements
-- Infrastructure: 9 enhancements
-- Monitoring: 5 enhancements
+**테스트 전략**
+- 각 컴포넌트 단위 테스트
+- 사용자 플로우 통합 테스트
+- 시각적 회귀 테스트
+- 성능 벤치마크
 
-**Compliance**: OWASP Top 10, GDPR
+**성공 기준**
+- 모든 테스트 통과
+- UI 변경 없음
+- 성능 유지 또는 개선
+- 번들 크기 증가 없음
 
-**Success Criteria**:
-- Zero critical vulnerabilities
-- All OWASP Top 10 mitigated
-- Security score >90/100
-- All pen test issues resolved
-
-Proceed? (yes/no/modify)
+이대로 진행할까요? (yes/no/modify)
 ```
 
-## Example 5: Performance Optimization
+
+## 예제 4: 보안 구현(Security Implementation)
 
 ```
-User: /plan Optimize our slow e-commerce website
+User: /plan 웹 애플리케이션 보안을 전반적으로 강화해줘
 
-Claude: Let me create a comprehensive performance optimization plan.
+Claude: 종합적인 보안 강화 계획을 수립하겠습니다.
 
-## E-commerce Performance Optimization Plan
+## 웹 애플리케이션 보안 구현 계획
 
-### Phase 1: Performance Audit (4 hours)
-1. Run Lighthouse audit
-2. Analyze Chrome DevTools performance profile
-3. Measure Core Web Vitals:
+### 1단계: 보안 감사 (Day 1)
+1. 자동 보안 스캐너 실행 (npm audit, Snyk)
+2. 의존성 취약점 점검
+3. OWASP Top 10 준수 여부 확인
+4. 인증 흐름 감사
+5. 데이터 처리 방식 검토
+6. 보안 취약점 문서화
+
+### 2단계: 인증 강화 (Day 2~3)
+7. 강력한 비밀번호 정책 적용
+8. 비밀번호 강도 체크 추가
+9. 로그인 rate limiting 적용
+10. 로그인 실패 시 계정 잠금
+11. 2FA (TOTP) 구현
+12. 세션 관리 개선
+13. 안전한 비밀번호 재설정 흐름 구현
+
+### 3단계: 권한 관리 (Day 3~4)
+14. RBAC(Role-Based Access Control) 구현
+15. 모든 API에 권한 체크 추가
+16. 최소 권한 원칙 적용
+17. 감사 로그 추가
+18. 리소스 단위 권한 제어
+
+### 4단계: 데이터 보호 (Day 4~5)
+19. 민감 데이터 암호화
+20. 모든 통신 TLS 적용
+21. 세션 저장 보안 강화
+22. 로그에서 PII 마스킹
+23. 데이터 보관 정책 적용
+24. 파일 업로드 보안 처리
+
+### 5단계: 입력 검증 (Day 5~6)
+25. 모든 API 입력 검증
+26. XSS 방지 (CSP 적용)
+27. SQL Injection 방지 (prepared statement)
+28. CSRF 보호
+29. 요청 크기 제한
+30. 파일 타입 검증
+
+### 6단계: 보안 헤더 (Day 6)
+31. 보안 헤더 추가:
+   - HSTS
+   - X-Content-Type-Options
+   - X-Frame-Options
+   - CSP
+32. CORS 설정 강화
+33. 불필요한 HTTP method 제거
+34. 서버 정보 숨김
+
+### 7단계: 모니터링 (Day 7)
+35. 보안 이벤트 로그
+36. 이상 탐지 시스템
+37. 침입 탐지 설정
+38. 실시간 알림
+39. 보안 대시보드
+
+### 8단계: 테스트 (Day 8~9)
+40. 침투 테스트
+41. 보안 스캐닝
+42. 전체 기능 테스트
+43. 보안 문서 작성
+44. 대응 매뉴얼 작성
+
+### 9단계: 컴플라이언스 (Day 10)
+45. GDPR 점검
+46. 개인정보 정책 작성
+47. 데이터 요청 처리 기능
+48. 쿠키 동의 구현
+49. 정책 문서화
+
+**예상 기간**: 10일
+**위험도**: 매우 높음 (Critical)
+**우선순위**: 최상
+
+**보안 개선 항목 요약**
+- 인증: 7개 개선
+- 권한: 5개 개선
+- 데이터 보호: 6개
+- 입력 검증: 6개
+- 인프라: 9개
+- 모니터링: 5개
+
+**준수 기준**
+- OWASP Top 10
+- GDPR
+
+**성공 기준**
+- 치명적 취약점 0개
+- OWASP Top 10 대응 완료
+- 보안 점수 90/100 이상
+- 모든 침투 테스트 통과
+
+이대로 진행할까요? (yes/no/modify)
+```
+
+## 예제 5: 성능 최적화
+
+```
+User: /plan 느린 이커머스 웹사이트를 최적화해줘
+
+Claude: 종합적인 성능 최적화 계획을 수립하겠습니다.
+
+## 이커머스 성능 최적화 계획
+
+### 1단계: 성능 감사 (4시간)
+1. Lighthouse 감사 실행
+2. Chrome DevTools 성능 프로파일 분석
+3. Core Web Vitals 측정:
    - LCP (Largest Contentful Paint)
    - FID (First Input Delay)
    - CLS (Cumulative Layout Shift)
-4. Identify performance bottlenecks
-5. Create baseline performance metrics
+4. 성능 병목 지점 식별
+5. 기준 성능 지표 설정
 
-**Current Metrics**:
-- LCP: 4.2s (target: <2.5s)
-- FID: 280ms (target: <100ms)
-- CLS: 0.25 (target: <0.1)
-- Page Load: 8.3s (target: <3s)
+**현재 지표**
+- LCP: 4.2s (목표: <2.5s)
+- FID: 280ms (목표: <100ms)
+- CLS: 0.25 (목표: <0.1)
+- Page Load: 8.3s (목표: <3s)
 
-### Phase 2: Image Optimization (6 hours)
-6. Convert images to WebP format
-7. Implement responsive images
-8. Add lazy loading for images
-9. Optimize image sizes (compression)
-10. Implement CDN for images
-11. Add image placeholders
+### 2단계: 이미지 최적화 (6시간)
+6. WebP 포맷으로 변환
+7. 반응형 이미지 적용
+8. 이미지 lazy loading 적용
+9. 이미지 용량 최적화 (압축)
+10. CDN 적용
+11. 이미지 placeholder 추가
 
-**Expected Impact**: -40% load time
+**예상 효과**: 로딩 시간 약 -40%
 
-### Phase 3: Code Splitting & Lazy Loading (8 hours)
-12. Implement route-based code splitting
-13. Lazy load non-critical components
-14. Split vendor bundles
-15. Optimize chunk sizes
-16. Implement dynamic imports
-17. Add preloading for critical resources
+### 3단계: 코드 분할 및 지연 로딩 (8시간)
+12. 라우트 기반 코드 분할 구현
+13. 중요하지 않은 컴포넌트에 지연 로딩 적용
+14. 벤더 번들 분할
+15. 청크 크기 최적화
+16. 동적 import 구현
+17. 핵심 리소스 사전 로딩 추가
 
-**Expected Impact**: -30% initial bundle size
+**예상 효과**: 초기 번들 크기 -30%
 
-### Phase 4: Caching Strategy (6 hours)
-18. Implement browser caching (Cache-Control)
-19. Add service worker for offline support
-20. Implement API response caching
-21. Add Redis cache for database queries
-22. Implement stale-while-revalidate
-23. Configure CDN caching
+### 4단계: 캐싱 전략 (6시간)
+18. 브라우저 캐싱(Cache-Control) 구현
+19. 오프라인 지원을 위한 서비스 워커 추가
+20. API 응답 캐싱 구현
+21. 데이터베이스 쿼리를 위한 Redis 캐시 추가
+22. stale-while-revalidate 전략 구현
+23. CDN 캐싱 구성
 
-**Expected Impact**: -50% API response time
+**예상 효과**: API 응답 시간 -50%
 
-### Phase 5: Database Optimization (8 hours)
-24. Add database indexes
-25. Optimize slow queries (>100ms)
-26. Implement query result caching
-27. Add connection pooling
-28. Denormalize where appropriate
-29. Implement database read replicas
+### 5단계: 데이터베이스 최적화 (8시간)
+24. 데이터베이스 인덱스 추가
+25. 느린 쿼리(100ms 초과) 최적화
+26. 쿼리 결과 캐싱 구현
+27. 커넥션 풀링 추가
+28. 필요한 경우 비정규화 적용
+29. 데이터베이스 읽기 전용 복제본(Read Replica) 구현
 
-**Expected Impact**: -60% database query time
+**예상 효과**: 데이터베이스 쿼리 시간 -60%
 
-### Phase 6: Frontend Optimization (10 hours)
-30. Minimize and compress JavaScript
-31. Minimize and compress CSS
-32. Remove unused CSS (PurgeCSS)
-33. Implement critical CSS
-34. Defer non-critical JavaScript
-35. Reduce DOM size
-36. Optimize React rendering (memo, useMemo)
-37. Implement virtual scrolling for long lists
+### 6단계: 프론트엔드 최적화 (10시간)
+30. JavaScript 최소화 및 압축
+31. CSS 최소화 및 압축
+32. 사용하지 않는 CSS 제거(PurgeCSS)
+33. Critical CSS 구현
+34. 중요하지 않은 JavaScript 실행 지연
+35. DOM 크기 축소
+36. React 렌더링 최적화(memo, useMemo)
+37. 긴 목록에 가상 스크롤링 구현
 
-**Expected Impact**: -35% JavaScript execution time
+**예상 효과**: JavaScript 실행 시간 -35%
 
-### Phase 7: Network Optimization (4 hours)
-38. Enable HTTP/2
-39. Implement resource hints (preconnect, prefetch)
-40. Reduce number of HTTP requests
-41. Enable Brotli compression
-42. Optimize third-party scripts
+### 7단계: 네트워크 최적화 (4시간)
+38. HTTP/2 활성화
+39. 리소스 힌트(preconnect, prefetch) 구현
+40. HTTP 요청 수 감소
+41. Brotli 압축 활성화
+42. 서드파티 스크립트 최적화
 
-**Expected Impact**: -25% network time
+**예상 효과**: 네트워크 처리 시간 -25%
 
-### Phase 8: Monitoring & Testing (4 hours)
-43. Set up performance monitoring (Datadog/New Relic)
-44. Add Real User Monitoring (RUM)
-45. Create performance budgets
-46. Set up automated Lighthouse CI
-47. Test on real devices
+### 8단계: 모니터링 및 테스트 (4시간)
+43. 성능 모니터링(Datadog/New Relic) 설정
+44. Real User Monitoring(RUM) 추가
+45. 성능 예산(Performance Budget) 생성
+46. 자동화된 Lighthouse CI 설정
+47. 실제 기기에서 테스트
 
-**Estimated Time**: 50 hours (2 weeks)
+**예상 소요 시간**: 50시간(2주)
 
-**Target Metrics** (90th percentile):
-- LCP: <2.0s (from 4.2s) ✅
-- FID: <50ms (from 280ms) ✅
-- CLS: <0.05 (from 0.25) ✅
-- Page Load: <2.5s (from 8.3s) ✅
+**목표 지표** (90백분위 기준):
+- LCP: <2.0s (기존 4.2s) ✅
+- FID: <50ms (기존 280ms) ✅
+- CLS: <0.05 (기존 0.25) ✅
+- Page Load: <2.5s (기존 8.3s) ✅
 
-**Expected Revenue Impact**:
-- 100ms faster = 1% conversion increase
-- Target: 5.8s improvement = ~58% conversion increase
-- Estimated additional revenue: Significant
+**예상 매출 효과**:
+- 100ms 개선 시 전환율 1% 증가
+- 목표: 5.8초 개선 = 약 58% 전환율 증가
+- 예상 추가 매출: 상당한 수준
 
-**Priority Order**:
-1. Image optimization (quick wins)
-2. Code splitting (high impact)
-3. Caching (high impact)
-4. Database optimization (critical)
-5. Frontend optimization (polish)
+**우선순위**:
+1. 이미지 최적화 (빠른 성과)
+2. 코드 분할 (높은 효과)
+3. 캐싱 (높은 효과)
+4. 데이터베이스 최적화 (핵심)
+5. 프론트엔드 최적화 (마무리)
 
-Proceed with this plan? (yes/no/modify)
+이 계획으로 진행하시겠습니까? (yes/no/modify)
 ```
 
-## Key Takeaways
+## 핵심 요약
 
-### Benefits of Planning Mode
+### 계획 모드의 장점
 
-1. **Clarity**: Clear roadmap before starting
-2. **Estimation**: Time and effort estimates
-3. **Risk Assessment**: Identify potential issues early
-4. **Prioritization**: Logical order of tasks
-5. **Approval**: Review and approve before execution
-6. **Modification**: Adjust plan based on feedback
+1. **명확성**: 작업 시작 전에 명확한 로드맵을 수립
+2. **예측 가능성**: 시간과 노력에 대한 예상 제공
+3. **위험 평가**: 잠재적인 문제를 조기에 식별
+4. **우선순위 설정**: 작업을 논리적인 순서로 구성
+5. **승인 절차**: 실행 전에 검토 및 승인 가능
+6. **수정 용이성**: 피드백을 반영하여 계획 조정 가능
 
-### When to Use Planning Mode
+### 계획 모드를 사용해야 하는 경우
 
-✅ **Always use for**:
-- Multi-day projects
-- Team collaborations
-- Critical system changes
-- Learning new concepts
-- Complex refactoring
+✅ **항상 사용하는 것이 좋은 경우**:
+- 며칠 이상 소요되는 프로젝트
+- 팀 협업
+- 중요한 시스템 변경
+- 새로운 개념 학습
+- 복잡한 리팩터링
 
-❌ **Don't use for**:
-- Bug fixes
-- Small tweaks
-- Simple queries
-- Quick experiments
+❌ **사용하지 않아도 되는 경우**:
+- 버그 수정
+- 작은 변경 사항
+- 단순한 질의
+- 간단한 실험
 
-### Best Practices
+### 모범 사례
 
-1. **Review plans carefully** before approving
-2. **Modify plans** when you spot issues
-3. **Break down** complex tasks
-4. **Estimate realistic** timeframes
-5. **Include rollback** strategies
-6. **Add success** criteria
-7. **Plan for testing** at each phase
+1. 승인하기 전에 **계획을 꼼꼼히 검토**하세요.
+2. 문제가 보이면 **계획을 수정**하세요.
+3. 복잡한 작업은 **세부 작업으로 분해**하세요.
+4. **현실적인 일정**을 산정하세요.
+5. **롤백 전략**을 포함하세요.
+6. **성공 기준**을 추가하세요.
+7. 각 단계마다 **테스트 계획**을 포함하세요.
 
 ---
-**Last Updated**: July 29, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+**최종 업데이트**: 2026년 7월 29일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/changelog
 - https://code.claude.com/docs/en/best-practices
 - https://code.claude.com/docs/en/model-config
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

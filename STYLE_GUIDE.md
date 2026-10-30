@@ -1,39 +1,45 @@
+<!-- i18n-source: STYLE_GUIDE.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
   <img alt="Claude How To" src="resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Style Guide
+# 스타일 가이드
 
-> Conventions and formatting rules for contributing to Claude How To. Follow this guide to keep content consistent, professional, and easy to maintain.
-
----
-
-## Table of Contents
-
-- [File and Folder Naming](#file-and-folder-naming)
-- [Document Structure](#document-structure)
-- [Headings](#headings)
-- [Text Formatting](#text-formatting)
-- [Lists](#lists)
-- [Tables](#tables)
-- [Code Blocks](#code-blocks)
-- [Links and Cross-References](#links-and-cross-references)
-- [Diagrams](#diagrams)
-- [Emoji Usage](#emoji-usage)
-- [YAML Frontmatter](#yaml-frontmatter)
-- [Images and Media](#images-and-media)
-- [Tone and Voice](#tone-and-voice)
-- [Commit Messages](#commit-messages)
-- [Checklist for Authors](#checklist-for-authors)
+> Claude How To에 기여하기 위한 규칙과 서식 지침입니다. 콘텐츠의 일관성, 전문성, 유지보수성을 유지하기 위해 이 가이드를 따르십시오.
 
 ---
 
-## File and Folder Naming
+## 목차
 
-### Lesson Folders
+- [파일 및 폴더 명명 규칙](#파일-및-폴더-명명-규칙)
+- [문서 구조](#문서-구조)
+- [제목](#제목)
+- [텍스트 서식](#텍스트-서식)
+- [목록](#목록)
+- [표](#표)
+- [코드 블록](#코드-블록)
+- [링크 및 상호 참조](#링크-및-상호-참조)
+- [다이어그램](#다이어그램)
+- [이모지 사용](#이모지-사용)
+- [YAML 프런트매터](#yaml-프런트매터)
+- [이미지 및 미디어](#이미지-및-미디어)
+- [톤과 문체](#톤과-문체)
+- [커밋 메시지](#커밋-메시지)
+- [작성자 체크리스트](#작성자-체크리스트)
 
-Lesson folders use a **two-digit numbered prefix** followed by a **kebab-case** descriptor:
+
+---
+
+## 파일 및 폴더 명명 규칙
+
+### 강의 폴더
+
+강의 폴더는 **두 자리 숫자 접두사** 뒤에 **kebab-case** 설명자를 사용합니다.
+
 
 ```
 01-slash-commands/
@@ -43,9 +49,9 @@ Lesson folders use a **two-digit numbered prefix** followed by a **kebab-case** 
 05-mcp/
 ```
 
-The number reflects the learning path order from beginner to advanced.
+숫자는 초급부터 고급까지의 학습 순서를 나타냅니다.
 
-### File Names
+### 파일 이름
 
 | Type | Convention | Examples |
 |------|-----------|----------|
@@ -57,63 +63,68 @@ The number reflects the learning path order from beginner to advanced.
 | **Top-level docs** | UPPER_CASE `.md` | `CATALOG.md`, `QUICK_REFERENCE.md`, `CONTRIBUTING.md` |
 | **Image assets** | Kebab-case | `pr-slash-command.png`, `claude-howto-logo.svg` |
 
-### Rules
+### 규칙
 
-- Use **lowercase** for all file and folder names (except top-level docs like `README.md`, `CATALOG.md`)
-- Use **hyphens** (`-`) as word separators, never underscores or spaces
-- Keep names descriptive but concise
+- 모든 파일 및 폴더 이름은 **소문자**를 사용합니다(단, `README.md`, `CATALOG.md`와 같은 최상위 문서는 예외).
+- 단어 구분자는 하이픈(`-`)을 사용하며, 언더스코어(`_`)나 공백은 사용하지 않습니다.
+- 이름은 설명적이면서도 간결하게 유지합니다.
+
 
 ---
 
-## Document Structure
+## 문서 구조
 
-### Root README
+### 루트 README
 
-The root `README.md` follows this order:
+루트 `README.md`는 다음 순서를 따릅니다.
 
-1. Logo (`<picture>` element with dark/light variants)
-2. H1 title
-3. Introductory blockquote (one-line value proposition)
-4. "Why This Guide?" section with comparison table
-5. Horizontal rule (`---`)
-6. Table of Contents
-7. Feature Catalog
-8. Quick Navigation
-9. Learning Path
-10. Feature sections
-11. Getting Started
-12. Best Practices / Troubleshooting
-13. Contributing / License
+1. 로고(다크/라이트 버전을 포함한 `<picture>` 요소)
+2. H1 제목
+3. 소개용 인용문 블록(한 줄 가치 제안)
+4. 비교 표가 포함된 "Why This Guide?" 섹션
+5. 구분선(`---`)
+6. 목차
+7. 기능 카탈로그
+8. 빠른 이동
+9. 학습 경로
+10. 기능 섹션
+11. 시작하기
+12. 모범 사례 / 문제 해결
+13. 기여 방법 / 라이선스
 
-### Lesson README
 
-Each lesson `README.md` follows this order:
+### 강의 README
 
-1. H1 title (e.g., `# Slash Commands`)
-2. Brief overview paragraph
-3. Quick reference table (optional)
-4. Architecture diagram (Mermaid)
-5. Detailed sections (H2)
-6. Practical examples (numbered, 4-6 examples)
-7. Best practices (Do's and Don'ts tables)
-8. Troubleshooting
-9. Related guides / Official documentation
-10. Document metadata footer
+각 강의 `README.md`는 다음 순서를 따릅니다.
 
-### Feature/Example File
+1. H1 제목(예: `# Slash Commands`)
+2. 간단한 개요 문단
+3. 빠른 참조 표(선택 사항)
+4. 아키텍처 다이어그램(Mermaid)
+5. 상세 섹션(H2)
+6. 실습 예제(번호 목록, 4~6개 예제)
+7. 모범 사례(Do's 및 Don'ts 표)
+8. 문제 해결
+9. 관련 가이드 / 공식 문서
+10. 문서 메타데이터 푸터
 
-Individual feature files (e.g., `optimize.md`, `pr.md`):
 
-1. YAML frontmatter (if applicable)
-2. H1 title
-3. Purpose / description
-4. Usage instructions
-5. Code examples
-6. Customization tips
+### 기능/예제 파일
 
-### Section Separators
+개별 기능 파일(예: `optimize.md`, `pr.md`)은 다음 순서를 따릅니다.
 
-Use horizontal rules (`---`) to separate major document regions:
+1. YAML 프런트매터(필요한 경우)
+2. H1 제목
+3. 목적 / 설명
+4. 사용 방법
+5. 코드 예제
+6. 사용자 정의 팁
+
+
+### 섹션 구분선
+
+주요 문서 영역을 구분할 때는 구분선(`---`)을 사용합니다.
+
 
 ```markdown
 ---
@@ -121,44 +132,45 @@ Use horizontal rules (`---`) to separate major document regions:
 ## New Major Section
 ```
 
-Place them after the introductory blockquote and between logically distinct parts of the document.
+소개용 인용문 뒤와 논리적으로 구분되는 주요 섹션 사이에 배치합니다.
 
 ---
 
-## Headings
+## 제목
 
-### Hierarchy
+### 계층 구조
 
-| Level | Use | Example |
-|-------|-----|---------|
-| `#` H1 | Page title (one per document) | `# Slash Commands` |
-| `##` H2 | Major sections | `## Best Practices` |
-| `###` H3 | Subsections | `### Adding a Skill` |
-| `####` H4 | Sub-subsections (rare) | `#### Configuration Options` |
+| Level     | Use              | Example                      |
+| --------- | ---------------- | ---------------------------- |
+| `#` H1    | 문서 제목(문서당 하나)    | `# Slash Commands`           |
+| `##` H2   | 주요 섹션            | `## Best Practices`          |
+| `###` H3  | 하위 섹션            | `### Adding a Skill`         |
+| `####` H4 | 하위-하위 섹션(드물게 사용) | `#### Configuration Options` |
 
-### Rules
+### 규칙
 
-- **One H1 per document** — the page title only
-- **Never skip levels** — don't jump from H2 to H4
-- **Keep headings concise** — aim for 2-5 words
-- **Use sentence case** — capitalize first word and proper nouns only (exception: feature names stay as-is)
-- **Add emoji prefixes only on root README** section headers (see [Emoji Usage](#emoji-usage))
+- **문서당 H1은 하나만 사용** — 페이지 제목 전용
+- **단계를 건너뛰지 마십시오** — H2 다음에 바로 H4를 사용하지 마십시오
+- **제목은 간결하게 유지** — 2~5단어 권장
+- **문장형 대소문자 사용** — 첫 단어와 고유명사만 대문자 사용(단, 기능 이름은 원문 유지)
+- **이모지 접두사는 루트 README 섹션 제목에서만 사용**([이모지 사용](#이모지-사용) 참고)
+
 
 ---
 
-## Text Formatting
+## 텍스트 서식
 
-### Emphasis
+### 강조
 
-| Style | When to Use | Example |
-|-------|------------|---------|
-| **Bold** (`**text**`) | Key terms, labels in tables, important concepts | `**Installation**:` |
-| *Italic* (`*text*`) | First use of a technical term, book/doc titles | `*frontmatter*` |
-| `Code` (`` `text` ``) | File names, commands, config values, code references | `` `CLAUDE.md` `` |
+| Style                 | When to Use           | Example             |
+| --------------------- | --------------------- | ------------------- |
+| **Bold** (`**text**`) | 핵심 용어, 표의 레이블, 중요한 개념 | `**Installation**:` |
+| *Italic* (`*text*`)   | 기술 용어의 첫 등장, 서적/문서 제목 | `*frontmatter*`     |
+| `Code` (`` `text` ``) | 파일명, 명령어, 설정 값, 코드 참조 | `` `CLAUDE.md` ``   |
 
-### Blockquotes for Callouts
+### 안내용 블록 인용문
 
-Use blockquotes with bold prefixes for important notes:
+중요한 안내 사항에는 굵은 접두사가 포함된 인용문 블록을 사용합니다.
 
 ```markdown
 > **Note**: Custom slash commands have been merged into skills since v2.0.
@@ -168,22 +180,22 @@ Use blockquotes with bold prefixes for important notes:
 > **Tip**: Combine memory with skills for maximum effectiveness.
 ```
 
-Supported callout types: **Note**, **Important**, **Tip**, **Warning**.
+지원되는 안내 유형: **Note**, **Important**, **Tip**, **Warning**
 
-### Paragraphs
+### 문단
 
-- Keep paragraphs short (2-4 sentences)
-- Add a blank line between paragraphs
-- Lead with the key point, then provide context
-- Explain the "why" not just the "what"
+- 문단은 짧게 유지합니다(2~4문장).
+- 문단 사이에는 빈 줄을 추가합니다.
+- 핵심 내용을 먼저 제시한 뒤 맥락을 설명합니다.
+- "무엇(what)"뿐 아니라 "왜(why)"도 설명합니다.
 
 ---
 
-## Lists
+## 목록
 
-### Unordered Lists
+### 순서 없는 목록
 
-Use dashes (`-`) with 2-space indentation for nesting:
+중첩 시 2칸 들여쓰기를 사용하며 대시(`-`)를 사용합니다.
 
 ```markdown
 - First item
@@ -194,9 +206,9 @@ Use dashes (`-`) with 2-space indentation for nesting:
 - Third item
 ```
 
-### Ordered Lists
+### 순서 있는 목록
 
-Use numbered lists for sequential steps, instructions, and ranked items:
+순차적인 단계, 사용 방법, 순위가 있는 항목에는 번호 목록을 사용합니다.
 
 ```markdown
 1. First step
@@ -206,9 +218,9 @@ Use numbered lists for sequential steps, instructions, and ranked items:
 3. Third step
 ```
 
-### Descriptive Lists
+### 설명형 목록
 
-Use bold labels for key-value style lists:
+키-값 형태의 목록에는 굵은 레이블을 사용합니다.
 
 ```markdown
 - **Performance bottlenecks** - identify O(n^2) operations, inefficient loops
@@ -216,18 +228,20 @@ Use bold labels for key-value style lists:
 - **Algorithm improvements** - suggest better algorithms or data structures
 ```
 
-### Rules
+### 규칙
 
-- Maintain consistent indentation (2 spaces per level)
-- Add a blank line before and after a list
-- Keep list items parallel in structure (all start with verb, or all are nouns, etc.)
-- Avoid nesting deeper than 3 levels
+
+- 일관된 들여쓰기를 유지합니다(단계당 공백 2칸).
+- 목록 전후에 빈 줄을 추가합니다.
+- 목록 항목의 구조를 일관되게 유지합니다(모두 동사로 시작하거나 모두 명사로 시작하는 등).
+- 3단계 이상 중첩하지 않습니다.
+
 
 ---
 
-## Tables
+## 표
 
-### Standard Format
+### 기본 형식
 
 ```markdown
 | Column 1 | Column 2 | Column 3 |
@@ -235,9 +249,9 @@ Use bold labels for key-value style lists:
 | Data     | Data     | Data     |
 ```
 
-### Common Table Patterns
+### 자주 사용하는 표 패턴
 
-**Feature comparison (3-4 columns):**
+**기능 비교(3~4개 열):**
 
 ```markdown
 | Feature | Invocation | Persistence | Best For |
@@ -246,7 +260,7 @@ Use bold labels for key-value style lists:
 | **Memory** | Auto-loaded | Cross-session | Long-term learning |
 ```
 
-**Do's and Don'ts:**
+**권장 사항과 금지 사항:**
 
 ```markdown
 | Do | Don't |
@@ -255,7 +269,7 @@ Use bold labels for key-value style lists:
 | Keep files focused | Overload a single file |
 ```
 
-**Quick reference:**
+**빠른 참조:**
 
 ```markdown
 | Aspect | Details |
@@ -265,55 +279,55 @@ Use bold labels for key-value style lists:
 | **Complexity** | Intermediate |
 ```
 
-### Rules
+### 규칙
 
-- **Bold table headers** when they are row labels (first column)
-- Align pipes for readability in source (optional but preferred)
-- Keep cell content concise; use links for details
-- Use `code formatting` for commands and file paths inside cells
+- 첫 번째 열이 행 레이블인 경우 **굵게 표시**합니다.
+- 원본 소스의 가독성을 위해 파이프(`|`) 정렬을 권장합니다.
+- 셀 내용은 간결하게 유지하고, 자세한 내용은 링크를 사용합니다.
+- 셀 내부의 명령어 및 파일 경로에는 `코드 서식`을 사용합니다.
 
 ---
 
-## Code Blocks
+## 코드 블록
 
-### Language Tags
+### 언어 태그
 
-Always specify a language tag for syntax highlighting:
+구문 강조를 위해 항상 언어 태그를 지정합니다.
 
-| Language | Tag | Use For |
-|----------|-----|---------|
-| Shell | `bash` | CLI commands, scripts |
-| Python | `python` | Python code |
-| JavaScript | `javascript` | JS code |
-| TypeScript | `typescript` | TS code |
-| JSON | `json` | Configuration files |
-| YAML | `yaml` | Frontmatter, config |
-| Markdown | `markdown` | Markdown examples |
-| SQL | `sql` | Database queries |
-| Plain text | (no tag) | Expected output, directory trees |
+| Language   | Tag          | Use For        |
+| ---------- | ------------ | -------------- |
+| Shell      | `bash`       | CLI 명령어, 스크립트  |
+| Python     | `python`     | Python 코드      |
+| JavaScript | `javascript` | JS 코드          |
+| TypeScript | `typescript` | TS 코드          |
+| JSON       | `json`       | 설정 파일          |
+| YAML       | `yaml`       | 프런트매터, 설정      |
+| Markdown   | `markdown`   | Markdown 예제    |
+| SQL        | `sql`        | 데이터베이스 쿼리      |
+| 일반 텍스트 | (태그 없음) | 예상 출력, 디렉터리 트리 |
 
-### Conventions
+### 규칙
 
 ```bash
 # Comment explaining what the command does
 claude mcp add notion --transport http https://mcp.notion.com/mcp
 ```
 
-- Add a **comment line** before non-obvious commands
-- Make all examples **copy-paste ready**
-- Show **both simple and advanced** versions when relevant
-- Include **expected output** when it aids understanding (use untagged code block)
+- 명확하지 않은 명령어 앞에는 **주석 줄**을 추가합니다.
+- 모든 예제는 **복사 후 바로 사용할 수 있는 상태**로 제공합니다.
+- 관련이 있다면 **기본 버전과 고급 버전 모두** 제공합니다.
+- 이해에 도움이 된다면 **예상 출력**을 포함합니다(언어 태그 없는 코드 블록 사용).
 
-### Installation Blocks
+### 설치 블록
 
-Use this pattern for installation instructions:
+설치 안내에는 다음 패턴을 사용합니다.
 
 ```bash
 # Copy files to your project
 cp 01-slash-commands/*.md .claude/commands/
 ```
 
-### Multi-step Workflows
+### 다단계 워크플로
 
 ```bash
 # Step 1: Create the directory
@@ -328,11 +342,11 @@ ls .claude/commands/
 
 ---
 
-## Links and Cross-References
+## 링크 및 상호 참조
 
-### Internal Links (Relative)
+### 내부 링크(상대 경로)
 
-Use relative paths for all internal links:
+모든 내부 링크에는 상대 경로를 사용합니다.
 
 ```markdown
 [Slash Commands](01-slash-commands/)
@@ -340,36 +354,36 @@ Use relative paths for all internal links:
 [Memory Architecture](02-memory/#memory-architecture)
 ```
 
-From a lesson folder back to root or sibling:
+강의 폴더에서 루트 또는 다른 강의 폴더로 이동할 때:
 
 ```markdown
 [Back to main guide](../README.md)
 [Related: Skills](../03-skills/)
 ```
 
-### External Links (Absolute)
+### 외부 링크(절대 경로)
 
-Use full URLs with descriptive anchor text:
+설명적인 앵커 텍스트와 함께 전체 URL을 사용합니다.
 
 ```markdown
 [Anthropic's official documentation](https://code.claude.com/docs/en/overview)
 ```
 
-- Never use "click here" or "this link" as anchor text
-- Use descriptive text that makes sense out of context
+- 앵커 텍스트로 "click here" 또는 "this link"를 사용하지 않습니다.
+- 문맥 없이도 의미가 전달되는 설명적인 텍스트를 사용합니다.
 
-### Section Anchors
+### 섹션 앵커
 
-Link to sections within the same document using GitHub-style anchors:
+동일 문서 내 섹션 링크에는 GitHub 스타일 앵커를 사용합니다.
 
 ```markdown
 [Feature Catalog](#-feature-catalog)
 [Best Practices](#best-practices)
 ```
 
-### Related Guides Pattern
+### 관련 가이드 패턴
 
-End lessons with a related guides section:
+각 강의는 관련 가이드 섹션으로 마무리합니다.
 
 ```markdown
 ## Related Guides
@@ -381,21 +395,21 @@ End lessons with a related guides section:
 
 ---
 
-## Diagrams
+## 다이어그램
 
 ### Mermaid
 
-Use Mermaid for all diagrams. Supported types:
+모든 다이어그램에는 Mermaid를 사용합니다. 지원되는 유형은 다음과 같습니다.
 
-- `graph TB` / `graph LR` — architecture, hierarchy, flow
-- `sequenceDiagram` — interaction flows
-- `timeline` — chronological sequences
+- `graph TB` / `graph LR` — 아키텍처, 계층 구조, 흐름
+- `sequenceDiagram` — 상호작용 흐름
+- `timeline` — 시간 순서 흐름
 
-GitHub renders Mermaid natively. The website and the EPUB render the same source with [Pele](https://github.com/obsidianmd/pele), pinned in `scripts/vendor_assets.py`, and the `mermaid-syntax` pre-commit hook validates every block with that same bundle, so a block that passes the hook renders everywhere.
+GitHub는 Mermaid를 기본으로 렌더링합니다. 웹사이트와 EPUB은 `scripts/vendor_assets.py`에 버전이 고정된 [Pele](https://github.com/obsidianmd/pele)로 같은 소스를 렌더링하며, `mermaid-syntax` pre-commit 훅이 같은 번들로 모든 블록을 검증하므로 훅을 통과한 블록은 어디서나 렌더링됩니다.
 
-### Style Conventions
+### 스타일 규칙
 
-Apply consistent colors using style blocks:
+스타일 블록을 사용하여 일관된 색상을 적용합니다.
 
 ```mermaid
 graph TB
@@ -407,7 +421,7 @@ graph TB
     style C fill:#e8f5e9,stroke:#333,color:#333
 ```
 
-**Color palette:**
+**색상 팔레트:**
 
 | Color | Hex | Use For |
 |-------|-----|---------|
@@ -417,60 +431,60 @@ graph TB
 | Light yellow | `#fff9c4` | Configuration, optional |
 | Light purple | `#f3e5f5` | User-facing, UI |
 
-### Rules
+### 규칙
 
-- Use `["Label text"]` for node labels (enables special characters)
-- Use `<br/>` for line breaks within labels
-- Keep labels plain text and write numbered labels as-is (`["1. Load file"]`, no backslash before the period)
-- Don't rely on `%%{init}%%` directives or Mermaid themes: the website applies its own light and dark palette
-- Keep diagrams simple (max 10-12 nodes)
-- Add a brief text description below the diagram for accessibility
-- Use top-to-bottom (`TB`) for hierarchies, left-to-right (`LR`) for workflows
-
----
-
-## Emoji Usage
-
-### Where Emojis Are Used
-
-Emojis are used **sparingly and purposefully** — only in specific contexts:
-
-| Context | Emojis | Example |
-|---------|--------|---------|
-| Root README section headers | Category icons | `## 📚 Learning Path` |
-| Skill level indicators | Colored circles | 🟢 Beginner, 🔵 Intermediate, 🔴 Advanced |
-| Do's and Don'ts | Check/cross marks | ✅ Do this, ❌ Don't do this |
-| Complexity ratings | Stars | ⭐⭐⭐ |
-
-### Standard Emoji Set
-
-| Emoji | Meaning |
-|-------|---------|
-| 📚 | Learning, guides, documentation |
-| ⚡ | Getting started, quick reference |
-| 🎯 | Features, quick reference |
-| 🎓 | Learning paths |
-| 📊 | Statistics, comparisons |
-| 🚀 | Installation, quick commands |
-| 🟢 | Beginner level |
-| 🔵 | Intermediate level |
-| 🔴 | Advanced level |
-| ✅ | Recommended practice |
-| ❌ | Avoid / anti-pattern |
-| ⭐ | Complexity rating unit |
-
-### Rules
-
-- **Never use emojis in body text** or paragraphs
-- **Only use emojis in headers** on the root README (not in lesson READMEs)
-- **Do not add decorative emojis** — every emoji should convey meaning
-- Keep emoji usage consistent with the table above
+- 노드 레이블에는 `["Label text"]` 형식을 사용합니다(특수 문자 사용 가능).
+- 레이블 내 줄바꿈에는 `<br/>`를 사용합니다.
+- 레이블은 일반 텍스트로 유지하고, 번호가 있는 레이블은 그대로 씁니다(`["1. Load file"]`, 마침표 앞에 백슬래시 없음).
+- `%%{init}%%` 지시문이나 Mermaid 테마에 의존하지 않습니다. 웹사이트가 자체 라이트/다크 팔레트를 적용합니다.
+- 다이어그램은 단순하게 유지합니다(최대 10~12개 노드).
+- 접근성을 위해 다이어그램 아래에 간단한 설명을 추가합니다.
+- 계층 구조에는 위에서 아래 방향(`TB`), 워크플로에는 왼쪽에서 오른쪽 방향(`LR`)을 사용합니다.
 
 ---
 
-## YAML Frontmatter
+## 이모지 사용
 
-### Feature Files (Skills, Commands, Agents)
+### 이모지를 사용하는 위치
+
+이모지는 **신중하고 목적에 맞게** 사용합니다. 다음과 같은 특정 상황에서만 사용합니다.
+
+| Context         | Emojis    | Example                                   |
+| --------------- | --------- | ----------------------------------------- |
+| 루트 README 섹션 제목 | 카테고리 아이콘  | `## 📚 Learning Path`                     |
+| 숙련도 표시          | 색상 원형 아이콘 | 🟢 Beginner, 🔵 Intermediate, 🔴 Advanced |
+| 권장 사항 및 금지 사항   | 체크/엑스 표시  | ✅ Do this, ❌ Don't do this                |
+| 복잡도 등급          | 별표        | ⭐⭐⭐                                       |
+
+### 표준 이모지 세트
+
+| Emoji | Meaning         |
+| ----- | --------------- |
+| 📚    | 학습, 가이드, 문서     |
+| ⚡     | 시작하기, 빠른 참조     |
+| 🎯    | 기능, 빠른 참조       |
+| 🎓    | 학습 경로           |
+| 📊    | 통계, 비교          |
+| 🚀    | 설치, 빠른 명령어      |
+| 🟢    | 초급 수준           |
+| 🔵    | 중급 수준           |
+| 🔴    | 고급 수준           |
+| ✅     | 권장되는 방식         |
+| ❌     | 피해야 할 방식 / 안티패턴 |
+| ⭐     | 복잡도 등급 단위       |
+
+### 규칙
+
+- **본문이나 문단에는 이모지를 사용하지 않습니다.**
+- **이모지는 루트 README의 제목에서만 사용합니다.** (강의 README에서는 사용하지 않음)
+- **장식용 이모지를 추가하지 않습니다.** 모든 이모지는 의미를 전달해야 합니다.
+- 위 표에 정의된 사용 방식을 일관되게 유지합니다.
+
+---
+
+## YAML 프런트매터
+
+### 기능 파일(Skills, Commands, Agents)
 
 ```yaml
 ---
@@ -480,7 +494,7 @@ allowed-tools: Bash, Read, Grep
 ---
 ```
 
-### Optional Fields
+### 선택 필드
 
 ```yaml
 ---
@@ -496,20 +510,21 @@ agent: Explore                     # Agent type for context: fork
 ---
 ```
 
-### Rules
+### 규칙
 
-- Place frontmatter at the very top of the file
-- Use **kebab-case** for the `name` field
-- Keep `description` to one sentence
-- Only include fields that are needed
+- 프런트매터는 항상 파일 최상단에 배치합니다.
+- `name` 필드에는 **kebab-case**를 사용합니다.
+- `description`은 한 문장으로 작성합니다.
+- 필요한 필드만 포함합니다.
 
 ---
 
-## Images and Media
+## 이미지 및 미디어
 
-### Logo Pattern
+### 로고 패턴
 
-All documents that start with a logo use the `<picture>` element for dark/light mode support:
+로고로 시작하는 모든 문서는 다크 모드와 라이트 모드 지원을 위해 `<picture>` 요소를 사용합니다:
+
 
 ```html
 <picture>
@@ -518,73 +533,74 @@ All documents that start with a logo use the `<picture>` element for dark/light 
 </picture>
 ```
 
-### Screenshots
+### 스크린샷
 
-- Store in the relevant lesson folder (e.g., `01-slash-commands/pr-slash-command.png`)
-- Use kebab-case file names
-- Include descriptive alt text
-- Prefer SVG for diagrams, PNG for screenshots
+- 관련 강의 폴더에 저장합니다(예: `01-slash-commands/pr-slash-command.png`).
+- 파일 이름은 kebab-case를 사용합니다.
+- 설명이 포함된 alt 텍스트를 추가합니다.
+- 다이어그램에는 SVG, 스크린샷에는 PNG를 우선 사용합니다.
 
-### Rules
+### 규칙
 
-- Always provide alt text for images
-- Keep image file sizes reasonable (< 500KB for PNGs)
-- Use relative paths for image references
-- Store images in the same directory as the document that references them, or in `assets/` for shared images
-
----
-
-## Tone and Voice
-
-### Writing Style
-
-- **Professional but approachable** — technical accuracy without jargon overload
-- **Active voice** — "Create a file" not "A file should be created"
-- **Direct instructions** — "Run this command" not "You might want to run this command"
-- **Beginner-friendly** — assume the reader is new to Claude Code, not new to programming
-
-### Content Principles
-
-| Principle | Example |
-|-----------|---------|
-| **Show, don't tell** | Provide working examples, not abstract descriptions |
-| **Progressive complexity** | Start simple, add depth in later sections |
-| **Explain the "why"** | "Use memory for... because..." not just "Use memory for..." |
-| **Copy-paste ready** | Every code block should work when pasted directly |
-| **Real-world context** | Use practical scenarios, not contrived examples |
-
-### Vocabulary
-
-- Use "Claude Code" (not "Claude CLI" or "the tool")
-- Use "skill" (not "custom command" — legacy term)
-- Use "lesson" or "guide" for the numbered sections
-- Use "example" for individual feature files
+- 모든 이미지에 alt 텍스트를 제공합니다.
+- 이미지 파일 크기는 적절하게 유지합니다(PNG 기준 500KB 이하 권장).
+- 이미지 참조에는 상대 경로를 사용합니다.
+- 이미지는 해당 문서와 같은 디렉터리 또는 공용 이미지용 `assets/` 디렉터리에 저장합니다.
 
 ---
 
-## Commit Messages
+## 톤과 문체
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+### 작성 스타일
+
+- **전문적이지만 친근하게** — 기술적 정확성을 유지하되 과도한 전문 용어 사용은 피합니다.
+- **능동형 문장 사용** — "A file should be created" 대신 "Create a file" 형태를 사용합니다.
+- **직접적인 지시문 사용** — "You might want to run this command" 대신 "Run this command"를 사용합니다.
+- **초보자 친화적** — 독자가 Claude Code에는 익숙하지 않지만 프로그래밍은 알고 있다고 가정하지 않습니다.
+
+### 콘텐츠 원칙
+
+| Principle                  | Example                                                        |
+| -------------------------- | -------------------------------------------------------------- |
+| **Show, don't tell**       | 추상적인 설명보다 동작하는 예제를 제공합니다                                       |
+| **Progressive complexity** | 간단한 내용으로 시작하여 이후 섹션에서 심화 내용을 추가합니다                             |
+| **Explain the "why"**      | "Use memory for..."가 아니라 "Use memory for... because..."를 설명합니다 |
+| **Copy-paste ready**       | 모든 코드 블록은 그대로 복사하여 실행 가능해야 합니다                                 |
+| **Real-world context**     | 인위적인 예제가 아닌 실제 상황을 사용합니다                                       |
+
+### 용어 사용
+
+- "Claude Code"를 사용합니다("Claude CLI" 또는 "the tool" 사용 금지).
+- "skill"을 사용합니다("custom command"는 과거 용어).
+- 번호가 있는 섹션에는 "lesson" 또는 "guide"를 사용합니다.
+- 개별 기능 파일에는 "example"을 사용합니다.
+
+
+---
+
+## 커밋 메시지
+
+[Conventional Commits](https://www.conventionalcommits.org/) 규칙을 따릅니다.
 
 ```
 type(scope): description
 ```
 
-### Types
+### 타입
 
-| Type | Use For |
-|------|---------|
-| `feat` | New feature, example, or guide |
-| `fix` | Bug fix, correction, broken link |
-| `docs` | Documentation improvements |
-| `refactor` | Restructuring without changing behavior |
-| `style` | Formatting changes only |
-| `test` | Test additions or changes |
-| `chore` | Build, dependencies, CI |
+| Type       | Use For                |
+| ---------- | ---------------------- |
+| `feat`     | 새로운 기능, 예제 또는 가이드      |
+| `fix`      | 버그 수정, 오류 정정, 깨진 링크 수정 |
+| `docs`     | 문서 개선                  |
+| `refactor` | 동작 변경 없는 구조 개선         |
+| `style`    | 서식 변경만 수행              |
+| `test`     | 테스트 추가 또는 수정           |
+| `chore`    | 빌드, 의존성, CI 관련 작업      |
 
-### Scopes
+### 스코프
 
-Use the lesson name or file area as scope:
+강의 이름 또는 파일 영역을 스코프로 사용합니다.
 
 ```
 feat(slash-commands): Add API documentation generator
@@ -595,52 +611,54 @@ docs(skills): Add comprehensive code review skill
 
 ---
 
-## Document Metadata Footer
+## 문서 메타데이터 푸터
 
-Lesson READMEs end with a metadata block:
+강의 README는 다음 메타데이터 블록으로 마무리합니다.
 
 ```markdown
 ---
-**Last Updated**: August 25, 2026
-**Claude Code Version**: 2.1.245
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**최종 업데이트**: August 25, 2026
+**Claude Code 버전**: 2.1.245
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
 ```
 
-- Use the version captured by the current sync run, not the value shown here
-- Use month + day + year format (e.g., "May 20, 2026")
-- Update the version when features change
-- List all compatible models
+- 여기 표시된 값이 아니라 현재 동기화 실행에서 확인한 버전을 사용합니다.
+- 날짜는 월 + 일 + 연도 형식을 사용합니다(예: "May 20, 2026").
+- 기능이 변경되면 버전을 업데이트합니다.
+- 모든 호환 모델을 나열합니다.
+
 
 ---
 
-## Checklist for Authors
+## 작성자 체크리스트
 
-Before submitting content, verify:
+콘텐츠 제출 전에 다음 사항을 확인하십시오.
 
-- [ ] File/folder names use kebab-case
-- [ ] Document starts with H1 title (one per file)
-- [ ] Heading hierarchy is correct (no skipped levels)
-- [ ] All code blocks have language tags
-- [ ] Code examples are copy-paste ready
-- [ ] Internal links use relative paths
-- [ ] External links have descriptive anchor text
-- [ ] Tables are properly formatted
-- [ ] Emojis follow the standard set (if used at all)
-- [ ] Mermaid diagrams use the standard color palette
-- [ ] No sensitive information (API keys, credentials)
-- [ ] YAML frontmatter is valid (if applicable)
-- [ ] Images have alt text
-- [ ] Paragraphs are short and focused
-- [ ] Related guides section links to relevant lessons
-- [ ] Commit message follows conventional commits format
+- [ ] 파일/폴더 이름이 kebab-case를 사용하는가
+- [ ] 문서가 H1 제목으로 시작하는가(파일당 1개)
+- [ ] 제목 계층 구조가 올바른가(단계 생략 없음)
+- [ ] 모든 코드 블록에 언어 태그가 있는가
+- [ ] 코드 예제가 바로 복사하여 사용할 수 있는 상태인가
+- [ ] 내부 링크가 상대 경로를 사용하는가
+- [ ] 외부 링크에 설명적인 앵커 텍스트가 있는가
+- [ ] 표 형식이 올바른가
+- [ ] 이모지가 표준 규칙을 따르는가(사용한 경우)
+- [ ] Mermaid 다이어그램이 표준 색상 팔레트를 사용하는가
+- [ ] 민감한 정보(API 키, 자격 증명)가 포함되지 않았는가
+- [ ] YAML 프런트매터가 유효한가(해당하는 경우)
+- [ ] 이미지에 alt 텍스트가 있는가
+- [ ] 문단이 짧고 핵심에 집중되어 있는가
+- [ ] 관련 가이드 섹션이 적절한 강의를 링크하는가
+- [ ] 커밋 메시지가 Conventional Commits 형식을 따르는가
+
 
 ---
 
-**Last Updated**: August 25, 2026
-**Claude Code Version**: 2.1.245
-**Sources**:
+**최종 업데이트**: 2026년 8월 25일
+**Claude Code 버전**: 2.1.245
+**출처**:
 - https://code.claude.com/docs/en/overview
 - https://code.claude.com/docs/en/changelog
 - https://code.claude.com/docs/en/model-config
 - https://github.com/anthropics/claude-code/releases/tag/v2.1.154
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

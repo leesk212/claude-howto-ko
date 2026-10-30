@@ -1,523 +1,527 @@
+<!-- i18n-source: INDEX.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
   <img alt="Claude How To" src="resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Claude Code Examples - Complete Index
+# Claude Code 예시 - 전체 색인
 
-This document provides a complete index of all example files organized by feature type.
+이 문서는 기능 유형별로 정리된 모든 예시 파일의 전체 색인을 제공합니다.
 
-## Summary Statistics
+## 요약 통계
 
-- **Total Files**: 100+ files
-- **Categories**: 10 feature categories
-- **Plugins**: 3 complete plugins
-- **Skills**: 6 complete skills
-- **Hooks**: 11 example hooks
-- **Ready to Use**: All examples
+- **총 파일 수**: 100개 이상
+- **카테고리**: 10가지 기능 카테고리
+- **플러그인**: 3개의 완벽한 플러그인
+- **스킬**: 6개의 완벽한 스킬
+- **훅**: 11가지 예시 훅
+- **즉시 사용 가능**: 모든 예시
 
 ---
 
-## 01. Slash Commands (10 files)
+## 01. 슬래시 명령어 (10개 파일)
 
-User-invoked shortcuts for common workflows.
+일반적인 워크플로를 위한 사용자 호출 단축 명령어입니다.
 
-| File | Description | Use Case |
+| 파일 | 설명 | 사용 사례 |
 |------|-------------|----------|
-| `optimize.md` | Code optimization analyzer | Find performance issues |
-| `pr.md` | Pull request preparation | PR workflow automation |
-| `generate-api-docs.md` | API documentation generator | Generate API docs |
-| `commit.md` | Commit message helper | Standardized commits |
-| `setup-ci-cd.md` | CI/CD pipeline setup | DevOps automation |
-| `push-all.md` | Push all changes | Quick push workflow |
-| `unit-test-expand.md` | Expand unit test coverage | Test automation |
-| `doc-refactor.md` | Documentation refactoring | Doc improvements |
-| `pr-slash-command.png` | Screenshot example | Visual reference |
-| `README.md` | Documentation | Setup and usage guide |
+| `optimize.md` | 코드 최적화 분석기 | 성능 문제 찾기 |
+| `pr.md` | 풀 리퀘스트 준비 | PR 워크플로 자동화 |
+| `generate-api-docs.md` | API 문서 생성기 | API 문서 생성 |
+| `commit.md` | 커밋 메시지 도우미 | 표준화된 커밋 |
+| `setup-ci-cd.md` | CI/CD 파이프라인 설정 | 데브옵스 자동화 |
+| `push-all.md` | 모든 변경사항 푸시 | 빠른 푸시 워크플로 |
+| `unit-test-expand.md` | 단위 테스트 커버리지 확장 | 테스트 자동화 |
+| `doc-refactor.md` | 문서 리팩터링 | 문서 개선 |
+| `pr-slash-command.png` | 스크린샷 예시 | 시각적 참고 자료 |
+| `README.md` | 문서 | 설정 및 사용 가이드 |
 
-**Installation Path**: `.claude/commands/`
+**설치 경로**: `.claude/commands/`
 
-**Usage**: `/optimize`, `/pr`, `/generate-api-docs`, `/commit`, `/setup-ci-cd`, `/push-all`, `/unit-test-expand`, `/doc-refactor`
+**사용법**: `/optimize`, `/pr`, `/generate-api-docs`, `/commit`, `/setup-ci-cd`, `/push-all`, `/unit-test-expand`, `/doc-refactor`
 
 ---
 
-## 02. Memory (6 files)
+## 02. 메모리 (6개 파일)
 
-Persistent context and project standards.
+영구적인 컨텍스트와 프로젝트 표준입니다.
 
-| File | Description | Scope | Location |
+| 파일 | 설명 | 범위 | 위치 |
 |------|-------------|-------|----------|
-| `project-CLAUDE.md` | Team project standards | Project-wide | `./CLAUDE.md` |
-| `directory-api-CLAUDE.md` | API-specific rules | Directory | `./src/api/CLAUDE.md` |
-| `personal-CLAUDE.md` | Personal preferences | User | `~/.claude/CLAUDE.md` |
-| `memory-saved.png` | Screenshot: memory saved | - | Visual reference |
-| `memory-ask-claude.png` | Screenshot: ask Claude | - | Visual reference |
-| `README.md` | Documentation | - | Reference |
+| `project-CLAUDE.md` | 팀 프로젝트 표준 | 프로젝트 전체 | `./CLAUDE.md` |
+| `directory-api-CLAUDE.md` | API별 규칙 | 디렉터리 | `./src/api/CLAUDE.md` |
+| `personal-CLAUDE.md` | 개인 설정 | 사용자 | `~/.claude/CLAUDE.md` |
+| `memory-saved.png` | 스크린샷: 메모리 저장됨 | - | 시각적 참고 자료 |
+| `memory-ask-claude.png` | 스크린샷: Claude에게 질문 | - | 시각적 참고 자료 |
+| `README.md` | 문서 | - | 참조 |
 
-**Installation**: Copy to appropriate location
+**설치**: 적절한 위치에 복사
 
-**Usage**: Automatically loaded by Claude
+**사용법**: Claude가 자동으로 로드합니다.
 
-**AGENTS.md** (v2.1.277): read as project instructions when no `CLAUDE.md`, `.claude/CLAUDE.md` or `CLAUDE.local.md` exists at or above the working directory — see `02-memory/README.md#agentsmd`
+**AGENTS.md** (v2.1.277): 작업 디렉터리나 그 상위에 `CLAUDE.md`, `.claude/CLAUDE.md`, `CLAUDE.local.md`가 없으면 프로젝트 지침으로 읽힙니다. [`02-memory/README.md#agentsmd`](02-memory/README.md#agentsmd)를 참고하세요.
 
 ---
 
-## 03. Skills (23 files)
+## 03. 스킬 (23개 파일)
 
-Auto-invoked capabilities with scripts and templates.
+스크립트 및 템플릿과 함께 자동으로 호출되는 기능입니다.
 
-### Code Review Skill (5 files)
+### 코드 검토 스킬 (5개 파일)
 ```
 code-review-specialist/
-├── SKILL.md                          # Skill definition
+├── SKILL.md                          # 스킬 정의
 ├── scripts/
-│   ├── analyze-metrics.py            # Code metrics analyzer
-│   └── compare-complexity.py         # Complexity comparison
+│   ├── analyze-metrics.py            # 코드 메트릭 분석기
+│   └── compare-complexity.py         # 복잡도 비교
 └── templates/
-    ├── review-checklist.md           # Review checklist
-    └── finding-template.md           # Finding documentation
+    ├── review-checklist.md           # 검토 체크리스트
+    └── finding-template.md           # 발견 사항 문서
 ```
 
-**Purpose**: Comprehensive code review with security, performance, and quality analysis
+**목적**: 보안, 성능 및 품질 분석을 포함한 종합적인 코드 검토입니다.
 
-**Auto-invoked**: When reviewing code
+**자동 호출**: 코드를 검토할 때
 
 ---
 
-### Brand Voice Skill (4 files)
+### 브랜드 보이스 스킬 (4개 파일)
 ```
 brand-voice/
-├── SKILL.md                          # Skill definition
+├── SKILL.md                          # 스킬 정의
 ├── templates/
-│   ├── email-template.txt            # Email format
-│   └── social-post-template.txt      # Social media format
-└── tone-examples.md                  # Example messages
+│   ├── email-template.txt            # 이메일 형식
+│   └── social-post-template.txt      # 소셜 미디어 형식
+└── tone-examples.md                  # 예시 메시지
 ```
 
-**Purpose**: Ensure consistent brand voice in communications
+**목적**: 커뮤니케이션에서 일관된 브랜드 보이스를 보장합니다.
 
-**Auto-invoked**: When creating marketing copy
+**자동 호출**: 마케팅 문구를 작성할 때
 
 ---
 
-### Documentation Generator Skill (2 files)
+### 문서 생성기 스킬 (2개 파일)
 ```
 doc-generator/
-├── SKILL.md                          # Skill definition
-└── generate-docs.py                  # Python doc extractor
+├── SKILL.md                          # 스킬 정의
+└── generate-docs.py                  # 파이썬 문서 추출기
 ```
 
-**Purpose**: Generate comprehensive API documentation from source code
+**목적**: 소스 코드로부터 포괄적인 API 문서를 생성합니다.
 
-**Auto-invoked**: When creating/updating API documentation
+**자동 호출**: API 문서를 생성/업데이트할 때
 
 ---
 
-### Refactor Skill (5 files)
+### 리팩터 스킬 (5개 파일)
 ```
 refactor/
-├── SKILL.md                          # Skill definition
+├── SKILL.md                          # 스킬 정의
 ├── scripts/
-│   ├── analyze-complexity.py         # Complexity analyzer
-│   └── detect-smells.py              # Code smell detector
+│   ├── analyze-complexity.py         # 복잡도 분석기
+│   └── detect-smells.py              # 코드 스멜 감지기
 ├── references/
-│   ├── code-smells.md                # Code smells catalog
-│   └── refactoring-catalog.md        # Refactoring patterns
+│   ├── code-smells.md                # 코드 스멜 카탈로그
+│   └── refactoring-catalog.md        # 리팩터링 패턴
 └── templates/
-    └── refactoring-plan.md           # Refactoring plan template
+    └── refactoring-plan.md           # 리팩터링 계획 템플릿
 ```
 
-**Purpose**: Systematic code refactoring with complexity analysis
+**목적**: 복잡도 분석을 통한 체계적인 코드 리팩터링입니다.
 
-**Auto-invoked**: When refactoring code
+**자동 호출**: 코드를 리팩터링할 때
 
 ---
 
-### Claude MD Skill (1 file)
+### Claude MD 스킬 (1개 파일)
 ```
 claude-md/
-└── SKILL.md                          # Skill definition
+└── SKILL.md                          # 스킬 정의
 ```
 
-**Purpose**: Manage and optimize CLAUDE.md files
+**목적**: CLAUDE.md 파일을 관리하고 최적화합니다.
 
 ---
 
-### Blog Draft Skill (3 files)
+### 블로그 초안 스킬 (3개 파일)
 ```
 blog-draft/
-├── SKILL.md                          # Skill definition
+├── SKILL.md                          # 스킬 정의
 └── templates/
-    ├── draft-template.md             # Blog draft template
-    └── outline-template.md           # Blog outline template
+    ├── draft-template.md             # 블로그 초안 템플릿
+    └── outline-template.md           # 블로그 개요 템플릿
 ```
 
-**Purpose**: Draft blog posts with consistent structure
+**목적**: 일관된 구조로 블로그 게시물 초안을 작성합니다.
 
-**Plus**: `README.md` - Skills overview and usage guide
+**추가**: `README.md` - 스킬 개요 및 사용 가이드
 
-**Installation Path**: `~/.claude/skills/` or `.claude/skills/`
+**설치 경로**: `~/.claude/skills/` 또는 `.claude/skills/`
 
 ---
 
-## 04. Subagents (10 files)
+## 04. 서브에이전트 (10개 파일)
 
-Specialized AI assistants with custom capabilities.
+사용자 지정 기능을 갖춘 특화된 AI 어시스턴트입니다.
 
-| File | Description | Tools | Use Case |
+| 파일 | 설명 | 도구 | 사용 사례 |
 |------|-------------|-------|----------|
-| `code-reviewer.md` | Code quality analysis | Read, Grep, Glob, Bash | Comprehensive reviews |
-| `test-engineer.md` | Test coverage analysis | Read, Write, Bash, Grep | Test automation |
-| `documentation-writer.md` | Documentation creation | Read, Write, Grep | Doc generation |
-| `secure-reviewer.md` | Security review (read-only) | Read, Grep | Security audits |
-| `implementation-agent.md` | Full implementation | Read, Write, Edit, Bash, Grep, Glob | Feature development |
-| `debugger.md` | Debugging specialist | Read, Edit, Bash, Grep, Glob | Bug investigation |
-| `data-scientist.md` | Data analysis specialist | Bash, Read, Write | Data workflows |
-| `clean-code-reviewer.md` | Clean code standards | Read, Grep, Glob, Bash | Code quality |
-| `performance-optimizer.md` | Performance bottleneck analysis | Read, Edit, Bash, Grep, Glob | Optimization work |
-| `README.md` | Documentation | - | Setup and usage guide |
+| `code-reviewer.md` | 코드 품질 분석 | Read, Grep, Glob, Bash | 종합적인 검토 |
+| `test-engineer.md` | 테스트 커버리지 분석 | Read, Write, Bash, Grep | 테스트 자동화 |
+| `documentation-writer.md` | 문서 작성 | Read, Write, Grep | 문서 생성 |
+| `secure-reviewer.md` | 보안 검토 (읽기 전용) | Read, Grep | 보안 감사 |
+| `implementation-agent.md` | 전체 구현 | Read, Write, Edit, Bash, Grep, Glob | 기능 개발 |
+| `debugger.md` | 디버깅 전문가 | Read, Edit, Bash, Grep, Glob | 버그 조사 |
+| `data-scientist.md` | 데이터 분석 전문가 | Bash, Read, Write | 데이터 워크플로 |
+| `clean-code-reviewer.md` | 클린 코드 표준 | Read, Grep, Glob, Bash | 코드 품질 |
+| `performance-optimizer.md` | 성능 병목 분석 | Read, Edit, Bash, Grep, Glob | 최적화 작업 |
+| `README.md` | 문서 | - | 설정 및 사용 가이드 |
 
-**Installation Path**: `.claude/agents/`
+**설치 경로**: `.claude/agents/`
 
-**Usage**: Automatically delegated by main agent
+**사용법**: 메인 에이전트에 의해 자동으로 위임됩니다.
 
 ---
 
-## 05. MCP Protocol (5 files)
+## 05. MCP 프로토콜 (5개 파일)
 
-External tool and API integrations.
+외부 도구 및 API 통합입니다.
 
-| File | Description | Integrates With | Use Case |
+| 파일 | 설명 | 통합 대상 | 사용 사례 |
 |------|-------------|-----------------|----------|
-| `github-mcp.json` | GitHub integration | GitHub API | PR/issue management |
-| `database-mcp.json` | Database queries | PostgreSQL/MySQL | Live data queries |
-| `filesystem-mcp.json` | File operations | Local filesystem | File management |
-| `multi-mcp.json` | Multiple servers | GitHub + DB + Slack | Complete integration |
-| `README.md` | Documentation | - | Setup and usage guide |
+| `github-mcp.json` | GitHub 통합 | GitHub API | PR/이슈 관리 |
+| `database-mcp.json` | 데이터베이스 쿼리 | PostgreSQL/MySQL | 실시간 데이터 쿼리 |
+| `filesystem-mcp.json` | 파일 작업 | 로컬 파일 시스템 | 파일 관리 |
+| `multi-mcp.json` | 다중 서버 | GitHub + DB + Slack | 완전한 통합 |
+| `README.md` | 문서 | - | 설정 및 사용 가이드 |
 
-**Installation Path**: `.mcp.json` (project scope) or `~/.claude.json` (user scope)
+**설치 경로**: `.mcp.json` (프로젝트 범위) 또는 `~/.claude.json` (사용자 범위)
 
-**Usage**: `/mcp__github__list_prs`, etc.
+**사용법**: `/mcp__github__list_prs`, 등.
 
 ---
 
-## 06. Hooks (12 files)
+## 06. 훅 (12개 파일)
 
-Event-driven automation scripts that execute automatically.
+자동으로 실행되는 이벤트 기반 자동화 스크립트입니다.
 
-| File | Description | Event | Use Case |
+| 파일 | 설명 | 이벤트 | 사용 사례 |
 |------|-------------|-------|----------|
-| `format-code.sh` | Auto-format code | PostToolUse (matcher: Write) | Code formatting |
-| `pre-commit.sh` | Run tests before commit | PreToolUse (matcher: Bash) | Test automation |
-| `pre-tool-check.sh` | Validate and audit commands before they run | PreToolUse (matcher: Bash) | Guardrails, audit log |
-| `security-scan.sh` | Security scanning | PostToolUse (matcher: Write) | Security checks |
-| `dependency-check.sh` | Scan dependency manifests for vulnerabilities | PostToolUse (matcher: Write) | Supply-chain checks |
-| `log-bash.sh` | Log bash commands | PostToolUse (matcher: Bash) | Command logging |
-| `notify-team.sh` | Send notifications | PostToolUse (matcher: Bash) | Team notifications |
-| `validate-prompt.sh` | Validate prompts | UserPromptSubmit | Input validation |
-| `session-end.sh` | Capture progress when a session ends | SessionEnd | Progress tracking |
-| `context-tracker.py` | Track context window usage | UserPromptSubmit, Stop | Context monitoring |
-| `context-tracker-tiktoken.py` | Token-based context tracking | UserPromptSubmit, Stop | Precise token counting |
-| `README.md` | Documentation | - | Setup and usage guide |
+| `format-code.sh` | 코드 자동 포맷 | PostToolUse (matcher: Write) | 코드 포맷팅 |
+| `pre-commit.sh` | 커밋 전 테스트 실행 | PreToolUse (matcher: Bash) | 테스트 자동화 |
+| `pre-tool-check.sh` | 명령어 실행 전 검증 및 감사 | PreToolUse (matcher: Bash) | 가드레일, 감사 로그 |
+| `security-scan.sh` | 보안 스캐닝 | PostToolUse (matcher: Write) | 보안 검사 |
+| `dependency-check.sh` | 의존성 매니페스트의 취약점 검사 | PostToolUse (matcher: Write) | 공급망 검사 |
+| `log-bash.sh` | Bash 명령어 로깅 | PostToolUse (matcher: Bash) | 명령어 로깅 |
+| `notify-team.sh` | 알림 보내기 | PostToolUse (matcher: Bash) | 팀 알림 |
+| `validate-prompt.sh` | 프롬프트 유효성 검사 | UserPromptSubmit | 입력 유효성 검사 |
+| `session-end.sh` | 세션 종료 시 진행 상황 기록 | SessionEnd | 진행 상황 추적 |
+| `context-tracker.py` | 컨텍스트 창 사용량 추적 | UserPromptSubmit, Stop | 컨텍스트 모니터링 |
+| `context-tracker-tiktoken.py` | 토큰 기반 컨텍스트 추적 | UserPromptSubmit, Stop | 정확한 토큰 계산 |
+| `README.md` | 문서 | - | 설정 및 사용 가이드 |
 
-**Installation Path**: Configure in `~/.claude/settings.json`
+**설치 경로**: `~/.claude/settings.json`에서 구성
 
-**Usage**: Configured in settings, executed automatically
+**사용법**: 설정에서 구성되며 자동으로 실행됩니다.
 
-**Hook Types** (5): `command`, `http`, `prompt`, `mcp_tool`, `agent` — how a hook runs.
+**훅 유형** (5가지): `command`, `http`, `prompt`, `mcp_tool`, `agent` — 훅이 실행되는 방식입니다.
 
-**Hook Events** (33, in 4 categories) — when it runs:
-- Tool Hooks: PreToolUse, PostToolUse, PostToolUseFailure, PostToolBatch, PermissionRequest, PermissionDenied
-- Session Hooks: SessionStart, Setup, SessionEnd, Stop, StopFailure, SubagentStart, SubagentStop
-- Task Hooks: UserPromptSubmit, UserPromptExpansion, MessageDisplay, TaskCompleted, TaskCreated, TeammateIdle (TaskCompleted/TaskCreated only fire when the todo tools are enabled — available by default only on Claude 3.x models, Opus 4 through 4.7, Sonnet 4 through 4.6, and Haiku 4.5)
-- Lifecycle Hooks: ConfigChange, CwdChanged, DirectoryAdded, FileChanged, PreCompact, PostCompact, PreModelSwitch, PostModelSwitch, WorktreeCreate, WorktreeRemove, Notification, InstructionsLoaded, Elicitation, ElicitationResult
+**훅 이벤트** (33가지, 4개 범주) — 훅이 실행되는 시점입니다.
+- 도구 훅: PreToolUse, PostToolUse, PostToolUseFailure, PostToolBatch, PermissionRequest, PermissionDenied
+- 세션 훅: SessionStart, Setup, SessionEnd, Stop, StopFailure, SubagentStart, SubagentStop
+- 태스크 훅: UserPromptSubmit, UserPromptExpansion, MessageDisplay, TaskCompleted, TaskCreated, TeammateIdle (TaskCompleted/TaskCreated는 todo 도구가 활성화된 경우에만 실행되며, 이 도구는 Claude 3.x 모델, Opus 4~4.7, Sonnet 4~4.6, Haiku 4.5에서만 기본으로 제공됩니다)
+- 수명 주기 훅: ConfigChange, CwdChanged, DirectoryAdded, FileChanged, PreCompact, PostCompact, PreModelSwitch, PostModelSwitch, WorktreeCreate, WorktreeRemove, Notification, InstructionsLoaded, Elicitation, ElicitationResult
 
 ---
 
-## 07. Plugins (3 complete plugins, 39 files)
+## 07. 플러그인 (3개의 완전한 플러그인, 39개 파일)
 
-Bundled collections of features.
+기능들을 묶어 놓은 모음집입니다.
 
-### PR Review Plugin (10 files)
+### PR 검토 플러그인 (10개 파일)
 ```
 pr-review/
 ├── .claude-plugin/
-│   └── plugin.json                   # Plugin manifest
+│   └── plugin.json                   # 플러그인 매니페스트
 ├── commands/
-│   ├── review-pr.md                  # Comprehensive review
-│   ├── check-security.md             # Security check
-│   └── check-tests.md                # Test coverage check
+│   ├── review-pr.md                  # 종합 검토
+│   ├── check-security.md             # 보안 검사
+│   └── check-tests.md                # 테스트 커버리지 검사
 ├── agents/
-│   ├── security-reviewer.md          # Security specialist
-│   ├── test-checker.md               # Test specialist
-│   └── performance-analyzer.md       # Performance specialist
+│   ├── security-reviewer.md          # 보안 전문가
+│   ├── test-checker.md               # 테스트 전문가
+│   └── performance-analyzer.md       # 성능 전문가
 ├── mcp/
-│   └── github-config.json            # GitHub integration
+│   └── github-config.json            # GitHub 통합
 ├── hooks/
-│   └── pre-review.js                 # Pre-review validation
-└── README.md                         # Plugin documentation
+│   └── pre-review.js                 # 사전 검토 유효성 검사
+└── README.md                         # 플러그인 문서
 ```
 
-**Features**: Security analysis, test coverage, performance impact
+**기능**: 보안 분석, 테스트 커버리지, 성능 영향
 
-**Commands**: `/review-pr`, `/check-security`, `/check-tests`
+**명령어**: `/review-pr`, `/check-security`, `/check-tests`
 
-**Installation**: `claude --plugin-dir ./07-plugins/pr-review` (from the repo root)
+**설치**: `claude --plugin-dir ./07-plugins/pr-review` (저장소 루트에서 실행)
 
 ---
 
-### DevOps Automation Plugin (15 files)
+### 데브옵스 자동화 플러그인 (15개 파일)
 ```
 devops-automation/
 ├── .claude-plugin/
-│   └── plugin.json                   # Plugin manifest
+│   └── plugin.json                   # 플러그인 매니페스트
 ├── commands/
-│   ├── deploy.md                     # Deployment
-│   ├── rollback.md                   # Rollback
-│   ├── status.md                     # System status
-│   └── incident.md                   # Incident response
+│   ├── deploy.md                     # 배포
+│   ├── rollback.md                   # 롤백
+│   ├── status.md                     # 시스템 상태
+│   └── incident.md                   # 인시던트 대응
 ├── agents/
-│   ├── deployment-specialist.md      # Deployment expert
-│   ├── incident-commander.md         # Incident coordinator
-│   └── alert-analyzer.md             # Alert analyzer
+│   ├── deployment-specialist.md      # 배포 전문가
+│   ├── incident-commander.md         # 인시던트 코디네이터
+│   └── alert-analyzer.md             # 경고 분석기
 ├── mcp/
-│   └── kubernetes-config.json        # Kubernetes integration
+│   └── kubernetes-config.json        # Kubernetes 통합
 ├── hooks/
-│   ├── pre-deploy.js                 # Pre-deployment checks
-│   └── post-deploy.js                # Post-deployment tasks
+│   ├── pre-deploy.js                 # 배포 전 검사
+│   └── post-deploy.js                # 배포 후 작업
 ├── scripts/
-│   ├── deploy.sh                     # Deployment automation
-│   ├── rollback.sh                   # Rollback automation
-│   └── health-check.sh               # Health checks
-└── README.md                         # Plugin documentation
+│   ├── deploy.sh                     # 배포 자동화
+│   ├── rollback.sh                   # 롤백 자동화
+│   └── health-check.sh               # 상태 검사
+└── README.md                         # 플러그인 문서
 ```
 
-**Features**: Kubernetes deployment, rollback, monitoring, incident response
+**기능**: Kubernetes 배포, 롤백, 모니터링, 인시던트 대응
 
-**Commands**: `/deploy`, `/rollback`, `/status`, `/incident`
+**명령어**: `/deploy`, `/rollback`, `/status`, `/incident`
 
-**Installation**: `claude --plugin-dir ./07-plugins/devops-automation` (from the repo root)
+**설치**: `claude --plugin-dir ./07-plugins/devops-automation` (저장소 루트에서 실행)
 
 ---
 
-### Documentation Plugin (14 files)
+### 문서화 플러그인 (14개 파일)
 ```
 documentation/
 ├── .claude-plugin/
-│   └── plugin.json                   # Plugin manifest
+│   └── plugin.json                   # 플러그인 매니페스트
 ├── commands/
-│   ├── generate-api-docs.md          # API docs generation
-│   ├── generate-readme.md            # README creation
-│   ├── sync-docs.md                  # Doc synchronization
-│   └── validate-docs.md              # Doc validation
+│   ├── generate-api-docs.md          # API 문서 생성
+│   ├── generate-readme.md            # README 생성
+│   ├── sync-docs.md                  # 문서 동기화
+│   └── validate-docs.md              # 문서 유효성 검사
 ├── agents/
-│   ├── api-documenter.md             # API doc specialist
-│   ├── code-commentator.md           # Code comment specialist
-│   └── example-generator.md          # Example creator
+│   ├── api-documenter.md             # API 문서 전문가
+│   ├── code-commentator.md           # 코드 주석 전문가
+│   └── example-generator.md          # 예시 생성기
 ├── mcp/
-│   └── github-docs-config.json       # GitHub integration
+│   └── github-docs-config.json       # GitHub 통합
 ├── templates/
-│   ├── api-endpoint.md               # API endpoint template
-│   ├── function-docs.md              # Function doc template
-│   └── adr-template.md               # ADR template
-└── README.md                         # Plugin documentation
+│   ├── api-endpoint.md               # API 엔드포인트 템플릿
+│   ├── function-docs.md              # 함수 문서 템플릿
+│   └── adr-template.md               # ADR 템플릿
+└── README.md                         # 플러그인 문서
 ```
 
-**Features**: API docs, README generation, doc sync, validation
+**기능**: API 문서, README 생성, 문서 동기화, 유효성 검사
 
-**Commands**: `/generate-api-docs`, `/generate-readme`, `/sync-docs`, `/validate-docs`
+**명령어**: `/generate-api-docs`, `/generate-readme`, `/sync-docs`, `/validate-docs`
 
-**Installation**: `claude --plugin-dir ./07-plugins/documentation` (from the repo root)
+**설치**: `claude --plugin-dir ./07-plugins/documentation` (저장소 루트에서 실행)
 
-**Plus**: `README.md` - Plugins overview and usage guide
+**추가**: `README.md` - 플러그인 개요 및 사용 가이드
 
 ---
 
-## 08. Checkpoints and Rewind (2 files)
+## 08. 체크포인트 및 되감기 (2개 파일)
 
-Save conversation state and explore alternative approaches.
+대화 상태를 저장하고 대안적인 접근 방식을 탐색합니다.
 
-| File | Description | Content |
+| 파일 | 설명 | 내용 |
 |------|-------------|---------|
-| `README.md` | Documentation | Comprehensive checkpoint guide |
-| `checkpoint-examples.md` | Real-world examples | Database migration, performance optimization, UI iteration, debugging |
+| `README.md` | 문서 | 포괄적인 체크포인트 가이드 |
+| `checkpoint-examples.md` | 실제 예시 | 데이터베이스 마이그레이션, 성능 최적화, UI 반복, 디버깅 |
 | | | |
 
-**Key Concepts**:
-- **Checkpoint**: Snapshot of conversation state
-- **Rewind**: Return to previous checkpoint
-- **Branch Point**: Explore multiple approaches
+**주요 개념**:
+- **체크포인트**: 대화 상태의 스냅샷
+- **되감기**: 이전 체크포인트로 돌아가기
+- **분기점**: 여러 접근 방식 탐색
 
-**Usage**:
+**사용법**:
 ```
-# Checkpoints are created automatically with every user prompt
-# To rewind, press Esc twice or use:
+# 체크포인트는 사용자 프롬프트마다 자동으로 생성됩니다.
+# 되감으려면 Esc를 두 번 누르거나 다음을 사용하십시오:
 /rewind
-# Then choose: Restore code and conversation, Restore conversation,
-# Restore code, Summarize from here, Summarize up to here, or Never mind
+# 그런 다음 선택하십시오: 코드 및 대화 복원, 대화 복원,
+# 코드 복원, 여기부터 요약, 여기까지 요약 또는 취소
 ```
 
-**Use Cases**:
-- Try different implementations
-- Recover from mistakes
-- Safe experimentation
-- Compare solutions
-- A/B testing
+**사용 사례**:
+- 다양한 구현 시도
+- 실수에서 복구
+- 안전한 실험
+- 솔루션 비교
+- A/B 테스트
 
 ---
 
-## 09. Advanced Features (4 files)
+## 09. 고급 기능 (4개 파일)
 
-Advanced capabilities for complex workflows.
+복잡한 워크플로를 위한 고급 기능입니다.
 
-| File | Description | Features |
+| 파일 | 설명 | 기능 |
 |------|-------------|----------|
-| `README.md` | Complete guide | All advanced features documentation |
-| `config-examples.json` | Configuration examples | 10+ use-case-specific configurations |
-| `planning-mode-examples.md` | Planning examples | REST API, database migration, refactoring |
-| `setup-auto-mode-permissions.py` | Seed `permissions.allow` for auto mode | Idempotent, `--dry-run` and opt-in flags |
-| Dynamic Workflows | Deterministic multi-agent orchestration via `/workflows` (v2.1.154) | Comprehensive audits, migrations, scale-out |
-| Scheduled Tasks | Recurring session-scoped tasks with `/loop` and cron tools | Automated recurring workflows |
-| Chrome Integration | Browser automation in your own Chrome via the Claude in Chrome extension | Web testing and scraping |
-| Remote Control (expanded) | Connection methods, security, comparison table, device cards | Remote session management (no longer a research preview) |
-| Cross-Session Messaging | `SendMessage` / `ListAgents`, including `notify_when_idle` (v2.1.236) | Coordinating sessions on the same machine |
-| Keyboard Customization | Custom keybindings, chord support, contexts | Personalized shortcuts |
-| Desktop App (expanded) | Connectors, launch.json, enterprise features | Desktop integration |
+| `README.md` | 완벽 가이드 | 모든 고급 기능 문서 |
+| `config-examples.json` | 구성 예시 | 10가지 이상의 사용 사례별 구성 |
+| `planning-mode-examples.md` | 계획 예시 | REST API, 데이터베이스 마이그레이션, 리팩터링 |
+| `setup-auto-mode-permissions.py` | 자동 모드용 `permissions.allow` 초기 설정 | 멱등성, `--dry-run` 및 옵트인 플래그 |
+| 동적 워크플로 | `/workflows` (v2.1.154)를 통한 확정적 다중 에이전트 오케스트레이션 | 포괄적인 감사, 마이그레이션, 스케일 아웃 |
+| 예약 작업 | `/loop` 및 cron 도구를 사용한 세션 범위 반복 작업 | 자동화된 반복 워크플로 |
+| Chrome 통합 | Claude in Chrome 확장 프로그램을 통해 사용자의 Chrome에서 브라우저 자동화 | 웹 테스트 및 스크래핑 |
+| 원격 제어 (확장됨) | 연결 방법, 보안, 비교 표, 디바이스 카드 | 원격 세션 관리 (더 이상 리서치 프리뷰가 아님) |
+| 세션 간 메시징 | `notify_when_idle`(v2.1.236)을 포함한 `SendMessage` / `ListAgents` | 같은 머신의 세션 간 협업 |
+| 키보드 사용자 지정 | 사용자 지정 키 바인딩, 코드 지원, 컨텍스트 | 개인화된 단축키 |
+| 데스크톱 앱 (확장됨) | 커넥터, launch.json, 엔터프라이즈 기능 | 데스크톱 통합 |
 | | | |
 
-**Advanced Features Covered**:
+**다루는 고급 기능**:
 
-### Planning Mode
-- Create detailed implementation plans
-- Time estimates and risk assessment
-- Systematic task breakdown
+### 계획 모드
+- 상세 구현 계획 생성
+- 시간 추정 및 위험 평가
+- 체계적인 작업 분할
 
-### Extended Thinking
-- Deep reasoning for complex problems
-- Architectural decision analysis
-- Trade-off evaluation
+### 확장 사고
+- 복잡한 문제에 대한 심층 추론
+- 아키텍처 의사 결정 분석
+- 트레이드오프 평가
 
-### Background Tasks
-- Long-running operations without blocking
-- Parallel development workflows
-- Task management and monitoring
+### 백그라운드 작업
+- 블로킹 없이 장기 실행 작업
+- 병렬 개발 워크플로
+- 작업 관리 및 모니터링
 
-### Dynamic Workflows (v2.1.154)
-- Deterministic orchestration of tens-to-hundreds of background subagents
-- Fan-out / pipeline / parallel stages for comprehensive coverage
-- View runs with `/workflows`; the Ultracode toggle in `/effort` (`/effort ultracode [on|off]`) turns it on for a session without changing the effort level (v2.1.284); the `ultracode` setting makes it persist
-- Default size guideline is medium (aim for fewer than 10 agents) as of v2.1.219 — change it with **Dynamic workflow size** in `/config`
+### 동적 워크플로 (v2.1.154)
+- 수십에서 수백 개의 백그라운드 서브에이전트의 확정적 오케스트레이션
+- 포괄적인 커버리지를 위한 팬아웃 / 파이프라인 / 병렬 단계
+- `/workflows`로 실행을 확인합니다. `/effort`의 Ultracode 토글(`/effort ultracode [on|off]`)은 effort 수준을 바꾸지 않고 세션에서 이를 켜며(v2.1.284), `ultracode` 설정으로 지속시킬 수 있습니다.
+- v2.1.219부터 기본 크기 가이드라인은 중간(에이전트 10개 미만 목표)이며, `/config`의 **Dynamic workflow size**로 변경할 수 있습니다.
 
-### Permission Modes
-- **manual**: Ask before anything beyond reads (shown as Manual since v2.1.200; config value is still `default`)
-- **acceptEdits**: Auto-accept file edits, ask for others
-- **plan**: Read-only analysis, no modifications
-- **auto**: Everything, with background safety checks — a classifier reviews commands and protected-directory writes (configured via the `autoMode` settings object)
-- **dontAsk**: Only pre-approved tools — auto-denies every call that would otherwise prompt. Claude runs only `permissions.allow` matches, read-only Bash commands, and calls approved by a `PreToolUse` hook
-- **bypassPermissions**: Accept all (enable with `--permission-mode bypassPermissions` or the equivalent `--dangerously-skip-permissions`)
+### 권한 모드
+- **manual**: 읽기 이외의 모든 작업 전에 확인 (v2.1.200부터 Manual로 표시되며, 구성 값은 여전히 `default`)
+- **acceptEdits**: 파일 편집 자동 승인, 다른 작업은 요청
+- **plan**: 읽기 전용 분석, 수정 없음
+- **auto**: 모든 작업을 백그라운드 안전 검사와 함께 수행 — 분류기가 명령어와 보호된 디렉터리 쓰기를 검토 (`autoMode` 설정 객체로 구성)
+- **dontAsk**: 사전 승인된 도구만 실행 — 프롬프트가 필요한 모든 호출을 자동 거부. Claude는 `permissions.allow`에 일치하는 항목, 읽기 전용 Bash 명령어, `PreToolUse` 훅이 승인한 호출만 실행
+- **bypassPermissions**: 모든 작업 승인 (`--permission-mode bypassPermissions` 또는 동등한 `--dangerously-skip-permissions`로 활성화)
 
-### Headless Mode (`claude -p`)
-- CI/CD integration
-- Automated task execution
-- Batch processing
+### 헤드리스 모드 (`claude -p`)
+- CI/CD 통합
+- 자동화된 작업 실행
+- 배치 처리
 
-### Session Management
-- Multiple work sessions
-- Session switching and saving
-- Session persistence
+### 세션 관리
+- 다중 작업 세션
+- 세션 전환 및 저장
+- 세션 지속성
 
-### Interactive Features
-- Keyboard shortcuts
-- Command history
-- Tab completion
-- Multi-line input
+### 대화형 기능
+- 키보드 단축키
+- 명령어 기록
+- 탭 자동 완성
+- 다중 라인 입력
 
-### Configuration
-- Comprehensive settings management
-- Environment-specific configs
-- Per-project customization
+### 구성
+- 포괄적인 설정 관리
+- 환경별 구성
+- 프로젝트별 사용자 지정
 
-### Scheduled Tasks
-- Recurring session-scoped tasks with `/loop` command
-- Cron tools: CronCreate, CronList, CronDelete
-- Automated recurring workflows
+### 예약 작업
+- `/loop` 명령을 사용한 세션 범위 반복 작업
+- Cron 도구: CronCreate, CronList, CronDelete
+- 자동화된 반복 워크플로
 
-### Chrome Integration
-- Browser automation in your own Chrome via the Claude in Chrome extension
-- Web testing and scraping capabilities
-- Page interaction and data extraction
+### Chrome 통합
+- Claude in Chrome 확장 프로그램을 통해 사용자의 Chrome에서 브라우저 자동화
+- 웹 테스트 및 스크래핑 기능
+- 페이지 상호 작용 및 데이터 추출
 
-### Remote Control (expanded)
-- Connection methods and protocols
-- Security considerations and best practices
-- Comparison table of remote access options
-- Out of research preview — a machine running `claude remote-control` appears as a device card in the Claude app's Code tab
+### 원격 제어 (확장됨)
+- 연결 방법 및 프로토콜
+- 보안 고려 사항 및 모범 사례
+- 원격 액세스 옵션 비교 표
+- 리서치 프리뷰 종료 — `claude remote-control`을 실행 중인 머신이 Claude 앱 Code 탭에 디바이스 카드로 표시됨
 
-### Cross-Session Messaging
-- `SendMessage` between sessions on the same machine
-- `notify_when_idle` — one opt-in notice when the other session next goes idle (v2.1.236)
-- `ListAgents` reports the session's own name and lists live teammates (v2.1.239)
+### 세션 간 메시징
+- 같은 머신의 세션 간 `SendMessage`
+- `notify_when_idle` — 상대 세션이 다음에 유휴 상태가 될 때 한 번 알림(옵트인, v2.1.236)
+- `ListAgents`가 세션 자신의 이름을 보고하고 실행 중인 팀원 목록을 표시(v2.1.239)
 
-### Keyboard Customization
-- Custom keybindings configuration
-- Chord support for multi-key shortcuts
-- Context-aware keybinding activation
+### 키보드 사용자 지정
+- 사용자 지정 키 바인딩 구성
+- 다중 키 단축키를 위한 코드 지원
+- 컨텍스트 인식 키 바인딩 활성화
 
-### Desktop App (expanded)
-- Connectors for IDE integration
-- launch.json configuration
-- Enterprise features and deployment
-
----
-
-## 10. CLI Usage (1 file)
-
-Command-line interface usage patterns and reference.
-
-| File | Description | Content |
-|------|-------------|---------|
-| `README.md` | CLI documentation | Flags, options, and usage patterns |
-
-**Key CLI Features**:
-- `claude` - Start interactive session
-- `claude -p "prompt"` - Headless/non-interactive mode
-- `claude --cloud "task"` - Start a cloud (web) session
-- `claude --model` - Select model (Opus 5.5, Sonnet 5.5, Opus 5, Sonnet 5, Sonnet 4.6, Opus 4.8, Haiku 5.5, Haiku 4.5)
-- `claude --permission-mode` - Set permission mode
-- `claude --remote-control` - Start a session you can also control from claude.ai or the Claude app
+### 데스크톱 앱 (확장됨)
+- IDE 통합을 위한 커넥터
+- launch.json 구성
+- 엔터프라이즈 기능 및 배포
 
 ---
 
-## Documentation Files (13 files)
+## 10. CLI 사용법 (1개 파일)
 
-| File | Location | Description |
+명령줄 인터페이스 사용 패턴 및 참조.
+
+| 파일 | 설명 | 내용 |
+|------|-------------|----------|
+| `README.md` | CLI 문서 | 플래그, 옵션 및 사용 패턴 |
+
+**주요 CLI 기능**:
+- `claude` - 대화형 세션 시작
+- `claude -p "prompt"` - 헤드리스/비대화형 모드
+- `claude --cloud "task"` - 클라우드(웹) 세션 시작
+- `claude --model` - 모델 선택 (Opus 5.5, Sonnet 5.5, Opus 5, Sonnet 5, Sonnet 4.6, Opus 4.8, Haiku 5.5, Haiku 4.5)
+- `claude --permission-mode` - 권한 모드 설정
+- `claude --remote-control` - claude.ai 또는 Claude 앱에서도 조작할 수 있는 세션 시작
+
+---
+
+## 문서 파일 (13개 파일)
+
+| 파일 | 위치 | 설명 |
 |------|----------|-------------|
-| `README.md` | `/` | Main examples overview |
-| `INDEX.md` | `/` | This complete index |
-| `QUICK_REFERENCE.md` | `/` | Quick reference card |
-| `README.md` | `/01-slash-commands/` | Slash commands guide |
-| `README.md` | `/02-memory/` | Memory guide |
-| `README.md` | `/03-skills/` | Skills guide |
-| `README.md` | `/04-subagents/` | Subagents guide |
-| `README.md` | `/05-mcp/` | MCP guide |
-| `README.md` | `/06-hooks/` | Hooks guide |
-| `README.md` | `/07-plugins/` | Plugins guide |
-| `README.md` | `/08-checkpoints/` | Checkpoints guide |
-| `README.md` | `/09-advanced-features/` | Advanced features guide |
-| `README.md` | `/10-cli/` | CLI guide |
+| `README.md` | `/` | 주요 예시 개요 |
+| `INDEX.md` | `/` | 이 전체 색인 |
+| `QUICK_REFERENCE.md` | `/` | 빠른 참조 카드 |
+| `README.md` | `/01-slash-commands/` | 슬래시 명령어 가이드 |
+| `README.md` | `/02-memory/` | 메모리 가이드 |
+| `README.md` | `/03-skills/` | 스킬 가이드 |
+| `README.md` | `/04-subagents/` | 서브에이전트 가이드 |
+| `README.md` | `/05-mcp/` | MCP 가이드 |
+| `README.md` | `/06-hooks/` | 훅 가이드 |
+| `README.md` | `/07-plugins/` | 플러그인 가이드 |
+| `README.md` | `/08-checkpoints/` | 체크포인트 가이드 |
+| `README.md` | `/09-advanced-features/` | 고급 기능 가이드 |
+| `README.md` | `/10-cli/` | CLI 가이드 |
 
 ---
 
-## Complete File Tree
+## 전체 파일 트리
 
 ```
 claude-howto/
-├── README.md                                    # Main overview
-├── INDEX.md                                     # This file
-├── QUICK_REFERENCE.md                           # Quick reference card
-├── claude_concepts_guide.md                     # Original guide
+├── README.md                                    # 주요 개요
+├── INDEX.md                                     # 이 파일
+├── QUICK_REFERENCE.md                           # 빠른 참조 카드
+├── claude_concepts_guide.md                     # 원본 가이드
 │
-├── 01-slash-commands/                           # Slash Commands
+├── 01-slash-commands/                           # 슬래시 명령어
 │   ├── optimize.md
 │   ├── pr.md
 │   ├── generate-api-docs.md
@@ -529,7 +533,7 @@ claude-howto/
 │   ├── pr-slash-command.png
 │   └── README.md
 │
-├── 02-memory/                                   # Memory
+├── 02-memory/                                   # 메모리
 │   ├── project-CLAUDE.md
 │   ├── directory-api-CLAUDE.md
 │   ├── personal-CLAUDE.md
@@ -537,7 +541,7 @@ claude-howto/
 │   ├── memory-ask-claude.png
 │   └── README.md
 │
-├── 03-skills/                                   # Skills
+├── 03-skills/                                   # 스킬
 │   ├── code-review-specialist/
 │   │   ├── SKILL.md
 │   │   ├── scripts/
@@ -574,7 +578,7 @@ claude-howto/
 │   │       └── outline-template.md
 │   └── README.md
 │
-├── 04-subagents/                                # Subagents
+├── 04-subagents/                                # 서브에이전트
 │   ├── code-reviewer.md
 │   ├── test-engineer.md
 │   ├── documentation-writer.md
@@ -585,14 +589,14 @@ claude-howto/
 │   ├── clean-code-reviewer.md
 │   └── README.md
 │
-├── 05-mcp/                                      # MCP Protocol
+├── 05-mcp/                                      # MCP 프로토콜
 │   ├── github-mcp.json
 │   ├── database-mcp.json
 │   ├── filesystem-mcp.json
 │   ├── multi-mcp.json
 │   └── README.md
 │
-├── 06-hooks/                                    # Hooks
+├── 06-hooks/                                    # 훅
 │   ├── format-code.sh
 │   ├── pre-commit.sh
 │   ├── security-scan.sh
@@ -603,7 +607,7 @@ claude-howto/
 │   ├── context-tracker-tiktoken.py
 │   └── README.md
 │
-├── 07-plugins/                                  # Plugins
+├── 07-plugins/                                  # 플러그인
 │   ├── pr-review/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
@@ -663,245 +667,245 @@ claude-howto/
 │   │   └── README.md
 │   └── README.md
 │
-├── 08-checkpoints/                              # Checkpoints
+├── 08-checkpoints/                              # 체크포인트
 │   ├── checkpoint-examples.md
 │   └── README.md
 │
-├── 09-advanced-features/                        # Advanced Features
+├── 09-advanced-features/                        # 고급 기능
 │   ├── config-examples.json
 │   ├── planning-mode-examples.md
 │   └── README.md
 │
-└── 10-cli/                                      # CLI Usage
+└── 10-cli/                                      # CLI 사용법
     └── README.md
 ```
 
 ---
 
-## Quick Start by Use Case
+## 사용 사례별 빠른 시작
 
-### Code Quality & Reviews
+### 코드 품질 및 검토
 ```bash
-# Install slash command
+# 슬래시 명령어 설치
 cp 01-slash-commands/optimize.md .claude/commands/
 
-# Install subagent
+# 서브에이전트 설치
 cp 04-subagents/code-reviewer.md .claude/agents/
 
-# Install skill
+# 스킬 설치
 cp -r 03-skills/code-review-specialist ~/.claude/skills/
 
-# Or install complete plugin
+# 또는 전체 플러그인 설치
 claude --plugin-dir ./07-plugins/pr-review
 ```
 
-### DevOps & Deployment
+### 데브옵스 및 배포
 ```bash
-# Install plugin (includes everything)
+# 플러그인 설치 (모든 것 포함)
 claude --plugin-dir ./07-plugins/devops-automation
 ```
 
-### Documentation
+### 문서화
 ```bash
-# Install slash command
+# 슬래시 명령어 설치
 cp 01-slash-commands/generate-api-docs.md .claude/commands/
 
-# Install subagent
+# 서브에이전트 설치
 cp 04-subagents/documentation-writer.md .claude/agents/
 
-# Install skill
+# 스킬 설치
 cp -r 03-skills/doc-generator ~/.claude/skills/
 
-# Or install complete plugin
+# 또는 전체 플러그인 설치
 claude --plugin-dir ./07-plugins/documentation
 ```
 
-### Team Standards
+### 팀 표준
 ```bash
-# Set up project memory
+# 프로젝트 메모리 설정
 cp 02-memory/project-CLAUDE.md ./CLAUDE.md
 
-# Edit to match your team's standards
+# 팀의 표준에 맞게 편집
 ```
 
-### External Integrations
+### 외부 통합
 ```bash
-# Set environment variables
+# 환경 변수 설정
 export GITHUB_PERSONAL_ACCESS_TOKEN="your_token"
 export DATABASE_URL="postgresql://..."
 export SLACK_BOT_TOKEN="your-slack-bot-token"
 export SLACK_TEAM_ID="T0000000000"
 
-# Install MCP config (project scope)
+# MCP 구성 설치 (프로젝트 범위)
 cp 05-mcp/multi-mcp.json .mcp.json
 ```
 
-### Automation & Validation
+### 자동화 및 유효성 검사
 ```bash
-# Install hooks
+# 훅 설치
 mkdir -p ~/.claude/hooks
 cp 06-hooks/*.sh ~/.claude/hooks/
 chmod +x ~/.claude/hooks/*.sh
 
-# Configure hooks in settings (~/.claude/settings.json)
-# See 06-hooks/README.md
+# 설정에서 훅 구성 (~/.claude/settings.json)
+# 06-hooks/README.md 참조
 ```
 
-### Safe Experimentation
+### 안전한 실험
 ```bash
-# Checkpoints are created automatically with every user prompt
-# To rewind: press Esc+Esc or use /rewind
-# Then choose what to restore from the rewind menu
+# 체크포인트는 사용자 프롬프트마다 자동으로 생성됩니다.
+# 되감기: Esc+Esc를 누르거나 /rewind 사용
+# 그런 다음 되감기 메뉴에서 복원할 항목을 선택하십시오.
 
-# See 08-checkpoints/README.md for examples
+# 예시는 08-checkpoints/README.md 참조
 ```
 
-### Advanced Workflows
+### 고급 워크플로
 ```bash
-# Configure advanced features
-# See 09-advanced-features/config-examples.json
+# 고급 기능 구성
+# 09-advanced-features/config-examples.json 참조
 
-# Use planning mode
+# 계획 모드 사용
 /plan Implement feature X
 
-# Use permission modes
-claude --permission-mode plan          # For code review (read-only)
-claude --permission-mode acceptEdits   # Auto-accept edits
-claude --permission-mode auto          # Auto-approve safe actions
+# 권한 모드 사용
+claude --permission-mode plan          # 코드 검토용 (읽기 전용)
+claude --permission-mode acceptEdits   # 편집 자동 승인
+claude --permission-mode auto          # 안전한 작업 자동 승인
 
-# Run in headless mode for CI/CD
+# CI/CD를 위해 헤드리스 모드로 실행
 claude -p "Run tests and report results" --permission-mode auto
 
-# Run background tasks
+# 백그라운드 작업 실행
 Run tests in background
 
-# See 09-advanced-features/README.md for complete guide
+# 완전한 가이드는 09-advanced-features/README.md 참조
 ```
 
 ---
 
-## Feature Coverage Matrix
+## 기능 커버리지 매트릭스
 
-| Category | Commands | Agents | MCP | Hooks | Scripts | Templates | Docs | Images | Total |
+| 카테고리 | 명령어 | 에이전트 | MCP | 훅 | 스크립트 | 템플릿 | 문서 | 이미지 | 합계 |
 |----------|----------|--------|-----|-------|---------|-----------|------|--------|-------|
-| **01 Slash Commands** | 8 | - | - | - | - | - | 1 | 1 | **10** |
-| **02 Memory** | - | - | - | - | - | 3 | 1 | 2 | **6** |
-| **03 Skills** | - | - | - | - | 5 | 7 | 11 | - | **23** |
-| **04 Subagents** | - | 9 | - | - | - | - | 1 | - | **10** |
+| **01 슬래시 명령어** | 8 | - | - | - | - | - | 1 | 1 | **10** |
+| **02 메모리** | - | - | - | - | - | 3 | 1 | 2 | **6** |
+| **03 스킬** | - | - | - | - | 5 | 7 | 11 | - | **23** |
+| **04 서브에이전트** | - | 9 | - | - | - | - | 1 | - | **10** |
 | **05 MCP** | - | - | 4 | - | - | - | 1 | - | **5** |
-| **06 Hooks** | - | - | - | 11 | - | - | 1 | - | **12** |
-| **07 Plugins** | 11 | 9 | 3 | 3 | 3 | 3 | 7 | - | **39** |
-| **08 Checkpoints** | - | - | - | - | - | - | 1 | 1 | **2** |
-| **09 Advanced** | - | - | - | - | 1 | 1 | 2 | - | **4** |
+| **06 훅** | - | - | - | 11 | - | - | 1 | - | **12** |
+| **07 플러그인** | 11 | 9 | 3 | 3 | 3 | 3 | 7 | - | **39** |
+| **08 체크포인트** | - | - | - | - | - | - | 1 | 1 | **2** |
+| **09 고급** | - | - | - | - | 1 | 1 | 2 | - | **4** |
 | **10 CLI** | - | - | - | - | - | - | 1 | - | **1** |
 
 ---
 
-## Learning Path
+## 학습 경로
 
-### Beginner (Week 1)
-1. ✅ Read `README.md`
-2. ✅ Install 1-2 slash commands
-3. ✅ Create project memory file
-4. ✅ Try basic commands
+### 초급 (1주차)
+1. ✅ `README.md` 읽기
+2. ✅ 슬래시 명령어 1-2개 설치
+3. ✅ 프로젝트 메모리 파일 생성
+4. ✅ 기본 명령어 시도
 
-### Intermediate (Week 2-3)
-1. ✅ Set up GitHub MCP
-2. ✅ Install a subagent
-3. ✅ Try delegating tasks
-4. ✅ Install a skill
+### 중급 (2-3주차)
+1. ✅ GitHub MCP 설정
+2. ✅ 서브에이전트 설치
+3. ✅ 작업 위임 시도
+4. ✅ 스킬 설치
 
-### Advanced (Week 4+)
-1. ✅ Install complete plugin
-2. ✅ Create custom slash commands
-3. ✅ Create custom subagent
-4. ✅ Create custom skill
-5. ✅ Build your own plugin
+### 고급 (4주차 이상)
+1. ✅ 완벽한 플러그인 설치
+2. ✅ 사용자 지정 슬래시 명령어 생성
+3. ✅ 사용자 지정 서브에이전트 생성
+4. ✅ 사용자 지정 스킬 생성
+5. ✅ 자신만의 플러그인 구축
 
-### Expert (Week 5+)
-1. ✅ Set up hooks for automation
-2. ✅ Use checkpoints for experimentation
-3. ✅ Configure planning mode
-4. ✅ Use permission modes effectively
-5. ✅ Set up headless mode for CI/CD
-6. ✅ Master session management
-
----
-
-## Search by Keyword
-
-### Performance
-- `01-slash-commands/optimize.md` - Performance analysis
-- `04-subagents/code-reviewer.md` - Performance review
-- `03-skills/code-review-specialist/` - Performance metrics
-- `07-plugins/pr-review/agents/performance-analyzer.md` - Performance specialist
-
-### Security
-- `04-subagents/secure-reviewer.md` - Security review
-- `03-skills/code-review-specialist/` - Security analysis
-- `07-plugins/pr-review/` - Security checks
-
-### Testing
-- `04-subagents/test-engineer.md` - Test engineer
-- `07-plugins/pr-review/commands/check-tests.md` - Test coverage
-
-### Documentation
-- `01-slash-commands/generate-api-docs.md` - API docs command
-- `04-subagents/documentation-writer.md` - Doc writer agent
-- `03-skills/doc-generator/` - Doc generator skill
-- `07-plugins/documentation/` - Complete doc plugin
-
-### Deployment
-- `07-plugins/devops-automation/` - Complete DevOps solution
-
-### Automation
-- `06-hooks/` - Event-driven automation
-- `06-hooks/pre-commit.sh` - Pre-commit automation
-- `06-hooks/format-code.sh` - Auto-formatting
-- `09-advanced-features/` - Headless mode for CI/CD
-
-### Validation
-- `06-hooks/security-scan.sh` - Security validation
-- `06-hooks/validate-prompt.sh` - Prompt validation
-
-### Experimentation
-- `08-checkpoints/` - Safe experimentation with rewind
-- `08-checkpoints/checkpoint-examples.md` - Real-world examples
-
-### Planning
-- `09-advanced-features/planning-mode-examples.md` - Planning mode examples
-- `09-advanced-features/README.md` - Extended thinking
-
-### Configuration
-- `09-advanced-features/config-examples.json` - Configuration examples
+### 전문가 (5주차 이상)
+1. ✅ 자동화를 위한 훅 설정
+2. ✅ 실험을 위한 체크포인트 사용
+3. ✅ 계획 모드 구성
+4. ✅ 권한 모드를 효과적으로 사용
+5. ✅ CI/CD를 위한 헤드리스 모드 설정
+6. ✅ 세션 관리 마스터
 
 ---
 
-## Notes
+## 키워드로 검색
 
-- All examples are ready to use
-- Modify to fit your specific needs
-- Examples follow Claude Code best practices
-- Each category has its own README with detailed instructions
-- Scripts include proper error handling
-- Templates are customizable
+### 성능
+- `01-slash-commands/optimize.md` - 성능 분석
+- `04-subagents/code-reviewer.md` - 성능 검토
+- `03-skills/code-review-specialist/` - 성능 지표
+- `07-plugins/pr-review/agents/performance-analyzer.md` - 성능 전문가
+
+### 보안
+- `04-subagents/secure-reviewer.md` - 보안 검토
+- `03-skills/code-review-specialist/` - 보안 분석
+- `07-plugins/pr-review/` - 보안 검사
+
+### 테스트
+- `04-subagents/test-engineer.md` - 테스트 엔지니어
+- `07-plugins/pr-review/commands/check-tests.md` - 테스트 커버리지
+
+### 문서화
+- `01-slash-commands/generate-api-docs.md` - API 문서 명령어
+- `04-subagents/documentation-writer.md` - 문서 작성 에이전트
+- `03-skills/doc-generator/` - 문서 생성기 스킬
+- `07-plugins/documentation/` - 완벽한 문서 플러그인
+
+### 배포
+- `07-plugins/devops-automation/` - 완벽한 데브옵스 솔루션
+
+### 자동화
+- `06-hooks/` - 이벤트 기반 자동화
+- `06-hooks/pre-commit.sh` - 사전 커밋 자동화
+- `06-hooks/format-code.sh` - 자동 포맷팅
+- `09-advanced-features/` - CI/CD를 위한 헤드리스 모드
+
+### 유효성 검사
+- `06-hooks/security-scan.sh` - 보안 유효성 검사
+- `06-hooks/validate-prompt.sh` - 프롬프트 유효성 검사
+
+### 실험
+- `08-checkpoints/` - 되감기를 통한 안전한 실험
+- `08-checkpoints/checkpoint-examples.md` - 실제 예시
+
+### 계획
+- `09-advanced-features/planning-mode-examples.md` - 계획 모드 예시
+- `09-advanced-features/README.md` - 확장 사고
+
+### 구성
+- `09-advanced-features/config-examples.json` - 구성 예시
 
 ---
 
-## Contributing
+## 참고 사항
 
-Want to add more examples? Follow the structure:
-1. Create appropriate subdirectory
-2. Include README.md with usage
-3. Follow naming conventions
-4. Test thoroughly
-5. Update this index
+- 모든 예시는 즉시 사용할 수 있습니다.
+- 특정 요구사항에 맞게 수정하십시오.
+- 예시는 Claude Code 모범 사례를 따릅니다.
+- 각 카테고리에는 상세 지침이 포함된 자체 README가 있습니다.
+- 스크립트에는 적절한 오류 처리가 포함되어 있습니다.
+- 템플릿은 사용자 지정 가능합니다.
 
 ---
 
-**Last Updated**: October 26, 2026
-**Claude Code Version**: 2.1.310
-**Sources**:
+## 기여
+
+더 많은 예시를 추가하고 싶으십니까? 다음 구조를 따르십시오:
+1. 적절한 하위 디렉터리 생성
+2. 사용법이 포함된 README.md 추가
+3. 명명 규칙 준수
+4. 철저히 테스트
+5. 이 색인 업데이트
+
+---
+
+**최종 업데이트**: 2026년 10월 26일
+**Claude Code 버전**: 2.1.310
+**출처**:
 - https://code.claude.com/docs/en/tools-reference#task-tool-availability
 - https://code.claude.com/docs/en/workflows#set-a-size-guideline
 - https://code.claude.com/docs/en/memory#agents-md
@@ -922,9 +926,9 @@ Want to add more examples? Follow the structure:
 - https://code.claude.com/docs/en/headless#auto-approve-tools
 - https://code.claude.com/docs/en/permission-modes#which-mode-a-non-interactive-run-starts-in
 - https://code.claude.com/docs/en/scheduled-tasks
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
-**Total Examples**: 100+ files
-**Categories**: 10 features
-**Hooks**: 11 automation scripts
-**Configuration Examples**: 10+ scenarios
-**Ready to Use**: All examples
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**총 예시 수**: 100개 이상 파일
+**카테고리**: 10가지 기능
+**훅**: 11가지 자동화 스크립트
+**구성 예시**: 10가지 이상 시나리오
+**즉시 사용 가능**: 모든 예시

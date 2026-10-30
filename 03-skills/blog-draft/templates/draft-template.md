@@ -1,75 +1,79 @@
-# [Blog Post Title]
+<!-- i18n-source: 03-skills/blog-draft/templates/draft-template.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-*[Subtitle or tagline - optional]*
+# [블로그 게시물 제목]
 
-**[Author Name]** | [Date]
+*[부제목 또는 태그라인 - 선택 사항]*
 
----
-
-[Opening hook - grab attention immediately]
-
-[Context and background - why this matters]
-
-[Thesis statement - what this post will cover]
+**[작성자 이름]** | [날짜]
 
 ---
 
-## [Section 1 Title]
+[시작 문구 - 즉시 독자의 주의를 사로잡으세요]
 
-[Section content with clear, engaging prose]
+[맥락 및 배경 - 왜 이것이 중요한가]
 
-[Include evidence, examples, or data to support points]
-
-> "Relevant quote from research" - Source
-
-[Transition to next section]
+[논지 - 이 게시물에서 다룰 내용]
 
 ---
 
-## [Section 2 Title]
+## [섹션 1 제목]
 
-[Continue with main content]
+[명확하고 흥미로운 산문으로 된 섹션 내용]
 
-**Key takeaway:** [Highlight important points in bold or callout boxes]
+[요점을 뒷받침하는 증거, 예시 또는 데이터를 포함하세요]
 
-[More supporting content]
+> "연구에서 발췌한 관련 인용문" - 출처
 
----
-
-## [Section 3 Title]
-
-[Additional sections as needed]
-
-### Subsection (if needed)
-
-[Subsection content]
+[다음 섹션으로의 전환]
 
 ---
 
-## Conclusion
+## [섹션 2 제목]
 
-[Summarize the key points covered]
+[주요 내용을 계속 진행하세요]
 
-[Reinforce the main takeaway]
+**주요 요점:** [중요한 내용을 굵게 표시하거나 강조 상자에 넣어 강조하세요]
 
-[Call to action or thought-provoking final statement]
-
----
-
-## References
-
-1. [Source Title](#)
-2. [Source Title](#)
-3. [Source Title](#)
+[더 많은 보조 내용]
 
 ---
 
-*[Optional: Author bio or related posts suggestion]*
+## [섹션 3 제목]
+
+[필요에 따라 추가 섹션]
+
+### 하위 섹션 (필요한 경우)
+
+[하위 섹션 내용]
 
 ---
 
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+## 결론
+
+[다룬 핵심 내용을 요약하세요]
+
+[주요 요점을 다시 강조하세요]
+
+[행동 유도 또는 생각할 거리를 제공하는 마지막 진술]
+
+---
+
+## 참고 문헌
+
+1. [출처 제목](#)
+2. [출처 제목](#)
+3. [출처 제목](#)
+
+---
+
+*[선택 사항: 작성자 약력 또는 관련 게시물 제안]*
+
+---
+
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/skills
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

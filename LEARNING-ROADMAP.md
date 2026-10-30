@@ -1,56 +1,60 @@
+<!-- i18n-source: LEARNING-ROADMAP.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
   <img alt="Claude How To" src="resources/logos/claude-howto-logo.svg">
 </picture>
 
-# 📚 Claude Code Learning Roadmap
+# 📚 Claude Code 학습 로드맵
 
-**New to Claude Code?** This guide helps you master Claude Code features at your own pace. Whether you're a complete beginner or an experienced developer, start with the self-assessment quiz below to find the right path for you.
+**Claude Code가 처음이신가요?** 이 가이드는 자신에게 맞는 속도로 Claude Code의 기능을 마스터하는 데 도움을 줍니다. 완전히 초보자든 숙련된 개발자든, 아래 자기 평가 퀴즈를 통해 자신에게 적합한 경로를 찾아보세요.
 
 ---
 
-## 🧭 Find Your Level
+## 🧭 수준 확인하기
 
-Not everyone starts from the same place. Take this quick self-assessment to find the right entry point.
+모든 사람이 같은 출발점에서 시작하는 것은 아닙니다. 이 간단한 자기 평가를 통해 적절한 시작 지점을 찾아보세요.
 
-**Answer these questions honestly:**
+**다음 질문에 솔직하게 답하십시오:**
 
-- [ ] I can start Claude Code and have a conversation (`claude`)
-- [ ] I have created or edited a CLAUDE.md file
-- [ ] I have used at least 3 built-in slash commands (e.g., /help, /compact, /model)
-- [ ] I have created a custom slash command or skill (SKILL.md)
-- [ ] I have configured an MCP server (e.g., GitHub, database)
-- [ ] I have set up hooks in ~/.claude/settings.json
-- [ ] I have created or used custom subagents (.claude/agents/)
-- [ ] I have used print mode (`claude -p`) for scripting or CI/CD
+- [ ] `claude`를 실행하여 Claude Code와 대화를 시작할 수 있습니다.
+- [ ] `CLAUDE.md` 파일을 생성하거나 수정했습니다.
+- [ ] 기본 제공 슬래시 명령어를 3개 이상 사용했습니다(예: `/help`, `/compact`, `/model`).
+- [ ] 사용자 정의 슬래시 명령어 또는 Skill(`SKILL.md`)을 만들었습니다.
+- [ ] MCP 서버(예: GitHub, 데이터베이스)를 구성했습니다.
+- [ ] `~/.claude/settings.json`에 Hook을 설정했습니다.
+- [ ] 사용자 정의 Subagent(`.claude/agents/`)를 만들거나 사용했습니다.
+- [ ] 스크립팅 또는 CI/CD를 위해 출력 모드(`claude -p`)를 사용했습니다.
 
-**Your Level:**
+**당신의 레벨:**
 
 | Checks | Level | Start At | Time to Complete |
 |--------|-------|----------|------------------|
-| 0-2 | **Level 1: Beginner** — Getting Started | [Milestone 1A](#milestone-1a-first-commands--memory) | ~3 hours |
-| 3-5 | **Level 2: Intermediate** — Building Workflows | [Milestone 2A](#milestone-2a-automation-skills--hooks) | ~5 hours |
-| 6-8 | **Level 3: Advanced** — Power User & Team Lead | [Milestone 3A](#milestone-3a-advanced-features) | ~5 hours |
+| 0-2 | **레벨 1: 초급** — 시작하기 | [마일스톤 1A: 첫 명령어 및 메모리](#마일스톤-1a-첫-명령어-및-메모리) | ~3 hours |
+| 3-5 | **레벨 2: 중급** — 워크플로 구축 | [마일스톤 2A: 자동화 (스킬 + 훅)](#마일스톤-2a-자동화-스킬--훅) | ~5 hours |
+| 6-8 | **레벨 3: 고급** — 파워 유저 및 팀 리더 | [마일스톤 3A: 고급 기능](#마일스톤-3a-고급-기능) | ~5 hours |
 
-> **Tip**: If you're unsure, start one level lower. It's better to review familiar material quickly than to miss foundational concepts.
+> **팁**: 확실하지 않다면 한 단계 낮게 시작하세요. 기초 개념을 놓치는 것보다 익숙한 내용을 빠르게 복습하는 것이 낫습니다.
 
-> **Interactive version**: Run `/self-assessment` in Claude Code for a guided, interactive quiz that scores your proficiency across all 10 feature areas and generates a personalized learning path.
-
----
-
-## 🎯 Learning Philosophy
-
-The folders in this repository are numbered in **recommended learning order** based on three key principles:
-
-1. **Dependencies** - Foundational concepts come first
-2. **Complexity** - Easier features before advanced ones
-3. **Frequency of Use** - Most common features taught early
-
-This approach ensures you build a solid foundation while gaining immediate productivity benefits.
+> **대화형 버전**: Claude Code에서 `/self-assessment`를 실행하면 10가지 기능 영역 전반에 걸쳐 숙련도를 측정하고 개인화된 학습 경로를 생성하는 안내형 대화식 퀴즈를 풀 수 있습니다.
 
 ---
 
-## 🗺️ Your Learning Path
+## 🎯 학습 철학
+
+이 저장소의 폴더는 세 가지 핵심 원칙에 따라 **권장 학습 순서**로 번호가 지정되어 있습니다.
+
+1. **종속성** - 기초 개념이 먼저 나옵니다.
+2. **복잡성** - 고급 기능보다 쉬운 기능이 먼저 나옵니다.
+3. **사용 빈도** - 가장 일반적인 기능은 초기에 학습합니다.
+
+이 접근 방식은 즉각적인 생산성 향상을 얻으면서 견고한 기반을 구축하도록 보장합니다.
+
+---
+
+## 🗺️ 학습 경로
 
 ```mermaid
 graph TD
@@ -85,55 +89,55 @@ graph TD
     style F fill:#B71C1C,color:#fff
 ```
 
-**Color Legend:**
-- 💜 Purple: Self-Assessment Quiz
-- 🟢 Green: Level 1 — Beginner path
-- 🔵 Blue / 🟡 Gold: Level 2 — Intermediate path
-- 🔴 Red: Level 3 — Advanced path
+**색상 범례:**
+- 💜 보라색: 자기 평가 퀴즈
+- 🟢 녹색: 레벨 1 — 초급 경로
+- 🔵 파란색 / 🟡 금색: 레벨 2 — 중급 경로
+- 🔴 빨간색: 레벨 3 — 고급 경로
 
 ---
 
-## 📊 Complete Roadmap Table
+## 📊 전체 로드맵 표
 
 | Step | Feature | Complexity | Time | Level | Dependencies | Why Learn This | Key Benefits |
 |------|---------|-----------|------|-------|--------------|----------------|--------------|
-| **1** | [Slash Commands](01-slash-commands/) | ⭐ Beginner | 30 min | Level 1 | None | Quick productivity wins (60+ built-in commands + bundled skills) | Instant automation, team standards |
-| **2** | [Memory](02-memory/) | ⭐⭐ Beginner+ | 45 min | Level 1 | None | Essential for all features | Persistent context, preferences |
-| **3** | [Checkpoints](08-checkpoints/) | ⭐⭐ Intermediate | 45 min | Level 1 | Session management | Safe exploration | Experimentation, recovery |
-| **4** | [CLI Basics](10-cli/) | ⭐⭐ Beginner+ | 30 min | Level 1 | None | Core CLI usage | Interactive & print mode |
-| **5** | [Skills](03-skills/) | ⭐⭐ Intermediate | 1 hour | Level 2 | Slash Commands | Automatic expertise | Reusable capabilities, consistency |
-| **6** | [Hooks](06-hooks/) | ⭐⭐ Intermediate | 1 hour | Level 2 | Tools, Commands | Workflow automation (33 events, 5 types) | Validation, quality gates |
-| **7** | [MCP](05-mcp/) | ⭐⭐⭐ Intermediate+ | 1 hour | Level 2 | Configuration | Live data access | Real-time integration, APIs |
-| **8** | [Subagents](04-subagents/) | ⭐⭐⭐ Intermediate+ | 1.5 hours | Level 2 | Memory, Commands | Complex task handling (6 built-in, including Explore and Plan) | Delegation, specialized expertise |
-| **9** | [Advanced Features](09-advanced-features/) | ⭐⭐⭐⭐⭐ Advanced | 2-3 hours | Level 3 | All previous | Power user tools | Planning, Auto Mode, Channels, Voice Dictation, permissions |
-| **10** | [Plugins](07-plugins/) | ⭐⭐⭐⭐ Advanced | 2 hours | Level 3 | All previous | Complete solutions | Team onboarding, distribution |
-| **11** | [CLI Mastery](10-cli/) | ⭐⭐⭐ Advanced | 1 hour | Level 3 | Recommended: All | Master command-line usage | Scripting, CI/CD, automation |
+| **1** | [슬래시 명령어](01-slash-commands/) | ⭐ 초급 | 30 min | 레벨 1 | None | 빠른 생산성 향상 (60개 이상의 내장 명령어 + 번들 스킬) | 즉각적인 자동화, 팀 표준 |
+| **2** | [메모리](02-memory/) | ⭐⭐ 초급+ | 45 min | 레벨 1 | None | 모든 기능에 필수적 | 지속적인 컨텍스트, 환경 설정 |
+| **3** | [체크포인트](08-checkpoints/) | ⭐⭐ 중급 | 45 min | 레벨 1 | 세션 관리 | 안전한 탐색 | 실험, 복구 |
+| **4** | [CLI 기본 사항](10-cli/) | ⭐⭐ 초급+ | 30 min | 레벨 1 | None | 핵심 CLI 사용법 | 대화형 및 인쇄 모드 |
+| **5** | [스킬](03-skills/) | ⭐⭐ 중급 | 1 hour | 레벨 2 | 슬래시 명령어 | 자동화된 전문성 | 재사용 가능한 기능, 일관성 |
+| **6** | [훅](06-hooks/) | ⭐⭐ 중급 | 1 hour | 레벨 2 | 도구, 명령어 | 워크플로 자동화 (33개 이벤트, 5가지 유형) | 유효성 검사, 품질 게이트 |
+| **7** | [MCP](05-mcp/) | ⭐⭐⭐ 중급+ | 1 hour | 레벨 2 | 구성 | 실시간 데이터 접근 | 실시간 통합, API |
+| **8** | [서브에이전트](04-subagents/) | ⭐⭐⭐ 중급+ | 1.5 hours | 레벨 2 | 메모리, 명령어 | 복잡한 작업 처리 (Explore, Plan 포함 6개 내장) | 위임, 전문화된 전문성 |
+| **9** | [고급 기능](09-advanced-features/) | ⭐⭐⭐⭐⭐ 고급 | 2-3 hours | 레벨 3 | 모든 이전 내용 | 파워 유저 도구 | 계획, 자동 모드, 채널, 음성 받아쓰기, 권한 |
+| **10** | [플러그인](07-plugins/) | ⭐⭐⭐⭐ 고급 | 2 hours | 레벨 3 | 모든 이전 내용 | 완벽한 솔루션 | 팀 온보딩, 배포 |
+| **11** | [CLI 마스터리](10-cli/) | ⭐⭐⭐ 고급 | 1 hour | 레벨 3 | 권장: 모든 내용 | 명령줄 사용 마스터 | 스크립팅, CI/CD, 자동화 |
 
-**Total Learning Time**: ~11-13 hours (or jump to your level and save time)
+**총 학습 시간**: ~11-13시간 (또는 자신의 레벨로 건너뛰어 시간을 절약하세요)
 
 ---
 
-## 🟢 Level 1: Beginner — Getting Started
+## 🟢 레벨 1: 초급 — 시작하기
 
-**For**: Users with 0-2 quiz checks
-**Time**: ~3 hours
-**Focus**: Immediate productivity, understanding fundamentals
-**Outcome**: Comfortable daily user, ready for Level 2
+**대상**: 퀴즈 체크 0-2개인 사용자
+**시간**: ~3시간
+**초점**: 즉각적인 생산성, 기본 이해
+**결과**: 매일 편안하게 사용하는 사용자, 레벨 2 준비 완료
 
-### Milestone 1A: First Commands & Memory
+### 마일스톤 1A: 첫 명령어 및 메모리
 
-**Topics**: Slash Commands + Memory
-**Time**: 1-2 hours
-**Complexity**: ⭐ Beginner
-**Goal**: Immediate productivity boost with custom commands and persistent context
+**주제**: 슬래시 명령어 + 메모리
+**시간**: 1-2시간
+**복잡성**: ⭐ 초급
+**목표**: 사용자 지정 명령어 및 영구 컨텍스트를 통한 즉각적인 생산성 향상
 
-#### What You'll Achieve
-✅ Create custom slash commands for repetitive tasks
-✅ Set up project memory for team standards
-✅ Configure personal preferences
-✅ Understand how Claude loads context automatically
+#### 달성할 내용
+✅ 반복 작업을 위한 사용자 지정 슬래시 명령어 생성
+✅ 팀 표준을 위한 프로젝트 메모리 설정
+✅ 개인 환경 설정 구성
+✅ Claude가 컨텍스트를 자동으로 로드하는 방법 이해
 
-#### Hands-on Exercises
+#### 실습 과제
 
 ```bash
 # Exercise 1: Install your first slash command
@@ -147,34 +151,34 @@ cp 02-memory/project-CLAUDE.md ./CLAUDE.md
 # In Claude Code, type: /optimize
 ```
 
-#### Success Criteria
-- [ ] Successfully invoke `/optimize` command
-- [ ] Claude remembers your project standards from CLAUDE.md
-- [ ] You understand when to use slash commands vs. memory
+#### 성공 기준
+- [ ] `/optimize` 명령어를 성공적으로 호출함
+- [ ] Claude가 CLAUDE.md에서 프로젝트 표준을 기억함
+- [ ] 슬래시 명령어와 메모리를 언제 사용해야 하는지 이해함
 
-#### Next Steps
-Once comfortable, read:
+#### 다음 단계
+편안해지면 다음을 읽어보세요:
 - [01-slash-commands/README.md](01-slash-commands/README.md)
 - [02-memory/README.md](02-memory/README.md)
 
-> **Check your understanding**: Run `/lesson-quiz slash-commands` or `/lesson-quiz memory` in Claude Code to test what you've learned.
+> **이해 확인**: Claude Code에서 `/lesson-quiz slash-commands` 또는 `/lesson-quiz memory`를 실행하여 학습한 내용을 테스트하세요.
 
 ---
 
-### Milestone 1B: Safe Exploration
+### 마일스톤 1B: 안전한 탐색
 
-**Topics**: Checkpoints + CLI Basics
-**Time**: 1 hour
-**Complexity**: ⭐⭐ Beginner+
-**Goal**: Learn to experiment safely and use core CLI commands
+**주제**: 체크포인트 + CLI 기본 사항
+**시간**: 1시간
+**복잡성**: ⭐⭐ 초급+
+**목표**: 안전하게 실험하고 핵심 CLI 명령어를 사용하는 방법 학습
 
-#### What You'll Achieve
-✅ Create and restore checkpoints for safe experimentation
-✅ Understand interactive vs. print mode
-✅ Use basic CLI flags and options
-✅ Process files via piping
+#### 달성할 내용
+✅ 안전한 실험을 위한 체크포인트 생성 및 복원
+✅ 대화형 모드와 인쇄 모드 이해
+✅ 기본 CLI 플래그 및 옵션 사용
+✅ 파이핑을 통한 파일 처리
 
-#### Hands-on Exercises
+#### 실습 과제
 
 ```bash
 # Exercise 1: Try checkpoint workflow
@@ -191,56 +195,56 @@ claude -p "explain this function"       # Print mode (non-interactive)
 cat error.log | claude -p "explain this error"
 ```
 
-#### Success Criteria
-- [ ] Created and reverted to a checkpoint
-- [ ] Used both interactive and print mode
-- [ ] Piped a file to Claude for analysis
-- [ ] Understand when to use checkpoints for safe experimentation
+#### 성공 기준
+- [ ] 체크포인트를 생성하고 이전 상태로 되돌림
+- [ ] 대화형 및 인쇄 모드를 모두 사용함
+- [ ] 분석을 위해 파일을 Claude로 파이프함
+- [ ] 안전한 실험을 위해 체크포인트를 언제 사용해야 하는지 이해함
 
-#### Next Steps
-- Read: [08-checkpoints/README.md](08-checkpoints/README.md)
-- Read: [10-cli/README.md](10-cli/README.md)
-- **Ready for Level 2!** Proceed to [Milestone 2A](#milestone-2a-automation-skills--hooks)
+#### 다음 단계
+- 읽기: [08-checkpoints/README.md](08-checkpoints/README.md)
+- 읽기: [10-cli/README.md](10-cli/README.md)
+- **레벨 2 준비 완료!** [마일스톤 2A: 자동화 (스킬 + 훅)](#마일스톤-2a-자동화-스킬--훅)로 진행하세요.
 
-> **Check your understanding**: Run `/lesson-quiz checkpoints` or `/lesson-quiz cli` to verify you're ready for Level 2.
-
----
-
-## 🔵 Level 2: Intermediate — Building Workflows
-
-**For**: Users with 3-5 quiz checks
-**Time**: ~5 hours
-**Focus**: Automation, integration, task delegation
-**Outcome**: Automated workflows, external integrations, ready for Level 3
-
-### Prerequisites Check
-
-Before starting Level 2, make sure you're comfortable with these Level 1 concepts:
-
-- [ ] Can create and use slash commands ([01-slash-commands/](01-slash-commands/))
-- [ ] Have set up project memory via CLAUDE.md ([02-memory/](02-memory/))
-- [ ] Know how to create and restore checkpoints ([08-checkpoints/](08-checkpoints/))
-- [ ] Can use `claude` and `claude -p` from the command line ([10-cli/](10-cli/))
-
-> **Gaps?** Review the linked tutorials above before continuing.
+> **이해 확인**: `/lesson-quiz checkpoints` 또는 `/lesson-quiz cli`를 실행하여 레벨 2 준비가 되었는지 확인하세요.
 
 ---
 
-### Milestone 2A: Automation (Skills + Hooks)
+## 🔵 레벨 2: 중급 — 워크플로 구축
 
-**Topics**: Skills + Hooks
-**Time**: 2-3 hours
-**Complexity**: ⭐⭐ Intermediate
-**Goal**: Automate common workflows and quality checks
+**대상**: 퀴즈 체크 3-5개인 사용자
+**시간**: ~5시간
+**초점**: 자동화, 통합, 작업 위임
+**결과**: 자동화된 워크플로, 외부 통합, 레벨 3 준비 완료
 
-#### What You'll Achieve
-✅ Auto-invoke specialized capabilities with YAML frontmatter (including `effort` and `shell` fields)
-✅ Set up event-driven automation across 33 hook events
-✅ Use all 5 hook types (command, http, mcp_tool, prompt, agent)
-✅ Enforce code quality standards
-✅ Create custom hooks for your workflow
+### 필수 전제 조건 확인
 
-#### Hands-on Exercises
+레벨 2를 시작하기 전에 다음 레벨 1 개념에 익숙한지 확인하세요:
+
+- [ ] 슬래시 명령어를 생성하고 사용할 수 있음 ([01-slash-commands/](01-slash-commands/))
+- [ ] CLAUDE.md를 통해 프로젝트 메모리를 설정했음 ([02-memory/](02-memory/))
+- [ ] 체크포인트를 생성하고 복원하는 방법을 알고 있음 ([08-checkpoints/](08-checkpoints/))
+- [ ] 명령줄에서 `claude` 및 `claude -p`를 사용할 수 있음 ([10-cli/](10-cli/))
+
+> **누락된 부분?** 계속하기 전에 위에 연결된 튜토리얼을 검토하세요.
+
+---
+
+### 마일스톤 2A: 자동화 (스킬 + 훅)
+
+**주제**: 스킬 + 훅
+**시간**: 2-3시간
+**복잡성**: ⭐⭐ 중급
+**목표**: 일반적인 워크플로 및 품질 검사 자동화
+
+#### 달성할 내용
+✅ YAML 프런트매터( `effort` 및 `shell` 필드 포함)를 사용하여 특수 기능 자동 호출
+✅ 33개 훅 이벤트 전반에 걸쳐 이벤트 기반 자동화 설정
+✅ 5가지 훅 유형(command, http, mcp_tool, prompt, agent) 모두 사용
+✅ 코드 품질 표준 시행
+✅ 워크플로를 위한 사용자 지정 훅 생성
+
+#### 실습 과제
 
 ```bash
 # Exercise 1: Install a skill
@@ -270,35 +274,35 @@ chmod +x ~/.claude/hooks/pre-tool-check.sh
 }
 ```
 
-#### Success Criteria
-- [ ] Code review skill automatically invoked when relevant
-- [ ] PreToolUse hook runs before tool execution
-- [ ] You understand skill auto-invocation vs. hook event triggers
+#### 성공 기준
+- [ ] 관련성이 있을 때 코드 검토 스킬이 자동으로 호출됨
+- [ ] PreToolUse 훅이 도구 실행 전에 실행됨
+- [ ] 스킬 자동 호출과 훅 이벤트 트리거의 차이를 이해함
 
-#### Next Steps
-- Create your own custom skill
-- Set up additional hooks for your workflow
-- Read: [03-skills/README.md](03-skills/README.md)
-- Read: [06-hooks/README.md](06-hooks/README.md)
+#### 다음 단계
+- 자신만의 사용자 지정 스킬 생성
+- 워크플로를 위한 추가 훅 설정
+- 읽기: [03-skills/README.md](03-skills/README.md)
+- 읽기: [06-hooks/README.md](06-hooks/README.md)
 
-> **Check your understanding**: Run `/lesson-quiz skills` or `/lesson-quiz hooks` to test your knowledge before moving on.
+> **이해 확인**: `/lesson-quiz skills` 또는 `/lesson-quiz hooks`를 실행하여 다음 단계로 넘어가기 전에 지식을 테스트하세요.
 
 ---
 
-### Milestone 2B: Integration (MCP + Subagents)
+### 마일스톤 2B: 통합 (MCP + 서브에이전트)
 
-**Topics**: MCP + Subagents
-**Time**: 2-3 hours
-**Complexity**: ⭐⭐⭐ Intermediate+
-**Goal**: Integrate external services and delegate complex tasks
+**주제**: MCP + 서브에이전트
+**시간**: 2-3시간
+**복잡성**: ⭐⭐⭐ 중급+
+**목표**: 외부 서비스 통합 및 복잡한 작업 위임
 
-#### What You'll Achieve
-✅ Access live data from GitHub, databases, etc.
-✅ Delegate work to specialized AI agents
-✅ Understand when to use MCP vs. subagents
-✅ Build integrated workflows
+#### 달성할 내용
+✅ GitHub, 데이터베이스 등에서 실시간 데이터에 액세스
+✅ 특수 AI 에이전트에게 작업 위임
+✅ MCP와 서브에이전트를 언제 사용해야 하는지 이해
+✅ 통합 워크플로 구축
 
-#### Hands-on Exercises
+#### 실습 과제
 
 ```bash
 # Exercise 1: Set up GitHub MCP
@@ -312,69 +316,69 @@ mkdir -p .claude/agents
 cp 04-subagents/*.md .claude/agents/
 ```
 
-#### Integration Exercise
-Try this complete workflow:
-1. Use MCP to fetch a GitHub PR
-2. Let Claude delegate review to code-reviewer subagent
-3. Use hooks to run tests automatically
+#### 통합 과제
+이 완전한 워크플로를 시도해 보세요:
+1. MCP를 사용하여 GitHub PR 가져오기
+2. Claude가 코드 검토 서브에이전트에 검토를 위임하도록 하기
+3. 훅을 사용하여 자동으로 테스트 실행
 
-#### Success Criteria
-- [ ] Successfully query GitHub data via MCP
-- [ ] Claude delegates complex tasks to subagents
-- [ ] You understand the difference between MCP and subagents
-- [ ] Combined MCP + subagents + hooks in a workflow
+#### 성공 기준
+- [ ] MCP를 통해 GitHub 데이터를 성공적으로 쿼리함
+- [ ] Claude가 복잡한 작업을 서브에이전트에 위임함
+- [ ] MCP와 서브에이전트의 차이를 이해함
+- [ ] 워크플로에서 MCP + 서브에이전트 + 훅을 결합함
 
-#### Next Steps
-- Set up additional MCP servers (database, Slack, etc.)
-- Create custom subagents for your domain
-- Read: [05-mcp/README.md](05-mcp/README.md)
-- Read: [04-subagents/README.md](04-subagents/README.md)
-- **Ready for Level 3!** Proceed to [Milestone 3A](#milestone-3a-advanced-features)
+#### 다음 단계
+- 추가 MCP 서버 설정 (데이터베이스, Slack 등)
+- 도메인에 맞는 사용자 지정 서브에이전트 생성
+- 읽기: [05-mcp/README.md](05-mcp/README.md)
+- 읽기: [04-subagents/README.md](04-subagents/README.md)
+- **레벨 3 준비 완료!** [마일스톤 3A: 고급 기능](#마일스톤-3a-고급-기능)로 진행하세요.
 
-> **Check your understanding**: Run `/lesson-quiz mcp` or `/lesson-quiz subagents` to verify you're ready for Level 3.
-
----
-
-## 🔴 Level 3: Advanced — Power User & Team Lead
-
-**For**: Users with 6-8 quiz checks
-**Time**: ~5 hours
-**Focus**: Team tooling, CI/CD, enterprise features, plugin development
-**Outcome**: Power user, can set up team workflows and CI/CD
-
-### Prerequisites Check
-
-Before starting Level 3, make sure you're comfortable with these Level 2 concepts:
-
-- [ ] Can create and use skills with auto-invocation ([03-skills/](03-skills/))
-- [ ] Have set up hooks for event-driven automation ([06-hooks/](06-hooks/))
-- [ ] Can configure MCP servers for external data ([05-mcp/](05-mcp/))
-- [ ] Know how to use subagents for task delegation ([04-subagents/](04-subagents/))
-
-> **Gaps?** Review the linked tutorials above before continuing.
+> **이해 확인**: `/lesson-quiz mcp` 또는 `/lesson-quiz subagents`를 실행하여 레벨 3 준비가 되었는지 확인하세요.
 
 ---
 
-### Milestone 3A: Advanced Features
+## 🔴 레벨 3: 고급 — 파워 유저 및 팀 리더
 
-**Topics**: Advanced Features (Planning, Permissions, Extended Thinking, Auto Mode, Channels, Voice Dictation, Remote/Desktop/Web)
-**Time**: 2-3 hours
-**Complexity**: ⭐⭐⭐⭐⭐ Advanced
-**Goal**: Master advanced workflows and power user tools
+**대상**: 퀴즈 체크 6-8개인 사용자
+**시간**: ~5시간
+**초점**: 팀 도구, CI/CD, 엔터프라이즈 기능, 플러그인 개발
+**결과**: 파워 유저, 팀 워크플로 및 CI/CD 설정 가능
 
-#### What You'll Achieve
-✅ Planning mode for complex features
-✅ Fine-grained permission control with 6 modes (manual — formerly default, acceptEdits, plan, auto, dontAsk, bypassPermissions)
-✅ Extended thinking via Alt+T / Option+T toggle
-✅ Background task management
-✅ Auto Memory for learned preferences
-✅ Auto Mode with background safety classifier
-✅ Channels that push events (CI results, chat messages, webhooks) into a running session
-✅ Voice Dictation for hands-free interaction
-✅ Remote control (generally available — your machine appears as a device card in the Claude app), desktop app, and web sessions
-✅ Agent Teams for multi-agent collaboration
+### 필수 전제 조건 확인
 
-#### Hands-on Exercises
+레벨 3을 시작하기 전에 다음 레벨 2 개념에 익숙한지 확인하세요:
+
+- [ ] 자동 호출을 사용하여 스킬을 생성하고 사용할 수 있음 ([03-skills/](03-skills/))
+- [ ] 이벤트 기반 자동화를 위한 훅을 설정했음 ([06-hooks/](06-hooks/))
+- [ ] 외부 데이터를 위한 MCP 서버를 구성할 수 있음 ([05-mcp/](05-mcp/))
+- [ ] 작업 위임을 위해 서브에이전트를 사용하는 방법을 알고 있음 ([04-subagents/](04-subagents/))
+
+> **누락된 부분?** 계속하기 전에 위에 연결된 튜토리얼을 검토하세요.
+
+---
+
+### 마일스톤 3A: 고급 기능
+
+**주제**: 고급 기능 (계획, 권한, 확장 사고, 자동 모드, 채널, 음성 받아쓰기, 원격/데스크톱/웹)
+**시간**: 2-3시간
+**복잡성**: ⭐⭐⭐⭐⭐ 고급
+**목표**: 고급 워크플로 및 파워 유저 도구 마스터
+
+#### 달성할 내용
+✅ 복잡한 기능을 위한 계획 모드
+✅ 6가지 모드(manual — 이전 명칭 default, acceptEdits, plan, auto, dontAsk, bypassPermissions)를 통한 세분화된 권한 제어
+✅ Alt+T / Option+T 토글을 통한 확장 사고
+✅ 백그라운드 작업 관리
+✅ 학습된 환경 설정을 위한 자동 메모리
+✅ 백그라운드 안전 분류기가 있는 자동 모드
+✅ 실행 중인 세션에 이벤트(CI 결과, 채팅 메시지, 웹훅)를 푸시하는 채널
+✅ 핸즈프리 상호 작용을 위한 음성 받아쓰기
+✅ 원격 제어(정식 출시 — Claude 앱에서 내 컴퓨터가 기기 카드로 표시됨), 데스크톱 앱 및 웹 세션
+✅ 다중 에이전트 협업을 위한 에이전트 팀
+
+#### 실습 과제
 
 ```bash
 # Exercise 1: Use planning mode
@@ -414,41 +418,41 @@ export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 # Use voice input for hands-free interaction with Claude Code
 ```
 
-#### Success Criteria
-- [ ] Used planning mode for a complex feature
-- [ ] Configured permission modes (plan, acceptEdits, auto, dontAsk)
-- [ ] Toggled extended thinking with Alt+T / Option+T
-- [ ] Used auto mode with background safety classifier
-- [ ] Used background tasks for long operations
-- [ ] Explored Channels that push external events into a session
-- [ ] Tried Voice Dictation for hands-free input
-- [ ] Understand Remote Control, Desktop App, and Web sessions
-- [ ] Used `notify_when_idle` on a cross-session `SendMessage` to be told when another session goes idle
-- [ ] Enabled and used Agent Teams for collaborative tasks
-- [ ] Used `/loop` for recurring tasks or scheduled monitoring
+#### 성공 기준
+- [ ] 복잡한 기능을 위해 계획 모드를 사용함
+- [ ] 권한 모드(plan, acceptEdits, auto, dontAsk)를 구성함
+- [ ] Alt+T / Option+T로 확장 사고를 토글함
+- [ ] 백그라운드 안전 분류기가 있는 자동 모드를 사용함
+- [ ] 긴 작업을 위해 백그라운드 작업을 사용함
+- [ ] 외부 이벤트를 세션에 푸시하는 채널을 탐색함
+- [ ] 핸즈프리 입력을 위해 음성 받아쓰기를 시도함
+- [ ] 원격 제어, 데스크톱 앱 및 웹 세션을 이해함
+- [ ] 세션 간 `SendMessage`에 `notify_when_idle`을 사용하여 다른 세션이 유휴 상태가 되면 알림을 받음
+- [ ] 협업 작업을 위해 에이전트 팀을 활성화하고 사용함
+- [ ] 반복 작업 또는 예약된 모니터링을 위해 `/loop`를 사용함
 
-#### Next Steps
-- Read: [09-advanced-features/README.md](09-advanced-features/README.md)
+#### 다음 단계
+- 읽기: [09-advanced-features/README.md](09-advanced-features/README.md)
 
-> **Check your understanding**: Run `/lesson-quiz advanced` to test your mastery of power user features.
+> **이해 확인**: `/lesson-quiz advanced`를 실행하여 파워 유저 기능 숙련도를 테스트하세요.
 
 ---
 
-### Milestone 3B: Team & Distribution (Plugins + CLI Mastery)
+### 마일스톤 3B: 팀 및 배포 (플러그인 + CLI 마스터리)
 
-**Topics**: Plugins + CLI Mastery + CI/CD
-**Time**: 2-3 hours
-**Complexity**: ⭐⭐⭐⭐ Advanced
-**Goal**: Build team tooling, create plugins, master CI/CD integration
+**주제**: 플러그인 + CLI 마스터리 + CI/CD
+**시간**: 2-3시간
+**복잡성**: ⭐⭐⭐⭐ 고급
+**목표**: 팀 도구 구축, 플러그인 생성, CI/CD 통합 마스터
 
-#### What You'll Achieve
-✅ Install and create complete bundled plugins
-✅ Master CLI for scripting and automation
-✅ Set up CI/CD integration with `claude -p`
-✅ JSON output for automated pipelines
-✅ Session management and batch processing
+#### 달성할 내용
+✅ 완전한 번들 플러그인 설치 및 생성
+✅ 스크립팅 및 자동화를 위한 CLI 마스터
+✅ `claude -p`를 통한 CI/CD 통합 설정
+✅ 자동화된 파이프라인을 위한 JSON 출력
+✅ 세션 관리 및 일괄 처리
 
-#### Hands-on Exercises
+#### 실습 과제
 
 ```bash
 # Exercise 1: Install a complete plugin
@@ -472,50 +476,50 @@ for file in *.md; do
 done
 ```
 
-#### CI/CD Integration Exercise
-Create a simple CI/CD script:
-1. Use `claude -p` to review changed files
-2. Output results as JSON
-3. Process with `jq` for specific issues
-4. Integrate into GitHub Actions workflow
+#### CI/CD 통합 과제
+간단한 CI/CD 스크립트를 생성합니다:
+1. `claude -p`를 사용하여 변경된 파일 검토
+2. 결과를 JSON으로 출력
+3. `jq`로 특정 문제 처리
+4. GitHub Actions 워크플로에 통합
 
-#### Success Criteria
-- [ ] Installed and used a plugin
-- [ ] Built or modified a plugin for your team
-- [ ] Used print mode (`claude -p`) in CI/CD
-- [ ] Generated JSON output for scripting
-- [ ] Resumed a previous session successfully
-- [ ] Created a batch processing script
-- [ ] Integrated Claude into a CI/CD workflow
+#### 성공 기준
+- [ ] 플러그인을 설치하고 사용함
+- [ ] 팀을 위한 플러그인을 구축하거나 수정함
+- [ ] CI/CD에서 인쇄 모드 (`claude -p`)를 사용함
+- [ ] 스크립팅을 위해 JSON 출력을 생성함
+- [ ] 이전 세션을 성공적으로 재개함
+- [ ] 일괄 처리 스크립트를 생성함
+- [ ] Claude를 CI/CD 워크플로에 통합함
 
-#### Real-World Use Cases for CLI
-- **Code Review Automation**: Run code reviews in CI/CD pipelines
-- **Log Analysis**: Analyze error logs and system outputs
-- **Documentation Generation**: Batch generate documentation
-- **Testing Insights**: Analyze test failures
-- **Performance Analysis**: Review performance metrics
-- **Data Processing**: Transform and analyze data files
+#### CLI의 실제 사용 사례
+- **코드 검토 자동화**: CI/CD 파이프라인에서 코드 검토 실행
+- **로그 분석**: 오류 로그 및 시스템 출력 분석
+- **문서 생성**: 문서 일괄 생성
+- **테스트 인사이트**: 테스트 실패 분석
+- **성능 분석**: 성능 지표 검토
+- **데이터 처리**: 데이터 파일 변환 및 분석
 
-#### Next Steps
-- Read: [07-plugins/README.md](07-plugins/README.md)
-- Read: [10-cli/README.md](10-cli/README.md)
-- Create team-wide CLI shortcuts and plugins
-- Set up batch processing scripts
+#### 다음 단계
+- 읽기: [07-plugins/README.md](07-plugins/README.md)
+- 읽기: [10-cli/README.md](10-cli/README.md)
+- 팀 전체 CLI 단축키 및 플러그인 생성
+- 일괄 처리 스크립트 설정
 
-> **Check your understanding**: Run `/lesson-quiz plugins` or `/lesson-quiz cli` to confirm your mastery.
+> **이해 확인**: `/lesson-quiz plugins` 또는 `/lesson-quiz cli`를 실행하여 숙련도를 확인하세요.
 
 ---
 
-## 🧪 Test Your Knowledge
+## 🧪 지식 테스트하기
 
-This repository includes two interactive skills you can use anytime in Claude Code to evaluate your understanding:
+이 저장소에는 Claude Code에서 언제든지 사용하여 이해도를 평가할 수 있는 두 가지 대화형 스킬이 포함되어 있습니다.
 
 | Skill | Command | Purpose |
 |-------|---------|---------|
-| **Self-Assessment** | `/self-assessment` | Evaluate your overall proficiency across all 10 features. Choose Quick (2 min) or Deep (5 min) mode to get a personalized skill profile and learning path. |
-| **Lesson Quiz** | `/lesson-quiz [lesson]` | Test your understanding of a specific lesson with 10 questions. Use before a lesson (pre-test), during (progress check), or after (mastery verification). |
+| **자기 평가** | `/self-assessment` | 10가지 기능 전반에 걸친 전반적인 숙련도를 평가합니다. Quick (2분) 또는 Deep (5분) 모드를 선택하여 개인화된 스킬 프로필 및 학습 경로를 얻으세요. |
+| **레슨 퀴즈** | `/lesson-quiz [lesson]` | 10가지 질문으로 특정 레슨에 대한 이해도를 테스트합니다. 레슨 전(사전 테스트), 도중(진행 상황 확인) 또는 후(숙련도 확인)에 사용하세요. |
 
-**Examples:**
+**예시:**
 ```
 /self-assessment                  # Find your overall level
 /lesson-quiz hooks                # Quiz on Lesson 06: Hooks
@@ -525,223 +529,223 @@ This repository includes two interactive skills you can use anytime in Claude Co
 
 ---
 
-## ⚡ Quick Start Paths
+## ⚡ 빠른 시작 경로
 
-### If You Only Have 15 Minutes
-**Goal**: Get your first win
+### 15분만 있다면
+**목표**: 첫 번째 성공 경험 얻기
 
-1. Copy one slash command: `cp 01-slash-commands/optimize.md .claude/commands/`
-2. Try it in Claude Code: `/optimize`
-3. Read: [01-slash-commands/README.md](01-slash-commands/README.md)
+1. 슬래시 명령어 하나 복사: `cp 01-slash-commands/optimize.md .claude/commands/`
+2. Claude Code에서 시도: `/optimize`
+3. 읽기: [01-slash-commands/README.md](01-slash-commands/README.md)
 
-**Outcome**: You'll have a working slash command and understand the basics
-
----
-
-### If You Have 1 Hour
-**Goal**: Set up essential productivity tools
-
-1. **Slash commands** (15 min): Copy and test `/optimize` and `/pr`
-2. **Project memory** (15 min): Create CLAUDE.md with your project standards
-3. **Install a skill** (15 min): Set up code-review-specialist skill
-4. **Try them together** (15 min): See how they work in harmony
-
-**Outcome**: Basic productivity boost with commands, memory, and auto-skills
+**결과**: 작동하는 슬래시 명령어를 가지고 기본 사항을 이해하게 됩니다.
 
 ---
 
-### If You Have a Weekend
-**Goal**: Become proficient with most features
+### 1시간이 있다면
+**목표**: 필수 생산성 도구 설정
 
-**Saturday Morning** (3 hours):
-- Complete Milestone 1A: Slash Commands + Memory
-- Complete Milestone 1B: Checkpoints + CLI Basics
+1. **슬래시 명령어** (15분): `/optimize` 및 `/pr` 복사 및 테스트
+2. **프로젝트 메모리** (15분): 프로젝트 표준으로 CLAUDE.md 생성
+3. **스킬 설치** (15분): 코드 검토 전문가 스킬 설정
+4. **함께 시도** (15분): 이들이 어떻게 조화롭게 작동하는지 확인
 
-**Saturday Afternoon** (3 hours):
-- Complete Milestone 2A: Skills + Hooks
-- Complete Milestone 2B: MCP + Subagents
-
-**Sunday** (4 hours):
-- Complete Milestone 3A: Advanced Features
-- Complete Milestone 3B: Plugins + CLI Mastery + CI/CD
-- Build a custom plugin for your team
-
-**Outcome**: You'll be a Claude Code power user ready to train others and automate complex workflows
+**결과**: 명령어, 메모리 및 자동 스킬을 통한 기본 생산성 향상
 
 ---
 
-## 💡 Learning Tips
+### 주말이 있다면
+**목표**: 대부분의 기능에 능숙해지기
 
-### ✅ Do
+**토요일 오전** (3시간):
+- 마일스톤 1A 완료: 슬래시 명령어 + 메모리
+- 마일스톤 1B 완료: 체크포인트 + CLI 기본 사항
 
-- **Take the quiz first** to find your starting point
-- **Complete hands-on exercises** for each milestone
-- **Start simple** and add complexity gradually
-- **Test each feature** before moving to the next
-- **Take notes** on what works for your workflow
-- **Refer back** to earlier concepts as you learn advanced topics
-- **Experiment safely** using checkpoints
-- **Share knowledge** with your team
+**토요일 오후** (3시간):
+- 마일스톤 2A 완료: 스킬 + 훅
+- 마일스톤 2B 완료: MCP + 서브에이전트
 
-### ❌ Don't
+**일요일** (4시간):
+- 마일스톤 3A 완료: 고급 기능
+- 마일스톤 3B 완료: 플러그인 + CLI 마스터리 + CI/CD
+- 팀을 위한 사용자 지정 플러그인 구축
 
-- **Skip the prerequisites check** when jumping to a higher level
-- **Try to learn everything at once** - it's overwhelming
-- **Copy configurations without understanding them** - you won't know how to debug
-- **Forget to test** - always verify features work
-- **Rush through milestones** - take time to understand
-- **Ignore the documentation** - each README has valuable details
-- **Work in isolation** - discuss with teammates
+**결과**: Claude Code 파워 유저가 되어 다른 사람을 교육하고 복잡한 워크플로를 자동화할 준비가 됩니다.
 
 ---
 
-## 🎓 Learning Styles
+## 💡 학습 팁
 
-### Visual Learners
-- Study the mermaid diagrams in each README
-- Watch the command execution flow
-- Draw your own workflow diagrams
-- Use the visual learning path above
+### ✅ 해야 할 일
 
-### Hands-on Learners
-- Complete every hands-on exercise
-- Experiment with variations
-- Break things and fix them (use checkpoints!)
-- Create your own examples
+- 시작 지점을 찾기 위해 **먼저 퀴즈를 푸세요**
+- 각 마일스톤에 대한 **실습 과제를 완료하세요**
+- **간단하게 시작**하고 점진적으로 복잡성을 추가하세요
+- 다음으로 넘어가기 전에 **각 기능을 테스트하세요**
+- 워크플로에 작동하는 내용에 대해 **메모를 작성하세요**
+- 고급 주제를 학습할 때 **이전 개념을 다시 참조하세요**
+- 체크포인트를 사용하여 **안전하게 실험하세요**
+- 팀과 **지식을 공유하세요**
 
-### Reading Learners
-- Read each README thoroughly
-- Study the code examples
-- Review the comparison tables
-- Read the blog posts linked in resources
+### ❌ 하지 말아야 할 일
 
-### Social Learners
-- Set up pair programming sessions
-- Teach concepts to teammates
-- Join Claude Code community discussions
-- Share your custom configurations
+- 더 높은 레벨로 건너뛸 때 **전제 조건 확인을 건너뛰지 마세요**
+- **모든 것을 한 번에 배우려 하지 마세요** - 압도적일 수 있습니다.
+- **이해 없이 구성을 복사하지 마세요** - 디버그 방법을 알 수 없습니다.
+- **테스트하는 것을 잊지 마세요** - 항상 기능이 작동하는지 확인하세요.
+- **마일스톤을 서두르지 마세요** - 이해하는 데 시간을 들이세요.
+- **문서를 무시하지 마세요** - 각 README에는 귀중한 세부 정보가 있습니다.
+- **혼자 작업하지 마세요** - 팀원들과 논의하세요.
 
 ---
 
-## 📈 Progress Tracking
+## 🎓 학습 스타일
 
-Use these checklists to track your progress by level. Run `/self-assessment` anytime to get an updated skill profile, or `/lesson-quiz [lesson]` after each tutorial to verify your understanding.
+### 시각 학습자
+- 각 README의 머메이드 다이어그램을 연구하세요
+- 명령어 실행 흐름을 관찰하세요
+- 자신만의 워크플로 다이어그램을 그리세요
+- 위 시각 학습 경로를 사용하세요
 
-### 🟢 Level 1: Beginner
-- [ ] Completed [01-slash-commands](01-slash-commands/)
-- [ ] Completed [02-memory](02-memory/)
-- [ ] Created first custom slash command
-- [ ] Set up project memory
-- [ ] **Milestone 1A achieved**
-- [ ] Completed [08-checkpoints](08-checkpoints/)
-- [ ] Completed [10-cli](10-cli/) basics
-- [ ] Created and reverted to a checkpoint
-- [ ] Used interactive and print mode
-- [ ] **Milestone 1B achieved**
+### 실습 학습자
+- 모든 실습 과제를 완료하세요
+- 다양한 변형으로 실험하세요
+- 고장 내고 고쳐보세요 (체크포인트를 사용하세요!)
+- 자신만의 예시를 만드세요
 
-### 🔵 Level 2: Intermediate
-- [ ] Completed [03-skills](03-skills/)
-- [ ] Completed [06-hooks](06-hooks/)
-- [ ] Installed first skill
-- [ ] Set up PreToolUse hook
-- [ ] **Milestone 2A achieved**
-- [ ] Completed [05-mcp](05-mcp/)
-- [ ] Completed [04-subagents](04-subagents/)
-- [ ] Connected GitHub MCP
-- [ ] Created custom subagent
-- [ ] Combined integrations in a workflow
-- [ ] **Milestone 2B achieved**
+### 독서 학습자
+- 각 README를 철저히 읽으세요
+- 코드 예제를 연구하세요
+- 비교 표를 검토하세요
+- 자료에 연결된 블로그 게시물을 읽으세요
 
-### 🔴 Level 3: Advanced
-- [ ] Completed [09-advanced-features](09-advanced-features/)
-- [ ] Used planning mode successfully
-- [ ] Configured permission modes (6 modes including auto)
-- [ ] Used auto mode with safety classifier
-- [ ] Used extended thinking toggle
-- [ ] Explored Channels and Voice Dictation
-- [ ] **Milestone 3A achieved**
-- [ ] Completed [07-plugins](07-plugins/)
-- [ ] Completed [10-cli](10-cli/) advanced usage
-- [ ] Set up print mode (`claude -p`) CI/CD
-- [ ] Created JSON output for automation
-- [ ] Integrated Claude into CI/CD pipeline
-- [ ] Created team plugin
-- [ ] **Milestone 3B achieved**
+### 사회적 학습자
+- 페어 프로그래밍 세션을 설정하세요
+- 팀원들에게 개념을 가르치세요
+- Claude Code 커뮤니티 토론에 참여하세요
+- 자신만의 사용자 지정 구성을 공유하세요
 
 ---
 
-## 🆘 Common Learning Challenges
+## 📈 진행 상황 추적
 
-### Challenge 1: "Too many concepts at once"
-**Solution**: Focus on one milestone at a time. Complete all exercises before moving forward.
+이 체크리스트를 사용하여 레벨별 진행 상황을 추적하세요. 언제든지 `/self-assessment`를 실행하여 업데이트된 스킬 프로필을 얻거나, 각 튜토리얼 후에 `/lesson-quiz [lesson]`을 실행하여 이해도를 확인하세요.
 
-### Challenge 2: "Don't know which feature to use when"
-**Solution**: Refer to the [Use Case Matrix](README.md#use-case-matrix) in the main README.
+### 🟢 레벨 1: 초급
+- [ ] [01-slash-commands](01-slash-commands/) 완료
+- [ ] [02-memory](02-memory/) 완료
+- [ ] 첫 번째 사용자 지정 슬래시 명령어 생성
+- [ ] 프로젝트 메모리 설정
+- [ ] **마일스톤 1A 달성**
+- [ ] [08-checkpoints](08-checkpoints/) 완료
+- [ ] [10-cli](10-cli/) 기본 사항 완료
+- [ ] 체크포인트를 생성하고 이전 상태로 되돌림
+- [ ] 대화형 및 인쇄 모드를 사용함
+- [ ] **마일스톤 1B 달성**
 
-### Challenge 3: "Configuration not working"
-**Solution**: Check the [Troubleshooting](README.md#troubleshooting) section and verify file locations.
+### 🔵 레벨 2: 중급
+- [ ] [03-skills](03-skills/) 완료
+- [ ] [06-hooks](06-hooks/) 완료
+- [ ] 첫 번째 스킬 설치
+- [ ] PreToolUse 훅 설정
+- [ ] **마일스톤 2A 달성**
+- [ ] [05-mcp](05-mcp/) 완료
+- [ ] [04-subagents](04-subagents/) 완료
+- [ ] GitHub MCP 연결
+- [ ] 사용자 지정 서브에이전트 생성
+- [ ] 워크플로에 통합을 결합함
+- [ ] **마일스톤 2B 달성**
 
-### Challenge 4: "Concepts seem to overlap"
-**Solution**: Review the [Feature Comparison](README.md#feature-comparison) table to understand differences.
-
-### Challenge 5: "Hard to remember everything"
-**Solution**: Create your own cheat sheet. Use checkpoints to experiment safely.
-
-### Challenge 6: "I'm experienced but not sure where to start"
-**Solution**: Take the [Self-Assessment Quiz](#-find-your-level) above. Skip to your level and use the prerequisites check to identify any gaps.
-
----
-
-## 🎯 What's Next After Completion?
-
-Once you've completed all milestones:
-
-1. **Create team documentation** - Document your team's Claude Code setup
-2. **Build custom plugins** - Package your team's workflows, including the newer manifest fields (`workflows`, `channels`, `dependencies`)
-3. **Try `/design`** - Sketch a UI mockup, screen flow, or landing page on a design canvas instead of hand-writing HTML (v2.1.265+)
-4. **Explore Remote Control** - Continue a local Claude Code session from your phone, browser or the Claude app, or start one from your phone via its device card in the Claude app
-5. **Try Web Sessions** - Use Claude Code through browser-based interfaces for remote development
-6. **Use the Desktop App** - Access Claude Code features through the native desktop application
-7. **Use Auto Mode** - Let Claude work autonomously with a background safety classifier
-8. **Leverage Auto Memory** - Let Claude learn your preferences automatically over time
-9. **Set up Agent Teams** - Coordinate multiple agents on complex, multi-faceted tasks
-10. **Use Channels** - Connect an MCP server that pushes events (CI results, chat messages, webhooks) into your running session
-11. **Try Voice Dictation** - Use hands-free voice input for interaction with Claude Code
-12. **Use Scheduled Tasks** - Automate recurring checks with `/loop` and cron tools (session-scoped), or cloud scheduled tasks with `/schedule`
-13. **Contribute examples** - Share with the community
-14. **Mentor others** - Help teammates learn
-15. **Optimize workflows** - Continuously improve based on usage
-16. **Stay updated** - Follow Claude Code releases and new features
-
----
-
-## 📚 Additional Resources
-
-### Official Documentation
-- [Claude Code Documentation](https://code.claude.com/docs/en/overview)
-- [Anthropic Documentation](https://docs.anthropic.com)
-- [MCP Protocol Specification](https://modelcontextprotocol.io)
-
-### Blog Posts
-- [Discovering Claude Code Slash Commands](https://medium.com/@luongnv89/discovering-claude-code-slash-commands-cdc17f0dfb29)
-
-### Community
-- [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook)
-- [MCP Servers Repository](https://github.com/modelcontextprotocol/servers)
+### 🔴 레벨 3: 고급
+- [ ] [09-advanced-features](09-advanced-features/) 완료
+- [ ] 계획 모드를 성공적으로 사용함
+- [ ] 권한 모드(자동 포함 6가지 모드)를 구성함
+- [ ] 안전 분류기가 있는 자동 모드를 사용함
+- [ ] 확장 사고 토글을 사용함
+- [ ] 채널 및 음성 받아쓰기를 탐색함
+- [ ] **마일스톤 3A 달성**
+- [ ] [07-plugins](07-plugins/) 완료
+- [ ] [10-cli](10-cli/) 고급 사용법 완료
+- [ ] 인쇄 모드 (`claude -p`) CI/CD 설정
+- [ ] 자동화를 위한 JSON 출력 생성
+- [ ] Claude를 CI/CD 파이프라인에 통합함
+- [ ] 팀 플러그인 생성
+- [ ] **마일스톤 3B 달성**
 
 ---
 
-## 💬 Feedback & Support
+## 🆘 일반적인 학습 과제
 
-- **Found an issue?** Create an issue in the repository
-- **Have a suggestion?** Submit a pull request
-- **Need help?** Check the documentation or ask the community
+### 과제 1: "동시에 너무 많은 개념"
+**해결책**: 한 번에 하나의 마일스톤에 집중하세요. 다음으로 넘어가기 전에 모든 과제를 완료하세요.
+
+### 과제 2: "언제 어떤 기능을 사용해야 할지 모르겠음"
+**해결책**: 메인 README의 [사용 사례 매트릭스](README.md#use-case-matrix)를 참조하세요.
+
+### 과제 3: "구성 작동 불능"
+**해결책**: [문제 해결](README.md#troubleshooting) 섹션을 확인하고 파일 위치를 확인하세요.
+
+### 과제 4: "개념이 중복되는 것 같음"
+**해결책**: [기능 비교](README.md#feature-comparison) 표를 검토하여 차이점을 이해하세요.
+
+### 과제 5: "모든 것을 기억하기 어려움"
+**해결책**: 자신만의 요약본을 만드세요. 체크포인트를 사용하여 안전하게 실험하세요.
+
+### 과제 6: "경험이 있지만 어디서부터 시작해야 할지 모르겠음"
+**해결책**: 위에 있는 [수준 확인하기](#-수준-확인하기)를 풀어보세요. 자신의 레벨로 건너뛰고 전제 조건 확인을 사용하여 누락된 부분을 파악하세요.
 
 ---
 
-**Last Updated**: October 26, 2026
-**Claude Code Version**: 2.1.310
-**Sources**:
+## 🎯 완료 후 다음 단계는?
+
+모든 마일스톤을 완료한 후:
+
+1. **팀 문서 생성** - 팀의 Claude Code 설정 문서화
+2. **사용자 지정 플러그인 구축** - 새 매니페스트 필드(`workflows`, `channels`, `dependencies`)를 포함해 팀의 워크플로 패키징
+3. **`/design` 사용해 보기** - HTML을 직접 작성하는 대신 디자인 캔버스에서 UI 목업, 화면 흐름, 랜딩 페이지 스케치 (v2.1.265+)
+4. **원격 제어 탐색** - 휴대폰, 브라우저 또는 Claude 앱에서 로컬 Claude Code 세션을 이어서 사용하거나, Claude 앱의 기기 카드를 통해 휴대폰에서 세션 시작
+5. **웹 세션 시도** - 브라우저 기반 인터페이스를 통해 Claude Code를 사용하여 원격 개발
+6. **데스크톱 앱 사용** - 네이티브 데스크톱 애플리케이션을 통해 Claude Code 기능에 액세스
+7. **자동 모드 사용** - 백그라운드 안전 분류기로 Claude가 자율적으로 작업하도록 허용
+8. **자동 메모리 활용** - Claude가 시간이 지남에 따라 환경 설정을 자동으로 학습하도록 허용
+9. **에이전트 팀 설정** - 복잡하고 다면적인 작업에서 여러 에이전트 조정
+10. **채널 사용** - 실행 중인 세션에 이벤트(CI 결과, 채팅 메시지, 웹훅)를 푸시하는 MCP 서버 연결
+11. **음성 받아쓰기 시도** - Claude Code와 핸즈프리 상호 작용을 위해 음성 입력 사용
+12. **예약된 작업 사용** - `/loop` 및 cron 도구(세션 범위)로 반복 확인을 자동화하거나, `/schedule`로 클라우드 예약 작업 사용
+13. **예시 기여** - 커뮤니티와 공유
+14. **다른 사람 멘토링** - 팀원의 학습 지원
+15. **워크플로 최적화** - 사용량에 따라 지속적으로 개선
+16. **최신 정보 유지** - Claude Code 릴리스 및 새로운 기능 팔로우
+
+---
+
+## 📚 추가 자료
+
+### 공식 문서
+- [Claude Code 문서](https://code.claude.com/docs/en/overview)
+- [Anthropic 문서](https://docs.anthropic.com)
+- [MCP 프로토콜 사양](https://modelcontextprotocol.io)
+
+### 블로그 게시물
+- [Claude Code 슬래시 명령어 발견하기](https://medium.com/@luongnv89/discovering-claude-code-slash-commands-cdc17f0dfb29)
+
+### 커뮤니티
+- [Anthropic 쿡북](https://github.com/anthropics/anthropic-cookbook)
+- [MCP 서버 저장소](https://github.com/modelcontextprotocol/servers)
+
+---
+
+## 💬 피드백 및 지원
+
+- **문제 발견?** 저장소에 이슈 생성
+- **제안 사항?** 풀 리퀘스트 제출
+- **도움이 필요하세요?** 문서를 확인하거나 커뮤니티에 문의
+
+---
+
+**최종 업데이트**: 2026년 10월 26일
+**Claude Code 버전**: 2.1.310
+**출처**:
 - https://code.claude.com/docs/en/overview
 - https://code.claude.com/docs/en/hooks
 - https://code.claude.com/docs/en/permission-modes
@@ -759,10 +763,10 @@ Once you've completed all milestones:
 - https://code.claude.com/docs/en/routines#where-the-name-routines-still-appears
 - https://code.claude.com/docs/en/headless#auto-approve-tools
 - https://code.claude.com/docs/en/permission-modes#which-mode-a-non-interactive-run-starts-in
-**Compatible Models**: Claude Fable 5.1, Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
-**Maintained by**: Claude How-To Contributors
-**License**: Educational purposes, free to use and adapt
+**호환 모델**: Claude Fable 5.1, Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**유지보수**: Claude How-To 기여자
+**라이선스**: 교육 목적, 자유롭게 사용 및 개작 가능
 
 ---
 
-[← Back to Main README](README.md)
+[← 메인 README로 돌아가기](README.md)

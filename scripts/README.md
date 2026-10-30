@@ -1,48 +1,50 @@
+<!-- i18n-source: scripts/README.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
   <img alt="Claude How To" src="../resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Build Scripts
+# 빌드 스크립트
 
-This directory contains two generators that turn the tutorial markdown files
-into distributable formats:
+이 디렉터리에는 튜토리얼 Markdown 파일을 배포 가능한 형식으로 변환하는 두 개의 생성기가 포함되어 있습니다.
 
-- [**EPUB Builder**](#epub-builder-script) — `build_epub.py`
-- [**Static Website Builder**](#static-website-builder) — `build_website.py`
+- [**EPUB 빌더**](#epub-빌더-스크립트) — `build_epub.py`
+- [**정적 웹사이트 빌더**](#정적-웹사이트-빌더) — `build_website.py`
 
-Both treat the `.md` files as the single source of truth — re-run the relevant
-script after editing markdown to regenerate the output.
+두 생성기 모두 `.md` 파일을 단일 원본(Source of Truth)으로 사용합니다. Markdown을 수정한 후에는 해당 스크립트를 다시 실행하여 결과물을 생성하십시오.
 
 ---
 
-# EPUB Builder Script
+# EPUB 빌더 스크립트
 
-Build an EPUB ebook from the Claude How-To markdown files.
+Claude How-To Markdown 파일로 EPUB 전자책을 생성합니다.
 
-## Features
+## 기능
 
-- Organizes chapters by folder structure (01-slash-commands, 02-memory, etc.)
-- Renders Mermaid diagrams as SVG images with [Pele](https://github.com/obsidianmd/pele), a pinned bundle run by Node.js; CSS variables are flattened to plain colours on a white background so every EPUB reader shows them
-- Caches identical diagrams so each unique diagram is rendered only once
-- Generates a cover image from the project logo
-- Converts internal markdown links to EPUB chapter references
-- Strict error mode - fails if any diagram cannot be rendered
+- 폴더 구조(01-slash-commands, 02-memory 등)에 따라 챕터 구성
+- Node.js로 실행하는 고정 버전 번들인 [Pele](https://github.com/obsidianmd/pele)로 Mermaid 다이어그램을 SVG 이미지로 렌더링. 모든 EPUB 리더에서 표시되도록 CSS 변수를 흰색 배경 위의 일반 색상으로 평탄화
+- 동일한 다이어그램을 캐시하여 고유한 다이어그램마다 한 번만 렌더링
+- 프로젝트 로고를 사용하여 표지 이미지 생성
+- 내부 Markdown 링크를 EPUB 챕터 참조로 변환
+- 엄격한 오류 처리 모드 - 다이어그램 하나라도 렌더링에 실패하면 빌드 실패
 
-## Requirements
+## 요구 사항
 
 - Python 3.10+
 - [uv](https://github.com/astral-sh/uv)
-- Node.js >= 20 on `PATH` for Mermaid diagram rendering. The pinned Pele bundle is downloaded on first run (network needed once), sha256-verified, and cached in `scripts/.vendor-cache/pele/`
+- Mermaid 다이어그램 렌더링을 위해 `PATH`에 Node.js >= 20 필요. 고정 버전 Pele 번들은 첫 실행 시 다운로드되며(네트워크는 한 번만 필요), sha256 검증 후 `scripts/.vendor-cache/pele/`에 캐시됩니다.
 
-## Quick Start
+## 빠른 시작
 
 ```bash
 # Simplest way - uv handles everything
 uv run scripts/build_epub.py
 ```
 
-## Development Setup
+## 개발 환경 설정
 
 ```bash
 # Create virtual environment
@@ -59,7 +61,7 @@ pytest scripts/tests/ -v
 python scripts/build_epub.py
 ```
 
-## Command-Line Options
+## 명령줄 옵션
 
 ```
 usage: build_epub.py [-h] [--root ROOT] [--output OUTPUT] [--verbose]
@@ -73,7 +75,7 @@ options:
   --lang {en,vi,zh,ja,ko}  Language to build (default: en)
 ```
 
-## Examples
+## 예제
 
 ```bash
 # Build with verbose output
@@ -86,17 +88,18 @@ uv run scripts/build_epub.py --output ~/Desktop/claude-guide.epub
 uv run scripts/build_epub.py --lang vi
 ```
 
-## Output
+## 출력 결과
 
-Creates `claude-howto-guide.epub` in the repository root directory.
+저장소 루트 디렉터리에 `claude-howto-guide.epub` 파일을 생성합니다.
 
-The EPUB includes:
-- Cover image with project logo
-- Table of contents with nested sections
-- All markdown content converted to EPUB-compatible HTML
-- Mermaid diagrams rendered as SVG images
+EPUB에는 다음이 포함됩니다.
 
-## Running Tests
+- 프로젝트 로고가 포함된 표지 이미지
+- 중첩된 섹션이 포함된 목차
+- EPUB 호환 HTML로 변환된 모든 Markdown 콘텐츠
+- SVG 이미지로 렌더링된 Mermaid 다이어그램
+
+## 테스트 실행
 
 ```bash
 # With virtual environment
@@ -110,50 +113,42 @@ uv run --with pytest --with pytest-asyncio \
     pytest scripts/tests/ -v
 ```
 
-## Dependencies
+## 의존성
 
-Managed via PEP 723 inline script metadata:
+PEP 723 인라인 스크립트 메타데이터를 통해 관리됩니다.
 
-| Package | Purpose |
+| 패키지 | 용도 |
 |---------|---------|
-| `ebooklib` | EPUB generation |
-| `markdown` | Markdown to HTML conversion |
-| `beautifulsoup4` | HTML parsing |
-| `pillow` | Cover image generation |
+| `ebooklib` | EPUB 생성 |
+| `markdown` | Markdown을 HTML로 변환 |
+| `beautifulsoup4` | HTML 파싱 |
+| `pillow` | 표지 이미지 생성 |
 
-## Troubleshooting
+## 문제 해결
 
-**Build fails with `Pele is unavailable`**: Install Node.js >= 20 and make sure `node` is on `PATH` (`node --version`).
+**`Pele is unavailable` 오류로 빌드 실패**: Node.js >= 20을 설치하고 `node`가 `PATH`에 있는지 확인하십시오(`node --version`).
 
-**Pele bundle download or checksum failure**: The first build downloads the pinned Pele bundle from cdn.jsdelivr.net and checks every file's sha256. Offline or behind a proxy, run one build with network access; later builds use the cache in `scripts/.vendor-cache/pele/<version>/`. A checksum mismatch means the download was altered or truncated: delete that folder and build again.
+**Pele 번들 다운로드 또는 체크섬 실패**: 첫 빌드에서는 고정 버전 Pele 번들을 cdn.jsdelivr.net에서 다운로드하고 모든 파일의 sha256을 확인합니다. 오프라인이거나 프록시 뒤에 있다면 네트워크에 접근 가능한 환경에서 한 번 빌드하십시오. 이후 빌드는 `scripts/.vendor-cache/pele/<version>/`의 캐시를 사용합니다. 체크섬이 일치하지 않으면 다운로드가 변조되었거나 잘린 것이므로, 해당 폴더를 삭제하고 다시 빌드하십시오.
 
-**Missing logo**: The script generates a text-only cover if `claude-howto-logo.png` is not found.
+**로고 파일 없음**: `claude-howto-logo.png`를 찾을 수 없으면 텍스트만 포함된 표지를 생성합니다.
 
 ---
 
-# Static Website Builder
+# 정적 웹사이트 빌더
 
-Generate an elegant, mobile-friendly static website from the same markdown
-files used by the EPUB build. The website is the rendered view; the `.md`
-files remain the single source of truth.
+EPUB 생성에 사용하는 동일한 Markdown 파일로 세련되고 모바일 친화적인 정적 웹사이트를 생성합니다. 웹사이트는 렌더링된 결과물이며, `.md` 파일은 계속해서 단일 원본(Source of Truth)으로 유지됩니다.
 
-## Features
+## 기능
 
-- One HTML page per markdown source — internal `.md` links are rewritten to
-  the corresponding pages on the site
-- References to non-markdown repo files (templates, scripts, JSON) become
-  GitHub blob URLs that open the source on github.com
-- Mermaid diagrams render client-side with Pele (`pele.global.js`), served
-  from the built site (no CDN at runtime); they follow the dark mode toggle
-- Tailwind CSS compiled with the standalone CLI (Go binary, no Node.js) and
-  served from the built site — responsive layout with sidebar nav, in-page
-  TOC, dark mode toggle, and prev/next page navigation
-- Inter + JetBrains Mono fonts are self-hosted alongside the CSS — no
-  third-party requests at page load
-- Mirrors the EPUB curriculum order (`01-` … `10-` plus top-level docs)
-- Hostable as plain static files — designed to deploy to GitHub Pages
+- Markdown 파일마다 하나의 HTML 페이지 생성 — 내부 `.md` 링크는 해당 웹페이지 링크로 자동 변환
+- Markdown이 아닌 저장소 파일(템플릿, 스크립트, JSON) 참조는 github.com에서 소스 파일을 여는 GitHub blob URL로 변환
+- Mermaid 다이어그램은 빌드된 사이트에서 제공되는 Pele(`pele.global.js`)로 클라이언트 측에서 렌더링(런타임에 CDN 불필요). 다크 모드 전환을 따름
+- 독립 실행형 Tailwind CSS CLI(Go 바이너리, Node.js 불필요)로 CSS를 컴파일하여 사이트에 포함 — 반응형 레이아웃, 사이드바 탐색, 페이지 내 목차, 다크 모드 전환, 이전/다음 페이지 탐색 제공
+- Inter 및 JetBrains Mono 글꼴을 CSS와 함께 자체 호스팅 — 페이지 로드 시 외부 요청 없음
+- EPUB의 커리큘럼 순서(`01-` … `10-` 및 최상위 문서 포함) 유지
+- 일반 정적 파일로 호스팅 가능 — GitHub Pages 배포에 최적화
 
-## Quick Start
+## 빠른 시작
 
 ```bash
 # Build the English website into ./site/
@@ -164,7 +159,7 @@ python -m http.server --directory site 8080
 # then open http://localhost:8080
 ```
 
-## Command-Line Options
+## 명령줄 옵션
 
 ```
 usage: build_website.py [-h] [--root ROOT] [--output OUTPUT]
@@ -180,28 +175,20 @@ options:
   --verbose, -v         Enable verbose logging
 ```
 
-## GitHub Pages Deploy
+## GitHub Pages 배포
 
-The repo ships a workflow at `.github/workflows/pages.yml` that builds the
-site on every push to `main` (when any `.md` or generator file changes) and
-publishes via `actions/deploy-pages`. Enable GitHub Pages in repo settings
-with **Source: GitHub Actions** to activate it.
+이 저장소에는 `.github/workflows/pages.yml` 워크플로가 포함되어 있으며, `main` 브랜치에 푸시될 때마다(`.md` 또는 생성기 파일이 변경된 경우) 사이트를 빌드한 후 `actions/deploy-pages`를 통해 게시합니다.
 
-## Architecture
+이를 활성화하려면 저장소 설정에서 GitHub Pages의 **Source: GitHub Actions**를 선택하십시오.
 
-`build_website.py` reuses the chapter-ordering logic from `build_epub.py` and
-ships HTML templates under `scripts/website_templates/`:
+## 아키텍처
 
-- `page.html.j2` — per-page Jinja2 template with sidebar nav, TOC, prev/next
-- `tailwind.config.js`, `tailwind.input.css` — config + entry CSS for the
-  Tailwind standalone CLI; the CLI scans the built HTML and produces
-  `site/assets/tailwind.css` with just the utilities actually used
-- `site.css` — small layer of site-specific styles plus Pygments theme
+`build_website.py`는 `build_epub.py`의 챕터 정렬 로직을 재사용하며, `scripts/website_templates/` 아래의 HTML 템플릿을 사용합니다.
 
-The Tailwind CLI binary, Pele bundle, and font files are downloaded on
-first build into `scripts/.vendor-cache/` (gitignored) — see
-`scripts/vendor_assets.py`.
+- `page.html.j2` — 사이드바 탐색, 목차, 이전/다음 페이지 기능을 포함하는 페이지별 Jinja2 템플릿
+- `tailwind.config.js`, `tailwind.input.css` — Tailwind 독립 실행형 CLI를 위한 설정 및 입력 CSS. CLI는 생성된 HTML을 분석하여 실제 사용되는 유틸리티만 포함한 `site/assets/tailwind.css`를 생성합니다.
+- `site.css` — 사이트 전용 스타일과 Pygments 테마를 포함하는 작은 스타일 레이어
 
-Heading anchors are generated using the exact algorithm in
-`check_cross_references.heading_to_anchor`, so `#anchor` links validated by
-the pre-commit hook resolve correctly on the rendered site.
+Tailwind CLI 바이너리, Pele 번들 및 글꼴 파일은 첫 번째 빌드 시 `scripts/.vendor-cache/`(gitignore 적용)로 다운로드됩니다. 자세한 내용은 `scripts/vendor_assets.py`를 참고하십시오.
+
+제목(anchor) 링크는 `check_cross_references.heading_to_anchor`와 동일한 알고리즘으로 생성되므로, pre-commit 훅에서 검증한 `#anchor` 링크가 렌더링된 사이트에서도 올바르게 동작합니다.

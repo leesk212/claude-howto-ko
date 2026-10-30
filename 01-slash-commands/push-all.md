@@ -1,31 +1,34 @@
 ---
-description: Stage all changes, create commit, and push to remote (use with caution)
+description: 모든 변경 사항을 스테이징하고, 커밋을 생성하며, 원격 저장소로 푸시합니다 (주의해서 사용하십시오).
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*), Bash(git diff:*), Bash(git log:*), Bash(git pull:*)
 ---
+<!-- i18n-source: 01-slash-commands/push-all.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-# Commit and Push Everything
+# 모든 것을 커밋하고 푸시하기
 
-⚠️ **CAUTION**: Stage ALL changes, commit, and push to remote. Use only when confident all changes belong together.
+⚠️ **주의**: 모든 변경 사항을 스테이징하고, 커밋하며, 원격 저장소로 푸시합니다. 모든 변경 사항이 함께 속한다고 확신할 때만 사용하십시오.
 
-## Workflow
+## 워크플로
 
-### 1. Analyze Changes
-Run in parallel:
-- `git status` - Show modified/added/deleted/untracked files
-- `git diff --stat` - Show change statistics
-- `git log -1 --oneline` - Show recent commit for message style
+### 1. 변경 사항 분석
+다음 명령어를 병렬로 실행합니다:
+- `git status` - 수정/추가/삭제/추적되지 않은 파일 표시
+- `git diff --stat` - 변경 통계 표시
+- `git log -1 --oneline` - 메시지 스타일을 위한 최근 커밋 표시
 
-### 2. Safety Checks
+### 2. 안전성 검사
 
-**❌ STOP and WARN if detected:**
-- Secrets: `.env*`, `*.key`, `*.pem`, `credentials.json`, `secrets.yaml`, `id_rsa`, `*.p12`, `*.pfx`, `*.cer`
-- API Keys: Any `*_API_KEY`, `*_SECRET`, `*_TOKEN` variables with real values (not placeholders like `your-api-key`, `xxx`, `placeholder`)
-- Large files: `>10MB` without Git LFS
-- Build artifacts: `node_modules/`, `dist/`, `build/`, `__pycache__/`, `*.pyc`, `.venv/`
-- Temp files: `.DS_Store`, `thumbs.db`, `*.swp`, `*.tmp`
+**❌ 다음 사항이 감지되면 중단하고 경고하십시오:**
+- 비밀 정보: `.env*`, `*.key`, `*.pem`, `credentials.json`, `secrets.yaml`, `id_rsa`, `*.p12`, `*.pfx`, `*.cer`
+- API 키: 실제 값이 포함된 모든 `*_API_KEY`, `*_SECRET`, `*_TOKEN` 변수 ( `your-api-key`, `xxx`, `placeholder`와 같은 플레이스홀더 제외)
+- 대용량 파일: Git LFS 없이 `>10MB`인 파일
+- 빌드 아티팩트: `node_modules/`, `dist/`, `build/`, `__pycache__/`, `*.pyc`, `.venv/`
+- 임시 파일: `.DS_Store`, `thumbs.db`, `*.swp`, `*.tmp`
 
-**API Key Validation:**
-Check modified files for patterns like:
+**API 키 유효성 검사:**
+수정된 파일에서 다음과 같은 패턴을 확인하십시오:
 ```bash
 OPENAI_API_KEY=sk-proj-xxxxx  # ❌ Real key detected!
 AWS_SECRET_KEY=AKIA...         # ❌ Real key detected!
@@ -39,15 +42,15 @@ API_KEY=<your-key>
 SECRET=${YOUR_SECRET}
 ```
 
-**✅ Verify:**
-- `.gitignore` properly configured
-- No merge conflicts
-- Correct branch (warn if main/master)
-- API keys are placeholders only
+**✅ 다음 사항을 확인하십시오:**
+- `.gitignore`가 올바르게 구성되었는지
+- 병합 충돌이 없는지
+- 올바른 브랜치인지 (main/master인 경우 경고)
+- API 키가 플레이스홀더만 포함하는지
 
-### 3. Request Confirmation
+### 3. 확인 요청
 
-Present summary:
+요약을 제시합니다:
 ```
 📊 Changes Summary:
 - X files modified, Y added, Z deleted
@@ -61,21 +64,21 @@ I will: git add . → commit → push
 Type 'yes' to proceed or 'no' to cancel.
 ```
 
-**WAIT for explicit "yes" before proceeding.**
+**진행하기 전에 명시적인 "yes"를 기다리십시오.**
 
-### 4. Execute (After Confirmation)
+### 4. 실행 (확인 후)
 
-Run sequentially:
+다음 명령어를 순차적으로 실행합니다:
 ```bash
 git add .
 git status  # Verify staging
 ```
 
-### 5. Generate Commit Message
+### 5. 커밋 메시지 생성
 
-Analyze changes and create conventional commit:
+변경 사항을 분석하고 컨벤셔널 커밋을 생성합니다:
 
-**Format:**
+**형식:**
 ```
 [type]: Brief summary (max 72 characters)
 
@@ -84,9 +87,9 @@ Analyze changes and create conventional commit:
 - Key change 3
 ```
 
-**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `build`, `ci`
+**유형:** `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `build`, `ci`
 
-**Example:**
+**예시:**
 ```
 docs: Update concept README files with comprehensive documentation
 
@@ -95,7 +98,7 @@ docs: Update concept README files with comprehensive documentation
 - Expand best practices sections
 ```
 
-### 6. Commit and Push
+### 6. 커밋 및 푸시
 
 ```bash
 git commit -m "$(cat <<'EOF'
@@ -106,7 +109,7 @@ git push  # If fails: git pull --rebase && git push
 git log -1 --oneline --decorate  # Verify
 ```
 
-### 7. Confirm Success
+### 7. 성공 확인
 
 ```
 ✅ Successfully pushed to remote!
@@ -116,44 +119,44 @@ Branch: [branch] → origin/[branch]
 Files changed: X (+insertions, -deletions)
 ```
 
-## Error Handling
+## 오류 처리
 
-- **git add fails**: Check permissions, locked files, verify repo initialized
-- **git commit fails**: Fix pre-commit hooks, check git config (user.name/email)
-- **git push fails**:
-  - Non-fast-forward: `git pull --rebase && git push`
-  - No remote branch: `git push -u origin [branch]`
-  - Protected branch: Use PR workflow instead
+- **git add 실패**: 권한, 잠긴 파일, 저장소 초기화 여부를 확인하십시오.
+- **git commit 실패**: pre-commit 훅을 수정하고, git config (user.name/email)를 확인하십시오.
+- **git push 실패**:
+  - 논-패스트포워드(Non-fast-forward): `git pull --rebase && git push`
+  - 원격 브랜치 없음: `git push -u origin [branch]`
+  - 보호된 브랜치: 대신 PR 워크플로를 사용하십시오.
 
-## When to Use
+## 사용 시기
 
-✅ **Good:**
-- Multi-file documentation updates
-- Feature with tests and docs
-- Bug fixes across files
-- Project-wide formatting/refactoring
-- Configuration changes
+✅ **권장:**
+- 여러 파일에 걸친 문서 업데이트
+- 테스트와 문서가 포함된 기능
+- 여러 파일에 걸친 버그 수정
+- 프로젝트 전반의 형식 지정/리팩터링
+- 구성 변경
 
-❌ **Avoid:**
-- Uncertain what's being committed
-- Contains secrets/sensitive data
-- Protected branches without review
-- Merge conflicts present
-- Want granular commit history
-- Pre-commit hooks failing
+❌ **피해야 할 경우:**
+- 무엇을 커밋하는지 불확실한 경우
+- 비밀 정보/민감한 데이터가 포함된 경우
+- 검토 없이 보호된 브랜치에 푸시하는 경우
+- 병합 충돌이 있는 경우
+- 세분화된 커밋 히스토리를 원하는 경우
+- pre-commit 훅이 실패하는 경우
 
-## Alternatives
+## 대안
 
-If user wants control, suggest:
-1. **Selective staging**: Review/stage specific files
-2. **Interactive staging**: `git add -p` for patch selection
-3. **PR workflow**: Create branch → push → PR (use `/pr` command)
+사용자가 더 많은 제어를 원할 경우, 다음을 제안합니다:
+1. **선택적 스테이징**: 특정 파일을 검토/스테이징
+2. **대화형 스테이징**: 패치 선택을 위한 `git add -p`
+3. **PR 워크플로**: 브랜치 생성 → 푸시 → PR (`/pr` 명령 사용)
 
-**⚠️ Remember**: Always review changes before pushing. When in doubt, use individual git commands for more control.
+**⚠️ 기억하십시오**: 푸시하기 전에 항상 변경 사항을 검토하십시오. 확신이 서지 않을 때는 개별 git 명령을 사용하여 더 많은 제어를 확보하십시오.
 
 ---
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/commands
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

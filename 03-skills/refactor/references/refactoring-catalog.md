@@ -1,40 +1,44 @@
-# Refactoring Catalog
+<!-- i18n-source: 03-skills/refactor/references/refactoring-catalog.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-A curated catalog of refactoring techniques from Martin Fowler's *Refactoring* (2nd Edition). Each refactoring includes motivation, step-by-step mechanics, and examples.
+# 리팩터링 카탈로그
 
-> "A refactoring is defined by its mechanics—the precise sequence of steps that you follow to carry out the change." — Martin Fowler
+Martin Fowler의 *Refactoring* (2nd Edition)에서 엄선된 리팩터링 기법 카탈로그입니다. 각 리팩터링에는 동기, 단계별 메커니즘 및 예제가 포함됩니다.
 
----
-
-## How to Use This Catalog
-
-1. **Identify the smell** using the code smells reference
-2. **Find the matching refactoring** in this catalog
-3. **Follow the mechanics** step by step
-4. **Test after each step** to ensure behavior is preserved
-
-**Golden Rule**: If any step takes more than 10 minutes, break it into smaller steps.
+> "리팩터링은 그 메커니즘으로 정의됩니다. 즉, 변경을 수행하기 위해 따르는 정확한 단계의 시퀀스입니다." — Martin Fowler
 
 ---
 
-## Most Common Refactorings
+## 이 카탈로그를 사용하는 방법
 
-### Extract Method
+1. 코드 스멜 참조를 사용하여 **스멜을 식별**합니다.
+2. 이 카탈로그에서 **일치하는 리팩터링을 찾습니다**.
+3. **메커니즘을 단계별로 따릅니다**.
+4. 동작이 유지되는지 확인하기 위해 **각 단계 후 테스트**합니다.
 
-**When to use**: Long method, duplicate code, need to name a concept
+**황금률**: 어떤 단계든 10분 이상 걸린다면, 더 작은 단계로 나눕니다.
 
-**Motivation**: Turn a code fragment into a method whose name explains the purpose.
+---
 
-**Mechanics**:
-1. Create a new method named for what it does (not how)
-2. Copy the code fragment into the new method
-3. Scan for local variables used in the fragment
-4. Pass local variables as parameters (or declare in method)
-5. Handle return values appropriately
-6. Replace the original fragment with a call to the new method
-7. Test
+## 가장 일반적인 리팩터링
 
-**Before**:
+### 메서드 추출 (Extract Method)
+
+**사용 시점**: 긴 메서드, 중복 코드, 개념에 이름을 붙일 필요가 있을 때
+
+**동기**: 코드 조각을 그 목적을 설명하는 이름의 메서드로 만듭니다.
+
+**메커니즘**:
+1. 무엇을 하는지 (어떻게 하는지가 아님) 나타내는 이름으로 새 메서드를 만듭니다.
+2. 코드 조각을 새 메서드로 복사합니다.
+3. 조각에서 사용되는 지역 변수를 찾습니다.
+4. 지역 변수를 매개변수로 전달합니다 (또는 메서드 내에서 선언).
+5. 반환 값을 적절히 처리합니다.
+6. 원래 조각을 새 메서드 호출로 대체합니다.
+7. 테스트합니다.
+
+**이전**:
 ```javascript
 function printOwing(invoice) {
   let outstanding = 0;
@@ -54,7 +58,7 @@ function printOwing(invoice) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 function printOwing(invoice) {
   printBanner();
@@ -80,20 +84,20 @@ function printDetails(invoice, outstanding) {
 
 ---
 
-### Inline Method
+### 메서드 인라인 (Inline Method)
 
-**When to use**: Method body is as clear as its name, excessive delegation
+**사용 시점**: 메서드 본문이 이름만큼 명확할 때, 과도한 위임이 있을 때
 
-**Motivation**: Remove needless indirection when the method doesn't add value.
+**동기**: 메서드가 가치를 더하지 않을 때 불필요한 간접화를 제거합니다.
 
-**Mechanics**:
-1. Check that the method isn't polymorphic
-2. Find all calls to the method
-3. Replace each call with the method body
-4. Test after each replacement
-5. Remove the method definition
+**메커니즘**:
+1. 메서드가 다형적이지 않은지 확인합니다.
+2. 메서드에 대한 모든 호출을 찾습니다.
+3. 각 호출을 메서드 본문으로 대체합니다.
+4. 각 교체 후 테스트합니다.
+5. 메서드 정의를 제거합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function getRating(driver) {
   return moreThanFiveLateDeliveries(driver) ? 2 : 1;
@@ -104,7 +108,7 @@ function moreThanFiveLateDeliveries(driver) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 function getRating(driver) {
   return driver.numberOfLateDeliveries > 5 ? 2 : 1;
@@ -113,27 +117,27 @@ function getRating(driver) {
 
 ---
 
-### Extract Variable
+### 변수 추출 (Extract Variable)
 
-**When to use**: Complex expression that is hard to understand
+**사용 시점**: 이해하기 어려운 복잡한 표현식이 있을 때
 
-**Motivation**: Give a name to a piece of a complex expression.
+**동기**: 복잡한 표현식의 일부에 이름을 부여합니다.
 
-**Mechanics**:
-1. Ensure the expression has no side effects
-2. Declare an immutable variable
-3. Set it to the result of the expression (or part)
-4. Replace the original expression with the variable
-5. Test
+**메커니즘**:
+1. 표현식에 부작용이 없는지 확인합니다.
+2. 불변 변수를 선언합니다.
+3. 표현식 (또는 일부)의 결과로 설정합니다.
+4. 원래 표현식을 변수로 대체합니다.
+5. 테스트합니다.
 
-**Before**:
+**이전**:
 ```javascript
 return order.quantity * order.itemPrice -
   Math.max(0, order.quantity - 500) * order.itemPrice * 0.05 +
   Math.min(order.quantity * order.itemPrice * 0.1, 100);
 ```
 
-**After**:
+**이후**:
 ```javascript
 const basePrice = order.quantity * order.itemPrice;
 const quantityDiscount = Math.max(0, order.quantity - 500) * order.itemPrice * 0.05;
@@ -143,39 +147,39 @@ return basePrice - quantityDiscount + shipping;
 
 ---
 
-### Inline Variable
+### 변수 인라인 (Inline Variable)
 
-**When to use**: Variable name doesn't communicate more than the expression
+**사용 시점**: 변수 이름이 표현식보다 더 많은 것을 전달하지 않을 때
 
-**Motivation**: Remove unnecessary indirection.
+**동기**: 불필요한 간접화를 제거합니다.
 
-**Mechanics**:
-1. Check that the right-hand side has no side effects
-2. If variable isn't immutable, make it so and test
-3. Find the first reference and replace with the expression
-4. Test
-5. Repeat for all references
-6. Remove the declaration and assignment
-7. Test
+**메커니즘**:
+1. 우측 변수에 부작용이 없는지 확인합니다.
+2. 변수가 불변이 아니라면, 불변으로 만들고 테스트합니다.
+3. 첫 번째 참조를 찾아 표현식으로 대체합니다.
+4. 테스트합니다.
+5. 모든 참조에 대해 반복합니다.
+6. 선언과 할당을 제거합니다.
+7. 테스트합니다.
 
 ---
 
-### Rename Variable
+### 변수 이름 변경 (Rename Variable)
 
-**When to use**: Name doesn't clearly communicate purpose
+**사용 시점**: 이름이 목적을 명확하게 전달하지 않을 때
 
-**Motivation**: Good names are crucial for clean code.
+**동기**: 좋은 이름은 깔끔한 코드를 위해 매우 중요합니다.
 
-**Mechanics**:
-1. If variable is widely used, consider encapsulating
-2. Find all references
-3. Change each reference
-4. Test
+**메커니즘**:
+1. 변수가 널리 사용되는 경우, 캡슐화를 고려합니다.
+2. 모든 참조를 찾습니다.
+3. 각 참조를 변경합니다.
+4. 테스트합니다.
 
-**Tips**:
-- Use intention-revealing names
-- Avoid abbreviations
-- Use domain terminology
+**팁**:
+- 의도를 드러내는 이름을 사용합니다.
+- 약어를 피합니다.
+- 도메인 용어를 사용합니다.
 
 ```javascript
 // Bad
@@ -189,35 +193,35 @@ const activeUsers = users.filter(user => user.isActive);
 
 ---
 
-### Change Function Declaration
+### 함수 선언 변경 (Change Function Declaration)
 
-**When to use**: Function name doesn't explain purpose, parameters need change
+**사용 시점**: 함수 이름이 목적을 설명하지 않을 때, 매개변수 변경이 필요할 때
 
-**Motivation**: Good function names make code self-documenting.
+**동기**: 좋은 함수 이름은 코드를 자체 문서화합니다.
 
-**Mechanics (Simple)**:
-1. Remove parameters not needed
-2. Change the name
-3. Add parameters needed
-4. Test
+**메커니즘 (단순)**:
+1. 필요 없는 매개변수를 제거합니다.
+2. 이름을 변경합니다.
+3. 필요한 매개변수를 추가합니다.
+4. 테스트합니다.
 
-**Mechanics (Migration - for complex changes)**:
-1. If removing parameter, make sure it's not used
-2. Create new function with desired declaration
-3. Have old function call new function
-4. Test
-5. Change callers to use new function
-6. Test after each
-7. Remove old function
+**메커니즘 (마이그레이션 - 복잡한 변경의 경우)**:
+1. 매개변수를 제거하는 경우, 사용되지 않는지 확인합니다.
+2. 원하는 선언으로 새 함수를 생성합니다.
+3. 이전 함수가 새 함수를 호출하도록 합니다.
+4. 테스트합니다.
+5. 호출자가 새 함수를 사용하도록 변경합니다.
+6. 각 변경 후 테스트합니다.
+7. 이전 함수를 제거합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function circum(radius) {
   return 2 * Math.PI * radius;
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 function circumference(radius) {
   return 2 * Math.PI * radius;
@@ -226,21 +230,21 @@ function circumference(radius) {
 
 ---
 
-### Encapsulate Variable
+### 변수 캡슐화 (Encapsulate Variable)
 
-**When to use**: Direct access to data from multiple places
+**사용 시점**: 여러 곳에서 데이터에 직접 접근할 때
 
-**Motivation**: Provide a clear access point for data manipulation.
+**동기**: 데이터 조작을 위한 명확한 접근 지점을 제공합니다.
 
-**Mechanics**:
-1. Create getter and setter functions
-2. Find all references
-3. Replace reads with getter
-4. Replace writes with setter
-5. Test after each change
-6. Restrict visibility of the variable
+**메커니즘**:
+1. getter 및 setter 함수를 생성합니다.
+2. 모든 참조를 찾습니다.
+3. 읽기를 getter로 대체합니다.
+4. 쓰기를 setter로 대체합니다.
+5. 각 변경 후 테스트합니다.
+6. 변수의 가시성을 제한합니다.
 
-**Before**:
+**이전**:
 ```javascript
 let defaultOwner = { firstName: "Martin", lastName: "Fowler" };
 
@@ -248,7 +252,7 @@ let defaultOwner = { firstName: "Martin", lastName: "Fowler" };
 spaceship.owner = defaultOwner;
 ```
 
-**After**:
+**이후**:
 ```javascript
 let defaultOwnerData = { firstName: "Martin", lastName: "Fowler" };
 
@@ -260,28 +264,28 @@ spaceship.owner = defaultOwner();
 
 ---
 
-### Introduce Parameter Object
+### 매개변수 객체 도입 (Introduce Parameter Object)
 
-**When to use**: Several parameters that frequently go together
+**사용 시점**: 자주 함께 사용되는 여러 매개변수가 있을 때
 
-**Motivation**: Group data that naturally belongs together.
+**동기**: 자연스럽게 함께 속하는 데이터를 그룹화합니다.
 
-**Mechanics**:
-1. Create a new class/structure for the grouped parameters
-2. Test
-3. Use Change Function Declaration to add the new object
-4. Test
-5. For each parameter in the group, remove it from the function and use the new object
-6. Test after each
+**메커니즘**:
+1. 그룹화된 매개변수를 위한 새 클래스/구조체를 생성합니다.
+2. 테스트합니다.
+3. 함수 선언 변경을 사용하여 새 객체를 추가합니다.
+4. 테스트합니다.
+5. 그룹의 각 매개변수에 대해 함수에서 제거하고 새 객체를 사용합니다.
+6. 각 변경 후 테스트합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function amountInvoiced(startDate, endDate) { ... }
 function amountReceived(startDate, endDate) { ... }
 function amountOverdue(startDate, endDate) { ... }
 ```
 
-**After**:
+**이후**:
 ```javascript
 class DateRange {
   constructor(start, end) {
@@ -297,26 +301,26 @@ function amountOverdue(dateRange) { ... }
 
 ---
 
-### Combine Functions into Class
+### 함수들을 클래스로 결합 (Combine Functions into Class)
 
-**When to use**: Several functions operate on the same data
+**사용 시점**: 여러 함수가 동일한 데이터에 대해 작동할 때
 
-**Motivation**: Group functions with the data they operate on.
+**동기**: 함수를 그들이 작동하는 데이터와 함께 그룹화합니다.
 
-**Mechanics**:
-1. Apply Encapsulate Record to the common data
-2. Move each function into the class
-3. Test after each move
-4. Replace data arguments with uses of class fields
+**메커니즘**:
+1. 공통 데이터에 [레코드 캡슐화](https://refactoring.com/catalog/encapsulateRecord.html)를 적용합니다.
+2. 각 함수를 클래스 안으로 옮깁니다.
+3. 각 이동 후 테스트합니다.
+4. 데이터 인수를 클래스 필드 사용으로 대체합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function base(reading) { ... }
 function taxableCharge(reading) { ... }
 function calculateBaseCharge(reading) { ... }
 ```
 
-**After**:
+**이후**:
 ```javascript
 class Reading {
   constructor(data) { this._data = data; }
@@ -329,21 +333,21 @@ class Reading {
 
 ---
 
-### Split Phase
+### 단계 분리 (Split Phase)
 
-**When to use**: Code deals with two different things
+**사용 시점**: 코드가 두 가지 다른 것을 다룰 때
 
-**Motivation**: Separate code into distinct phases with clear boundaries.
+**동기**: 코드를 명확한 경계를 가진 별개의 단계로 분리합니다.
 
-**Mechanics**:
-1. Create a second function for the second phase
-2. Test
-3. Introduce an intermediate data structure between phases
-4. Test
-5. Extract first phase into its own function
-6. Test
+**메커니즘**:
+1. 두 번째 단계를 위한 두 번째 함수를 생성합니다.
+2. 테스트합니다.
+3. 단계들 사이에 중간 데이터 구조를 도입합니다.
+4. 테스트합니다.
+5. 첫 번째 단계를 자체 함수로 추출합니다.
+6. 테스트합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function priceOrder(product, quantity, shippingMethod) {
   const basePrice = product.basePrice * quantity;
@@ -356,7 +360,7 @@ function priceOrder(product, quantity, shippingMethod) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 function priceOrder(product, quantity, shippingMethod) {
   const priceData = calculatePricingData(product, quantity);
@@ -380,87 +384,87 @@ function applyShipping(priceData, shippingMethod) {
 
 ---
 
-## Moving Features
+## 기능 이동 (Moving Features)
 
-### Move Method
+### 메서드 이동 (Move Method)
 
-**When to use**: Method uses more features of another class than its own
+**사용 시점**: 메서드가 자신의 클래스보다 다른 클래스의 기능을 더 많이 사용할 때
 
-**Motivation**: Put functions with the data they use most.
+**동기**: 함수를 가장 많이 사용하는 데이터와 함께 배치합니다.
 
-**Mechanics**:
-1. Examine all program elements used by method in its class
-2. Check if method is polymorphic
-3. Copy method to target class
-4. Adjust for new context
-5. Make original method delegate to target
-6. Test
-7. Consider removing original method
-
----
-
-### Move Field
-
-**When to use**: Field is used more by another class
-
-**Motivation**: Keep data with the functions that use it.
-
-**Mechanics**:
-1. Encapsulate the field if not already
-2. Test
-3. Create field in target
-4. Update references to use target field
-5. Test
-6. Remove original field
+**메커니즘**:
+1. 메서드가 해당 클래스에서 사용하는 모든 프로그램 요소를 검사합니다.
+2. 메서드가 다형적인지 확인합니다.
+3. 대상 클래스로 메서드를 복사합니다.
+4. 새 컨텍스트에 맞게 조정합니다.
+5. 원래 메서드가 대상으로 위임하도록 만듭니다.
+6. 테스트합니다.
+7. 원래 메서드를 제거하는 것을 고려합니다.
 
 ---
 
-### Move Statements into Function
+### 필드 이동 (Move Field)
 
-**When to use**: Same code always appears with a function call
+**사용 시점**: 필드가 다른 클래스에 의해 더 많이 사용될 때
 
-**Motivation**: Remove duplication by moving repeated code into the function.
+**동기**: 데이터를 사용하는 함수와 함께 데이터를 유지합니다.
 
-**Mechanics**:
-1. Extract the repeated code into a function if not already
-2. Move statements into that function
-3. Test
-4. If callers no longer need standalone statements, remove them
-
----
-
-### Move Statements to Callers
-
-**When to use**: Common behavior varies between callers
-
-**Motivation**: When behavior needs to differ, move it out of the function.
-
-**Mechanics**:
-1. Use Extract Method on the code to move
-2. Use Inline Method on the original function
-3. Remove the now-inlined call
-4. Move extracted code to each caller
-5. Test
+**메커니즘**:
+1. 필드가 아직 캡슐화되지 않았다면 캡슐화합니다.
+2. 테스트합니다.
+3. 대상에 필드를 생성합니다.
+4. 대상 필드를 사용하도록 참조를 업데이트합니다.
+5. 테스트합니다.
+6. 원래 필드를 제거합니다.
 
 ---
 
-## Organizing Data
+### 구문들을 함수 안으로 이동 (Move Statements into Function)
 
-### Replace Primitive with Object
+**사용 시점**: 동일한 코드가 항상 함수 호출과 함께 나타날 때
 
-**When to use**: Data item needs more behavior than simple value
+**동기**: 반복되는 코드를 함수 안으로 옮겨 중복을 제거합니다.
 
-**Motivation**: Encapsulate data with its behavior.
+**메커니즘**:
+1. 반복되는 코드를 아직 함수로 추출하지 않았다면 추출합니다.
+2. 해당 함수 안으로 구문들을 이동합니다.
+3. 테스트합니다.
+4. 호출자가 더 이상 독립적인 구문들을 필요로 하지 않는다면 제거합니다.
 
-**Mechanics**:
-1. Apply Encapsulate Variable
-2. Create a simple value class
-3. Change the setter to create a new instance
-4. Change the getter to return the value
-5. Test
-6. Add richer behavior to the new class
+---
 
-**Before**:
+### 구문들을 호출자로 이동 (Move Statements to Callers)
+
+**사용 시점**: 호출자마다 공통 동작이 다를 때
+
+**동기**: 동작이 달라져야 할 때, 함수 밖으로 이동시킵니다.
+
+**메커니즘**:
+1. 이동할 코드에 대해 메서드 추출을 사용합니다.
+2. 원래 함수에 대해 메서드 인라인을 사용합니다.
+3. 이제 인라인된 호출을 제거합니다.
+4. 추출된 코드를 각 호출자로 이동합니다.
+5. 테스트합니다.
+
+---
+
+## 데이터 조직화 (Organizing Data)
+
+### 기본형을 객체로 대체 (Replace Primitive with Object)
+
+**사용 시점**: 데이터 항목에 단순 값 이상의 동작이 필요할 때
+
+**동기**: 데이터를 그 동작과 함께 캡슐화합니다.
+
+**메커니즘**:
+1. [변수 캡슐화](https://refactoring.com/catalog/encapsulateVariable.html)를 적용합니다.
+2. 단순 값 클래스를 생성합니다.
+3. setter가 새 인스턴스를 생성하도록 변경합니다.
+4. getter가 값을 반환하도록 변경합니다.
+5. 테스트합니다.
+6. 새 클래스에 더 풍부한 동작을 추가합니다.
+
+**이전**:
 ```javascript
 class Order {
   constructor(data) {
@@ -472,7 +476,7 @@ class Order {
 if (order.priority === "high" || order.priority === "rush") { ... }
 ```
 
-**After**:
+**이후**:
 ```javascript
 class Priority {
   constructor(value) {
@@ -496,20 +500,20 @@ if (order.priority.higherThan(new Priority("normal"))) { ... }
 
 ---
 
-### Replace Temp with Query
+### 임시 변수를 질의 메서드로 대체 (Replace Temp with Query)
 
-**When to use**: Temporary variable holds result of an expression
+**사용 시점**: 임시 변수가 표현식의 결과를 담고 있을 때
 
-**Motivation**: Make the code clearer by extracting the expression into a function.
+**동기**: 표현식을 함수로 추출하여 코드를 더 명확하게 만듭니다.
 
-**Mechanics**:
-1. Check that the variable is assigned only once
-2. Extract the assignment's right-hand side into a method
-3. Replace references to the temp with the method call
-4. Test
-5. Remove the temp declaration and assignment
+**메커니즘**:
+1. 변수가 한 번만 할당되는지 확인합니다.
+2. 할당의 우측 변수를 메서드로 추출합니다.
+3. 임시 변수에 대한 참조를 메서드 호출로 대체합니다.
+4. 테스트합니다.
+5. 임시 변수 선언과 할당을 제거합니다.
 
-**Before**:
+**이전**:
 ```javascript
 const basePrice = this._quantity * this._itemPrice;
 if (basePrice > 1000) {
@@ -519,7 +523,7 @@ if (basePrice > 1000) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 get basePrice() {
   return this._quantity * this._itemPrice;
@@ -535,20 +539,20 @@ if (this.basePrice > 1000) {
 
 ---
 
-## Simplifying Conditional Logic
+## 조건부 로직 단순화 (Simplifying Conditional Logic)
 
-### Decompose Conditional
+### 조건문 분해 (Decompose Conditional)
 
-**When to use**: Complex conditional (if-then-else) statement
+**사용 시점**: 복잡한 조건문 (if-then-else)이 있을 때
 
-**Motivation**: Make the intention clear by extracting conditions and actions.
+**동기**: 조건과 동작을 추출하여 의도를 명확하게 만듭니다.
 
-**Mechanics**:
-1. Apply Extract Method on the condition
-2. Apply Extract Method on the then-branch
-3. Apply Extract Method on the else-branch (if present)
+**메커니즘**:
+1. 조건에 메서드 추출을 적용합니다.
+2. then-분기에 메서드 추출을 적용합니다.
+3. else-분기에 메서드 추출을 적용합니다 (존재하는 경우).
 
-**Before**:
+**이전**:
 ```javascript
 if (!aDate.isBefore(plan.summerStart) && !aDate.isAfter(plan.summerEnd)) {
   charge = quantity * plan.summerRate;
@@ -557,7 +561,7 @@ if (!aDate.isBefore(plan.summerStart) && !aDate.isAfter(plan.summerEnd)) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 if (isSummer(aDate, plan)) {
   charge = summerCharge(quantity, plan);
@@ -580,25 +584,25 @@ function regularCharge(quantity, plan) {
 
 ---
 
-### Consolidate Conditional Expression
+### 조건 표현식 통합 (Consolidate Conditional Expression)
 
-**When to use**: Multiple conditions with the same result
+**사용 시점**: 동일한 결과를 내는 여러 조건이 있을 때
 
-**Motivation**: Make it clear that conditions are a single check.
+**동기**: 조건들이 단일 검사임을 명확히 합니다.
 
-**Mechanics**:
-1. Verify no side effects in conditions
-2. Combine conditions using `and` or `or`
-3. Consider Extract Method on the combined condition
+**메커니즘**:
+1. 조건에 부작용이 없는지 확인합니다.
+2. `and` 또는 `or`를 사용하여 조건을 결합합니다.
+3. 결합된 조건에 메서드 추출을 고려합니다.
 
-**Before**:
+**이전**:
 ```javascript
 if (employee.seniority < 2) return 0;
 if (employee.monthsDisabled > 12) return 0;
 if (employee.isPartTime) return 0;
 ```
 
-**After**:
+**이후**:
 ```javascript
 if (isNotEligibleForDisability(employee)) return 0;
 
@@ -611,18 +615,18 @@ function isNotEligibleForDisability(employee) {
 
 ---
 
-### Replace Nested Conditional with Guard Clauses
+### 중첩 조건문을 가드 절로 대체 (Replace Nested Conditional with Guard Clauses)
 
-**When to use**: Deeply nested conditionals making flow hard to follow
+**사용 시점**: 흐름을 따라가기 어렵게 만드는 깊게 중첩된 조건문이 있을 때
 
-**Motivation**: Use guard clauses for special cases, keeping normal flow clear.
+**동기**: 특별한 경우에 가드 절을 사용하여 정상 흐름을 명확하게 유지합니다.
 
-**Mechanics**:
-1. Find the special case conditions
-2. Replace them with guard clauses that return early
-3. Test after each change
+**메커니즘**:
+1. 특별한 경우 조건을 찾습니다.
+2. 일찍 반환하는 가드 절로 대체합니다.
+3. 각 변경 후 테스트합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function payAmount(employee) {
   let result;
@@ -639,7 +643,7 @@ function payAmount(employee) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 function payAmount(employee) {
   if (employee.isSeparated) return { amount: 0, reasonCode: "SEP" };
@@ -650,20 +654,20 @@ function payAmount(employee) {
 
 ---
 
-### Replace Conditional with Polymorphism
+### 조건문을 다형성으로 대체 (Replace Conditional with Polymorphism)
 
-**When to use**: Switch/case based on type, conditional logic varying by type
+**사용 시점**: 타입에 따른 switch/case, 타입에 따라 달라지는 조건부 로직이 있을 때
 
-**Motivation**: Let objects handle their own behavior.
+**동기**: 객체가 자신의 동작을 처리하도록 합니다.
 
-**Mechanics**:
-1. Create class hierarchy (if not exists)
-2. Use Factory Function for object creation
-3. Move conditional logic into superclass method
-4. Create subclass method for each case
-5. Remove original conditional
+**메커니즘**:
+1. 클래스 계층 구조를 생성합니다 (존재하지 않는 경우).
+2. 객체 생성을 위해 팩토리 함수를 사용합니다.
+3. 조건부 로직을 상위 클래스 메서드로 이동합니다.
+4. 각 케이스에 대해 하위 클래스 메서드를 생성합니다.
+5. 원래 조건문을 제거합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function plumages(birds) {
   return birds.map(b => plumage(b));
@@ -683,7 +687,7 @@ function plumage(bird) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 class Bird {
   get plumage() { return "unknown"; }
@@ -717,20 +721,20 @@ function createBird(data) {
 
 ---
 
-### Introduce Special Case (Null Object)
+### 특수 사례 도입 (널 객체) (Introduce Special Case (Null Object))
 
-**When to use**: Repeated null checks for special cases
+**사용 시점**: 특수 사례에 대한 반복적인 널 검사가 있을 때
 
-**Motivation**: Return a special object that handles the special case.
+**동기**: 특수 사례를 처리하는 특수 객체를 반환합니다.
 
-**Mechanics**:
-1. Create special case class with expected interface
-2. Add isSpecialCase check
-3. Introduce factory method
-4. Replace null checks with special case object usage
-5. Test
+**메커니즘**:
+1. 예상되는 인터페이스를 가진 특수 사례 클래스를 생성합니다.
+2. isSpecialCase 검사를 추가합니다.
+3. 팩토리 메서드를 도입합니다.
+4. 널 검사를 특수 사례 객체 사용으로 대체합니다.
+5. 테스트합니다.
 
-**Before**:
+**이전**:
 ```javascript
 const customer = site.customer;
 // ... many places checking
@@ -741,7 +745,7 @@ if (customer === "unknown") {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 class UnknownCustomer {
   get name() { return "occupant"; }
@@ -761,22 +765,22 @@ const customerName = customer.name;
 
 ---
 
-## Refactoring APIs
+## API 리팩터링 (Refactoring APIs)
 
-### Separate Query from Modifier
+### 질의와 변경 분리 (Separate Query from Modifier)
 
-**When to use**: Function both returns a value and has side effects
+**사용 시점**: 함수가 값을 반환하는 동시에 부작용을 가질 때
 
-**Motivation**: Make it clear which operations have side effects.
+**동기**: 어떤 작업이 부작용을 가지는지 명확하게 합니다.
 
-**Mechanics**:
-1. Create a new query function
-2. Copy original function's return logic
-3. Modify original to return void
-4. Replace calls that use return value
-5. Test
+**메커니즘**:
+1. 새 질의 함수를 생성합니다.
+2. 원래 함수의 반환 로직을 복사합니다.
+3. 원래 함수를 void를 반환하도록 수정합니다.
+4. 반환 값을 사용하는 호출을 대체합니다.
+5. 테스트합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function alertForMiscreant(people) {
   for (const p of people) {
@@ -793,7 +797,7 @@ function alertForMiscreant(people) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 function findMiscreant(people) {
   for (const p of people) {
@@ -810,21 +814,21 @@ function alertForMiscreant(people) {
 
 ---
 
-### Parameterize Function
+### 함수 매개변수화 (Parameterize Function)
 
-**When to use**: Several functions doing similar things with different values
+**사용 시점**: 다른 값을 사용하여 유사한 작업을 수행하는 여러 함수가 있을 때
 
-**Motivation**: Remove duplication by adding a parameter.
+**동기**: 매개변수를 추가하여 중복을 제거합니다.
 
-**Mechanics**:
-1. Select one function
-2. Add parameter for the varying literal
-3. Change body to use the parameter
-4. Test
-5. Change callers to use the parameterized version
-6. Remove now-unused functions
+**메커니즘**:
+1. 하나의 함수를 선택합니다.
+2. 달라지는 리터럴에 대한 매개변수를 추가합니다.
+3. 매개변수를 사용하도록 본문을 변경합니다.
+4. 테스트합니다.
+5. 호출자가 매개변수화된 버전을 사용하도록 변경합니다.
+6. 더 이상 사용되지 않는 함수를 제거합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function tenPercentRaise(person) {
   person.salary = person.salary * 1.10;
@@ -835,7 +839,7 @@ function fivePercentRaise(person) {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 function raise(person, factor) {
   person.salary = person.salary * (1 + factor);
@@ -848,19 +852,19 @@ raise(person, 0.05);
 
 ---
 
-### Remove Flag Argument
+### 플래그 인수 제거 (Remove Flag Argument)
 
-**When to use**: Boolean parameter that changes function behavior
+**사용 시점**: 함수 동작을 변경하는 불리언 매개변수가 있을 때
 
-**Motivation**: Make the behavior explicit through separate functions.
+**동기**: 별도의 함수를 통해 동작을 명시적으로 만듭니다.
 
-**Mechanics**:
-1. Create explicit function for each flag value
-2. Replace each call with appropriate new function
-3. Test after each change
-4. Remove original function
+**메커니즘**:
+1. 각 플래그 값에 대한 명시적 함수를 생성합니다.
+2. 각 호출을 적절한 새 함수로 대체합니다.
+3. 각 변경 후 테스트합니다.
+4. 원래 함수를 제거합니다.
 
-**Before**:
+**이전**:
 ```javascript
 function bookConcert(customer, isPremium) {
   if (isPremium) {
@@ -874,7 +878,7 @@ bookConcert(customer, true);
 bookConcert(customer, false);
 ```
 
-**After**:
+**이후**:
 ```javascript
 function bookPremiumConcert(customer) {
   // premium booking logic
@@ -890,72 +894,72 @@ bookRegularConcert(customer);
 
 ---
 
-## Dealing with Inheritance
+## 상속 처리 (Dealing with Inheritance)
 
-### Pull Up Method
+### 메서드 상위로 이동 (Pull Up Method)
 
-**When to use**: Same method in multiple subclasses
+**사용 시점**: 여러 하위 클래스에 동일한 메서드가 있을 때
 
-**Motivation**: Remove duplication in class hierarchy.
+**동기**: 클래스 계층 구조에서 중복을 제거합니다.
 
-**Mechanics**:
-1. Inspect methods to ensure they are identical
-2. Check signatures are the same
-3. Create new method in superclass
-4. Copy body from one subclass
-5. Delete one subclass method, test
-6. Delete other subclass methods, test each
-
----
-
-### Push Down Method
-
-**When to use**: Behavior relevant only to a subset of subclasses
-
-**Motivation**: Put method where it's used.
-
-**Mechanics**:
-1. Copy method to each subclass that needs it
-2. Remove method from superclass
-3. Test
-4. Remove from subclasses that don't need it
-5. Test
+**메커니즘**:
+1. 메서드가 동일한지 확인하기 위해 검사합니다.
+2. 시그니처가 동일한지 확인합니다.
+3. 상위 클래스에 새 메서드를 생성합니다.
+4. 한 하위 클래스에서 본문을 복사합니다.
+5. 한 하위 클래스 메서드를 삭제하고 테스트합니다.
+6. 다른 하위 클래스 메서드를 삭제하고 각각 테스트합니다.
 
 ---
 
-### Replace Subclass with Delegate
+### 메서드 하위로 이동 (Push Down Method)
 
-**When to use**: Inheritance is being used incorrectly, need more flexibility
+**사용 시점**: 동작이 하위 클래스 하위 집합에만 관련될 때
 
-**Motivation**: Prefer composition over inheritance when appropriate.
+**동기**: 메서드를 사용되는 곳에 배치합니다.
 
-**Mechanics**:
-1. Create empty class for delegate
-2. Add field to host class holding delegate
-3. Create constructor for delegate, called from host
-4. Move features to delegate
-5. Test after each move
-6. Replace inheritance with delegation
+**메커니즘**:
+1. 해당 메서드가 필요한 각 하위 클래스로 메서드를 복사합니다.
+2. 상위 클래스에서 메서드를 제거합니다.
+3. 테스트합니다.
+4. 필요 없는 하위 클래스에서 제거합니다.
+5. 테스트합니다.
 
 ---
 
-## Extract Class
+### 하위 클래스를 위임으로 대체 (Replace Subclass with Delegate)
 
-**When to use**: Large class with multiple responsibilities
+**사용 시점**: 상속이 잘못 사용되고 있을 때, 더 많은 유연성이 필요할 때
 
-**Motivation**: Split class to maintain single responsibility.
+**동기**: 적절할 때 상속보다 구성을 선호합니다.
 
-**Mechanics**:
-1. Decide how to split responsibilities
-2. Create new class
-3. Move field from original to new class
-4. Test
-5. Move methods from original to new class
-6. Test after each move
-7. Review and rename both classes
-8. Decide how to expose new class
+**메커니즘**:
+1. 위임을 위한 빈 클래스를 생성합니다.
+2. 호스트 클래스에 위임을 담는 필드를 추가합니다.
+3. 호스트에서 호출되는 위임을 위한 생성자를 생성합니다.
+4. 기능을 위임으로 이동합니다.
+5. 각 이동 후 테스트합니다.
+6. 상속을 위임으로 대체합니다.
 
-**Before**:
+---
+
+## 클래스 추출 (Extract Class)
+
+**사용 시점**: 여러 책임을 가진 큰 클래스가 있을 때
+
+**동기**: 단일 책임을 유지하기 위해 클래스를 분할합니다.
+
+**메커니즘**:
+1. 책임을 어떻게 분할할지 결정합니다.
+2. 새 클래스를 생성합니다.
+3. 원래 클래스에서 새 클래스로 필드를 이동합니다.
+4. 테스트합니다.
+5. 원래 클래스에서 새 클래스로 메서드를 이동합니다.
+6. 각 이동 후 테스트합니다.
+7. 두 클래스를 검토하고 이름을 변경합니다.
+8. 새 클래스를 노출하는 방법을 결정합니다.
+
+**이전**:
 ```javascript
 class Person {
   get name() { return this._name; }
@@ -971,7 +975,7 @@ class Person {
 }
 ```
 
-**After**:
+**이후**:
 ```javascript
 class Person {
   constructor() {
@@ -995,37 +999,37 @@ class TelephoneNumber {
 
 ---
 
-## Quick Reference: Smell to Refactoring
+## 빠른 참조: 스멜에서 리팩터링으로
 
-| Code Smell | Primary Refactoring | Alternative |
+| 코드 스멜 | 주요 리팩터링 | 대안 |
 |------------|-------------------|-------------|
-| Long Method | Extract Method | Replace Temp with Query |
-| Duplicate Code | Extract Method | Pull Up Method |
-| Large Class | Extract Class | Extract Subclass |
-| Long Parameter List | Introduce Parameter Object | Preserve Whole Object |
-| Feature Envy | Move Method | Extract Method + Move |
-| Data Clumps | Extract Class | Introduce Parameter Object |
-| Primitive Obsession | Replace Primitive with Object | Replace Type Code |
-| Switch Statements | Replace Conditional with Polymorphism | Replace Type Code |
-| Temporary Field | Extract Class | Introduce Null Object |
-| Message Chains | Hide Delegate | Extract Method |
-| Middle Man | Remove Middle Man | Inline Method |
-| Divergent Change | Extract Class | Split Phase |
-| Shotgun Surgery | Move Method | Inline Class |
-| Dead Code | Remove Dead Code | - |
-| Speculative Generality | Collapse Hierarchy | Inline Class |
+| 긴 메서드 | 메서드 추출 | 임시 변수를 질의 메서드로 대체 |
+| 중복 코드 | 메서드 추출 | 메서드 상위로 이동 |
+| 거대한 클래스 | 클래스 추출 | 하위 클래스 추출 |
+| 긴 매개변수 목록 | 매개변수 객체 도입 | 전체 객체 보존 |
+| 기능 욕심 | 메서드 이동 | 메서드 추출 + 이동 |
+| 데이터 뭉치 | 클래스 추출 | 매개변수 객체 도입 |
+| 기본형에 대한 집착 | 기본형을 객체로 대체 | 타입 코드를 클래스로 대체 |
+| Switch 문 | 조건문을 다형성으로 대체 | 타입 코드를 클래스로 대체 |
+| 임시 필드 | 클래스 추출 | 널 객체 도입 |
+| 메시지 체인 | 위임 숨기기 | 메서드 인라인 |
+| 중간인 (Middle Man) | 중간인 제거 | 메서드 인라인 |
+| 발산적 변경 | 클래스 추출 | 단계 분리 |
+| 산탄총 수술 | 메서드 이동 | 클래스 인라인 |
+| 죽은 코드 | 죽은 코드 제거 | - |
+| 추측성 일반화 | 계층 구조 축소 | 클래스 인라인 |
 
 ---
 
-## Further Reading
+## 추가 자료
 
 - Fowler, M. (2018). *Refactoring: Improving the Design of Existing Code* (2nd ed.)
-- Online catalog: https://refactoring.com/catalog/
+- 온라인 카탈로그: https://refactoring.com/catalog/
 
 ---
 
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/skills
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

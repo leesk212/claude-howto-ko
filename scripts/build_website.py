@@ -68,8 +68,8 @@ from vendor_assets import (
 # Configuration
 # =============================================================================
 
-REPO_URL = "https://github.com/luongnv89/claude-howto"
-DEFAULT_BRANCH = "main"
+REPO_URL = "https://github.com/leesk212/claude-howto-ko"
+DEFAULT_BRANCH = "ko"
 
 # Files/dirs that exist in the repo but should not appear on the site.
 EXCLUDE_DIRS = {
@@ -114,24 +114,24 @@ EXCLUDE_TOP_LEVEL_PREFIXES = ("update-plan",)
 
 # Match the EPUB chapter ordering.
 CHAPTER_ORDER: list[tuple[str, str]] = [
-    ("README.md", "Introduction"),
-    ("LEARNING-ROADMAP.md", "Learning Roadmap"),
-    ("QUICK_REFERENCE.md", "Quick Reference"),
-    ("claude_concepts_guide.md", "Claude Concepts Guide"),
-    ("01-slash-commands", "Slash Commands"),
-    ("02-memory", "Memory"),
-    ("03-skills", "Skills"),
-    ("04-subagents", "Subagents"),
+    ("README.md", "소개"),
+    ("LEARNING-ROADMAP.md", "학습 로드맵"),
+    ("QUICK_REFERENCE.md", "빠른 참조"),
+    ("claude_concepts_guide.md", "Claude 개념 가이드"),
+    ("01-slash-commands", "슬래시 명령어"),
+    ("02-memory", "메모리"),
+    ("03-skills", "스킬"),
+    ("04-subagents", "서브에이전트"),
     ("05-mcp", "MCP Protocol"),
-    ("06-hooks", "Hooks"),
-    ("07-plugins", "Plugins"),
-    ("08-checkpoints", "Checkpoints"),
-    ("09-advanced-features", "Advanced Features"),
+    ("06-hooks", "훅"),
+    ("07-plugins", "플러그인"),
+    ("08-checkpoints", "체크포인트"),
+    ("09-advanced-features", "고급 기능"),
     ("10-cli", "CLI Reference"),
     ("CATALOG.md", "Feature Catalog"),
     ("INDEX.md", "Index"),
     ("STYLE_GUIDE.md", "Style Guide"),
-    ("resources.md", "Resources"),
+    ("resources.md", "참고 자료"),
 ]
 
 
@@ -143,7 +143,7 @@ class WebsiteConfig:
     output_path: Path
     repo_url: str = REPO_URL
     branch: str = DEFAULT_BRANCH
-    site_title: str = "Claude Code How-To Guide"
+    site_title: str = "Claude Code 사용 가이드"
     site_subtitle: str = "Master Claude Code in a Weekend"
     language: str = "en"
     landing: bool = False  # render the marketing landing page as index.html
@@ -1137,7 +1137,7 @@ def main() -> int:
         repo_url=args.repo_url,
         branch=args.branch,
         language=args.lang,
-        landing=(args.lang == "en"),
+        landing=False,  # Korean-only fork: README.md is the index, like other translated sites
     )
 
     try:

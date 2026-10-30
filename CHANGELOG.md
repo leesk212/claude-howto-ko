@@ -1,1227 +1,651 @@
-# Changelog
+<!-- i18n-source: CHANGELOG.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+
+# 변경 로그
 
 ## [v2.1.245] — 2026-08-25
 
-### Documentation sync against Claude Code v2.1.245
+### Claude Code v2.1.245 기준 문서 동기화
 
-Claude Code moved from v2.1.235 (2026-08-19) to **v2.1.245** (2026-08-25) — ten
-releases. This entry records that sync.
+Claude Code가 v2.1.235(2026-08-19)에서 **v2.1.245**(2026-08-25)로 10개 릴리스만큼 올라갔습니다. 이 항목은 해당 동기화를 기록합니다.
 
-> **Note**: This changelog has no entries for the v2.1.233 and v2.1.235 syncs
-> (commits `deb7e5c` and `da6e09e`), which landed in the repository without a
-> changelog entry. That gap is recorded here rather than back-filled with
-> reconstructed dates.
+> **참고**: 이 변경 로그에는 v2.1.233 및 v2.1.235 동기화(커밋 `deb7e5c`, `da6e09e`) 항목이 없습니다. 두 커밋은 변경 로그 항목 없이 저장소에 반영되었습니다. 날짜를 재구성해 소급 기재하지 않고 이 공백을 여기에 기록합니다.
 
-### Fixed
+### 수정됨
 
-- **Version-currency claims were stale and mutually contradictory** — the root
-  `README.md` said `v2.1.235` in one place and `v2.1.220 (July 2026)` in
-  another, and this changelog's top entry still called v2.1.220 the current
-  Claude Code release. All now say v2.1.245.
-- **Hook default timeout** corrected from 60 seconds to **600** for
-  `command`, `http`, and `mcp_tool` (30 for `prompt`, 60 for `agent`), with the
-  per-event overrides documented.
-- **Skill precedence** corrected to **enterprise > personal > project**; the
-  lesson had project and personal swapped, contradicting its own quiz.
-- **Memory files are concatenated, not overridden** — the last two
-  "overrides root CLAUDE.md" strings in `02-memory/README.md` were replaced.
-- **`SECURITY.md`** no longer advertises support for "1.x releases".
-- **`STYLE_GUIDE.md`** no longer teaches a stale footer by example.
-- Graded material (the `lesson-quiz` and `self-assessment` skills) was realigned
-  with the lessons it grades: 31 hook events, five hook types, six rewind
-  options, six permission modes, import depth 4.
+- **버전 최신성 표기가 오래되었고 서로 모순됨** — 루트 `README.md`는 한 곳에서는 `v2.1.235`, 다른 곳에서는 `v2.1.220 (July 2026)`이라고 했고, 이 변경 로그의 최상단 항목은 여전히 v2.1.220을 현재 Claude Code 릴리스라고 했습니다. 이제 모두 v2.1.245로 표기합니다.
+- **훅 기본 타임아웃**을 `command`, `http`, `mcp_tool`에 대해 60초에서 **600**초로 수정했고(`prompt`는 30, `agent`는 60), 이벤트별 재정의도 문서화했습니다.
+- **스킬 우선순위**를 **enterprise > personal > project**로 수정했습니다. 레슨에서 project와 personal이 뒤바뀌어 있어 자체 퀴즈와 모순되었습니다.
+- **메모리 파일은 재정의되지 않고 연결됨** — `02-memory/README.md`에 남아 있던 "overrides root CLAUDE.md" 문구 두 개를 교체했습니다.
+- **`SECURITY.md`** 가 더 이상 "1.x releases" 지원을 표기하지 않습니다.
+- **`STYLE_GUIDE.md`** 가 더 이상 예시로 오래된 푸터를 안내하지 않습니다.
+- 채점 자료(`lesson-quiz` 및 `self-assessment` 스킬)를 채점 대상 레슨과 다시 일치시켰습니다. 훅 이벤트 31개, 훅 유형 5개, 되감기 옵션 6개, 권한 모드 6개, 가져오기 깊이 4입니다.
 
-### Added
+### 추가됨
 
-- **WebSocket (`ws`) MCP transport** — a fourth transport, configured through
-  `.mcp.json` or `claude mcp add-json`.
-- **`Concise` output style** — a fifth built-in (v2.1.237).
-- **New settings keys** — `modelPicker`, `promptCacheTtl`,
-  `subagentPromptCacheTtl`, `modelPricing`, `keybindingFlavor`.
-- **`ANTHROPIC_DEFAULT_MODEL`** env var (v2.1.236).
-- **`/design`** — the design-canvas research preview.
-- **`notify_when_idle`** on cross-session `SendMessage` (v2.1.236).
-- **Plugin manifest fields** — `workflows`, `channels`, `dependencies`, and
-  related CLI additions.
+- **WebSocket(`ws`) MCP 전송** — 네 번째 전송 방식으로, `.mcp.json` 또는 `claude mcp add-json`으로 구성합니다.
+- **`Concise` 출력 스타일** — 다섯 번째 기본 제공 스타일입니다(v2.1.237).
+- **새 설정 키** — `modelPicker`, `promptCacheTtl`, `subagentPromptCacheTtl`, `modelPricing`, `keybindingFlavor`.
+- **`ANTHROPIC_DEFAULT_MODEL`** 환경 변수(v2.1.236).
+- **`/design`** — 디자인 캔버스 리서치 프리뷰입니다.
+- 세션 간 `SendMessage`의 **`notify_when_idle`** (v2.1.236).
+- **플러그인 매니페스트 필드** — `workflows`, `channels`, `dependencies` 및 관련 CLI 추가 사항.
 
-### Changed
+### 변경됨
 
-- **Remote Control** left research preview; machines running
-  `claude remote-control` now appear as device cards in the Claude app.
-- **`Ctrl+L`** repaints the screen rather than clearing it (v2.1.238).
-- **Plugin `commands/`** is marked legacy; `skills/` is the current guidance.
+- **Remote Control**이 리서치 프리뷰를 벗어났습니다. 이제 `claude remote-control`을 실행 중인 머신이 Claude 앱에 디바이스 카드로 표시됩니다.
+- **`Ctrl+L`** 은 화면을 지우지 않고 다시 그립니다(v2.1.238).
+- **플러그인 `commands/`** 는 레거시로 표시되었으며, 현재 권장 방식은 `skills/`입니다.
 
 ## [v2.1.220-r2] — 2026-08-04
 
-### Accuracy pass against Claude Code v2.1.220 (no upstream version change)
+### Claude Code v2.1.220 기준 정확성 점검 (업스트림 버전 변경 없음)
 
-v2.1.220 (2026-07-25) is still the current Claude Code release, so this entry
-records **internal corrections**, not a version sync. An audit against the
-official docs found no missing upstream features — every v2.1.218–v2.1.220
-capability was already documented. What it did find was broken example code,
-counts and names that disagreed between files, and metadata drift.
+v2.1.220(2026-07-25)이 여전히 현재 Claude Code 릴리스이므로, 이 항목은 버전 동기화가 아니라 **내부 수정 사항**을 기록합니다. 공식 문서를 기준으로 감사한 결과 누락된 업스트림 기능은 없었으며, v2.1.218–v2.1.220의 모든 기능이 이미 문서화되어 있었습니다. 대신 동작하지 않는 예시 코드, 파일 간에 서로 다른 개수와 이름, 메타데이터 불일치가 발견되었습니다.
 
-### Fixed
+### 수정됨
 
-- **`06-hooks/pre-commit.sh` never actually blocked a commit** — the script
-  printed "Commit blocked." and then `exit 1` at four places. Per this repo's own
-  exit-code table (`06-hooks/README.md`), exit 1 is a *non-blocking* error, so the
-  commit proceeded anyway; only exit 2 blocks. All four now `exit 2` and write the
-  reason to stderr, which is where Claude Code reads the block reason from.
-- **`06-hooks/dependency-check.sh` never ran** — it read its target from `$1`, but
-  hooks receive JSON on stdin, so the path was always empty and the script exited
-  immediately. Now parses `file_path` from stdin, matching `format-code.sh`.
-- **Nested-subagent depth said 5 in `claude_concepts_guide.md`** — stated "up to 5
-  levels deep as of v2.1.172", contradicting the depth-3 default (v2.1.219) already
-  documented in four other files. Rewritten to lead with current behavior plus the
-  same three-era history note used in `04-subagents/README.md`.
-- **Hook event count was 29 in five files** — `README.md`, `CATALOG.md`,
-  `QUICK_REFERENCE.md` (×4), `INDEX.md` and `resources.md` all said 29; the correct
-  figure is **31**, confirmed name-by-name against the official hook list. The
-  previous sync fixed two files and missed the rest. `README.md`'s event list also
-  enumerated only 25 names and `INDEX.md`'s only 29 — both now list all 31.
-- **`/less-permission-prompts` is not a real command** — the built-in is
-  `/fewer-permission-prompts`. `CATALOG.md` had used *both* names in one file.
-- **`/fork` and `/subtask` were documented with swapped meanings** — they exchanged
-  roles in v2.1.212. `/fork` now copies the conversation into a new independent
-  background session; the forked-subagent behavior moved to `/subtask`, which was
-  absent from the repo entirely. Corrected and added in four files.
-- **`08-checkpoints/README.md` claimed `cleanupPeriodDays` was the only checkpoint
-  setting** — `fileCheckpointingEnabled` (default `true`) also exists, along with
-  `CLAUDE_CODE_DISABLE_FILE_CHECKPOINTING` and a 100-checkpoint retention cap. The
-  repo's own `config-examples.json` already used the key it denied existed.
-- **`03-skills/refactor/SKILL.md` declared `name: code-refactor`** while living in
-  `refactor/` — the same defect fixed for `doc-generator` last sync. Renamed in the
-  English copy and mirrored to `ja/`, `zh/`, `uk/`, `vi/`.
-- **`03-skills/README.md` stated skill precedence two contradictory ways** —
-  "enterprise > personal > project" in one place, "project wins by default" in
-  another. Now consistently **enterprise > project > personal**.
-- **`claude-md` skill described AGENTS.md incorrectly** — called it an
-  agent-definition format. It is a cross-tool project-context file, and Claude Code
-  **does not read it directly**; it must be imported via `@AGENTS.md` or symlinked.
-- **`02-memory/directory-api-CLAUDE.md` claimed it "overrides" root CLAUDE.md** —
-  memory files are concatenated, never overridden.
-- **`INDEX.md` described `auto` and `dontAsk` backwards** — `dontAsk` was written up
-  as permissive ("accept all except risky") when it is the most restrictive mode:
-  it auto-denies anything not pre-approved. Corrected to the official definitions.
-- **`permissions.mode` is not a settings key** — four config samples in
-  `09-advanced-features/README.md` and `claude_concepts_guide.md` used it (with the
-  superseded value `default`). All now use `permissions.defaultMode: "manual"`.
-- **`09-advanced-features/config-examples.json` had no Opus 5** — still used
-  `claude-opus-4-8` for its three "most capable" profiles despite Opus 5 being the
-  default Opus since v2.1.219.
-- **`05-mcp/database-mcp.json` hardcoded a credential** —
-  `postgresql://user:pass@localhost/mydb`, contradicting the module's own "don't
-  hardcode credentials" rule. Now `${DATABASE_URL}`.
-- **`05-mcp/README.md` documented MCP scopes but never the `--scope` flag** —
-  readers had no way to actually select a scope. Added with examples.
-- **`/output-style` was listed as deprecated** — it was *removed* in v2.1.91.
-  Output styles remain available via `/config` or the `outputStyle` setting.
-- **Hook `permissionDecision` was missing `defer`** — the accepted values are
-  `allow`, `deny`, `ask`, `defer`, with precedence `deny` > `defer` > `ask` > `allow`.
-- **Context-tracker hooks assumed a 128k window** — no current Claude model has one.
-  Default raised to 1M, with Haiku 4.5's 200k noted.
-- **Local memory path was wrong in `claude_concepts_guide.md`** —
-  `.claude/local/CLAUDE.md` corrected to `./CLAUDE.local.md`.
-- **Broken fence in `03-skills/doc-generator/SKILL.md`** — the outer ```` ```markdown ````
-  block closed early and left a stray unclosed fence, so half the example rendered
-  as live markdown. Now uses a four-backtick outer fence. Neither validator caught
-  this, because `check_markdown_rendering.py` only scans README files.
-- **Three command templates had invalid skill names** — `Documentation Refactor`,
-  `Setup CI/CD Pipeline` and `Expand Unit Tests` are not valid `name:` values
-  (lowercase/hyphens only), so they would fail if copied into `.claude/skills/` as
-  the README instructs. Also removed a non-standard `tags:` field.
-- **Nine plugin agents used lowercase tool names** (`read, grep, bash`) while the
-  `04-subagents/` templates used canonical `Read, Grep, Bash`. Unified.
-- **"Claude Code 1.0+" requirement in five files** — raised to 2.1+.
-- **Miscounted inventories** — `CATALOG.md`'s summary table did not add up *and*
-  three of its Examples counts were wrong (Subagents 11→9, MCP 8→4, Hooks 8→11);
-  `INDEX.md` understated Plugins (27→39), Skills (21→23), Hooks (9→12), Subagents
-  (9→10) and Advanced (3→4), omitted three hook scripts and
-  `setup-auto-mode-permissions.py`, and mislabeled three hook events. All recounted
-  from the file tree.
-- **`CONTRIBUTING.md` said "all four checks"** — there are five.
-- **Two subagent templates were undocumented** — `clean-code-reviewer.md` and
-  `performance-optimizer.md` existed on disk but appeared in neither the example
-  list nor the file tree of `04-subagents/README.md`.
-- **`resources.md` Mermaid diagrams used an off-guide palette** — remapped to the
-  five `STYLE_GUIDE.md` colors with the required `stroke`/`color`.
-- **Metadata footers** — 61 files had a legacy `Last Updated`-only footer or none at
-  all; all now carry the full block. Four module READMEs were missing the
-  `Compatible Models` line, and `02-memory/README.md` was stranded at v2.1.217 with
-  an ISO-formatted date. All 87 in-scope markdown files now report **2.1.220**.
-- **Smaller fixes** — explicit `exit 0` in `session-end.sh`; `# Hook: Event:Matcher`
-  shorthand (not real syntax) reworded in four scripts; `"type": "stdio"` added to
-  the four MCP example configs; a worked example that reported 42 PRs in one place
-  and 47 in another.
+- **`06-hooks/pre-commit.sh`가 실제로는 커밋을 차단하지 못함** — 스크립트가 네 곳에서 "Commit blocked."를 출력한 뒤 `exit 1`로 종료했습니다. 이 저장소의 종료 코드 표(`06-hooks/README.md`)에 따르면 exit 1은 *차단하지 않는* 오류이므로 커밋이 그대로 진행되었습니다. 차단하는 것은 exit 2뿐입니다. 네 곳 모두 이제 `exit 2`로 종료하고 차단 사유를 stderr에 씁니다. Claude Code는 차단 사유를 stderr에서 읽습니다.
+- **`06-hooks/dependency-check.sh`가 한 번도 실행되지 않음** — 대상을 `$1`에서 읽었지만 훅은 stdin으로 JSON을 받으므로 경로가 항상 비어 있었고 스크립트가 즉시 종료되었습니다. 이제 `format-code.sh`와 같이 stdin에서 `file_path`를 파싱합니다.
+- **`claude_concepts_guide.md`에서 중첩 서브에이전트 깊이를 5로 표기** — "up to 5 levels deep as of v2.1.172"라고 적혀 있어, 다른 네 파일에 이미 문서화된 깊이 3 기본값(v2.1.219)과 모순되었습니다. 현재 동작을 먼저 설명하고 `04-subagents/README.md`와 같은 세 시기 이력 참고를 덧붙이도록 다시 작성했습니다.
+- **다섯 파일에서 훅 이벤트 수가 29개로 표기됨** — `README.md`, `CATALOG.md`, `QUICK_REFERENCE.md`(4곳), `INDEX.md`, `resources.md`가 모두 29라고 했지만, 공식 훅 목록과 이름 단위로 대조한 정확한 수는 **31**입니다. 이전 동기화에서는 두 파일만 고치고 나머지를 놓쳤습니다. `README.md`의 이벤트 목록은 25개, `INDEX.md`는 29개만 나열했으나 이제 둘 다 31개를 모두 나열합니다.
+- **`/less-permission-prompts`는 실제 명령어가 아님** — 기본 제공 명령어는 `/fewer-permission-prompts`입니다. `CATALOG.md`는 한 파일 안에서 *두 이름을 모두* 사용했습니다.
+- **`/fork`와 `/subtask`의 의미가 뒤바뀌어 문서화됨** — 두 명령어는 v2.1.212에서 역할을 맞바꿨습니다. 이제 `/fork`는 대화를 새로운 독립 백그라운드 세션으로 복사하고, 포크된 서브에이전트 동작은 `/subtask`로 옮겨졌는데 `/subtask`는 저장소에 전혀 없었습니다. 네 파일에서 수정·추가했습니다.
+- **`08-checkpoints/README.md`가 `cleanupPeriodDays`를 유일한 체크포인트 설정이라고 주장** — `fileCheckpointingEnabled`(기본값 `true`)도 존재하며, `CLAUDE_CODE_DISABLE_FILE_CHECKPOINTING`과 체크포인트 100개 보존 상한도 있습니다. 저장소 자체의 `config-examples.json`은 이미 존재하지 않는다고 한 그 키를 사용하고 있었습니다.
+- **`03-skills/refactor/SKILL.md`가 `refactor/`에 있으면서 `name: code-refactor`로 선언** — 지난 동기화에서 `doc-generator`에 대해 고친 것과 같은 결함입니다. 영어 사본에서 이름을 바꾸고 `ja/`, `zh/`, `uk/`, `vi/`에도 반영했습니다.
+- **`03-skills/README.md`가 스킬 우선순위를 서로 모순되는 두 방식으로 설명** — 한 곳에서는 "enterprise > personal > project", 다른 곳에서는 "project wins by default"라고 했습니다. 이제 일관되게 **enterprise > project > personal**입니다.
+- **`claude-md` 스킬이 AGENTS.md를 잘못 설명** — 에이전트 정의 형식이라고 했습니다. AGENTS.md는 여러 도구에서 쓰는 프로젝트 컨텍스트 파일이며, Claude Code는 이를 **직접 읽지 않습니다**. `@AGENTS.md`로 가져오거나 심볼릭 링크를 걸어야 합니다.
+- **`02-memory/directory-api-CLAUDE.md`가 루트 CLAUDE.md를 "재정의한다"고 주장** — 메모리 파일은 연결될 뿐 재정의되지 않습니다.
+- **`INDEX.md`가 `auto`와 `dontAsk`를 거꾸로 설명** — `dontAsk`를 허용적인 모드("위험한 것 외에는 모두 수락")로 설명했지만, 실제로는 사전 승인되지 않은 모든 것을 자동 거부하는 가장 제한적인 모드입니다. 공식 정의로 수정했습니다.
+- **`permissions.mode`는 설정 키가 아님** — `09-advanced-features/README.md`와 `claude_concepts_guide.md`의 구성 예시 네 개가 이 키를(대체된 값 `default`와 함께) 사용했습니다. 이제 모두 `permissions.defaultMode: "manual"`을 사용합니다.
+- **`09-advanced-features/config-examples.json`에 Opus 5가 없음** — v2.1.219부터 Opus 5가 기본 Opus인데도 세 개의 "most capable" 프로필에 여전히 `claude-opus-4-8`을 사용했습니다.
+- **`05-mcp/database-mcp.json`에 자격 증명이 하드코딩됨** — `postgresql://user:pass@localhost/mydb`로, 모듈 자체의 "자격 증명을 하드코딩하지 말 것" 규칙과 모순되었습니다. 이제 `${DATABASE_URL}`입니다.
+- **`05-mcp/README.md`가 MCP 범위는 문서화했지만 `--scope` 플래그는 설명하지 않음** — 독자가 실제로 범위를 선택할 방법이 없었습니다. 예시와 함께 추가했습니다.
+- **`/output-style`이 지원 중단으로 표기됨** — 실제로는 v2.1.91에서 *제거*되었습니다. 출력 스타일은 `/config` 또는 `outputStyle` 설정으로 계속 사용할 수 있습니다.
+- **훅 `permissionDecision`에 `defer`가 빠져 있음** — 허용되는 값은 `allow`, `deny`, `ask`, `defer`이며 우선순위는 `deny` > `defer` > `ask` > `allow`입니다.
+- **컨텍스트 추적 훅이 128k 창을 가정** — 현재 Claude 모델 중 그런 모델은 없습니다. 기본값을 1M으로 올리고 Haiku 4.5의 200k를 함께 표기했습니다.
+- **`claude_concepts_guide.md`의 로컬 메모리 경로가 잘못됨** — `.claude/local/CLAUDE.md`를 `./CLAUDE.local.md`로 수정했습니다.
+- **`03-skills/doc-generator/SKILL.md`의 깨진 펜스** — 바깥쪽 ```` ```markdown ```` 블록이 일찍 닫히면서 닫히지 않은 펜스가 남아, 예시의 절반이 실제 마크다운으로 렌더링되었습니다. 이제 백틱 네 개짜리 바깥 펜스를 사용합니다. `check_markdown_rendering.py`가 README 파일만 검사하기 때문에 어느 검증기도 이를 잡아내지 못했습니다.
+- **명령어 템플릿 세 개의 스킬 이름이 유효하지 않음** — `Documentation Refactor`, `Setup CI/CD Pipeline`, `Expand Unit Tests`는 유효한 `name:` 값(소문자/하이픈만 허용)이 아니므로, README 안내대로 `.claude/skills/`에 복사하면 실패했을 것입니다. 비표준 `tags:` 필드도 제거했습니다.
+- **플러그인 에이전트 9개가 소문자 도구 이름을 사용** (`read, grep, bash`), 반면 `04-subagents/` 템플릿은 표준 표기 `Read, Grep, Bash`를 사용했습니다. 통일했습니다.
+- **다섯 파일의 "Claude Code 1.0+" 요구 사항** — 2.1+로 올렸습니다.
+- **잘못 센 목록** — `CATALOG.md`의 요약 표는 합계가 맞지 않았고 *또한* 예시 개수 세 개가 틀렸습니다(Subagents 11→9, MCP 8→4, Hooks 8→11). `INDEX.md`는 Plugins(27→39), Skills(21→23), Hooks(9→12), Subagents(9→10), Advanced(3→4)를 적게 셌고, 훅 스크립트 세 개와 `setup-auto-mode-permissions.py`를 빠뜨렸으며, 훅 이벤트 세 개의 이름을 잘못 붙였습니다. 모두 파일 트리에서 다시 셌습니다.
+- **`CONTRIBUTING.md`에 "all four checks"라고 적혀 있음** — 검사는 다섯 개입니다.
+- **문서화되지 않은 서브에이전트 템플릿 두 개** — `clean-code-reviewer.md`와 `performance-optimizer.md`가 디스크에는 있었지만 `04-subagents/README.md`의 예시 목록과 파일 트리 어디에도 나오지 않았습니다.
+- **`resources.md`의 Mermaid 다이어그램이 가이드에 없는 색상표를 사용** — 필수 `stroke`/`color`와 함께 `STYLE_GUIDE.md`의 다섯 가지 색상으로 다시 매핑했습니다.
+- **메타데이터 푸터** — 61개 파일이 `Last Updated`만 있는 레거시 푸터를 쓰거나 푸터가 아예 없었으며, 이제 모두 전체 블록을 갖추었습니다. 모듈 README 네 개에는 `Compatible Models` 줄이 없었고, `02-memory/README.md`는 ISO 형식 날짜와 함께 v2.1.217에 머물러 있었습니다. 범위 내 마크다운 파일 87개 모두 이제 **2.1.220**을 표기합니다.
+- **기타 작은 수정** — `session-end.sh`에 명시적 `exit 0` 추가, 스크립트 네 개에서 `# Hook: Event:Matcher` 약식 표기(실제 구문이 아님) 문구 수정, MCP 예시 구성 네 개에 `"type": "stdio"` 추가, 한 곳에서는 PR 42개, 다른 곳에서는 47개라고 보고한 예제 수정.
 
 ## [v2.1.220] — 2026-07-29
 
-### Synced to Claude Code v2.1.220
+### Claude Code v2.1.220와 동기화
 
-Bumps tutorial coverage from the v2.1.217 baseline (2026-07-22 sync) to
-v2.1.220 — three contiguous releases (v2.1.218, v2.1.219, v2.1.220), no gaps.
-v2.1.219 drives most of this sync: it added Claude Opus 5 and reversed the
-nested-subagent default that the previous sync had just documented.
+튜토리얼 범위를 v2.1.217 기준선(2026-07-22 동기화)에서 v2.1.220까지 확장합니다. 연속된 세 릴리스(v2.1.218, v2.1.219, v2.1.220)이며 빠진 버전은 없습니다. 이번 동기화의 대부분은 v2.1.219 때문입니다. 이 버전에서 Claude Opus 5가 추가되었고, 이전 동기화에서 막 문서화한 중첩 서브에이전트 기본값이 다시 뒤집혔습니다.
 
-### Fixed
+### 수정됨
 
-- **Nested-subagent default reversed again (v2.1.219)** — five locations across
-  `04-subagents/README.md`, `CATALOG.md`, `10-cli/README.md`, and
-  `QUICK_REFERENCE.md` stated that nested spawning is disabled by default. That
-  was correct for v2.1.217–v2.1.218 only. v2.1.219 sets the default to **depth
-  3**; `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1` now *disables* nesting rather
-  than enabling it. All five now lead with current behavior and carry an
-  identical three-era history note (v2.1.172–v2.1.216 nested by default up to 5
-  layers with no way to change it; v2.1.217 made nesting opt-in at depth 1;
-  v2.1.219 set the default to 3) so the next reversal degrades gracefully.
-- **Opus 4.8 named as the default Opus model** — `10-cli/README.md` stated
-  "Opus 4.8 remains the default on Max, Team Premium, Enterprise pay-as-you-go,
-  and the Claude API". As of v2.1.219 that is **Claude Opus 5**
-  (`claude-opus-5`, 1M context, default effort `high`), which was absent from
-  every model table in the repo. Added to the `10-cli` and
-  `claude_concepts_guide.md` model tables and to all 18 `Compatible Models`
-  footers, plus ~20 effort-level enumerations. Microsoft Foundry still resolves
-  the `opus` alias to Opus 4.6.
-- **Fast-mode model list** — `/fast` now applies to **Opus 5 and Opus 4.8**;
-  Opus 4.7 was removed (v2.1.219). Also corrected a present-tense instruction
-  for enabling fast mode on Opus 4.6 in `10-cli/README.md`.
-- **Auto-mode eligibility self-contradiction** — `09-advanced-features/README.md`
-  said both "available on all plans" and "Team, Enterprise, or API" /
-  "Anthropic API only". Rewritten to the four documented requirements
-  (Plan / Organization / Model / Provider). Auto mode is available on **all
-  plans**, default-on for Team/Enterprise with an administrator opt-*out* via
-  `permissions.disableAutoMode` — the file previously described an Owner
-  opt-*in*.
-- **Stale auto-mode opt-in instruction** — `CATALOG.md` still told users to set
-  `CLAUDE_CODE_ENABLE_AUTO_MODE=1` on third-party providers. That requirement
-  was removed in v2.1.207; the variable is accepted for compatibility but has
-  no effect.
-- **Hook-event count disagreement** — `LEARNING-ROADMAP.md` and
-  `claude_concepts_guide.md` said 29 while `06-hooks/README.md` said 30 (now
-  31). Aligned both to 31. `claude_concepts_guide.md`'s named event table was
-  also missing `MessageDisplay` (a pre-existing gap from v2.1.152) alongside
-  the new `DirectoryAdded`; its event list is now identical to `06-hooks`.
-- **`doc-generator` skill name mismatch** — `03-skills/doc-generator/SKILL.md`
-  declared `name: api-documentation-generator` while living in `doc-generator/`,
-  contradicting every catalog and index entry. Renamed in the English copy and
-  mirrored to `ja/`, `zh/`, `uk/`.
-- **Stale "New Features (May 2026)" headings** — retitled in `CATALOG.md` and
-  `resources.md` to date-free headings that cannot go stale again, with the
-  `CATALOG.md` navigation anchor updated to match.
-- **Legacy `docs.anthropic.com` links** — the three remaining footer links in
-  `01-slash-commands/README.md`, `05-mcp/README.md`, and `10-cli/README.md`
-  migrated to `code.claude.com`.
-- **Skill example shadowing a built-in** — `03-skills/README.md` used
-  `name: deep-research` as a custom-skill example, which now shadows the
-  built-in `/deep-research`. Renamed to `topic-research` and mirrored to
-  `vi/`, `ja/`, `uk/`.
+- **중첩 서브에이전트 기본값이 다시 뒤집힘 (v2.1.219)** — `04-subagents/README.md`, `CATALOG.md`, `10-cli/README.md`, `QUICK_REFERENCE.md`의 다섯 곳에서 중첩 생성이 기본적으로 비활성화되어 있다고 했습니다. 이는 v2.1.217–v2.1.218에서만 맞는 설명이었습니다. v2.1.219는 기본값을 **깊이 3**으로 설정하며, 이제 `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1`은 중첩을 활성화하는 것이 아니라 *비활성화*합니다. 다섯 곳 모두 현재 동작을 먼저 설명하고 동일한 세 시기 이력 참고(v2.1.172–v2.1.216은 변경 불가능하게 최대 5단계까지 기본 중첩, v2.1.217은 깊이 1에서 선택적 중첩, v2.1.219는 기본값 3)를 덧붙여 다음 번 변경에도 자연스럽게 대응할 수 있도록 했습니다.
+- **Opus 4.8을 기본 Opus 모델로 표기** — `10-cli/README.md`에 "Opus 4.8 remains the default on Max, Team Premium, Enterprise pay-as-you-go, and the Claude API"라고 적혀 있었습니다. v2.1.219부터 기본값은 **Claude Opus 5**(`claude-opus-5`, 1M 컨텍스트, 기본 effort `high`)이며, 이 모델은 저장소의 어느 모델 표에도 없었습니다. `10-cli`와 `claude_concepts_guide.md`의 모델 표, 18개의 `Compatible Models` 푸터 전체, 그리고 약 20개의 effort 수준 나열에 추가했습니다. Microsoft Foundry는 여전히 `opus` 별칭을 Opus 4.6으로 해석합니다.
+- **빠른 모드 모델 목록** — `/fast`는 이제 **Opus 5와 Opus 4.8**에 적용되며, Opus 4.7은 제외되었습니다(v2.1.219). `10-cli/README.md`에서 Opus 4.6의 빠른 모드를 활성화하라는 현재 시제 안내도 수정했습니다.
+- **자동 모드 자격 요건의 자기모순** — `09-advanced-features/README.md`가 "available on all plans"와 "Team, Enterprise, or API" / "Anthropic API only"를 동시에 말했습니다. 문서화된 네 가지 요건(Plan / Organization / Model / Provider)으로 다시 작성했습니다. 자동 모드는 **모든 플랜**에서 사용할 수 있으며, Team/Enterprise에서는 기본적으로 켜져 있고 관리자가 `permissions.disableAutoMode`로 *옵트아웃*할 수 있습니다. 이전에는 Owner가 *옵트인*하는 것으로 설명되어 있었습니다.
+- **오래된 자동 모드 옵트인 안내** — `CATALOG.md`가 여전히 타사 공급자에서 `CLAUDE_CODE_ENABLE_AUTO_MODE=1`을 설정하라고 안내했습니다. 이 요구 사항은 v2.1.207에서 제거되었으며, 이 변수는 호환성을 위해 허용되지만 효과가 없습니다.
+- **훅 이벤트 수 불일치** — `LEARNING-ROADMAP.md`와 `claude_concepts_guide.md`는 29개, `06-hooks/README.md`는 30개(현재 31개)라고 했습니다. 둘 다 31개로 맞췄습니다. `claude_concepts_guide.md`의 이벤트 이름 표에는 새 `DirectoryAdded`와 함께 `MessageDisplay`(v2.1.152부터 있던 누락)도 빠져 있었으며, 이제 이벤트 목록이 `06-hooks`와 동일합니다.
+- **`doc-generator` 스킬 이름 불일치** — `03-skills/doc-generator/SKILL.md`가 `doc-generator/`에 있으면서 `name: api-documentation-generator`로 선언되어 모든 카탈로그 및 인덱스 항목과 모순되었습니다. 영어 사본에서 이름을 바꾸고 `ja/`, `zh/`, `uk/`에도 반영했습니다.
+- **오래된 "New Features (May 2026)" 헤딩** — `CATALOG.md`와 `resources.md`에서 다시 낡지 않도록 날짜 없는 헤딩으로 바꾸었고, 이에 맞춰 `CATALOG.md`의 탐색 앵커도 갱신했습니다.
+- **레거시 `docs.anthropic.com` 링크** — `01-slash-commands/README.md`, `05-mcp/README.md`, `10-cli/README.md`에 남아 있던 푸터 링크 세 개를 `code.claude.com`으로 옮겼습니다.
+- **기본 제공 스킬을 가리는 스킬 예시** — `03-skills/README.md`가 사용자 정의 스킬 예시로 `name: deep-research`를 사용했는데, 이는 이제 기본 제공 `/deep-research`를 가립니다. `topic-research`로 이름을 바꾸고 `vi/`, `ja/`, `uk/`에도 반영했습니다.
 
-### Added
+### 추가됨
 
-- **`DirectoryAdded` hook (v2.1.219)** — fires after `/add-dir` or the SDK
-  `register_repo_root` control request registers a new working directory
-  mid-session. Added to the `06-hooks/README.md` events table (count 30 → 31).
-- **`/deep-research` is explicit-invocation only (v2.1.218)** — Claude no
-  longer launches it on its own. Added to the bundled-skills table.
-- **`/code-review` runs as a background subagent (v2.1.218)** — review work no
-  longer fills the conversation, and stacked slash commands remain its review
-  target. Documented in `03-skills/README.md` and `CATALOG.md`.
-- **Fork skills run in the background by default (v2.1.218)** — skills with
-  `context: fork` default to `background: true`; set `false` to opt out. Added
-  a `background` frontmatter row, a matching YAML sample line, and an explicit
-  statement of the default so it doesn't read as contradicting
-  `04-subagents`, where `background: true` *forces* background.
-- **Agent frontmatter hooks require workspace trust (v2.1.218)** — hooks in a
-  project subagent run only after the folder the agent file came from has
-  accepted workspace trust.
-- **Dynamic workflow size guideline (v2.1.219)** — workflows now default to a
-  medium guideline (aim for fewer than 15 agents), selectable via **Dynamic
-  workflow size** in `/config` or the new `workflowSizeGuideline` settings key.
-- **`sandbox.network.strictAllowlist` (v2.1.219)** — denies non-allowlisted
-  hosts for sandboxed commands without prompting.
-- **MCP error surfacing (v2.1.219)** — `claude mcp list` and `/mcp` now report
-  HTTP status and error text on connection failure; hidden leading/trailing
-  whitespace in config values is warned about; headless runs expose
-  `mcp_server_errors` in the stream-json init event. Added as troubleshooting
-  guidance in `05-mcp/README.md`.
-- **Nested subagent forwarding in stream-json (v2.1.219)** — subagents at depth
-  2+ now appear when `--forward-subagent-text` is set, keyed by their spawning
-  `Agent` `tool_use` id.
-- **Frontmatter booleans accept more values (v2.1.218)** — `yes`/`no`,
-  `on`/`off`, `1`/`0`, case-insensitive, alongside `true`/`false`.
-- **Agent names reject `:` (v2.1.218)** — reserved for plugin namespacing.
-- **Auto and plan mode defer more to the classifier (v2.1.218)** — `rm -rf /`
-  and `rm -rf ~` (including inside command/process substitution) are now
-  adjudicated by the classifier rather than opening a permission dialog, and
-  plan mode with auto no longer prompts for Bash commands the static analyzer
-  can't prove read-only (`useAutoModeDuringPlan`, on by default).
-- **Opus 5 safety-classifier fallback (v2.1.219)** — cybersecurity-flagged
-  requests re-run on Opus 4.8; biology-flagged requests end in a refusal, since
-  Opus 5 runs its own biology classifiers with no fallback. Relevant to readers
-  using this repo's security-review subagent and plugin templates, as
-  pentest/CTF workloads trigger it frequently.
+- **`DirectoryAdded` 훅 (v2.1.219)** — `/add-dir` 또는 SDK `register_repo_root` 제어 요청이 세션 중에 새 작업 디렉터리를 등록한 뒤 실행됩니다. `06-hooks/README.md`의 이벤트 표에 추가했습니다(개수 30 → 31).
+- **`/deep-research`는 명시적 호출 전용 (v2.1.218)** — Claude가 더 이상 스스로 실행하지 않습니다. 기본 제공 스킬 표에 추가했습니다.
+- **`/code-review`가 백그라운드 서브에이전트로 실행 (v2.1.218)** — 리뷰 작업이 더 이상 대화를 채우지 않으며, 연달아 입력한 슬래시 명령어는 계속 리뷰 대상이 됩니다. `03-skills/README.md`와 `CATALOG.md`에 문서화했습니다.
+- **포크 스킬이 기본적으로 백그라운드에서 실행 (v2.1.218)** — `context: fork`인 스킬은 기본값이 `background: true`이며, 끄려면 `false`로 설정합니다. `background` 프런트매터 행, 대응하는 YAML 예시 줄, 그리고 기본값에 대한 명시적 설명을 추가해 `background: true`가 백그라운드를 *강제*하는 `04-subagents`와 모순되어 보이지 않도록 했습니다.
+- **에이전트 프런트매터 훅에 워크스페이스 신뢰 필요 (v2.1.218)** — 프로젝트 서브에이전트의 훅은 에이전트 파일이 있는 폴더가 워크스페이스 신뢰를 수락한 후에만 실행됩니다.
+- **동적 워크플로 크기 가이드라인 (v2.1.219)** — 워크플로는 이제 기본적으로 중간 가이드라인(에이전트 15개 미만 목표)을 사용하며, `/config`의 **Dynamic workflow size** 또는 새 `workflowSizeGuideline` 설정 키로 선택할 수 있습니다.
+- **`sandbox.network.strictAllowlist` (v2.1.219)** — 샌드박스 명령어에 대해 허용 목록에 없는 호스트를 프롬프트 없이 거부합니다.
+- **MCP 오류 표시 (v2.1.219)** — `claude mcp list`와 `/mcp`가 이제 연결 실패 시 HTTP 상태와 오류 텍스트를 보고합니다. 구성 값의 숨겨진 앞뒤 공백에 대해 경고하며, 헤드리스 실행은 stream-json init 이벤트에 `mcp_server_errors`를 노출합니다. `05-mcp/README.md`에 문제 해결 안내로 추가했습니다.
+- **stream-json의 중첩 서브에이전트 전달 (v2.1.219)** — `--forward-subagent-text`가 설정되면 깊이 2 이상의 서브에이전트도 표시되며, 이를 생성한 `Agent` `tool_use` id를 키로 사용합니다.
+- **프런트매터 불리언이 더 많은 값을 허용 (v2.1.218)** — `true`/`false` 외에 `yes`/`no`, `on`/`off`, `1`/`0`을 대소문자 구분 없이 허용합니다.
+- **에이전트 이름에 `:` 사용 불가 (v2.1.218)** — 플러그인 네임스페이스용으로 예약되었습니다.
+- **자동 모드와 계획 모드가 분류기에 더 많이 위임 (v2.1.218)** — `rm -rf /`와 `rm -rf ~`(명령어/프로세스 치환 내부 포함)는 이제 권한 대화 상자를 여는 대신 분류기가 판정합니다. 또한 자동 모드와 함께 쓰는 계획 모드는 정적 분석기가 읽기 전용임을 증명하지 못하는 Bash 명령어에 대해 더 이상 프롬프트를 표시하지 않습니다(`useAutoModeDuringPlan`, 기본적으로 켜짐).
+- **Opus 5 안전 분류기 대체 동작 (v2.1.219)** — 사이버 보안으로 플래그된 요청은 Opus 4.8에서 다시 실행되고, 생물학으로 플래그된 요청은 거부로 끝납니다. Opus 5는 대체 경로 없이 자체 생물학 분류기를 실행하기 때문입니다. 침투 테스트/CTF 작업에서 자주 발생하므로, 이 저장소의 보안 리뷰 서브에이전트와 플러그인 템플릿을 사용하는 독자에게 관련이 있습니다.
 
 ## [v2.1.217] — 2026-07-22
 
-### Synced to Claude Code v2.1.217
+### Claude Code v2.1.217와 동기화
 
-Bumps tutorial coverage from the v2.1.212 baseline (2026-07-18 sync) to
-v2.1.217 (v2.1.213 was skipped upstream — the changelog and GitHub releases
-both jump 2.1.212 → 2.1.214), plus a repo-internal accuracy audit.
+튜토리얼 범위를 v2.1.212 기준선(2026-07-18 동기화)에서 v2.1.217까지 확장하고(v2.1.213은 업스트림에서 건너뛰었으며, 변경 로그와 GitHub 릴리스 모두 2.1.212 → 2.1.214로 넘어갑니다), 저장소 내부 정확성 감사를 함께 진행했습니다.
 
-### Fixed
+### 수정됨
 
-- **Nested-subagent-spawning claim reversed (v2.1.217)** — `04-subagents/README.md`
-  and `CATALOG.md` stated as current behavior that "subagents can spawn their
-  own subagents, nested up to 5 levels deep" (true v2.1.172–v2.1.216). As of
-  v2.1.217 this is off by default; opt in with
-  `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`. Both files now lead with current
-  behavior and keep the historical note.
-- **Stale `--enable-auto-mode` flag** — removed in v2.1.111 (auto mode moved
-  into the default `Shift+Tab` cycle; `--permission-mode auto` is the current
-  way to start in it), but `10-cli/README.md` still presented it as a live
-  flag in four spots and `QUICK_REFERENCE.md` used it in three. All seven
-  updated to `--permission-mode auto`.
-- **Import-depth contradiction ("5 levels" vs "4 hops")** — two "5 levels"
-  instances survived in `02-memory/README.md`'s Best Practices area after the
-  2026-07-18 sync fixed two others; both now read "4 hops," matching the rest
-  of the file.
-- **Sonnet-5-less models table** — `claude_concepts_guide.md`'s "Models &
-  Reasoning Effort" table omitted Claude Sonnet 5 despite the file's own
-  footer already listing it as compatible. Added as the default row for
-  Pro/Team Standard/Enterprise.
-- **`config-examples.json` fabricated schema** — all 11 example configs used
-  invented fields (`mode: "unrestricted"/"confirm"`, `planning.*`,
-  `extendedThinking.*`, `headless.*`, `checkpoints.autoCheckpoint`) that don't
-  exist in the real settings schema, plus a stale `claude-opus-4-7` model ID.
-  Rewritten to use real `settings.json` keys (`permissions.defaultMode`,
-  `permissions.allow`/`deny`, `env`, `hooks`, `fileCheckpointingEnabled`,
-  `sandbox.*`) and current model IDs.
-- **`brand-voice` skill vs. its README example** — the actual
-  `03-skills/brand-voice/SKILL.md` (`name: brand-voice-consistency`,
-  user-invocable) contradicted `03-skills/README.md`'s "Example 4" walkthrough
-  (`name: brand-voice`, `user-invocable: false`). Aligned the skill file to
-  the README's background-knowledge framing.
-- **CLAUDE.md length guidance conflict** — `03-skills/claude-md/SKILL.md`
-  ("<300 lines, ideally <100") vs. `02-memory/README.md` ("<500 lines").
-  Unified on "keep it under a few hundred lines; shorter is better" in both
-  files (no official specific limit exists — both prior numbers were
-  editorial).
+- **중첩 서브에이전트 생성 설명이 뒤바뀜 (v2.1.217)** — `04-subagents/README.md`와 `CATALOG.md`가 "subagents can spawn their own subagents, nested up to 5 levels deep"(v2.1.172–v2.1.216에서는 사실)를 현재 동작으로 설명했습니다. v2.1.217부터는 기본적으로 꺼져 있으며 `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`로 옵트인합니다. 두 파일 모두 이제 현재 동작을 먼저 설명하고 이력 참고를 유지합니다.
+- **오래된 `--enable-auto-mode` 플래그** — v2.1.111에서 제거되었지만(자동 모드는 기본 `Shift+Tab` 순환으로 옮겨졌고, 현재는 `--permission-mode auto`로 시작합니다), `10-cli/README.md`는 네 곳에서 여전히 사용 가능한 플래그로 소개했고 `QUICK_REFERENCE.md`는 세 곳에서 사용했습니다. 일곱 곳 모두 `--permission-mode auto`로 갱신했습니다.
+- **가져오기 깊이 모순("5 levels" vs "4 hops")** — 2026-07-18 동기화에서 두 곳을 고친 뒤에도 `02-memory/README.md`의 Best Practices 부분에 "5 levels" 두 곳이 남아 있었습니다. 이제 둘 다 파일의 나머지 부분과 같이 "4 hops"로 표기합니다.
+- **Sonnet 5가 빠진 모델 표** — `claude_concepts_guide.md`의 "Models & Reasoning Effort" 표에서 파일 자체 푸터에 이미 호환 모델로 적힌 Claude Sonnet 5가 빠져 있었습니다. Pro/Team Standard/Enterprise의 기본 행으로 추가했습니다.
+- **`config-examples.json`의 가상 스키마** — 예시 구성 11개 모두 실제 설정 스키마에 없는 가상 필드(`mode: "unrestricted"/"confirm"`, `planning.*`, `extendedThinking.*`, `headless.*`, `checkpoints.autoCheckpoint`)와 오래된 `claude-opus-4-7` 모델 ID를 사용했습니다. 실제 `settings.json` 키(`permissions.defaultMode`, `permissions.allow`/`deny`, `env`, `hooks`, `fileCheckpointingEnabled`, `sandbox.*`)와 현재 모델 ID를 쓰도록 다시 작성했습니다.
+- **`brand-voice` 스킬과 README 예시 불일치** — 실제 `03-skills/brand-voice/SKILL.md`(`name: brand-voice-consistency`, 사용자 호출 가능)가 `03-skills/README.md`의 "Example 4" 안내(`name: brand-voice`, `user-invocable: false`)와 모순되었습니다. 스킬 파일을 README의 배경 지식 방식에 맞췄습니다.
+- **CLAUDE.md 길이 안내 충돌** — `03-skills/claude-md/SKILL.md`("<300 lines, ideally <100")와 `02-memory/README.md`("<500 lines")가 달랐습니다. 두 파일 모두 "몇백 줄 이내로 유지하고, 짧을수록 좋다"로 통일했습니다(공식적인 구체적 한도는 없으며, 이전 두 숫자 모두 편집상의 판단이었습니다).
 
-### Added
+### 추가됨
 
-- **New subagent caps (v2.1.217)** — a cap on concurrently running subagents
-  (default 20, `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`) alongside the nesting
-  depth control above. Documented in `04-subagents/README.md`,
-  `10-cli/README.md`, and `QUICK_REFERENCE.md`.
-- **`--max-budget-usd` now halts background subagents (v2.1.217)** — the spend
-  cap previously only blocked new spawns; it now also halts already-running
-  background subagents. Documented in `10-cli/README.md`.
-- **Hook `if:` glob scope narrowed (v2.1.214)** — single-segment `dir/**` hook
-  `if:` conditions now match only `<cwd>/dir` (use `**/dir/**` for any-depth);
-  deny/ask permission rules are unaffected. Documented in `06-hooks/README.md`.
-- **SessionStart `"fork"` source (v2.1.214)** — forked sessions now report
-  source `"fork"` instead of `"resume"`. Documented in `06-hooks/README.md`.
-- **`sandbox.filesystem.disabled` (v2.1.216)** — skips filesystem isolation
-  while keeping network egress control enforced. Documented in
-  `09-advanced-features/README.md` and `10-cli/README.md`.
-- **`/rewind` symlink/hard-link protection (v2.1.216)** — no longer restores
-  or deletes files through symlinks or hard links at tracked paths; reports
-  how many paths were skipped. Documented in `08-checkpoints/README.md`.
-- **Auto-memory `modified` timestamp + non-blocking `/memory` editor** — an
-  ISO `modified` timestamp on memory-file frontmatter (v2.1.214), and `/memory`
-  no longer blocking the session while its GUI editor is open (v2.1.216).
-  Documented in `02-memory/README.md`.
-- **CLI/settings batch (v2.1.214–v2.1.217)** — `emojiCompletionEnabled`,
-  `FORCE_HYPERLINK=0`, `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH`, `--settings`
-  files capped at 2 MiB, and permission hardening (Docker/Podman
-  daemon-redirect flags, `file -m`/`--magic-file`/`-f`/`--files-from`,
-  10,000+ character commands) documented in `10-cli/README.md`. `/context`'s
-  over-context-window warning and `/compact` failures now displaying as
-  errors (v2.1.216) documented in `01-slash-commands/README.md`.
-- **`/verify` and `/code-review` explicit-invocation-only (v2.1.215)** —
-  additive note in `03-skills/README.md` and `QUICK_REFERENCE.md`; the repo
-  never claimed auto-invocation.
+- **새 서브에이전트 상한 (v2.1.217)** — 위의 중첩 깊이 제어와 함께 동시 실행 서브에이전트 수 상한(기본값 20, `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`)이 추가되었습니다. `04-subagents/README.md`, `10-cli/README.md`, `QUICK_REFERENCE.md`에 문서화했습니다.
+- **`--max-budget-usd`가 이제 백그라운드 서브에이전트를 중단 (v2.1.217)** — 이전에는 지출 상한이 새 생성만 막았지만, 이제 이미 실행 중인 백그라운드 서브에이전트도 중단합니다. `10-cli/README.md`에 문서화했습니다.
+- **훅 `if:` glob 범위 축소 (v2.1.214)** — 단일 세그먼트 `dir/**` 훅 `if:` 조건은 이제 `<cwd>/dir`에만 일치합니다(임의 깊이에는 `**/dir/**` 사용). deny/ask 권한 규칙은 영향을 받지 않습니다. `06-hooks/README.md`에 문서화했습니다.
+- **SessionStart `"fork"` 소스 (v2.1.214)** — 포크된 세션은 이제 `"resume"` 대신 `"fork"` 소스를 보고합니다. `06-hooks/README.md`에 문서화했습니다.
+- **`sandbox.filesystem.disabled` (v2.1.216)** — 네트워크 이그레스 제어는 유지하면서 파일 시스템 격리를 건너뜁니다. `09-advanced-features/README.md`와 `10-cli/README.md`에 문서화했습니다.
+- **`/rewind` 심볼릭 링크/하드 링크 보호 (v2.1.216)** — 추적 경로의 심볼릭 링크나 하드 링크를 통해 파일을 복원하거나 삭제하지 않으며, 건너뛴 경로 수를 보고합니다. `08-checkpoints/README.md`에 문서화했습니다.
+- **자동 메모리 `modified` 타임스탬프 + 비차단 `/memory` 편집기** — 메모리 파일 프런트매터의 ISO `modified` 타임스탬프(v2.1.214), 그리고 GUI 편집기가 열려 있는 동안 `/memory`가 더 이상 세션을 막지 않음(v2.1.216). `02-memory/README.md`에 문서화했습니다.
+- **CLI/설정 묶음 (v2.1.214–v2.1.217)** — `emojiCompletionEnabled`, `FORCE_HYPERLINK=0`, `CLAUDE_CODE_OTEL_CONTENT_MAX_LENGTH`, 2 MiB로 제한된 `--settings` 파일, 권한 강화(Docker/Podman 데몬 리디렉션 플래그, `file -m`/`--magic-file`/`-f`/`--files-from`, 10,000자 이상 명령어)를 `10-cli/README.md`에 문서화했습니다. `/context`의 컨텍스트 창 초과 경고와 `/compact` 실패가 오류로 표시되는 변경(v2.1.216)은 `01-slash-commands/README.md`에 문서화했습니다.
+- **`/verify`와 `/code-review`는 명시적 호출 전용 (v2.1.215)** — `03-skills/README.md`와 `QUICK_REFERENCE.md`에 참고를 추가했습니다. 저장소는 자동 호출을 주장한 적이 없습니다.
 
-### Notes
+### 참고 사항
 
-- `QUICK_REFERENCE.md`'s `--enable-auto-mode` / `--permission-mode auto`
-  inconsistency was resolved in favor of the latter after confirming against
-  the live CLI reference that the former was removed in v2.1.111.
-- Translation mirrors (`vi`/`ja`/`zh`/`uk`) were checked for the P0/P1 claims
-  above; most translated `04-subagents/README.md` and `CATALOG.md` copies
-  either predate the nested-spawning feature or don't carry the affected
-  section, so no mirrored edit was needed there. `10-cli/README.md`'s
-  `--max-budget-usd` clarifier was mirrored into all four languages.
+- `QUICK_REFERENCE.md`의 `--enable-auto-mode` / `--permission-mode auto` 불일치는 실제 CLI 레퍼런스에서 전자가 v2.1.111에 제거되었음을 확인한 뒤 후자로 정리했습니다.
+- 번역 미러(`vi`/`ja`/`zh`/`uk`)에서 위의 P0/P1 항목을 확인했습니다. 번역된 `04-subagents/README.md`와 `CATALOG.md` 사본 대부분은 중첩 생성 기능 이전에 작성되었거나 해당 섹션이 없어 미러 수정이 필요하지 않았습니다. `10-cli/README.md`의 `--max-budget-usd` 설명은 네 언어 모두에 반영했습니다.
 
 ## [v2.1.212] — 2026-07-18
 
-### Synced to Claude Code v2.1.212
+### Claude Code v2.1.212와 동기화
 
-Bumps tutorial coverage from the v2.1.206 baseline (2026-07-11 sync) to
-v2.1.212, plus a repo-internal accuracy audit that surfaced defects
-independent of the version delta.
+튜토리얼 범위를 v2.1.206 기준선(2026-07-11 동기화)에서 v2.1.212까지 확장하고, 버전 변경과 무관한 결함을 찾아낸 저장소 내부 정확성 감사를 함께 진행했습니다.
 
-### Fixed
+### 수정됨
 
-- **Dead `#` memory-shortcut removed** — `02-memory/README.md` documented a
-  `#`-prefix quick-memory-add pattern in two places ("Method 3" and an
-  "Example 4" walkthrough) as a working feature, directly contradicting the
-  file's own commands table three lines from the top, which already marked
-  `#` **Discontinued**. Both sections were removed/rewritten to point at
-  `/memory` and conversational memory requests instead.
-- **Auto mode opt-in → opt-out on Bedrock/Vertex/Foundry (v2.1.207)** — auto
-  mode is now available by default on these providers (plus signed-in Claude
-  apps gateway sessions) for Sonnet 5, Opus 4.7/4.8, and Fable 5; the
-  `CLAUDE_CODE_ENABLE_AUTO_MODE` opt-in flag has no effect from v2.1.207
-  onward. Fixed in `09-advanced-features/README.md` and `10-cli/README.md`.
-- **`auto` permission mode mislabeled "Research Preview"** — current official
-  docs present `auto` as GA (available on all plans, gated only by model and
-  provider eligibility), not a preview feature. Corrected across
-  `09-advanced-features/README.md`, `CATALOG.md`, and `README.md`, which also
-  gained the missing `auto` row in its permission-mode summary.
-- **`/fork` / `/branch` history corrected** — the repo claimed "`/fork`
-  renamed to `/branch` in v2.1.77 (alias retained)." Current docs show these
-  are distinct, current commands: `/fork` spawns a background subagent that
-  inherits the conversation, `/branch` switches you into a copy in place.
-  They were a single aliased command only from v2.1.77 to v2.1.161. Fixed in
-  `01-slash-commands/README.md` and `09-advanced-features/README.md`.
-- **`effort` frontmatter enum completed** — `04-subagents/README.md` listed
-  4 levels (`low`/`medium`/`high`/`max`), missing `xhigh`, present in every
-  other file that documents this enum.
-- **Bundled-skills count reconciled** — `CATALOG.md`'s summary table said "9
-  bundled" against its own 10-row detail table; corrected to 10 (16 total).
-- **`INDEX.md` Feature Coverage Matrix fully recomputed** — header claimed "16
-  files," the Skills row claimed "28" for the same category; neither matched
-  the actual 21 files across the six documented skills. The Plugins row
-  similarly summed to 36 but showed 40. Every row was recounted by hand; the
-  Skills row now reads `5 | 9 | 7` (**21**) and the Plugins row now reads
-  `11 | 9 | 3 | 3 | 3 | 3 | 7` (**39**) — every row's Total now equals the sum
-  of its own cells.
-- **Stale `2.1.160` footer cluster bumped** — five files
-  (`08-checkpoints/checkpoint-examples.md`,
-  `09-advanced-features/planning-mode-examples.md`, and the three
-  `07-plugins/*/README.md` example-package files) still carried June 2026
-  footers with no version-specific content drift found; bumped to 2.1.212.
-- **`QUICK_REFERENCE.md` fully resynced** — was 52 versions behind at
-  `2.1.160`/June 2. Permission-mode block updated to `manual`
-  (formerly `default`), Compatible Models gained Sonnet 5, and the "New
-  Features (May 2026)" section was retitled and refreshed.
-- **`02-memory/README.md` Memory Hierarchy section rewritten** — replaced a
-  fabricated 8-tier strict-precedence model with the verified structure:
-  CLAUDE.md files and rules are concatenated into context (not selected by
-  override), and `managed-settings.d/` is a `settings.json` mechanism, not a
-  CLAUDE.md one. The Memory Architecture diagram was also corrected — it
-  previously conflated claude.ai's 24h synthesis cycle with Claude Code's
-  continuous auto memory.
+- **동작하지 않는 `#` 메모리 단축키 제거** — `02-memory/README.md`가 `#` 접두사로 빠르게 메모리를 추가하는 패턴을 두 곳("Method 3"과 "Example 4" 안내)에서 동작하는 기능으로 설명했는데, 이는 상단에서 세 줄 아래에 있는 파일 자체의 명령어 표에서 이미 `#`을 **Discontinued**로 표시한 것과 정면으로 모순되었습니다. 두 섹션 모두 `/memory`와 대화를 통한 메모리 요청을 안내하도록 제거·재작성했습니다.
+- **Bedrock/Vertex/Foundry에서 자동 모드가 옵트인 → 옵트아웃으로 변경 (v2.1.207)** — 이제 이 공급자들(및 로그인한 Claude apps 게이트웨이 세션)에서 Sonnet 5, Opus 4.7/4.8, Fable 5에 대해 자동 모드를 기본적으로 사용할 수 있습니다. `CLAUDE_CODE_ENABLE_AUTO_MODE` 옵트인 플래그는 v2.1.207부터 효과가 없습니다. `09-advanced-features/README.md`와 `10-cli/README.md`에서 수정했습니다.
+- **`auto` 권한 모드가 "Research Preview"로 잘못 표기됨** — 현재 공식 문서는 `auto`를 프리뷰 기능이 아닌 GA(모든 플랜에서 사용 가능, 모델 및 공급자 자격 요건으로만 제한)로 제시합니다. `09-advanced-features/README.md`, `CATALOG.md`, `README.md`에서 수정했으며, `README.md`의 권한 모드 요약에는 빠져 있던 `auto` 행도 추가했습니다.
+- **`/fork` / `/branch` 이력 수정** — 저장소는 "`/fork` renamed to `/branch` in v2.1.77 (alias retained)"라고 주장했습니다. 현재 문서에서 두 명령어는 별개의 현재 명령어입니다. `/fork`는 대화를 상속하는 백그라운드 서브에이전트를 생성하고, `/branch`는 그 자리에서 사본으로 전환합니다. 두 명령어가 하나의 별칭 명령어였던 것은 v2.1.77부터 v2.1.161까지뿐입니다. `01-slash-commands/README.md`와 `09-advanced-features/README.md`에서 수정했습니다.
+- **`effort` 프런트매터 열거값 보완** — `04-subagents/README.md`는 4개 수준(`low`/`medium`/`high`/`max`)만 나열해, 이 열거값을 문서화한 다른 모든 파일에 있는 `xhigh`가 빠져 있었습니다.
+- **기본 제공 스킬 개수 정리** — `CATALOG.md`의 요약 표는 10행짜리 자체 상세 표와 달리 "9 bundled"라고 했습니다. 10개(총 16개)로 수정했습니다.
+- **`INDEX.md` 기능 범위 매트릭스 전면 재계산** — 헤더는 "16 files"라고 했고 같은 범주의 Skills 행은 "28"이라고 했지만, 둘 다 문서화된 여섯 스킬의 실제 파일 21개와 맞지 않았습니다. Plugins 행도 합계는 36인데 40으로 표시되었습니다. 모든 행을 직접 다시 셌으며, 이제 Skills 행은 `5 | 9 | 7`(**21**), Plugins 행은 `11 | 9 | 3 | 3 | 3 | 3 | 7`(**39**)이고, 모든 행의 Total이 해당 행 셀의 합과 같습니다.
+- **오래된 `2.1.160` 푸터 묶음 갱신** — 다섯 파일(`08-checkpoints/checkpoint-examples.md`, `09-advanced-features/planning-mode-examples.md`, 그리고 `07-plugins/*/README.md` 예시 패키지 파일 세 개)이 버전별 내용 변화가 없는 상태로 여전히 2026년 6월 푸터를 갖고 있었습니다. 2.1.212로 갱신했습니다.
+- **`QUICK_REFERENCE.md` 전면 재동기화** — `2.1.160`/6월 2일로 52개 버전 뒤처져 있었습니다. 권한 모드 블록을 `manual`(이전 `default`)로 갱신하고, Compatible Models에 Sonnet 5를 추가했으며, "New Features (May 2026)" 섹션의 제목을 바꾸고 내용을 새로 고쳤습니다.
+- **`02-memory/README.md` 메모리 계층 섹션 재작성** — 가상의 8단계 엄격 우선순위 모델을 검증된 구조로 교체했습니다. CLAUDE.md 파일과 규칙은 (재정의로 선택되는 것이 아니라) 컨텍스트에 연결되며, `managed-settings.d/`는 CLAUDE.md가 아닌 `settings.json` 메커니즘입니다. 메모리 아키텍처 다이어그램도 수정했습니다. 이전에는 claude.ai의 24시간 합성 주기와 Claude Code의 지속적인 자동 메모리를 혼동했습니다.
 
-### Added
+### 추가됨
 
-- **Subagent output scanning (v2.1.210)** — Claude Code scans subagent
-  reports for prompt-injection patterns (fake system tags, fabricated
-  conversation turns, permission-bypass mentions) and neutralizes them.
-  Documented in a new subsection of `04-subagents/README.md`.
-- **Session-wide spawn caps (v2.1.212)** — default 200/session limits on
-  WebSearch calls (`CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION`) and subagent
-  spawns (`CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`, reset by `/clear`).
-  Documented in `09-advanced-features/README.md`, `04-subagents/README.md`,
-  and `10-cli/README.md`.
-- **MCP long-running-tool auto-backgrounding (v2.1.212)** — MCP tool calls
-  over 2 minutes now auto-background instead of blocking the session;
-  configurable via `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`. Documented in
-  `05-mcp/README.md`.
-- **`claude auto-mode reset` and `/resume` picker (v2.1.212)** — a new CLI
-  subcommand restores default auto-mode config; bare `/resume` now opens a
-  picker of past sessions (including removed ones) and resumes as a
-  background session. Documented in `09-advanced-features/README.md`,
-  `01-slash-commands/README.md`, and `10-cli/README.md`.
-- **Screen reader mode (v2.1.208)** — opt-in plain-text rendering via
-  `--ax-screen-reader`, `CLAUDE_AX_SCREEN_READER=1`, or `"axScreenReader":
-  true`. Documented in `09-advanced-features/README.md` and
-  `10-cli/README.md`.
-- **Task tool `mode` parameter deprecation (v2.1.212)** — noted in
-  `04-subagents/README.md`: subagents now inherit the parent session's
-  permission mode by default; the Task tool's per-call `mode` parameter is
-  ignored.
+- **서브에이전트 출력 검사 (v2.1.210)** — Claude Code는 서브에이전트 보고서에서 프롬프트 인젝션 패턴(가짜 시스템 태그, 조작된 대화 턴, 권한 우회 언급)을 검사하고 무력화합니다. `04-subagents/README.md`의 새 하위 섹션에 문서화했습니다.
+- **세션 단위 생성 상한 (v2.1.212)** — WebSearch 호출(`CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION`)과 서브에이전트 생성(`CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION`, `/clear`로 초기화)에 대해 기본값 세션당 200회 한도가 적용됩니다. `09-advanced-features/README.md`, `04-subagents/README.md`, `10-cli/README.md`에 문서화했습니다.
+- **오래 실행되는 MCP 도구 자동 백그라운드 전환 (v2.1.212)** — 2분을 넘는 MCP 도구 호출은 이제 세션을 막지 않고 자동으로 백그라운드로 전환되며, `CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`로 구성할 수 있습니다. `05-mcp/README.md`에 문서화했습니다.
+- **`claude auto-mode reset`과 `/resume` 선택기 (v2.1.212)** — 새 CLI 하위 명령어가 기본 자동 모드 구성을 복원합니다. 인수 없는 `/resume`은 이제 과거 세션(제거된 세션 포함) 선택기를 열고 백그라운드 세션으로 재개합니다. `09-advanced-features/README.md`, `01-slash-commands/README.md`, `10-cli/README.md`에 문서화했습니다.
+- **스크린 리더 모드 (v2.1.208)** — `--ax-screen-reader`, `CLAUDE_AX_SCREEN_READER=1` 또는 `"axScreenReader": true`로 선택해 켜는 일반 텍스트 렌더링입니다. `09-advanced-features/README.md`와 `10-cli/README.md`에 문서화했습니다.
+- **Task 도구 `mode` 매개변수 지원 중단(deprecated) (v2.1.212)** — `04-subagents/README.md`에 기록했습니다. 서브에이전트는 이제 기본적으로 부모 세션의 권한 모드를 상속하며, Task 도구의 호출별 `mode` 매개변수는 무시됩니다.
 
-### Known gaps (deferred, not fixed this sync)
+### 알려진 공백 (보류, 이번 동기화에서 수정하지 않음)
 
-- `03-skills/.claude/skills/blog-draft/` is gitignored local testing scratch
-  (`# Local skill testing` in `03-skills/.gitignore`), not a tracked
-  duplicate of `03-skills/blog-draft/` — confirmed no action needed.
+- `03-skills/.claude/skills/blog-draft/`는 gitignore된 로컬 테스트용 임시 디렉터리(`03-skills/.gitignore`의 `# Local skill testing`)이며, 추적되는 `03-skills/blog-draft/`의 중복본이 아닙니다. 조치가 필요 없음을 확인했습니다.
 
 ## [v2.1.160] — 2026-06-02
 
-### Synced to Claude Code v2.1.160
+### Claude Code v2.1.160와 동기화
 
-Bumps tutorial coverage to the Claude Code v2.1.160 release. The intervening
-v2.1.156 sync (Claude Opus 4.8, #129) was applied to the docs but not separately
-changelogged; this entry continues from there and covers the v2.1.157–v2.1.160
-delta. No breaking changes shipped in this range — the additions are a handful
-of new CLI/feature surfaces plus the routine footer bump. Auto mode on
-third-party providers is **opt-in**, not a new default.
+튜토리얼 범위가 Claude Code v2.1.160 릴리스까지 확장되었습니다. 중간에 있었던 v2.1.156 동기화(Claude Opus 4.8, #129)는 문서에는 적용되었으나 별도로 변경 로그에 기록되지 않았습니다. 이 항목은 해당 시점부터 v2.1.157–v2.1.160 사이의 변경 사항을 다룹니다. 이 범위에서 치명적인 변경 사항은 없었으며, 몇 가지 새로운 CLI/기능 표면 추가와 정기적인 푸터 업데이트가 있었습니다. 타사 공급자의 자동 모드는 새로운 기본 설정이 아니라 **선택 사항**입니다.
 
-### Added
+### 추가됨
 
-- **`claude plugin init <name>` (v2.1.157)** — scaffolds a new plugin directly
-  in `.claude/skills`; plugins placed there now auto-load with no marketplace
-  required. Documented in `10-cli/README.md`, `07-plugins/README.md`, and
-  `CATALOG.md`.
-- **Auto mode on Bedrock / Vertex / Foundry (v2.1.158)** — auto mode is now
-  available on the three third-party providers for Opus 4.7/4.8, **opt-in** via
-  the `CLAUDE_CODE_ENABLE_AUTO_MODE=1` environment variable. Documented in
-  `09-advanced-features/README.md`, `10-cli/README.md`, and `CATALOG.md`.
-- **`EnterWorktree` mid-session switching (v2.1.157)** — the `EnterWorktree`
-  tool can now switch between Claude-managed worktrees within a session, and
-  finished worktrees are left unlocked so `git worktree remove`/`prune` can
-  clean them up. Documented in `09-advanced-features/README.md`.
+- **`claude plugin init <name>` (v2.1.157)** — `.claude/skills`에 새 플러그인을 직접 스캐폴딩합니다. 여기에 배치된 플러그인은 이제 마켓플레이스 없이 자동으로 로드됩니다. `10-cli/README.md`, `07-plugins/README.md`, `CATALOG.md`에 문서화되어 있습니다.
+- **Bedrock / Vertex / Foundry의 자동 모드 (v2.1.158)** — Opus 4.7/4.8용 세 가지 타사 공급자에서 자동 모드를 사용할 수 있으며, `CLAUDE_CODE_ENABLE_AUTO_MODE=1` 환경 변수를 통해 **선택 사항**으로 활성화할 수 있습니다. `09-advanced-features/README.md`, `10-cli/README.md`, `CATALOG.md`에 문서화되어 있습니다.
+- **세션 중 `EnterWorktree` 전환 (v2.1.157)** — `EnterWorktree` 도구를 통해 이제 세션 내에서 Claude가 관리하는 작업 트리 간에 전환할 수 있으며, 완료된 작업 트리는 잠금 해제 상태로 유지되어 `git worktree remove`/`prune` 명령으로 정리할 수 있습니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
 
-### Behavior changes
+### 동작 변경
 
-- **`acceptEdits` write-safety prompts (v2.1.160)** — even in `acceptEdits`
-  mode, Claude Code now prompts before writing shell-startup files (`.zshenv`,
-  `.zlogin`, `.bash_login`, `~/.config/git/`) and code-executing build configs
-  (`.npmrc`, `.yarnrc*`, `bunfig.toml`, `.bazelrc`, `.pre-commit-config.yaml`,
-  `.devcontainer/`), which could otherwise lead to unintended command
-  execution. Documented in `09-advanced-features/README.md`.
-- **Dynamic-workflow trigger keyword `workflow` → `ultracode` (v2.1.160)** — the
-  bare word "workflow" no longer triggers a dynamic-workflow run; the trigger
-  keyword is now `ultracode`. Noted in `09-advanced-features/README.md`.
+- **`acceptEdits` 쓰기 안전 프롬프트 (v2.1.160)** — `acceptEdits` 모드에서도 Claude Code는 이제 셸 시작 파일(`.zshenv`, `.zlogin`, `.bash_login`, `~/.config/git/`) 및 코드 실행 빌드 구성 파일(`.npmrc`, `.yarnrc*`, `bunfig.toml`, `.bazelrc`, `.pre-commit-config.yaml`, `.devcontainer/`)에 쓰기 전에 프롬프트를 표시합니다. 이는 의도치 않은 명령 실행으로 이어질 수 있기 때문입니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- **동적 워크플로 트리거 키워드 `workflow` → `ultracode` (v2.1.160)** — "workflow" 단독으로는 더 이상 동적 워크플로를 실행하지 않으며, 트리거 키워드는 이제 `ultracode`입니다. `09-advanced-features/README.md`에 명시되어 있습니다.
 
-### Removed
+### 제거됨
 
-- **`CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE` is now a no-op (v2.1.160)** — the
-  environment variable was removed and now has no effect. The env-var table
-  wording in `10-cli/README.md` was updated from "removed 2026-06-01" to
-  "Removed (no-op as of v2.1.160)".
+- **`CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE`가 이제 아무런 동작도 하지 않음 (v2.1.160)** — 해당 환경 변수는 제거되었으며 이제 아무런 효과가 없습니다. `10-cli/README.md`의 환경 변수 표 설명은 "2026-06-01 제거됨"에서 "제거됨 (v2.1.160부터 아무런 동작도 하지 않음)"으로 업데이트되었습니다.
 
-### Documentation
+### 문서
 
-- Fixed three internally-inconsistent version strings in `README.md` (badge and
-  FAQ prose were stuck at `2.1.145` / `v2.1.150`) and normalized a stale Sources
-  link.
-- Bumped every English doc's metadata footer to **v2.1.160 / June 2, 2026** for
-  a consistent sync.
+- `README.md` 내부에 일관성이 없었던 세 가지 버전 문자열(배지 및 FAQ 본문이 `2.1.145` / `v2.1.150`에 머물러 있었음)을 수정하고 오래된 소스 링크를 정규화했습니다.
+- 일관된 동기화를 위해 모든 영어 문서의 메타데이터 푸터가 **v2.1.160 / 2026년 6월 2일**로 업데이트되었습니다.
 
 ## [v2.1.150] — 2026-05-25
 
-### Synced to Claude Code v2.1.150
+### Claude Code v2.1.150와 동기화
 
-Bumps tutorial coverage from Claude Code v2.1.145 → v2.1.150 (May 23, 2026
-release). Anthropic shipped five patches (v2.1.146 through v2.1.150) since the
-last sync. The headline change is the **rename of the bundled `/simplify`
-skill to `/code-review`** (v2.1.146) — a pure rename with **no alias**, so the
-old name no longer works. Because this repo also ships its own local
-code-review skill, the directory was renamed to `code-review-specialist` to
-avoid shadowing the new built-in. Other highlights: `/usage` now breaks costs
-down per category, background sessions can be pinned with `Ctrl+T`, the
-markdown renderer supports GFM task-list checkboxes, and a new
-`allowAllClaudeAiMcps` managed setting was added. This sync also catches up
-four module READMEs (`04-subagents`, `05-mcp`, `07-plugins`,
-`09-advanced-features`) that were still pinned to v2.1.143.
+튜토리얼 범위가 Claude Code v2.1.145 → v2.1.150 (2026년 5월 23일 릴리스)로 확장되었습니다. 마지막 동기화 이후 Anthropic은 5개의 패치(v2.1.146부터 v2.1.150까지)를 제공했습니다. 주요 변경 사항은 **번들된 `/simplify` 스킬이 `/code-review`로 이름 변경** (v2.1.146)된 것입니다. 이는 **별칭 없이** 순수하게 이름만 변경되었으므로 이전 이름은 더 이상 작동하지 않습니다. 이 저장소에는 자체 로컬 코드 검토 스킬도 포함되어 있으므로, 새로운 내장 스킬을 가리지 않도록 디렉터리 이름이 `code-review-specialist`로 변경되었습니다. 기타 주요 변경 사항으로는 `/usage`가 이제 범주별로 비용을 분류하고, 백그라운드 세션을 `Ctrl+T`로 고정할 수 있으며, 마크다운 렌더러가 GFM 작업 목록 확인란을 지원하고, 새로운 `allowAllClaudeAiMcps` 관리 설정이 추가되었습니다. 이 동기화는 또한 v2.1.143에 고정되어 있던 4개의 모듈 README(`04-subagents`, `05-mcp`, `07-plugins`, `09-advanced-features`)를 업데이트했습니다.
 
-### Behavior changes
+### 동작 변경
 
-- **`/simplify` renamed to `/code-review` (v2.1.146)**: the bundled review
-  skill is now invoked as `/code-review` and takes an optional effort level
-  (e.g. `/code-review high`); pass `--comment` to post findings as inline
-  GitHub PR comments (v2.1.147). The old `/simplify` name no longer works —
-  there is no alias. Updated in `01-slash-commands/README.md`,
-  `03-skills/README.md`, `CATALOG.md`, `QUICK_REFERENCE.md`, and
-  `claude_concepts_guide.md`.
+- **`/simplify`가 `/code-review`로 이름 변경됨 (v2.1.146)**: 번들된 검토 스킬은 이제 `/code-review`로 호출되며 선택적 노력 수준(예: `/code-review high`)을 사용할 수 있습니다. `--comment`를 전달하여 GitHub PR 인라인 댓글로 발견 사항을 게시할 수 있습니다(v2.1.147). 이전 `/simplify` 이름은 더 이상 작동하지 않으며, 별칭도 없습니다. `01-slash-commands/README.md`, `03-skills/README.md`, `CATALOG.md`, `QUICK_REFERENCE.md`, `claude_concepts_guide.md`에 업데이트되었습니다.
 
-### Changed
+### 변경됨
 
-- **Renamed the repo's local `code-review` skill to `code-review-specialist`**
-  to avoid colliding with the new built-in `/code-review`. The directory
-  `03-skills/code-review/` → `03-skills/code-review-specialist/`, and all
-  install commands, directory trees, and cross-references were updated in
-  `README.md`, `QUICK_REFERENCE.md`, `INDEX.md`, `CATALOG.md`,
-  `LEARNING-ROADMAP.md`, `claude_concepts_guide.md`, and `03-skills/README.md`.
-  Added a note explaining the collision and how to avoid shadowing the
-  built-in.
+- **저장소의 로컬 `code-review` 스킬을 `code-review-specialist`로 이름 변경**하여 새로운 내장 `/code-review`와 충돌을 피했습니다. 디렉터리 `03-skills/code-review/` → `03-skills/code-review-specialist/`로 변경되었으며, 모든 설치 명령, 디렉터리 트리 및 상호 참조가 `README.md`, `QUICK_REFERENCE.md`, `INDEX.md`, `CATALOG.md`, `LEARNING-ROADMAP.md`, `claude_concepts_guide.md`, `03-skills/README.md`에 업데이트되었습니다. 충돌과 내장 스킬을 가리지 않는 방법에 대한 설명도 추가되었습니다.
 
-### Added
+### 추가됨
 
-- **`/usage` per-category cost breakdown (v2.1.149)** — the cost view now
-  breaks spending down by category (skills, subagents, plugins, and
-  per-MCP-server costs). Documented in `CATALOG.md` and
-  `claude_concepts_guide.md`.
-- **Pinned background sessions — `Ctrl+T` (v2.1.147)** — pinning a session in
-  `claude agents` keeps it alive when idle, restarts it in place to apply
-  Claude Code updates, and sheds it under memory pressure only after
-  non-pinned sessions. Documented in `10-cli/README.md`.
-- **GFM task-list checkbox rendering (v2.1.149)** — the markdown renderer now
-  renders `- [ ]` / `- [x]` as checkboxes. Documented in
-  `09-advanced-features/README.md`.
-- **`allowAllClaudeAiMcps` managed setting (v2.1.149)** — permits loading
-  claude.ai cloud MCP connectors organization-wide. Documented in
-  `05-mcp/README.md`.
+- **`/usage` 범주별 비용 분석 (v2.1.149)** — 이제 비용 보기에 지출이 범주별(스킬, 서브에이전트, 플러그인, MCP 서버별 비용)로 분류되어 표시됩니다. `CATALOG.md` 및 `claude_concepts_guide.md`에 문서화되어 있습니다.
+- **고정된 백그라운드 세션 — `Ctrl+T` (v2.1.147)** — `claude agents`에서 세션을 고정하면 유휴 상태일 때 세션을 활성 상태로 유지하고, Claude Code 업데이트를 적용하기 위해 제자리에서 다시 시작하며, 메모리 압박 시 고정되지 않은 세션 이후에만 종료됩니다. `10-cli/README.md`에 문서화되어 있습니다.
+- **GFM 작업 목록 확인란 렌더링 (v2.1.149)** — 마크다운 렌더러가 이제 `- [ ]` / `- [x]`를 확인란으로 렌더링합니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- **`allowAllClaudeAiMcps` 관리 설정 (v2.1.149)** — claude.ai 클라우드 MCP 커넥터를 조직 전체에서 로드할 수 있도록 허용합니다. `05-mcp/README.md`에 문서화되어 있습니다.
 
-### Removed
+### 제거됨
 
-- **Stop/SubagentStop hook input fields `background_tasks` and `session_crons`**
-  — removed from `06-hooks/README.md` and `resources.md`. These were added from
-  the v2.1.145 release notes but are not enumerated in the official hooks
-  reference page; removed to keep the docs aligned with the published
-  reference.
+- **Stop/SubagentStop 훅 입력 필드 `background_tasks` 및 `session_crons`** — `06-hooks/README.md` 및 `resources.md`에서 제거되었습니다. 이들은 v2.1.145 릴리스 노트에서 추가되었지만 공식 훅 참조 페이지에는 열거되어 있지 않아 게시된 참조와 문서의 일관성을 유지하기 위해 제거되었습니다.
 
-### Documentation
+### 문서
 
-- Caught up four module READMEs from v2.1.143 to v2.1.150:
-  `04-subagents/README.md`, `05-mcp/README.md`, `07-plugins/README.md`,
-  `09-advanced-features/README.md`.
-- Bumped every English doc's metadata footer to **v2.1.150 / May 25, 2026** for
-  a consistent sync.
+- v2.1.143에서 v2.1.150으로 4개의 모듈 README를 업데이트했습니다: `04-subagents/README.md`, `05-mcp/README.md`, `07-plugins/README.md`, `09-advanced-features/README.md`.
+- 일관된 동기화를 위해 모든 영어 문서의 메타데이터 푸터가 **v2.1.150 / 2026년 5월 25일**로 업데이트되었습니다.
 
 ## [v2.1.145] — 2026-05-20
 
-### Synced to Claude Code v2.1.145
+### Claude Code v2.1.145와 동기화
 
-Bumps tutorial coverage from Claude Code v2.1.143 → v2.1.145 (May 19, 2026
-release). Anthropic shipped two patches (v2.1.144 and v2.1.145) since the last
-sync. Highlights: the `/extra-usage` rename to `/usage-credits`, `/model`
-becoming session-only by default, three new bundled skills (`/run`, `/verify`,
-`/run-skill-generator`), Stop/SubagentStop hook input fields
-`background_tasks` and `session_crons`, `claude agents --json` for scripting,
-and a security fix that closes the bare-env-var Bash auto-approve loophole.
-This sync also catches up six root-level reference docs
-(`LEARNING-ROADMAP.md`, `QUICK_REFERENCE.md`, `INDEX.md`, `resources.md`,
-`claude_concepts_guide.md`, `STYLE_GUIDE.md`) that were missed in the
-v2.1.143 sync and were still pinned to v2.1.138.
+튜토리얼 범위가 Claude Code v2.1.143 → v2.1.145 (2026년 5월 19일 릴리스)로 확장되었습니다. 마지막 동기화 이후 Anthropic은 두 개의 패치(v2.1.144 및 v2.1.145)를 제공했습니다. 주요 변경 사항: `/extra-usage`가 `/usage-credits`로 이름 변경, `/model`이 기본적으로 세션 전용으로 변경, 세 가지 새로운 번들 스킬(`/run`, `/verify`, `/run-skill-generator`) 추가, Stop/SubagentStop 훅 입력 필드 `background_tasks` 및 `session_crons` 추가, 스크립팅을 위한 `claude agents --json` 추가, 그리고 베어 환경 변수 Bash 자동 승인 취약점을 해결하는 보안 수정이 있었습니다. 이 동기화는 또한 v2.1.143 동기화에서 누락되어 여전히 v2.1.138에 고정되어 있던 6개의 최상위 참조 문서(`LEARNING-ROADMAP.md`, `QUICK_REFERENCE.md`, `INDEX.md`, `resources.md`, `claude_concepts_guide.md`, `STYLE_GUIDE.md`)를 업데이트했습니다.
 
-### Added
+### 추가됨
 
-- `/usage-credits` slash command (v2.1.144) — replaces `/extra-usage` as the
-  primary name; `/extra-usage` still works as an alias. Documented in
-  `01-slash-commands/README.md` and `CATALOG.md`.
-- Three new bundled skills (v2.1.145) — `/run` (launches the project's app to
-  see a change running), `/verify` (builds, runs, and observes the app to
-  confirm a fix works), `/run-skill-generator` (teaches `/run`/`/verify` how
-  to handle a specific project by generating a per-project skill). Documented
-  in `03-skills/README.md`, `CATALOG.md`, and `QUICK_REFERENCE.md`. Brings
-  the canonical bundled-skill count to **9**.
-- Stop/SubagentStop hook input fields `background_tasks` and `session_crons`
-  (v2.1.145) — hook authors can read these to decide whether to block stop
-  while background work or scheduled tasks are still pending. Documented in
-  `06-hooks/README.md`.
-- `claude agents --json` (v2.1.145) — print the agent list as machine-readable
-  JSON for scripting (status bars, session pickers, tmux-resurrect).
-  Documented in `10-cli/README.md`.
-- Five hook-event rows that were missing from summary tables — `Setup`,
-  `UserPromptExpansion`, `PermissionDenied`, `PostToolBatch` (the narrative
-  already claimed "29 events"; the summary tables in `CATALOG.md`,
-  `claude_concepts_guide.md`, and `INDEX.md` only listed 25).
+- `/usage-credits` 슬래시 명령 (v2.1.144) — `/extra-usage`를 대체하는 기본 이름입니다. `/extra-usage`는 여전히 별칭으로 작동합니다. `01-slash-commands/README.md` 및 `CATALOG.md`에 문서화되어 있습니다.
+- 세 가지 새로운 번들 스킬 (v2.1.145) — `/run` (변경 사항이 실행되는 것을 확인하기 위해 프로젝트 앱을 시작함), `/verify` (수정 사항이 작동하는지 확인하기 위해 앱을 빌드, 실행 및 관찰함), `/run-skill-generator` (프로젝트별 스킬을 생성하여 `/run`/`/verify`가 특정 프로젝트를 처리하는 방법을 가르침). `03-skills/README.md`, `CATALOG.md`, `QUICK_REFERENCE.md`에 문서화되어 있습니다. 번들 스킬의 표준 개수를 **9개**로 늘립니다.
+- Stop/SubagentStop 훅 입력 필드 `background_tasks` 및 `session_crons` (v2.1.145) — 훅 작성자는 이를 읽어 백그라운드 작업이나 예약된 작업이 아직 보류 중인 동안 중지를 차단할지 결정할 수 있습니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- `claude agents --json` (v2.1.145) — 스크립팅(상태 표시줄, 세션 선택기, tmux-resurrect)을 위해 에이전트 목록을 기계가 읽을 수 있는 JSON 형식으로 출력합니다. `10-cli/README.md`에 문서화되어 있습니다.
+- 요약 표에서 누락되었던 5개의 훅 이벤트 행 — `Setup`, `UserPromptExpansion`, `PermissionDenied`, `PostToolBatch` (설명에서는 이미 "29개 이벤트"라고 주장했지만, `CATALOG.md`, `claude_concepts_guide.md`, `INDEX.md`의 요약 표에는 25개만 나열되어 있었습니다).
 
-### Behavior changes
+### 동작 변경
 
-- **`/model` is session-only by default (v2.1.144)**: selecting a model now
-  applies only to the current session; press `d` after selecting to set the
-  choice as the new default for future sessions. Documented in
-  `01-slash-commands/README.md`.
-- **Bash bare env-var auto-approve closed (v2.1.145 security fix)**: a
-  command of the form `FOO=bar somecommand` is no longer auto-approved when
-  only `FOO=bar` was on the allowlist. Re-allow such commands explicitly via
-  `Bash(...)` permission rules that cover the full command. Documented in
-  `06-hooks/README.md`.
-- **`context: fork` infinite-loop fix (v2.1.145)**: a skill using
-  `context: fork` could previously trigger an infinite re-invocation loop in
-  rare cases. Documented as a note in `03-skills/README.md`.
+- **`/model`이 기본적으로 세션 전용으로 변경됨 (v2.1.144)**: 모델 선택은 이제 현재 세션에만 적용됩니다. 선택 후 `d`를 눌러 향후 세션을 위한 새로운 기본값으로 설정할 수 있습니다. `01-slash-commands/README.md`에 문서화되어 있습니다.
+- **Bash 베어 env-var 자동 승인 취약점 해결 (v2.1.145 보안 수정)**: `FOO=bar somecommand` 형식의 명령은 `FOO=bar`만 허용 목록에 있었을 때 더 이상 자동 승인되지 않습니다. 전체 명령을 포함하는 `Bash(...)` 권한 규칙을 통해 해당 명령을 명시적으로 다시 허용해야 합니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- **`context: fork` 무한 루프 수정 (v2.1.145)**: `context: fork`를 사용하는 스킬이 이전에 드물게 무한 재호출 루프를 트리거할 수 있었습니다. `03-skills/README.md`에 참고 사항으로 문서화되어 있습니다.
 
-### Documentation
+### 문서
 
-- Caught up six root-level reference docs from v2.1.138 to v2.1.145:
-  `LEARNING-ROADMAP.md`, `QUICK_REFERENCE.md`, `INDEX.md`, `resources.md`,
-  `claude_concepts_guide.md`, `STYLE_GUIDE.md`.
-- Fixed the bundled-skills mismatch — `CATALOG.md`, `QUICK_REFERENCE.md`, and
-  `03-skills/README.md` previously listed three different 5-item lists;
-  reconciled to the canonical 9 (`/batch`, `/claude-api`, `/debug`,
-  `/fewer-permission-prompts`, `/loop`, `/run`, `/run-skill-generator`,
-  `/simplify`, `/verify`). The `QUICK_REFERENCE.md` cell had also incorrectly
-  listed `/voice` and `/browse` as bundled skills — neither is bundled.
-- Renamed "New Features (March 2026)" → "New Features (May 2026)" in
-  `QUICK_REFERENCE.md` and `resources.md` to match the rest of the repo.
-- Bumped the version badge in `README.md` from `2.1.138` to `2.1.145` and
-  updated the two "latest: v2.1.138" claims in the body.
-- Updated the STYLE_GUIDE sample metadata footer from `2.1.97` to `2.1.145`
-  so contributors copy the current version.
+- v2.1.138에서 v2.1.145로 6개의 최상위 참조 문서(`LEARNING-ROADMAP.md`, `QUICK_REFERENCE.md`, `INDEX.md`, `resources.md`, `claude_concepts_guide.md`, `STYLE_GUIDE.md`)를 업데이트했습니다.
+- 번들 스킬 불일치를 수정했습니다 — `CATALOG.md`, `QUICK_REFERENCE.md`, `03-skills/README.md`는 이전에 세 가지 다른 5개 항목 목록을 나열했습니다. 이를 표준 9개(`/batch`, `/claude-api`, `/debug`, `/fewer-permission-prompts`, `/loop`, `/run`, `/run-skill-generator`, `/simplify`, `/verify`)로 조정했습니다. `QUICK_REFERENCE.md` 셀에는 `/voice`와 `/browse`가 번들 스킬로 잘못 나열되어 있었는데, 둘 다 번들 스킬이 아닙니다.
+- `QUICK_REFERENCE.md` 및 `resources.md`에서 "New Features (March 2026)" → "New Features (May 2026)"로 이름을 변경하여 저장소의 다른 부분과 일치시켰습니다.
+- `README.md`의 버전 배지를 `2.1.138`에서 `2.1.145`로 업데이트하고 본문의 "latest: v2.1.138" 두 가지 주장을 업데이트했습니다.
+- 기여자들이 현재 버전을 복사하도록 STYLE_GUIDE 샘플 메타데이터 푸터를 `2.1.97`에서 `2.1.145`로 업데이트했습니다.
 
 ## [v2.1.143] — 2026-05-19
 
-### Synced to Claude Code v2.1.143
+### Claude Code v2.1.143와 동기화
 
-Bumps tutorial coverage from Claude Code v2.1.138 → v2.1.143 (May 15, 2026
-release). Anthropic shipped five patches (v2.1.139–v2.1.143) since the last
-sync. Highlights: `/goal` and `/scroll-speed` slash commands, the `claude
-agents` Agent View (Research Preview) with a full dispatch flag set, a Stop
-hook safety cap, hook exec form (`args`), `continueOnBlock` for PostToolUse,
-hook `terminalSequence` output, Fast Mode defaulting to Opus 4.7,
-PowerShell-by-default on Windows for Bedrock/Vertex/Foundry, and the
-`worktree.bgIsolation` setting.
+튜토리얼 범위가 Claude Code v2.1.138 → v2.1.143 (2026년 5월 15일 릴리스)로 확장되었습니다. 마지막 동기화 이후 Anthropic은 5개의 패치(v2.1.139–v2.1.143)를 제공했습니다. 주요 변경 사항: `/goal` 및 `/scroll-speed` 슬래시 명령, 전체 디스패치 플래그 세트가 포함된 `claude agents` 에이전트 뷰(연구 미리보기), Stop 훅 안전 제한, 훅 실행 형식(`args`), PostToolUse의 `continueOnBlock`, 훅 `terminalSequence` 출력, Opus 4.7을 기본으로 하는 빠른 모드, Bedrock/Vertex/Foundry용 Windows에서 PowerShell 기본 설정, 그리고 `worktree.bgIsolation` 설정이 추가되었습니다.
 
-### Added
+### 추가됨
 
-- `/goal <statement>` slash command (v2.1.139) — registers a session-level
-  completion condition with a live overlay panel showing elapsed time, turn
-  count, and token usage. Documented in `01-slash-commands/README.md` and
-  cross-linked from `10-cli/README.md`.
-- `/scroll-speed <±N>` slash command (v2.1.139) — tunes TUI live-preview
-  scroll speed; persists per-machine. Documented in
-  `01-slash-commands/README.md`.
-- `claude agents` Agent View (Research Preview, v2.1.139) with dispatch flags
-  `--cwd` (v2.1.141), `--add-dir`, `--settings`, `--mcp-config`,
-  `--plugin-dir`, `--permission-mode`, `--model`, `--effort`,
-  `--dangerously-skip-permissions` (v2.1.142). Documented in
-  `10-cli/README.md`.
-- `claude plugin details <name>` (v2.1.139) — full plugin inventory plus
-  projected per-turn/per-invocation token-cost estimate. LSP servers added
-  to the details pane in v2.1.142. Documented in `07-plugins/README.md`.
-- Marketplace context-cost projection in the `/plugin` browse pane (v2.1.143).
-  Documented in `07-plugins/README.md`.
-- Hook **exec form** (`args: string[]`, v2.1.139) — direct `execve()` spawn
-  with no shell parsing; mutually exclusive with the shell-form `command`
-  field. Documented in `06-hooks/README.md`.
-- Hook `continueOnBlock: true` field on PostToolUse (v2.1.139) — surfaces a
-  blocked tool result back to Claude as a `tool_result` instead of aborting
-  the turn. Documented in `06-hooks/README.md`.
-- Hook `terminalSequence` JSON output field (v2.1.141) — emits raw OSC escape
-  sequences for desktop notifications, window titles, and bells. Documented
-  in `06-hooks/README.md`.
-- `worktree.bgIsolation: "none"` setting (v2.1.143) — background sessions
-  edit the current working copy directly instead of an isolated worktree.
-  Documented in `09-advanced-features/README.md`.
-- `CLAUDE_PROJECT_DIR` is now passed to every MCP stdio server's environment
-  (v2.1.139), and `${CLAUDE_PROJECT_DIR}` substitution is supported in plugin
-  and project `.mcp.json` `command`/`args`/`env` fields. Documented in
-  `05-mcp/README.md`.
-- Subagent OTEL headers `x-claude-code-agent-id` and
-  `x-claude-code-parent-agent-id` (v2.1.139), exposed as
-  `agent_id` / `parent_agent_id` attributes on `claude_code.llm_request`
-  OTEL spans. Documented in `04-subagents/README.md`.
-- `CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE=1` (v2.1.142) — pin Fast Mode back
-  to Opus 4.6 after the v2.1.142 default flipped to Opus 4.7. Documented in
-  `10-cli/README.md`.
-- `CLAUDE_CODE_USE_POWERSHELL_TOOL=0` and
-  `CLAUDE_CODE_POWERSHELL_RESPECT_EXECUTION_POLICY=1` (v2.1.143) — opt out of
-  the default-on PowerShell tool, or make it honor the system execution
-  policy instead of `-ExecutionPolicy Bypass`. Documented in
-  `09-advanced-features/README.md`.
-- `CLAUDE_CODE_STOP_HOOK_BLOCK_CAP` (v2.1.143) — override the 8-consecutive-
-  blocks safety cap for Stop hooks (set `0` to disable). Documented in
-  `06-hooks/README.md` and `09-advanced-features/README.md`.
-- `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` (v2.1.141) — force plugin installs to
-  clone GitHub plugin sources over HTTPS for CI runners without SSH keys.
-  Documented in `07-plugins/README.md`.
-- `ANTHROPIC_WORKSPACE_ID` (v2.1.141) — scopes a federated workload-identity
-  token to a specific workspace. Documented in `09-advanced-features/README.md`.
-- Root-level `SKILL.md` plugin pattern (v2.1.142) — a plugin with only a
-  top-level `SKILL.md` (no `skills/` subdirectory) is surfaced as a single
-  skill. Documented in `07-plugins/README.md`.
-- Plugins marketing name **Routines** for `/schedule` (Anthropic blog,
-  2026-05-14) — surfaced as a one-line note in
-  `09-advanced-features/README.md`; the CLI surface remains `/schedule`.
+- `/goal <statement>` 슬래시 명령 (v2.1.139) — 경과 시간, 턴 수, 토큰 사용량을 보여주는 실시간 오버레이 패널과 함께 세션 수준 완료 조건을 등록합니다. `01-slash-commands/README.md`에 문서화되어 있으며 `10-cli/README.md`에서 상호 연결되어 있습니다.
+- `/scroll-speed <±N>` 슬래시 명령 (v2.1.139) — TUI 실시간 미리보기 스크롤 속도를 조정하며, 머신별로 유지됩니다. `01-slash-commands/README.md`에 문서화되어 있습니다.
+- `claude agents` 에이전트 뷰 (연구 미리보기, v2.1.139)와 디스패치 플래그 `--cwd` (v2.1.141), `--add-dir`, `--settings`, `--mcp-config`, `--plugin-dir`, `--permission-mode`, `--model`, `--effort`, `--dangerously-skip-permissions` (v2.1.142)가 추가되었습니다. `10-cli/README.md`에 문서화되어 있습니다.
+- `claude plugin details <name>` (v2.1.139) — 전체 플러그인 목록과 턴별/호출별 예상 토큰 비용 추정치를 제공합니다. v2.1.142에서는 세부 정보 창에 LSP 서버가 추가되었습니다. `07-plugins/README.md`에 문서화되어 있습니다.
+- `/plugin` 찾아보기 창에 마켓플레이스 컨텍스트 비용 예상치 (v2.1.143)가 추가되었습니다. `07-plugins/README.md`에 문서화되어 있습니다.
+- 훅 **실행 형식** (`args: string[]`, v2.1.139) — 셸 파싱 없이 직접 `execve()`를 생성하며, 셸 형식 `command` 필드와 상호 배타적입니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- PostToolUse의 훅 `continueOnBlock: true` 필드 (v2.1.139) — 차단된 도구 결과를 턴을 중단하는 대신 `tool_result`로 Claude에 다시 전달합니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- 훅 `terminalSequence` JSON 출력 필드 (v2.1.141) — 데스크톱 알림, 창 제목 및 벨소리를 위한 원시 OSC 이스케이프 시퀀스를 방출합니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- `worktree.bgIsolation: "none"` 설정 (v2.1.143) — 백그라운드 세션은 격리된 작업 트리 대신 현재 작업 복사본을 직접 편집합니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `CLAUDE_PROJECT_DIR`은 이제 모든 MCP stdio 서버의 환경으로 전달되며 (v2.1.139), 플러그인 및 프로젝트 `.mcp.json` `command`/`args`/`env` 필드에서 `${CLAUDE_PROJECT_DIR}` 대체가 지원됩니다. `05-mcp/README.md`에 문서화되어 있습니다.
+- 서브에이전트 OTEL 헤더 `x-claude-code-agent-id` 및 `x-claude-code-parent-agent-id` (v2.1.139)는 `claude_code.llm_request` OTEL 스팬의 `agent_id` / `parent_agent_id` 속성으로 노출됩니다. `04-subagents/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE=1` (v2.1.142) — v2.1.142 기본값이 Opus 4.7로 변경된 후 빠른 모드를 Opus 4.6으로 되돌립니다. `10-cli/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_USE_POWERSHELL_TOOL=0` 및 `CLAUDE_CODE_POWERSHELL_RESPECT_EXECUTION_POLICY=1` (v2.1.143) — 기본 활성화된 PowerShell 도구를 선택 해제하거나, `-ExecutionPolicy Bypass` 대신 시스템 실행 정책을 따르도록 설정합니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_STOP_HOOK_BLOCK_CAP` (v2.1.143) — Stop 훅에 대한 8회 연속 블록 안전 제한을 재정의합니다(비활성화하려면 `0`으로 설정). `06-hooks/README.md` 및 `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` (v2.1.141) — SSH 키가 없는 CI 러너를 위해 플러그인 설치 시 GitHub 플러그인 소스를 HTTPS를 통해 강제로 클론하도록 합니다. `07-plugins/README.md`에 문서화되어 있습니다.
+- `ANTHROPIC_WORKSPACE_ID` (v2.1.141) — 연합 워크로드 ID 토큰을 특정 작업 공간으로 범위 지정합니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- 최상위 `SKILL.md` 플러그인 패턴 (v2.1.142) — 최상위 `SKILL.md`만 있고 `skills/` 하위 디렉터리가 없는 플러그인은 단일 스킬로 표시됩니다. `07-plugins/README.md`에 문서화되어 있습니다.
+- `/schedule`의 플러그인 마케팅 이름 **Routines** (Anthropic 블로그, 2026-05-14) — `09-advanced-features/README.md`에 한 줄 메모로 표시됩니다. CLI 표면은 `/schedule`로 유지됩니다.
 
-### Behavior changes
+### 동작 변경
 
-- **Fast Mode default flipped to Opus 4.7 (v2.1.142)**: `/fast` now runs Opus
-  4.7 by default (was Opus 4.6). Set `CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE=1`
-  to opt back in.
-- **PowerShell tool enabled by default on Windows for Bedrock/Vertex/Foundry
-  (v2.1.143)**: Claude Code invokes PowerShell with `-ExecutionPolicy Bypass`.
-  Opt out with `CLAUDE_CODE_POWERSHELL_RESPECT_EXECUTION_POLICY=1` (honor
-  system policy) or `CLAUDE_CODE_USE_POWERSHELL_TOOL=0` (disable the tool).
-- **Remote Control, `/schedule`, claude.ai MCP connectors, and notification
-  preferences auto-disabled when API-key auth is set (v2.1.139)**: setting
-  `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, or `apiKeyHelper` disables all
-  four claude.ai-bridged surfaces, even if a claude.ai login is also active.
-- **Stop hook block loops capped at 8 consecutive blocks (v2.1.143)**: the
-  session ends with a warning after 8 in a row, preventing buggy Stop hooks
-  from looping the session forever. Override with
-  `CLAUDE_CODE_STOP_HOOK_BLOCK_CAP`.
-- **`subagent_type` matching is now case- and separator-insensitive (v2.1.140)**:
-  `code-reviewer`, `Code Reviewer`, and `code_reviewer` all resolve to the
-  same agent. Documented in `04-subagents/README.md`.
+- **빠른 모드 기본값이 Opus 4.7로 변경됨 (v2.1.142)**: `/fast`는 이제 기본적으로 Opus 4.7을 실행합니다(이전에는 Opus 4.6). `CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE=1`을 설정하여 다시 선택할 수 있습니다.
+- **Bedrock/Vertex/Foundry용 Windows에서 PowerShell 도구가 기본적으로 활성화됨 (v2.1.143)**: Claude Code는 `-ExecutionPolicy Bypass`로 PowerShell을 호출합니다. `CLAUDE_CODE_POWERSHELL_RESPECT_EXECUTION_POLICY=1` (시스템 정책 따르기) 또는 `CLAUDE_CODE_USE_POWERSHELL_TOOL=0` (도구 비활성화)으로 선택 해제할 수 있습니다.
+- **API 키 인증 설정 시 원격 제어, `/schedule`, claude.ai MCP 커넥터 및 알림 기본 설정 자동 비활성화 (v2.1.139)**: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, 또는 `apiKeyHelper`를 설정하면 claude.ai 로그인도 활성화되어 있더라도 4가지 claude.ai 연결 표면이 모두 비활성화됩니다.
+- **Stop 훅 블록 루프가 8회 연속 블록으로 제한됨 (v2.1.143)**: 8회 연속 블록 이후 세션이 경고와 함께 종료되어 버그가 있는 Stop 훅이 세션을 무한정 반복하는 것을 방지합니다. `CLAUDE_CODE_STOP_HOOK_BLOCK_CAP`으로 재정의할 수 있습니다.
+- **`subagent_type` 매칭이 이제 대소문자 및 구분자 비구분으로 변경됨 (v2.1.140)**: `code-reviewer`, `Code Reviewer`, `code_reviewer` 모두 동일한 에이전트로 해석됩니다. `04-subagents/README.md`에 문서화되어 있습니다.
 
-### Changed
+### 변경됨
 
-- Root reference docs (`README.md`, `CATALOG.md`) updated from `28 hook
-  events` to `29 hook events` — matches `06-hooks/README.md` and
-  `LEARNING-ROADMAP.md` after the `Setup` hook landed in v2.1.138.
+- `Setup` 훅이 v2.1.138에 추가된 후, 최상위 참조 문서(`README.md`, `CATALOG.md`)가 `28 hook events`에서 `29 hook events`로 업데이트되었습니다. 이는 `06-hooks/README.md` 및 `LEARNING-ROADMAP.md`와 일치합니다.
 
-### Notes for translators
+### 번역자를 위한 참고 사항
 
-- Tutorial translations (`vi/`, `ja/`, `uk/`, `zh/`) follow English; sync
-  this round's deltas in module READMEs and the CHANGELOG above. Footers
-  must reflect `Last Updated: May 19, 2026` and `Claude Code Version: 2.1.143`.
+- 튜토리얼 번역(`vi/`, `ja/`, `uk/`, `zh/`)은 영어를 따릅니다. 이번 라운드의 모듈 README 및 위 변경 로그의 차이점을 동기화하십시오. 푸터는 `최종 업데이트: 2026년 5월 19일` 및 `Claude Code 버전: 2.1.143`을 반영해야 합니다.
 
 ## [v2.1.138] — 2026-05-09
 
-### Synced to Claude Code v2.1.138
+### Claude Code v2.1.138와 동기화
 
-Bumps tutorial coverage from Claude Code v2.1.131 → v2.1.138 (May 9, 2026
-release). Anthropic shipped seven patches between v2.1.132 and v2.1.138 since
-the last sync.
+튜토리얼 범위가 Claude Code v2.1.131 → v2.1.138 (2026년 5월 9일 릴리스)로 확장되었습니다. 마지막 동기화 이후 Anthropic은 v2.1.132부터 v2.1.138까지 7개의 패치를 제공했습니다.
 
-### Added (English docs)
+### 추가됨 (영문 문서)
 
-- `worktree.baseRef` setting (v2.1.133) — controls whether `claude --worktree`
-  branches from `origin/<default>` (`"fresh"`, default) or local `HEAD`
-  (`"head"`). **Behavior change**: the `"fresh"` default reverts the v2.1.128
-  behavior, so users who relied on local-`HEAD` branching after v2.1.128 must
-  opt back in. Documented in `09-advanced-features/README.md`.
-- `autoMode.hard_deny` admin key (v2.1.136) — array of classifier rules that
-  block a class of actions regardless of inferred user intent. Use for
-  actions that must never run in auto mode (e.g., `rm -rf /`, force-push to
-  protected branches). Unlike `soft_deny`, hard-deny rules are not negotiable
-  by the classifier. Documented in `09-advanced-features/README.md`.
-- `parentSettingsBehavior` admin key (v2.1.133+, admin-tier) — controls how
-  the SDK's `managedSettings` merges with parent-process settings.
-  `"first-wins"` keeps existing precedence; `"merge"` deep-merges values.
-  Documented in `09-advanced-features/README.md`.
-- `Setup` hook event — initial environment setup (one-time per session); use
-  to provision tooling or install deps. Brings the documented hook-events
-  total from 28 to 29. Documented in `06-hooks/README.md`.
-- `effort.level` field in hook input JSON (v2.1.133) — exposes the active
-  effort level (`low`/`medium`/`high`/`xhigh`/`max`) to hooks. Documented in
-  `06-hooks/README.md`.
-- `CLAUDE_CODE_SESSION_ID` environment variable in Bash subprocesses
-  (v2.1.132) — session UUID matching the `session_id` field in hook input
-  JSON, for correlating bash logs with hook telemetry. Documented in
-  `06-hooks/README.md`.
-- `CLAUDE_EFFORT` environment variable in Bash subprocesses (v2.1.133) —
-  active effort level, matching `effort.level` in hook input JSON. Documented
-  in `06-hooks/README.md`.
-- `sandbox.bwrapPath` and `sandbox.socatPath` settings (v2.1.133+, Linux/WSL)
-  — point Claude Code at non-standard install locations for `bubblewrap` and
-  `socat`. Default to `$PATH` lookup. Documented in
-  `09-advanced-features/README.md`.
-- `CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN` environment variable (v2.1.132).
-  Documented in `09-advanced-features/README.md`.
-- `CLAUDE_CODE_ENABLE_FEEDBACK_SURVEY_FOR_OTEL` environment variable
-  (v2.1.136) — re-enables the session-quality survey for organizations
-  capturing OpenTelemetry data; off by default in OTEL deployments.
-  Documented in `09-advanced-features/README.md`.
+- `worktree.baseRef` 설정 (v2.1.133) — `claude --worktree`가 `origin/<default>` (`"fresh"`, 기본값)에서 분기할지 아니면 로컬 `HEAD` (`"head"`)에서 분기할지 제어합니다. **동작 변경**: `"fresh"` 기본값은 v2.1.128의 동작을 되돌리므로, v2.1.128 이후 로컬 `HEAD` 분기에 의존했던 사용자는 다시 선택해야 합니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `autoMode.hard_deny` 관리 키 (v2.1.136) — 추론된 사용자 의도와 관계없이 특정 종류의 작업을 차단하는 분류자 규칙 배열입니다. 자동 모드에서 절대로 실행되어서는 안 되는 작업(예: `rm -rf /`, 보호된 브랜치로 강제 푸시)에 사용됩니다. `soft_deny`와 달리, 하드 거부 규칙은 분류자에 의해 협상되지 않습니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `parentSettingsBehavior` 관리 키 (v2.1.133 이상, 관리자 등급) — SDK의 `managedSettings`가 상위 프로세스 설정과 병합되는 방식을 제어합니다. `"first-wins"`는 기존 우선 순위를 유지하고, `"merge"`는 값을 깊이 병합합니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `Setup` 훅 이벤트 — 초기 환경 설정(세션당 1회); 도구를 프로비저닝하거나 종속성을 설치하는 데 사용합니다. 문서화된 훅 이벤트 총 개수가 28개에서 29개로 증가했습니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- 훅 입력 JSON의 `effort.level` 필드 (v2.1.133) — 활성 노력 수준(`low`/`medium`/`high`/`xhigh`/`max`)을 훅에 노출합니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- Bash 서브프로세스의 `CLAUDE_CODE_SESSION_ID` 환경 변수 (v2.1.132) — 훅 입력 JSON의 `session_id` 필드와 일치하는 세션 UUID로, Bash 로그를 훅 텔레메트리와 연관시키는 데 사용됩니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- Bash 서브프로세스의 `CLAUDE_EFFORT` 환경 변수 (v2.1.133) — 훅 입력 JSON의 `effort.level`과 일치하는 활성 노력 수준입니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- `sandbox.bwrapPath` 및 `sandbox.socatPath` 설정 (v2.1.133 이상, Linux/WSL) — `bubblewrap` 및 `socat`의 비표준 설치 위치를 Claude Code에 지정합니다. 기본값은 `$PATH` 검색입니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN` 환경 변수 (v2.1.132). `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_ENABLE_FEEDBACK_SURVEY_FOR_OTEL` 환경 변수 (v2.1.136) — OpenTelemetry 데이터를 캡처하는 조직을 위해 세션 품질 설문조사를 다시 활성화합니다. OTEL 배포에서는 기본적으로 비활성화되어 있습니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
 
-### Changed
+### 변경됨
 
-- **Behavior change**: Plan mode now blocks all file writes unconditionally
-  (v2.1.136), including when a matching `Edit(...)` rule exists in
-  `permissions.allow`. Previously a permissive `Edit(...)` rule could let
-  writes through in plan mode; that bypass is closed. Workflows that
-  depended on the older behavior must exit plan mode (`Shift+Tab`) before
-  editing. Documented in `09-advanced-features/README.md`.
-- Plugin spaced slash commands (e.g., `/myplugin review`) now resolve to
-  `/myplugin:review`. Plugin `skills` config entries no longer hide the
-  default `skills/` directory — both are merged. Documented in
-  `07-plugins/README.md`.
-- MCP servers now persist across `/clear` (v2.1.132+). Documented in
-  `05-mcp/README.md`.
-- Subagents discover project, user, and plugin skills via the Skill tool
-  (v2.1.133). Documented in `04-subagents/README.md`.
-- `--permission-mode` is now honored when resuming plan-mode sessions
-  (v2.1.132). Documented in `09-advanced-features/README.md`.
-- `CronList` output now includes the qualifier(s) and the scheduled prompt
-  body (v2.1.136), so you can audit what each cron will run without opening
-  it. Documented in `09-advanced-features/README.md`.
+- **동작 변경**: 계획 모드는 이제 `permissions.allow`에 일치하는 `Edit(...)` 규칙이 있는 경우에도 모든 파일 쓰기를 무조건 차단합니다(v2.1.136). 이전에는 관대한 `Edit(...)` 규칙이 계획 모드에서 쓰기를 허용할 수 있었지만, 해당 우회 경로는 폐쇄되었습니다. 이전 동작에 의존했던 워크플로는 편집 전에 계획 모드(`Shift+Tab`)를 종료해야 합니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- 플러그인 공백 슬래시 명령(예: `/myplugin review`)은 이제 `/myplugin:review`로 해석됩니다. 플러그인 `skills` 구성 항목은 더 이상 기본 `skills/` 디렉터리를 숨기지 않으며, 둘 다 병합됩니다. `07-plugins/README.md`에 문서화되어 있습니다.
+- MCP 서버는 이제 `/clear` 명령을 실행해도 유지됩니다(v2.1.132 이상). `05-mcp/README.md`에 문서화되어 있습니다.
+- 서브에이전트는 스킬 도구(v2.1.133)를 통해 프로젝트, 사용자 및 플러그인 스킬을 검색합니다. `04-subagents/README.md`에 문서화되어 있습니다.
+- `--permission-mode`는 이제 계획 모드 세션을 재개할 때 적용됩니다(v2.1.132). `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `CronList` 출력에 이제 한정자 및 예약된 프롬프트 본문이 포함되어(v2.1.136), 각 cron이 무엇을 실행할지 열어보지 않고도 감사할 수 있습니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
 
-### Fixed
+### 수정됨
 
-- OAuth refresh-token concurrent-refresh race condition.
-- INDEX.md count drift: Skills 28 → 16, Plugins 40 → 27, Hooks scripts
-  8 → 9 (recounted from the markdown content tree). The new totals reflect a
-  `.md`-only methodology that scopes counts to tutorial content rather than
-  build artifacts and config.
-- Stale source URLs in `CATALOG.md` (v2.1.118 → v2.1.138) and
-  `claude_concepts_guide.md` (v2.1.117 → v2.1.138). Removed a duplicate
-  legacy footer in the concepts guide.
+- OAuth 새로 고침 토큰 동시 새로 고침 경쟁 조건을 수정했습니다.
+- INDEX.md 개수 불일치: 스킬 28 → 16, 플러그인 40 → 27, 훅 스크립트 8 → 9 (마크다운 콘텐츠 트리에서 다시 계산됨). 새로운 총계는 빌드 아티팩트 및 구성 대신 튜토리얼 콘텐츠에 개수를 제한하는 `.md` 전용 방법론을 반영합니다.
+- `CATALOG.md` (v2.1.118 → v2.1.138) 및 `claude_concepts_guide.md` (v2.1.117 → v2.1.138)의 오래된 소스 URL을 수정했습니다. 개념 가이드에서 중복된 레거시 푸터를 제거했습니다.
 
-### Notes for translation maintainers
+### 번역 관리자를 위한 참고 사항
 
-The `vi/`, `zh/`, `uk/`, and `ja/` localized trees are community-maintained
-and may lag the English source. Contributors syncing translations should diff
-against the English files updated in this release.
+`vi/`, `zh/`, `uk/`, `ja/` 로컬라이즈된 트리는 커뮤니티에서 유지 관리되며 영어 원본보다 지연될 수 있습니다. 번역을 동기화하는 기여자는 이 릴리스에서 업데이트된 영어 파일과 차이점을 비교해야 합니다.
 
 ## [v2.1.131] — 2026-05-06
 
-### Synced to Claude Code v2.1.131
+### Claude Code v2.1.131와 동기화
 
-Bumps tutorial coverage from Claude Code v2.1.126 → v2.1.131 (May 6, 2026
-release). Anthropic shipped v2.1.128, v2.1.129, and v2.1.131 since the last
-sync; v2.1.127 and v2.1.130 were skipped and never released publicly.
+튜토리얼 범위가 Claude Code v2.1.126 → v2.1.131 (2026년 5월 6일 릴리스)로 확장되었습니다. 마지막 동기화 이후 Anthropic은 v2.1.128, v2.1.129, v2.1.131을 제공했습니다. v2.1.127 및 v2.1.130은 건너뛰어졌고 공개적으로 릴리스되지 않았습니다.
 
-### Added (English docs)
+### 추가됨 (영문 문서)
 
-- `--plugin-url <url>` flag (v2.1.129) — fetches a plugin `.zip` archive from
-  a URL for the current session. Repeatable. Documented in
-  `07-plugins/README.md`.
-- `CLAUDE_CODE_FORCE_SYNC_OUTPUT` env var (v2.1.129) — forces synchronous
-  output for terminals where auto-detection misses (e.g., Emacs `eat`).
-  Documented in `10-cli/README.md` and `09-advanced-features/README.md`.
-- `CLAUDE_CODE_PACKAGE_MANAGER_AUTO_UPDATE` env var (v2.1.129) — enables
-  background upgrades for Homebrew/WinGet installs (which normally do not
-  auto-update). Documented in `10-cli/README.md` and
-  `09-advanced-features/README.md`.
-- `CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY` env var (v2.1.129) — required
-  to opt in to `/v1/models` gateway discovery (see Changed). Documented in
-  `10-cli/README.md`.
-- `disableRemoteControl` setting (v2.1.128) — admins can block
-  `claude remote-control` and `/remote-control` via managed/policy scope.
-  Documented in `09-advanced-features/README.md`.
-- `--plugin-dir` accepts `.zip` archives (v2.1.128) — alongside directory
-  inputs. Documented in `07-plugins/README.md`.
-- `skillOverrides` accepts `"name-only"` and `"user-invocable-only"`
-  (v2.1.129) — in addition to the previous `"on"`/`"off"`. Documented in
-  `03-skills/README.md`.
+- `--plugin-url <url>` 플래그 (v2.1.129) — 현재 세션을 위해 URL에서 플러그인 `.zip` 아카이브를 가져옵니다. 반복 가능합니다. `07-plugins/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_FORCE_SYNC_OUTPUT` 환경 변수 (v2.1.129) — 자동 감지가 실패하는 터미널(예: Emacs `eat`)에 대해 동기식 출력을 강제합니다. `10-cli/README.md` 및 `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_PACKAGE_MANAGER_AUTO_UPDATE` 환경 변수 (v2.1.129) — Homebrew/WinGet 설치(일반적으로 자동 업데이트되지 않음)에 대한 백그라운드 업그레이드를 활성화합니다. `10-cli/README.md` 및 `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY` 환경 변수 (v2.1.129) — `/v1/models` 게이트웨이 검색에 옵트인하는 데 필요합니다(변경됨 섹션 참조). `10-cli/README.md`에 문서화되어 있습니다.
+- `disableRemoteControl` 설정 (v2.1.128) — 관리자는 관리/정책 범위 설정을 통해 `claude remote-control` 및 `/remote-control`을 차단할 수 있습니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `--plugin-dir`는 디렉터리 입력과 함께 `.zip` 아카이브를 허용합니다(v2.1.128). `07-plugins/README.md`에 문서화되어 있습니다.
+- `skillOverrides`는 기존의 `"on"`/`"off"` 외에 `"name-only"` 및 `"user-invocable-only"`를 허용합니다(v2.1.129). `03-skills/README.md`에 문서화되어 있습니다.
 
-### Changed
+### 변경됨
 
-- **Behavior change**: Gateway `/v1/models` discovery is now **opt-in**
-  (v2.1.129). Previously (v2.1.126), setting `ANTHROPIC_BASE_URL` automatically
-  populated `/model` from the gateway's `/v1/models` endpoint. From v2.1.129,
-  users must additionally set `CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1`;
-  without the env var, `/model` falls back to the built-in static list.
-  Documented in `10-cli/README.md`.
-- `/mcp` shows tool count per server and visually flags servers reporting 0
-  tools (v2.1.128). Documented in `05-mcp/README.md`.
-- Bare `/color` (no args) picks a random session color (v2.1.128); explicit
-  `/color <name|hex>` continues to set a specific color. Documented in
-  `01-slash-commands/README.md`.
-- `--channels` flag now works with API-key (console) authentication
-  (v2.1.128). Earlier releases required Pro/Max OAuth. Documented in
-  `09-advanced-features/README.md`.
-- Ctrl+R history picker defaults to **all prompts across all projects**
-  (v2.1.129). Press Ctrl+S inside the picker to narrow scope to the current
-  project. Documented in `09-advanced-features/README.md`.
-- `/context` no longer dumps its ASCII visualization into the conversation
-  (v2.1.129). The viz is shown in-UI only; no more ~1.6k token cost per
-  invocation. Documented in `09-advanced-features/README.md`.
-- Oversized images in drag-and-drop are auto-downscaled (v2.1.128) — earlier
-  versions rejected images outright.
+- **동작 변경**: 게이트웨이 `/v1/models` 검색이 이제 **선택 사항**으로 변경되었습니다(v2.1.129). 이전(v2.1.126)에는 `ANTHROPIC_BASE_URL`을 설정하면 게이트웨이의 `/v1/models` 엔드포인트에서 `/model`이 자동으로 채워졌습니다. v2.1.129부터는 사용자가 추가로 `CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1`을 설정해야 합니다. 이 환경 변수가 없으면 `/model`은 내장된 정적 목록으로 대체됩니다. `10-cli/README.md`에 문서화되어 있습니다.
+- `/mcp`는 서버별 도구 수를 표시하고, 0개의 도구를 보고하는 서버를 시각적으로 표시합니다(v2.1.128). `05-mcp/README.md`에 문서화되어 있습니다.
+- 인수가 없는 `/color`는 무작위 세션 색상을 선택합니다(v2.1.128). 명시적인 `/color <name|hex>`는 특정 색상을 계속 설정합니다. `01-slash-commands/README.md`에 문서화되어 있습니다.
+- `--channels` 플래그는 이제 API 키(콘솔) 인증과 함께 작동합니다(v2.1.128). 이전 릴리스에서는 Pro/Max OAuth가 필요했습니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- Ctrl+R 기록 선택기는 기본적으로 **모든 프로젝트의 모든 프롬프트**를 표시합니다(v2.1.129). 선택기 내에서 Ctrl+S를 눌러 현재 프로젝트로 범위를 좁힐 수 있습니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- `/context`는 더 이상 ASCII 시각화를 대화에 덤프하지 않습니다(v2.1.129). 시각화는 UI 내에서만 표시되며, 호출당 약 1.6k 토큰 비용이 더 이상 발생하지 않습니다. `09-advanced-features/README.md`에 문서화되어 있습니다.
+- 드래그 앤 드롭에서 너무 큰 이미지는 자동으로 축소됩니다(v2.1.128) — 이전 버전에서는 이미지를 즉시 거부했습니다.
 
-### Fixed
+### 수정됨
 
-- VS Code extension activation on Windows (v2.1.131).
-- Mantle endpoint authentication (v2.1.131).
-- 1-hour prompt-cache TTL no longer truncated to 5 minutes (v2.1.129).
-- Crash on stdin payloads larger than 10 MB (v2.1.128).
+- Windows에서 VS Code 확장 활성화 문제를 수정했습니다(v2.1.131).
+- Mantle 엔드포인트 인증 문제를 수정했습니다(v2.1.131).
+- 1시간 프롬프트 캐시 TTL이 더 이상 5분으로 잘리지 않습니다(v2.1.129).
+- 10MB보다 큰 stdin 페이로드에서 발생하는 충돌 문제를 수정했습니다(v2.1.128).
 
-### Notes for translation maintainers
+### 번역 관리자를 위한 참고 사항
 
-The `vi/`, `zh/`, `uk/`, and `ja/` localized trees are community-maintained
-and may lag the English source. Contributors syncing translations should diff
-against the English files updated in this release.
+`vi/`, `zh/`, `uk/`, `ja/` 로컬라이즈된 트리는 커뮤니티에서 유지 관리되며 영어 원본보다 지연될 수 있습니다. 번역을 동기화하는 기여자는 이 릴리스에서 업데이트된 영어 파일과 차이점을 비교해야 합니다.
 
 ## [v2.1.126] — 2026-05-02
 
-### Synced to Claude Code v2.1.126
+### Claude Code v2.1.126와 동기화
 
-Bumps tutorial coverage from Claude Code v2.1.119 → v2.1.126 (May 1, 2026 release).
-v2.1.120 was rolled back on its first release day (2026-04-24) but re-released
-successfully on 2026-04-28 with the originally-reported regressions fixed.
-v2.1.124 and v2.1.125 were skipped by Anthropic and never released.
+튜토리얼 범위가 Claude Code v2.1.119 → v2.1.126 (2026년 5월 1일 릴리스)로 확장되었습니다. v2.1.120은 첫 릴리스 당일(2026년 4월 24일) 롤백되었지만, 원래 보고된 회귀 문제가 수정되어 2026년 4월 28일에 성공적으로 재릴리스되었습니다. v2.1.124와 v2.1.125는 Anthropic에 의해 건너뛰어졌고 릴리스되지 않았습니다.
 
-### Added (English docs)
+### 추가됨 (영문 문서)
 
-- `claude project purge [path]` subcommand (v2.1.126) — deletes all Claude Code
-  state for a project (transcripts, tasks, debug logs, file-edit history,
-  prompt history, `~/.claude.json` entry). Supports `--dry-run`, `-y/--yes`,
-  `-i/--interactive`, `--all`. Documented in `10-cli/README.md`.
-- `claude plugin prune` subcommand (v2.1.121) — removes orphaned auto-installed
-  plugin dependencies; `plugin uninstall --prune` cascades. Documented in
-  `07-plugins/README.md`.
-- `claude ultrareview [target]` subcommand (v2.1.120) — runs `/ultrareview`
-  non-interactively from CI/scripts, prints findings to stdout, exits 0/1 on
-  success/failure; supports `--json` and `--timeout <minutes>`. Documented in
-  `10-cli/README.md`.
-- `${CLAUDE_EFFORT}` placeholder available inside skill content (v2.1.120) —
-  resolves to the current effort level. Documented in `03-skills/README.md`.
-- `alwaysLoad` MCP server config option (v2.1.121) — when `true`, all tools
-  from that server skip tool-search deferral. Documented in `05-mcp/README.md`.
-- `PostToolUse.hookSpecificOutput.updatedToolOutput` now works for all tools
-  (v2.1.121), previously MCP-only. Documented in `06-hooks/README.md`.
-- `ANTHROPIC_BEDROCK_SERVICE_TIER` environment variable (v2.1.122) — selects
-  Bedrock service tier (`default`, `flex`, `priority`). Documented in
-  `10-cli/README.md` env-var table.
-- `--dangerously-skip-permissions` extended-path coverage (v2.1.121, v2.1.126)
-  — now bypasses prompts for writes to `.claude/skills/`, `.claude/agents/`,
-  `.claude/commands/`, `.claude/`, `.git/`, `.vscode/`, shell config files.
-  Catastrophic removal commands (`rm -rf /` etc.) still prompt. Documented in
-  `09-advanced-features/README.md` permission-modes section.
-- OAuth code paste fallback (v2.1.126) — `claude auth login` accepts the OAuth
-  code pasted into the terminal when the browser callback can't reach
-  localhost (WSL2, SSH, containers). Documented in `10-cli/README.md`.
-- Type-to-filter `/skills` menu (v2.1.121). Documented in `03-skills/README.md`.
-- `AI_AGENT` environment variable (v2.1.120) — set on subprocesses so `gh` can
-  attribute traffic to Claude Code. Documented in `10-cli/README.md` env-var
-  table.
+- `claude project purge [path]` 서브커맨드 (v2.1.126) — 프로젝트의 모든 Claude Code 상태(대화 기록, 작업, 디버그 로그, 파일 편집 기록, 프롬프트 기록, `~/.claude.json` 항목)를 삭제합니다. `--dry-run`, `-y/--yes`, `-i/--interactive`, `--all` 옵션을 지원합니다. `10-cli/README.md`에 문서화되어 있습니다.
+- `claude plugin prune` 서브커맨드 (v2.1.121) — 고아 상태의 자동 설치된 플러그인 종속성을 제거합니다. `plugin uninstall --prune`은 연쇄적으로 작동합니다. `07-plugins/README.md`에 문서화되어 있습니다.
+- `claude ultrareview [target]` 서브커맨드 (v2.1.120) — CI/스크립트에서 `/ultrareview`를 비대화형으로 실행하고, 발견 사항을 표준 출력으로 인쇄하며, 성공 시 0, 실패 시 1로 종료합니다. `--json` 및 `--timeout <minutes>` 옵션을 지원합니다. `10-cli/README.md`에 문서화되어 있습니다.
+- 스킬 내용 내에서 `${CLAUDE_EFFORT}` 플레이스홀더 사용 가능 (v2.1.120) — 현재 노력 수준으로 해석됩니다. `03-skills/README.md`에 문서화되어 있습니다。
+- `alwaysLoad` MCP 서버 구성 옵션 (v2.1.121) — `true`인 경우, 해당 서버의 모든 도구는 도구 검색 연기를 건너뜁니다. `05-mcp/README.md`에 문서화되어 있습니다.
+- `PostToolUse.hookSpecificOutput.updatedToolOutput`은 이제 모든 도구에서 작동합니다(v2.1.121). 이전에는 MCP 전용이었습니다. `06-hooks/README.md`에 문서화되어 있습니다.
+- `ANTHROPIC_BEDROCK_SERVICE_TIER` 환경 변수 (v2.1.122) — Bedrock 서비스 티어(`default`, `flex`, `priority`)를 선택합니다. `10-cli/README.md` 환경 변수 표에 문서화되어 있습니다.
+- `--dangerously-skip-permissions` 확장 경로 적용 범위 (v2.1.121, v2.1.126) — 이제 `.claude/skills/`, `.claude/agents/`, `.claude/commands/`, `.claude/`, `.git/`, `.vscode/`, 셸 구성 파일에 대한 쓰기 프롬프트를 우회합니다. 치명적인 삭제 명령(`rm -rf /` 등)은 여전히 프롬프트를 표시합니다. `09-advanced-features/README.md`의 권한 모드 섹션에 문서화되어 있습니다.
+- OAuth 코드 붙여넣기 폴백 (v2.1.126) — 브라우저 콜백이 localhost에 도달할 수 없을 때(WSL2, SSH, 컨테이너), `claude auth login`은 터미널에 붙여넣은 OAuth 코드를 허용합니다. `10-cli/README.md`에 문서화되어 있습니다.
+- `/skills` 메뉴의 입력 필터링 기능 (v2.1.121). `03-skills/README.md`에 문서화되어 있습니다.
+- `AI_AGENT` 환경 변수 (v2.1.120) — `gh`가 트래픽을 Claude Code에 귀속시킬 수 있도록 서브프로세스에 설정됩니다. `10-cli/README.md` 환경 변수 표에 문서화되어 있습니다.
 
-### Changed
+### 변경됨
 
-- `--from-pr` (v2.1.119) and `/resume` PR-URL search (v2.1.122) now both
-  support GitHub, GitHub Enterprise, GitLab, and Bitbucket URLs.
-- Windows: Git for Windows / Git Bash no longer required (v2.1.120) — Claude
-  Code uses PowerShell as the shell tool when Git Bash is absent. From v2.1.126,
-  PowerShell is the primary shell when the PowerShell tool is enabled. Detection
-  extended to PowerShell 7 installed via Microsoft Store, MSI without PATH, or
-  `.NET global tool`. Documented in `09-advanced-features/README.md` platform
-  notes.
-- `/model` picker now lists models from your gateway's `/v1/models` endpoint
-  when `ANTHROPIC_BASE_URL` points at an Anthropic-compatible gateway
-  (v2.1.126). Documented in `10-cli/README.md`.
-- `--dangerously-skip-permissions` no longer prompts for writes to a much
-  broader allowlist (see Added). Catastrophic removals still prompt.
-- Image paste auto-downscale (v2.1.126) — images larger than 2000px are
-  downscaled on paste; oversized images in history are auto-removed and the
-  request retried. (Tutorial-relevant only as a safety/UX note.)
+- `--from-pr` (v2.1.119) 및 `/resume` PR-URL 검색 (v2.1.122)은 이제 GitHub, GitHub Enterprise, GitLab 및 Bitbucket URL을 모두 지원합니다.
+- Windows: Git for Windows / Git Bash는 더 이상 필요하지 않습니다(v2.1.120) — Git Bash가 없는 경우 Claude Code는 PowerShell을 셸 도구로 사용합니다. v2.1.126부터는 PowerShell 도구가 활성화되면 PowerShell이 기본 셸이 됩니다. Microsoft Store, PATH가 없는 MSI, 또는 `.NET 전역 도구`를 통해 설치된 PowerShell 7까지 감지 범위가 확장되었습니다. `09-advanced-features/README.md` 플랫폼 노트에 문서화되어 있습니다.
+- `ANTHROPIC_BASE_URL`이 Anthropic 호환 게이트웨이를 가리킬 때, `/model` 선택기는 이제 게이트웨이의 `/v1/models` 엔드포인트에서 모델을 나열합니다(v2.1.126). `10-cli/README.md`에 문서화되어 있습니다.
+- `--dangerously-skip-permissions`는 이제 훨씬 더 넓은 허용 목록에 대한 쓰기 프롬프트를 더 이상 표시하지 않습니다(추가됨 섹션 참조). 치명적인 제거 명령은 여전히 프롬프트를 표시합니다.
+- 이미지 붙여넣기 자동 축소 (v2.1.126) — 2000px보다 큰 이미지는 붙여넣기 시 자동으로 축소됩니다. 기록에 있는 너무 큰 이미지는 자동으로 제거되고 요청이 재시도됩니다. (안전/UX 참고 사항으로서만 튜토리얼과 관련이 있습니다.)
 
-### Security
+### 보안
 
-- Fixed `allowManagedDomainsOnly` / `allowManagedReadPathsOnly` being ignored
-  when a higher-priority managed-settings source lacked a `sandbox` block
-  (v2.1.126).
+- 더 높은 우선순위의 관리 설정 소스에 `sandbox` 블록이 없을 때 `allowManagedDomainsOnly` / `allowManagedReadPathsOnly`가 무시되던 문제를 수정했습니다(v2.1.126).
 
-### Notes for translation maintainers
+### 번역 관리자를 위한 참고 사항
 
-The `vi/`, `zh/`, `uk/`, and `ja/` localized trees are community-maintained
-and may lag the English source. Contributors syncing translations should diff
-against the English files updated in this release.
+`vi/`, `zh/`, `uk/`, `ja/` 로컬라이즈된 트리는 커뮤니티에서 유지 관리되며 영어 원본보다 지연될 수 있습니다. 번역을 동기화하는 기여자는 이 릴리스에서 업데이트된 영어 파일과 차이점을 비교해야 합니다.
 
 ## [v2.4.0] — 2026-04-27
 
-### Synced to Claude Code v2.1.119
+### Claude Code v2.1.119와 동기화
 
-Bumps tutorial coverage from Claude Code v2.1.112 → v2.1.119 (April 23, 2026 release).
-v2.1.120 was published April 24, briefly rolled back the same day due to regressions,
-and re-released on April 28 with fixes — it is now part of the normal release line.
-A subsequent v2.1.126 (May 1, 2026) is the next stable target and is covered in the
-v2.1.126 entry above.
+튜토리얼 범위가 Claude Code v2.1.112 → v2.1.119 (2026년 4월 23일 릴리스)로 확장되었습니다. v2.1.120은 4월 24일에 게시되었으나, 회귀 문제로 인해 같은 날 잠시 롤백된 후 4월 28일에 수정 사항과 함께 재릴리스되어 이제 일반 릴리스 라인의 일부가 되었습니다. 이후 v2.1.126 (2026년 5월 1일)은 다음 안정적인 목표이며 위 v2.1.126 항목에서 다루고 있습니다.
 
-### Added (English docs)
+### 추가됨 (영문 문서)
 
-- Native binary packaging note (v2.1.113) — CLI now ships per-platform native binaries
-- `bfs`/`ugrep` Glob/Grep substitution footnote on native macOS/Linux builds (v2.1.117)
-- `mcp_tool` hook type with example (v2.1.118)
-- `duration_ms` field on PostToolUse / PostToolUseFailure inputs (v2.1.119)
-- `prUrlTemplate` setting (v2.1.119) and expanded `--from-pr` provider list (GitLab, Bitbucket)
-- `cleanupPeriodDays` extended scope (checkpoints + tasks + shell-snapshots + backups, v2.1.117)
-- Plugin marketplace enforcement on every lifecycle event (v2.1.117) and `hostPattern`/`pathPattern` regex (v2.1.119)
-- New env vars: `DISABLE_UPDATES`, `CLAUDE_CODE_HIDE_CWD`, `CLAUDE_CODE_FORK_SUBAGENT`, `OTEL_LOG_TOOL_DETAILS`, `ENABLE_TOOL_SEARCH` Vertex opt-in
-- New slash commands: `/btw`, `/theme` with custom themes
-- `/usage` canonical command (merges `/cost` + `/stats`, v2.1.118)
-- Forked subagents (`CLAUDE_CODE_FORK_SUBAGENT=1`, v2.1.117)
-- Auto mode `"$defaults"` token (v2.1.118)
-- `wslInheritsWindowsSettings` managed policy (v2.1.118)
-- Vim visual / visual-line modes (v2.1.118)
-- `claude install [version]` and `claude plugin tag` subcommands
+- 네이티브 바이너리 패키징 참고 사항 (v2.1.113) — CLI는 이제 플랫폼별 네이티브 바이너리를 제공합니다.
+- 네이티브 macOS/Linux 빌드에서 `bfs`/`ugrep` Glob/Grep 대체 각주 (v2.1.117)
+- 예제와 함께 `mcp_tool` 훅 유형 (v2.1.118)
+- PostToolUse / PostToolUseFailure 입력의 `duration_ms` 필드 (v2.1.119)
+- `prUrlTemplate` 설정 (v2.1.119) 및 확장된 `--from-pr` 공급자 목록 (GitLab, Bitbucket)
+- `cleanupPeriodDays` 확장 범위 (체크포인트 + 작업 + 셸 스냅샷 + 백업, v2.1.117)
+- 모든 라이프사이클 이벤트에서 플러그인 마켓플레이스 강제 적용 (v2.1.117) 및 `hostPattern`/`pathPattern` 정규식 (v2.1.119)
+- 새로운 환경 변수: `DISABLE_UPDATES`, `CLAUDE_CODE_HIDE_CWD`, `CLAUDE_CODE_FORK_SUBAGENT`, `OTEL_LOG_TOOL_DETAILS`, `ENABLE_TOOL_SEARCH` Vertex 선택적 참여
+- 새로운 슬래시 명령: `/btw`, 사용자 정의 테마를 포함한 `/theme`
+- `/usage` 표준 명령 ( `/cost` + `/stats` 병합, v2.1.118)
+- 포크된 서브에이전트 (`CLAUDE_CODE_FORK_SUBAGENT=1`, v2.1.117)
+- 자동 모드 `"$defaults"` 토큰 (v2.1.118)
+- `wslInheritsWindowsSettings` 관리 정책 (v2.1.118)
+- Vim 시각/시각-라인 모드 (v2.1.118)
+- `claude install [version]` 및 `claude plugin tag` 서브커맨드
 
-### Changed
+### 변경됨
 
-- Documentation host migrated: `docs.anthropic.com/en/docs/claude-code/*` → `code.claude.com/docs/en/*`
-- Opus 4.7 effort levels: `xhigh` is now the Claude Code default since the 2026-04-16 launch; Opus 4.7 native context window confirmed at 1M (v2.1.117 fixed `/context` miscounting it as 200K)
-- Default effort raised from `medium` to `high` for Pro/Max subscribers on Opus 4.6 / Sonnet 4.6 (v2.1.117)
-- `STYLE_GUIDE.md` Source URL updated from Claude Apps article to `code.claude.com/docs/en/changelog`
+- 문서 호스트가 이전되었습니다: `docs.anthropic.com/en/docs/claude-code/*` → `code.claude.com/docs/en/*`
+- Opus 4.7 노력 수준: `xhigh`는 2026년 4월 16일 출시 이후 Claude Code의 기본값이 되었습니다. Opus 4.7 네이티브 컨텍스트 창은 1M으로 확인되었습니다 (v2.1.117에서 `/context`가 200K로 잘못 계산하던 문제 수정).
+- Pro/Max 구독자의 Opus 4.6 / Sonnet 4.6 기본 노력 수준이 `medium`에서 `high`로 상향 조정되었습니다 (v2.1.117).
+- `STYLE_GUIDE.md`의 소스 URL이 Claude Apps 문서에서 `code.claude.com/docs/en/changelog`로 업데이트되었습니다.
 
-### Deprecated (tracked, not removed)
+### 지원 중단됨 (추적 중, 제거되지 않음)
 
-- `includeCoAuthoredBy` setting → use `attribution.commit` / `attribution.pr`
-- `voiceEnabled` setting → use `voice.enabled`
+- `includeCoAuthoredBy` 설정 → `attribution.commit` / `attribution.pr` 사용
+- `voiceEnabled` 설정 → `voice.enabled` 사용
 
-### Notes for translation maintainers
+### 번역 관리자를 위한 참고 사항
 
-The `vi/`, `zh/`, and `uk/` localized trees are community-maintained and may lag the English source. Contributors syncing translations should diff against the English files updated in this release.
+`vi/`, `zh/`, `uk/` 로컬라이즈된 트리는 커뮤니티에서 유지 관리되며 영어 원본보다 지연될 수 있습니다. 번역을 동기화하는 기여자는 이 릴리스에서 업데이트된 영어 파일과 차이점을 비교해야 합니다.
 
 ## v2.1.112 — 2026-04-16
 
-### Highlights
+### 주요 변경 사항
 
-- Sync all English tutorials with Claude Code v2.1.112 and the new Opus 4.7 model (`claude-opus-4-7`), including the new `xhigh` effort level (default on Opus 4.7, between `high` and `max`), two new built-in slash commands (`/ultrareview`, `/less-permission-prompts`), auto-mode no longer requiring `--enable-auto-mode` for Max subscribers on Opus 4.7, the PowerShell tool on Windows, the "Auto (match terminal)" theme, and plan files named after prompts. All 18 EN doc footers bumped to Claude Code v2.1.112. @Luong NGUYEN
+- 모든 영어 튜토리얼을 Claude Code v2.1.112 및 새로운 Opus 4.7 모델(`claude-opus-4-7`)과 동기화했습니다. 여기에는 새로운 `xhigh` 노력 수준(Opus 4.7의 기본값으로 `high`와 `max` 사이), 두 가지 새로운 내장 슬래시 명령(`/ultrareview`, `/less-permission-prompts`), Opus 4.7 Max 구독자에게 더 이상 `--enable-auto-mode`가 필요 없는 자동 모드, Windows의 PowerShell 도구, "자동(터미널 일치)" 테마, 그리고 프롬프트 이름을 따서 명명된 계획 파일이 포함됩니다. 모든 18개 EN 문서 푸터는 Claude Code v2.1.112로 업데이트되었습니다. @Luong NGUYEN
 
-### Features
+### 기능
 
-- Add complete Ukrainian (uk) localization across all modules, root docs, examples, and references (039dde2) @Evgenij I
+- 모든 모듈, 최상위 문서, 예제 및 참조에 걸쳐 완전한 우크라이나어(uk) 현지화 추가 (039dde2) @Evgenij I
 
-### Bug Fixes
+### 버그 수정
 
-- Correct pre-tool-check.sh hook protocol bugs (bce7cf8) @yarlinghe
-- Change bad mermaid example to text block to pass CI (b8a7b1f) @Evgenij I
-- Fix CP1251 encoding in Ukrainian claude_concepts_guide.md ToC (d970cc6) @Evgenij I
-- Replace stub Ukrainian README with full translation, fix broken anchors (f6d73e2) @Evgenij I
-- Correct Claude Code version to 2.1.97 across all footers (63a1416) @Luong NGUYEN
-- Apply 2026-04-09 documentation accuracy updates (e015f39) @Luong NGUYEN
+- pre-tool-check.sh 훅 프로토콜 버그 수정 (bce7cf8) @yarlinghe
+- CI 통과를 위해 잘못된 머메이드 예제를 텍스트 블록으로 변경 (b8a7b1f) @Evgenij I
+- 우크라이나어 claude_concepts_guide.md ToC의 CP1251 인코딩 수정 (d970cc6) @Evgenij I
+- 스텁 우크라이나어 README를 전체 번역으로 교체하고 깨진 앵커 수정 (f6d73e2) @Evgenij I
+- 모든 푸터에 Claude Code 버전을 2.1.97로 수정 (63a1416) @Luong NGUYEN
+- 2026-04-09 문서 정확성 업데이트 적용 (e015f39) @Luong NGUYEN
 
-### Documentation
+### 문서
 
-- Sync to Claude Code v2.1.112 (Opus 4.7, `xhigh` effort, `/ultrareview`, `/less-permission-prompts`, PowerShell tool, Auto-match-terminal theme) @Luong NGUYEN
-- Sync to Claude Code v2.1.110 (TUI, push notifications, session recap) (15f0085) @Luong NGUYEN
-- Sync to Claude Code v2.1.101 with `/team-onboarding`, `/ultraplan`, Monitor tool (2deba3a) @Luong NGUYEN
-- Sync Vietnamese documentation with English source (561c6cb) @Thiên Toán
-- Update Last Updated date and Claude Code version across all files (7f2e773) @Luong NGUYEN
-- Add Ukrainian language link to language switcher (9c224ff) @Luong NGUYEN
-- Remove contributors section (f07313d) @Luong NGUYEN
-- Update GitHub metrics to 21,800+ stars, 2,585+ forks (4f55374) @Luong NGUYEN
+- Claude Code v2.1.112 (Opus 4.7, `xhigh` 노력, `/ultrareview`, `/less-permission-prompts`, PowerShell 도구, 자동 일치 터미널 테마)와 동기화 @Luong NGUYEN
+- Claude Code v2.1.110 (TUI, 푸시 알림, 세션 요약)과 동기화 (15f0085) @Luong NGUYEN
+- `/team-onboarding`, `/ultraplan`, Monitor 도구와 함께 Claude Code v2.1.101과 동기화 (2deba3a) @Luong NGUYEN
+- 베트남어 문서를 영어 원본과 동기화 (561c6cb) @Thiên Toán
+- 모든 파일의 최종 업데이트 날짜 및 Claude Code 버전 업데이트 (7f2e773) @Luong NGUYEN
+- 언어 전환기에 우크라이나어 링크 추가 (9c224ff) @Luong NGUYEN
+- 기여자 섹션 제거 (f07313d) @Luong NGUYEN
+- GitHub 지표를 21,800개 이상의 별, 2,585개 이상의 포크로 업데이트 (4f55374) @Luong NGUYEN
 
-**Full Changelog**: https://github.com/luongnv89/claude-howto/compare/v2.3.0...v2.1.112
+**전체 변경 로그**: https://github.com/luongnv89/claude-howto/compare/v2.3.0...v2.1.112
 
 ---
 
 ## v2.3.0 — 2026-04-07
 
-### Features
+### 기능
 
-- build and publish EPUB artifacts per language (90e9c30) @Thiên Toán
-- add missing pre-tool-check.sh hook to 06-hooks (b511ed1) @JiayuWang
-- add Chinese translations in zh/ directory (89e89d4) @Luong NGUYEN
-- Add performance-optimizer subagent and dependency-check hook (f53d080) @qk
+- 언어별 EPUB 아티팩트 빌드 및 게시 (90e9c30) @Thiên Toán
+- 06-hooks에 누락된 pre-tool-check.sh 훅 추가 (b511ed1) @JiayuWang
+- zh/ 디렉터리에 중국어 번역 추가 (89e89d4) @Luong NGUYEN
+- 성능 최적화 서브에이전트 및 종속성 확인 훅 추가 (f53d080) @qk
 
-### Bug Fixes
+### 버그 수정
 
-- Windows Git Bash compatibility + stdin JSON protocol (2cbb10c) @Luong NGUYEN
-- correct autoCheckpoint config documentation in 08-checkpoints (749c79f) @JiayuWang
-- embed SVG images instead of replacing with placeholders (1b16709) @Thiên Toán
-- nested code fence rendering in memory README (ce24423) @Zhaoshan Duan
-- apply review fixes dropped by squash merge (34259ca) @Luong NGUYEN
-- make hook scripts compatible with Windows Git Bash and use stdin JSON protocol (107153d) @binyu li
+- Windows Git Bash 호환성 + stdin JSON 프로토콜 수정 (2cbb10c) @Luong NGUYEN
+- 08-checkpoints의 autoCheckpoint 구성 문서 수정 (749c79f) @JiayuWang
+- SVG 이미지를 자리 표시자로 대체하는 대신 임베드 (1b16709) @Thiên Toán
+- 메모리 README의 중첩 코드 펜스 렌더링 수정 (ce24423) @Zhaoshan Duan
+- 스쿼시 병합으로 누락된 검토 수정 사항 적용 (34259ca) @Luong NGUYEN
+- 훅 스크립트가 Windows Git Bash와 호환되도록 하고 stdin JSON 프로토콜 사용 (107153d) @binyu li
 
-### Documentation
+### 문서
 
-- sync all tutorials with latest Claude Code docs (April 2026) (72d3b01) @Luong NGUYEN
-- add Chinese language link to language switcher (6cbaa4d) @Luong NGUYEN
-- add language switcher between English and Vietnamese (100c45e) @Luong NGUYEN
-- add GitHub #1 Trending badge (0ca8c37) @Luong NGUYEN
-- Introduce cc-context-stats for context zone monitoring (d41b335) @Luong NGUYEN
-- Introduce luongnv89/skills collection and luongnv89/asm skill manager (7e3c0b6) @Luong NGUYEN
-- Update README stats to reflect current GitHub metrics (5,900+ stars, 690+ forks) (5001525) @Luong NGUYEN
-- Update README stats to reflect current GitHub metrics (3,900+ stars, 460+ forks) (9cb92d6) @Luong NGUYEN
+- 모든 튜토리얼을 최신 Claude Code 문서(2026년 4월)와 동기화 (72d3b01) @Luong NGUYEN
+- 언어 전환기에 중국어 링크 추가 (6cbaa4d) @Luong NGUYEN
+- 영어와 베트남어 간 언어 전환기 추가 (100c45e) @Luong NGUYEN
+- GitHub #1 Trending 배지 추가 (0ca8c37) @Luong NGUYEN
+- 컨텍스트 영역 모니터링을 위한 cc-context-stats 소개 (d41b335) @Luong NGUYEN
+- luongnv89/skills 컬렉션 및 luongnv89/asm 스킬 관리자 소개 (7e3c0b6) @Luong NGUYEN
+- 현재 GitHub 지표(5,900개 이상의 별, 690개 이상의 포크)를 반영하도록 README 통계 업데이트 (5001525) @Luong NGUYEN
+- 현재 GitHub 지표(3,900개 이상의 별, 460개 이상의 포크)를 반영하도록 README 통계 업데이트 (9cb92d6) @Luong NGUYEN
 
-### Refactoring
+### 리팩터링
 
-- replace Kroki HTTP dependency with local mmdc rendering (e76bbe4) @Luong NGUYEN
-- shift quality checks to pre-commit, CI as 2nd pass (6d1e0ae) @Luong NGUYEN
-- narrow auto-mode permissions baseline (2790fb2) @Luong NGUYEN
-- Replace auto-adapt hook with one-time permissions setup script (995a5d6) @Luong NGUYEN
+- Kroki HTTP 종속성을 로컬 mmdc 렌더링으로 대체 (e76bbe4) @Luong NGUYEN
+- 품질 검사를 pre-commit으로 이동, CI는 2차 통과로 사용 (6d1e0ae) @Luong NGUYEN
+- 자동 모드 권한 기준선 좁히기 (2790fb2) @Luong NGUYEN
+- auto-adapt 훅을 일회성 권한 설정 스크립트로 교체 (995a5d6) @Luong NGUYEN
 
-### Other
+### 기타
 
-- shift-left quality gates — add mypy to pre-commit, fix CI failures (699fb39) @Luong NGUYEN
-- Add Vietnamese (Tiếng Việt) Localization (a70777e) @Thiên Toán
+- 품질 게이트를 왼쪽으로 이동 — mypy를 pre-commit에 추가하고 CI 실패 수정 (699fb39) @Luong NGUYEN
+- 베트남어 (Tiếng Việt) 현지화 추가 (a70777e) @Thiên Toán
 
-**Full Changelog**: https://github.com/luongnv89/claude-howto/compare/v2.2.0...v2.3.0
+**전체 변경 로그**: https://github.com/luongnv89/claude-howto/compare/v2.2.0...v2.3.0
 
 ---
 
 ## v2.2.0 — 2026-03-26
 
-### Documentation
+### 문서
 
-- Sync all tutorials and references with Claude Code v2.1.84 (f78c094) @luongnv89
-  - Update slash commands to 55+ built-in + 5 bundled skills, mark 3 deprecated
-  - Expand hook events from 18 to 25, add `agent` hook type (now 4 types)
-  - Add Auto Mode, Channels, Voice Dictation to advanced features
-  - Add `effort`, `shell` skill frontmatter fields; `initialPrompt`, `disallowedTools` agent fields
-  - Add WebSocket MCP transport, elicitation, 2KB tool cap
-  - Add plugin LSP support, `userConfig`, `${CLAUDE_PLUGIN_DATA}`
-  - Update all reference docs (CATALOG, QUICK_REFERENCE, LEARNING-ROADMAP, INDEX)
-- Rewrite README as landing-page-structured guide (32a0776) @luongnv89
+- 모든 튜토리얼 및 참조를 Claude Code v2.1.84와 동기화 (f78c094) @luongnv89
+  - 슬래시 명령을 55개 이상의 내장 + 5개의 번들 스킬로 업데이트하고, 3개는 지원 중단됨으로 표시
+  - 훅 이벤트를 18개에서 25개로 확장하고, `agent` 훅 유형 추가 (현재 4개 유형)
+  - 고급 기능에 자동 모드, 채널, 음성 받아쓰기 추가
+  - `effort`, `shell` 스킬 프런트매터 필드 추가; `initialPrompt`, `disallowedTools` 에이전트 필드 추가
+  - WebSocket MCP 전송, 유도, 2KB 도구 제한 추가
+  - 플러그인 LSP 지원, `userConfig`, `${CLAUDE_PLUGIN_DATA}` 추가
+  - 모든 참조 문서(CATALOG, QUICK_REFERENCE, LEARNING-ROADMAP, INDEX) 업데이트
+- README를 랜딩 페이지 구조화된 가이드로 재작성 (32a0776) @luongnv89
 
-### Bug Fixes
+### 버그 수정
 
-- Add missing cSpell words and README sections for CI compliance (93f9d51) @luongnv89
-- Add `Sandboxing` to cSpell dictionary (b80ce6f) @luongnv89
+- CI 준수를 위해 누락된 cSpell 단어 및 README 섹션 추가 (93f9d51) @luongnv89
+- cSpell 사전에 `Sandboxing` 추가 (b80ce6f) @luongnv89
 
-**Full Changelog**: https://github.com/luongnv89/claude-howto/compare/v2.1.1...v2.2.0
+**전체 변경 로그**: https://github.com/luongnv89/claude-howto/compare/v2.1.1...v2.2.0
 
 ---
 
 ## v2.1.1 — 2026-03-13
 
-### Bug Fixes
+### 버그 수정
 
-- Remove dead marketplace link failing CI link checks (3fdf0d6) @luongnv89
-- Add `sandboxed` and `pycache` to cSpell dictionary (dc64618) @luongnv89
+- CI 링크 검사 실패의 원인이 되는 죽은 마켓플레이스 링크 제거 (3fdf0d6) @luongnv89
+- cSpell 사전에 `sandboxed` 및 `pycache` 추가 (dc64618) @luongnv89
 
-**Full Changelog**: https://github.com/luongnv89/claude-howto/compare/v2.1.0...v2.1.1
+**전체 변경 로그**: https://github.com/luongnv89/claude-howto/compare/v2.1.0...v2.1.1
 
 ---
 
 ## v2.1.0 — 2026-03-13
 
-### Features
+### 기능
 
-- Add adaptive learning path with self-assessment and lesson quiz skills (1ef46cd) @luongnv89
-  - `/self-assessment` — interactive proficiency quiz across 10 feature areas with personalized learning path
-  - `/lesson-quiz [lesson]` — per-lesson knowledge check with 8-10 targeted questions
+- 자기 평가 및 레슨 퀴즈 스킬을 통한 적응형 학습 경로 추가 (1ef46cd) @luongnv89
+  - `/self-assessment` — 10가지 기능 영역에 걸친 대화형 숙련도 퀴즈와 개인화된 학습 경로
+  - `/lesson-quiz [lesson]` — 8-10개의 목표 질문으로 구성된 레슨별 지식 확인
 
-### Bug Fixes
+### 버그 수정
 
-- Update broken URLs, deprecations, and outdated references (8fe4520) @luongnv89
-- Fix broken links in resources and self-assessment skill (7a05863) @luongnv89
-- Use tilde fences for nested code blocks in concepts guide (5f82719) @VikalpP
-- Add missing words to cSpell dictionary (8df7572) @luongnv89
+- 깨진 URL, 지원 중단된 항목, 오래된 참조 업데이트 (8fe4520) @luongnv89
+- 리소스 및 자기 평가 스킬의 깨진 링크 수정 (7a05863) @luongnv89
+- 개념 가이드의 중첩 코드 블록에 물결표 펜스 사용 (5f82719) @VikalpP
+- cSpell 사전에 누락된 단어 추가 (8df7572) @luongnv89
 
-### Documentation
+### 문서
 
-- Phase 5 QA — fix consistency, URLs, and terminology across docs (00bbe4c) @luongnv89
-- Complete Phases 3-4 — new feature coverage and reference doc updates (132de29) @luongnv89
-- Add MCPorter runtime to MCP context bloat section (ef52705) @luongnv89
-- Add missing commands, features, and settings across 6 guides (4bc8f15) @luongnv89
-- Add style guide based on existing repo conventions (84141d0) @luongnv89
-- Add self-assessment row to guide comparison table (8fe0c96) @luongnv89
-- Add VikalpP to contributors list for PR #7 (d5b4350) @luongnv89
-- Add self-assessment and lesson-quiz skill references to README and roadmap (d5a6106) @luongnv89
+- 5단계 QA — 문서 전체의 일관성, URL 및 용어 수정 (00bbe4c) @luongnv89
+- 3-4단계 완료 — 새로운 기능 적용 범위 및 참조 문서 업데이트 (132de29) @luongnv89
+- MCP 컨텍스트 오버로드 섹션에 MCPorter 런타임 추가 (ef52705) @luongnv89
+- 6개 가이드에 걸쳐 누락된 명령, 기능 및 설정 추가 (4bc8f15) @luongnv89
+- 기존 저장소 규칙을 기반으로 스타일 가이드 추가 (84141d0) @luongnv89
+- 가이드 비교 표에 자기 평가 행 추가 (8fe0c96) @luongnv89
+- PR #7에 대한 기여자 목록에 VikalpP 추가 (d5b4350) @luongnv89
+- README 및 로드맵에 자기 평가 및 레슨 퀴즈 스킬 참조 추가 (d5a6106) @luongnv89
 
-### New Contributors
+### 새로운 기여자
 
-- @VikalpP made their first contribution in #7
+- @VikalpP 님이 #7에서 첫 기여를 했습니다.
 
-**Full Changelog**: https://github.com/luongnv89/claude-howto/compare/v2.0.0...v2.1.0
+**전체 변경 로그**: https://github.com/luongnv89/claude-howto/compare/v2.0.0...v2.1.0
 
 ---
 
 ## v2.0.0 — 2026-02-01
 
-### Features
+### 기능
 
-- Sync all documentation with Claude Code February 2026 features (487c96d)
-  - Update 26 files across all 10 tutorial directories and 7 reference documents
-  - Add documentation for **Auto Memory** — persistent learnings per project
-  - Add documentation for **Remote Control**, **Web Sessions**, and **Desktop App**
-  - Add documentation for **Agent Teams** (experimental multi-agent collaboration)
-  - Add documentation for **MCP OAuth 2.0**, **Tool Search**, and **Claude.ai Connectors**
-  - Add documentation for **Persistent Memory** and **Worktree Isolation** for subagents
-  - Add documentation for **Background Subagents**, **Task List**, **Prompt Suggestions**
-  - Add documentation for **Sandboxing** and **Managed Settings** (Enterprise)
-  - Add documentation for **HTTP Hooks** and 7 new hook events
-  - Add documentation for **Plugin Settings**, **LSP Servers**, and Marketplace updates
-  - Add documentation for **Summarize from Checkpoint** rewind option
-  - Document 17 new slash commands (`/fork`, `/desktop`, `/teleport`, `/tasks`, `/fast`, etc.)
-  - Document new CLI flags (`--worktree`, `--from-pr`, `--remote`, `--teleport`, `--teammate-mode`, etc.)
-  - Document new environment variables for auto memory, effort levels, agent teams, and more
+- 모든 문서를 Claude Code 2026년 2월 기능과 동기화 (487c96d)
+  - 10개 튜토리얼 디렉터리와 7개 참조 문서에 걸쳐 26개 파일 업데이트
+  - **자동 메모리** — 프로젝트별 영구 학습 기능 문서 추가
+  - **원격 제어**, **웹 세션**, **데스크톱 앱** 문서 추가
+  - **에이전트 팀** (실험적 다중 에이전트 협업) 문서 추가
+  - **MCP OAuth 2.0**, **도구 검색**, **Claude.ai 커넥터** 문서 추가
+  - 서브에이전트용 **영구 메모리** 및 **작업 트리 격리** 문서 추가
+  - **백그라운드 서브에이전트**, **작업 목록**, **프롬프트 제안** 문서 추가
+  - **샌드박싱** 및 **관리 설정** (엔터프라이즈) 문서 추가
+  - **HTTP 훅** 및 7가지 새로운 훅 이벤트 문서 추가
+  - **플러그인 설정**, **LSP 서버**, 마켓플레이스 업데이트 문서 추가
+  - **체크포인트에서 요약** 되감기 옵션 문서 추가
+  - 17가지 새로운 슬래시 명령(`/fork`, `/desktop`, `/teleport`, `/tasks`, `/fast` 등) 문서화
+  - 새로운 CLI 플래그(`--worktree`, `--from-pr`, `--remote`, `--teleport`, `--teammate-mode` 등) 문서화
+  - 자동 메모리, 노력 수준, 에이전트 팀 등을 위한 새로운 환경 변수 문서화
 
-### Design
+### 디자인
 
-- Redesign logo to compass-bracket mark with minimal palette (20779db)
+- 로고를 최소한의 팔레트를 가진 컴패스-괄호 모양으로 재디자인 (20779db)
 
-### Bug Fixes / Corrections
+### 버그 수정 / 정정
 
-- Update model names: Sonnet 4.5 → **Sonnet 4.6**, Opus 4.5 → **Opus 4.6**
-- Fix permission mode names: replace fictional "Unrestricted/Confirm/Read-only" with actual `default`/`acceptEdits`/`plan`/`dontAsk`/`bypassPermissions`
-- Fix hook events: remove fictional `PreCommit`/`PostCommit`/`PrePush`, add real events (`SubagentStart`, `WorktreeCreate`, `ConfigChange`, etc.)
-- Fix CLI syntax: replace `claude-code --headless` with `claude -p` (print mode)
-- Fix checkpoint commands: replace fictional `/checkpoint save/list/rewind/diff` with actual `Esc+Esc` / `/rewind` interface
-- Fix session management: replace fictional `/session list/new/switch/save` with real `/resume`/`/rename`/`/fork`
-- Fix plugin manifest format: migrate `plugin.yaml` → `.claude-plugin/plugin.json`
-- Fix MCP config paths: `~/.claude/mcp.json` → `.mcp.json` (project) / `~/.claude.json` (user)
-- Fix documentation URLs: `docs.claude.com` → `docs.anthropic.com`; remove fictional `plugins.claude.com`
-- Remove fictional configuration fields across multiple files
-- Update all "Last Updated" dates to February 2026
+- 모델 이름 업데이트: Sonnet 4.5 → **Sonnet 4.6**, Opus 4.5 → **Opus 4.6**
+- 권한 모드 이름 수정: 가상의 "Unrestricted/Confirm/Read-only"를 실제 `default`/`acceptEdits`/`plan`/`dontAsk`/`bypassPermissions`로 교체
+- 훅 이벤트 수정: 가상의 `PreCommit`/`PostCommit`/`PrePush`를 제거하고 실제 이벤트(`SubagentStart`, `WorktreeCreate`, `ConfigChange` 등) 추가
+- CLI 구문 수정: `claude-code --headless`를 `claude -p` (인쇄 모드)로 교체
+- 체크포인트 명령 수정: 가상의 `/checkpoint save/list/rewind/diff`를 실제 `Esc+Esc` / `/rewind` 인터페이스로 교체
+- 세션 관리 수정: 가상의 `/session list/new/switch/save`를 실제 `/resume`/`/rename`/`/fork`로 교체
+- 플러그인 매니페스트 형식 수정: `plugin.yaml` → `.claude-plugin/plugin.json`으로 마이그레이션
+- MCP 구성 경로 수정: `~/.claude/mcp.json` → `.mcp.json` (프로젝트) / `~/.claude.json` (사용자)
+- 문서 URL 수정: `docs.claude.com` → `docs.anthropic.com`; 가상의 `plugins.claude.com` 제거
+- 여러 파일에서 가상의 구성 필드 제거
+- 모든 "최종 업데이트" 날짜를 2026년 2월로 업데이트
 
-**Full Changelog**: https://github.com/luongnv89/claude-howto/compare/20779db...v2.0.0
+**전체 변경 로그**: https://github.com/luongnv89/claude-howto/compare/20779db...v2.0.0
 
 ---
 
-**Last Updated**: August 25, 2026
-**Claude Code Version**: 2.1.245
-**Sources**:
+**최종 업데이트**: 2026년 8월 25일
+**Claude Code 버전**: 2.1.245
+**출처**:
 - https://code.claude.com/docs/en/changelog
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

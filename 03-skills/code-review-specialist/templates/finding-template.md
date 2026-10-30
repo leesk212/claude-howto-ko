@@ -1,17 +1,20 @@
+<!-- i18n-source: 03-skills/code-review-specialist/templates/finding-template.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+
 # Code Review Finding Template
 
-Use this template when documenting each issue found during code review.
+코드 리뷰 중 발견된 각 문제를 기록할 때 이 템플릿을 사용하세요.
 
 ---
 
 ## Issue: [TITLE]
 
 ### Severity
-- [ ] Critical (blocks deployment)
-- [ ] High (should fix before merge)
-- [ ] Medium (should fix soon)
-- [ ] Low (nice to have)
-
+- [ ] Critical (배포 차단)
+- [ ] High (머지 전 수정 필요)
+- [ ] Medium (조만간 수정 필요)
+- [ ] Low (수정하면 좋음)
 ### Category
 - [ ] Security
 - [ ] Performance
@@ -21,26 +24,26 @@ Use this template when documenting each issue found during code review.
 - [ ] Design Pattern
 - [ ] Documentation
 
-### Location
+### 위치
 **File:** `src/components/UserCard.tsx`
 
 **Lines:** 45-52
 
 **Function/Method:** `renderUserDetails()`
 
-### Issue Description
+### 문제 설명
 
-**What:** Describe what the issue is.
+**What:** 문제가 무엇인지 설명합니다.
 
-**Why it matters:** Explain the impact and why this needs to be fixed.
+**Why it matters:** 영향도와 이 문제를 왜 수정해야 하는지 설명합니다.
 
-**Current behavior:** Show the problematic code or behavior.
+**Current behavior:** 문제가 되는 코드나 동작을 보여줍니다.
 
-**Expected behavior:** Describe what should happen instead.
+**Expected behavior:** 대신 어떤 동작이 일어나야 하는지 설명합니다.
 
-### Code Example
+### 코드 예시
 
-#### Current (Problematic)
+#### 현재 (문제가 되는 코드)
 
 ```typescript
 // Shows the N+1 query problem
@@ -51,7 +54,7 @@ users.forEach(user => {
 });
 ```
 
-#### Suggested Fix
+#### 제안된 해결 방법
 
 ```typescript
 // Optimized with JOIN query
@@ -61,60 +64,60 @@ usersWithPosts.forEach(({ user, posts }) => {
 });
 ```
 
-### Impact Analysis
+### 영향도 분석
 
-| Aspect | Impact | Severity |
+
+| 측면 | 영향 | 심각성 |
 |--------|--------|----------|
-| Performance | 100+ queries for 20 users | High |
-| User Experience | Slow page load | High |
-| Scalability | Breaks at scale | Critical |
-| Maintainability | Hard to debug | Medium |
+| 성능 | 유저 20명당 100개 이상의 쿼리 발생 | 높음 |
+| 사용자 경험 | 느린 페이지 로드 | 높음 |
+| 확장성 | 대규모 환경에서 시스템 중단 발생 | 치명적 |
+| 유지보수성 | 디버깅이 어려움 | 중간 |
 
-### Related Issues
+### 관련 이슈
 
-- Similar issue in `AdminUserList.tsx` line 120
-- Related PR: #456
-- Related issue: #789
+- `AdminUserList.tsx` 120번 줄의 유사한 문제
+- 관련 PR: #456
+- 관련 이슈: #789
 
-### Additional Resources
+### 추가 자료
 
 - [N+1 Query Problem](https://en.wikipedia.org/wiki/N%2B1_problem)
 - [Database Join Documentation](https://docs.example.com/joins)
 
-### Reviewer Notes
+### 리뷰어 노트
+- 이 코드베이스에서 흔히 발생하는 패턴입니다.
+- 이를 코드 스타일 가이드에 추가하는 것을 고려해 보세요.
+- 헬퍼 함수를 만들 가치가 있을 수 있습니다.
 
-- This is a common pattern in this codebase
-- Consider adding this to the code style guide
-- Might be worth creating a helper function
+### 작성자 답변 (피드백용)
 
-### Author Response (for feedback)
+*코드 작성자가 작성할 부분:*
+- [ ] 다음 커밋에서 수정 반영됨: `abc123`
+- [ ] 수정 상태: 완료 / 진행 중 / 논의 필요
+- [ ] 질문 및 우려 사항: (설명)
 
-*To be filled by the code author:*
-
-- [ ] Fix implemented in commit: `abc123`
-- [ ] Fix status: Complete / In Progress / Needs Discussion
-- [ ] Questions or concerns: (describe)
-
----
-
-## Finding Statistics (for Reviewer)
-
-When reviewing multiple findings, track:
-
-- **Total Issues Found:** X
-- **Critical:** X
-- **High:** X
-- **Medium:** X
-- **Low:** X
-
-**Recommendation:** ✅ Approve / ⚠️ Request Changes / 🔄 Needs Discussion
-
-**Overall Code Quality:** 1-5 stars
 
 ---
 
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+## 발견 통계 (리뷰어용)
+
+여러 개의 발견 사항을 리뷰할 때 다음을 추적하세요:
+
+- **총 발견된 문제 수:** X
+- **치명적:** X
+- **높음:** X
+- **중간:** X
+- **낮음:** X
+
+**권장 사항**: ✅ 승인 / ⚠️ 변경 요청 / 🔄 논의 필요
+
+**전반적인 코드 품질**: 별 1-5개
+
+---
+
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/skills
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

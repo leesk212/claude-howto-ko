@@ -1,31 +1,34 @@
 ---
 name: unit-test-expand
-description: Increase test coverage by targeting untested branches and edge cases
+description: 테스트되지 않은 분기 및 엣지 케이스를 대상으로 하여 테스트 커버리지 늘리기
 ---
+<!-- i18n-source: 01-slash-commands/unit-test-expand.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-# Expand Unit Tests
+# 단위 테스트 확장
 
-Expand existing unit tests adapted to project's testing framework:
+프로젝트의 테스트 프레임워크에 맞춰 기존 단위 테스트를 확장합니다:
 
-1. **Analyze coverage**: Run coverage report to identify untested branches, edge cases, and low-coverage areas
-2. **Identify gaps**: Review code for logical branches, error paths, boundary conditions, null/empty inputs
-3. **Write tests** using project's framework:
+1. **커버리지 분석**: 커버리지 보고서를 실행하여 테스트되지 않은 분기, 엣지 케이스 및 낮은 커버리지 영역 식별
+2. **누락된 부분 식별**: 논리적 분기, 오류 경로, 경계 조건, null/빈 입력에 대해 코드 검토
+3. **테스트 작성**: 프로젝트의 프레임워크를 사용하여 테스트를 작성합니다:
    - Jest/Vitest/Mocha (JavaScript/TypeScript)
    - pytest/unittest (Python)
    - Go testing/testify (Go)
    - Rust test framework (Rust)
-4. **Target specific scenarios**:
-   - Error handling and exceptions
-   - Boundary values (min/max, empty, null)
-   - Edge cases and corner cases
-   - State transitions and side effects
-5. **Verify improvement**: Run coverage again, confirm measurable increase
+4. **특정 시나리오 대상 지정**:
+   - 오류 처리 및 예외
+   - 경계값 (최소/최대, 빈 값, null)
+   - 엣지 케이스 및 코너 케이스
+   - 상태 전환 및 부작용
+5. **개선 사항 확인**: 커버리지를 다시 실행하여 측정 가능한 증가 확인
 
-Present new test code blocks only. Follow existing test patterns and naming conventions.
+새로운 테스트 코드 블록만 제시합니다. 기존 테스트 패턴 및 명명 규칙을 따릅니다.
 
 ---
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/commands
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

@@ -1,105 +1,109 @@
-# Blog Post Outline: [Title]
+<!-- i18n-source: 03-skills/blog-draft/templates/outline-template.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-## Meta Information
+# 블로그 게시물 개요: [Title]
 
-| Attribute | Value |
+## 메타 정보
+
+| 속성 | 값 |
 |-----------|-------|
-| **Target Audience** | [Who is this for?] |
-| **Tone** | [Formal/Casual/Technical/Conversational] |
-| **Target Length** | [Word count range] |
-| **Main Takeaway** | [One sentence: what should readers remember?] |
-| **Keywords** | [SEO keywords if relevant] |
+| **대상 독자** | [누구를 위한 것인가?] |
+| **어조** | [공식적/비공식적/전문적/대화적] |
+| **목표 길이** | [단어 수 범위] |
+| **주요 시사점** | [한 문장: 독자들이 무엇을 기억해야 하는가?] |
+| **키워드** | [관련 SEO 키워드] |
 
 ---
 
-## Proposed Structure
+## 제안된 구성
 
-### 1. Introduction / Hook
+### 1. 서론 / 훅
 
-**Opening Hook Options:**
-- [ ] Question that resonates with reader
-- [ ] Surprising statistic or fact
-- [ ] Brief story or scenario
-- [ ] Bold statement
+**시작 훅 옵션:**
+- [ ] 독자의 공감을 얻는 질문
+- [ ] 놀라운 통계 또는 사실
+- [ ] 짧은 이야기 또는 시나리오
+- [ ] 대담한 진술
 
-**Context Setting:**
-- Background information needed
-- Why this topic matters now
+**맥락 설정:**
+- 필요한 배경 정보
+- 이 주제가 지금 왜 중요한가
 
-**Thesis Statement:**
-- Clear statement of what the post will cover
-
----
-
-### 2. [Section Title]
-
-**Key Points:**
-- Point A: [description]
-- Point B: [description]
-
-**Supporting Evidence:**
-- From [source]: [relevant data/quote]
-
-**Transition to next section:**
-- [How this connects to what's next]
+**논지 진술:**
+- 게시물이 다룰 내용을 명확하게 진술
 
 ---
 
-### 3. [Section Title]
+### 2. [섹션 제목]
 
-**Key Points:**
-- Point A: [description]
-- Point B: [description]
+**주요 요점:**
+- 요점 A: [설명]
+- 요점 B: [설명]
 
-**Supporting Evidence:**
-- From [source]: [relevant data/quote]
+**뒷받침하는 증거:**
+- [출처]에서: [관련 데이터/인용]
 
-**Transition to next section:**
-- [How this connects to what's next]
-
----
-
-### 4. [Section Title] (add more sections as needed)
-
-**Key Points:**
-- Point A: [description]
-- Point B: [description]
-
-**Supporting Evidence:**
-- From [source]: [relevant data/quote]
+**다음 섹션으로의 전환:**
+- [이것이 다음에 이어질 내용과 어떻게 연결되는가]
 
 ---
 
-### 5. Conclusion
+### 3. [섹션 제목]
 
-**Summary of Key Points:**
-- Recap point 1
-- Recap point 2
-- Recap point 3
+**주요 요점:**
+- 요점 A: [설명]
+- 요점 B: [설명]
 
-**Final Thought / Call to Action:**
-- [What should readers do or think about next?]
+**뒷받침하는 증거:**
+- [출처]에서: [관련 데이터/인용]
 
----
-
-## Sources to Cite
-
-1. [Source Name](#) - Used for: [what information]
-2. [Source Name](#) - Used for: [what information]
-3. [Source Name](#) - Used for: [what information]
+**다음 섹션으로의 전환:**
+- [이것이 다음에 이어질 내용과 어떻게 연결되는가]
 
 ---
 
-## Notes for Drafting
+### 4. [섹션 제목] (필요에 따라 섹션 추가)
 
-- [Any specific requirements or constraints]
-- [Things to emphasize]
-- [Things to avoid]
+**주요 요점:**
+- 요점 A: [설명]
+- 요점 B: [설명]
+
+**뒷받침하는 증거:**
+- [출처]에서: [관련 데이터/인용]
 
 ---
 
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+### 5. 결론
+
+**주요 요점 요약:**
+- 요점 1 요약
+- 요점 2 요약
+- 요점 3 요약
+
+**최종 생각 / 행동 촉구:**
+- [독자들은 다음에 무엇을 하거나 생각해야 할까요?]
+
+---
+
+## 인용할 출처
+
+1. [출처 이름](#) - 사용 목적: [어떤 정보]
+2. [출처 이름](#) - 사용 목적: [어떤 정보]
+3. [출처 이름](#) - 사용 목적: [어떤 정보]
+
+---
+
+## 초안 작성 참고 사항
+
+- [특정 요구 사항 또는 제약 사항]
+- [강조할 사항]
+- [피해야 할 사항]
+
+---
+
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/skills
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

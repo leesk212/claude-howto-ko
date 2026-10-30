@@ -1,75 +1,79 @@
+<!-- i18n-source: 07-plugins/pr-review/README.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../../resources/logos/claude-howto-logo-dark.svg">
   <img alt="Claude How To" src="../../resources/logos/claude-howto-logo.svg">
 </picture>
 
-# PR Review Plugin
+# PR 리뷰 플러그인
 
-Complete PR review workflow with security, testing, and documentation checks.
+보안, 테스트, 문서 검증을 포함한 완전한 PR 리뷰 워크플로를 제공합니다.
 
-## Features
+## 기능
 
-✅ Security analysis
-✅ Test coverage checking
-✅ Documentation verification
-✅ Code quality assessment
-✅ Performance impact analysis
+✅ 보안 분석
+✅ 테스트 커버리지 검사
+✅ 문서 검증
+✅ 코드 품질 평가
+✅ 성능 영향 분석
 
-## Installation
+## 설치
 
 ```bash
 claude --plugin-dir ./07-plugins/pr-review
 ```
 
-## What's Included
+## 포함 항목
 
-### Slash Commands
-- `/review-pr` - Comprehensive PR review
-- `/check-security` - Security-focused review
-- `/check-tests` - Test coverage analysis
+### 슬래시 명령어
+- `/review-pr` - 종합 PR 리뷰
+- `/check-security` - 보안 중심 리뷰
+- `/check-tests` - 테스트 커버리지 분석
 
-### Subagents
-- `security-reviewer` - Security vulnerability detection
-- `test-checker` - Test coverage analysis
-- `performance-analyzer` - Performance impact evaluation
+### 서브에이전트
+- `security-reviewer` - 보안 취약점 탐지
+- `test-checker` - 테스트 커버리지 분석
+- `performance-analyzer` - 성능 영향 평가
 
-### MCP Servers
-- GitHub integration for PR data
+### MCP 서버
+- PR 데이터 연동을 위한 GitHub 통합
 
-### Hooks
-- `pre-review.js` - Pre-review validation
+### 훅(Hooks)
+- `pre-review.js` - 리뷰 전 검증
 
-## Usage
+## 사용 방법
 
-### Basic PR Review
+### 기본 PR 리뷰
 ```
 /review-pr
 ```
 
-### Security Check Only
+### 보안 점검만 수행
 ```
 /check-security
 ```
 
-### Test Coverage Check
+### 테스트 커버리지 점검
 ```
 /check-tests
 ```
 
-## Requirements
+## 요구 사항
 
 - Claude Code 2.1+
-- GitHub access
-- Git repository
+- GitHub 접근 권한
+- Git 저장소
 
-## Configuration
+## 설정
 
-Set up your GitHub token:
+GitHub 토큰을 설정합니다.
 ```bash
 export GITHUB_TOKEN="your_github_token"
 ```
 
-## Example Workflow
+## 워크플로 예시
 
 ```
 User: /review-pr
@@ -92,13 +96,13 @@ Result:
 
 ---
 
-**Last Updated**: October 18, 2026
-**Claude Code Version**: 2.1.302
-**Sources**:
+**최종 업데이트**: 2026년 10월 18일
+**Claude Code 버전**: 2.1.302
+**출처**:
 - https://code.claude.com/docs/en/plugins
 - https://github.com/anthropics/claude-code/releases/tag/v2.1.131
 - https://github.com/anthropics/claude-code/releases/tag/v2.1.138
 - https://code.claude.com/docs/en/model-config
 - https://code.claude.com/docs/en/plugins/cli-reference
 - https://code.claude.com/docs/en/plugins/install
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

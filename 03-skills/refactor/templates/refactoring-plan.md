@@ -1,43 +1,50 @@
-# Refactoring Plan Template
+<!-- i18n-source: 03-skills/refactor/templates/refactoring-plan.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-Use this template to document and track your refactoring effort.
+# 리팩터링 계획 템플릿
 
----
+이 템플릿을 사용하여 리팩터링 작업을 문서화하고 추적하세요.
 
-## Project Information
-
-| Field | Value |
-|-------|-------|
-| **Project/Module** | [Project name] |
-| **Target Files** | [List of files to refactor] |
-| **Date Created** | [Date] |
-| **Author** | [Name] |
-| **Status** | Draft / In Review / Approved / In Progress / Completed |
 
 ---
 
-## Executive Summary
+## 프로젝트 정보
 
-### Goals
-- [ ] [Primary goal: e.g., Improve readability of payment processing]
-- [ ] [Secondary goal: e.g., Reduce code duplication]
-- [ ] [Tertiary goal: e.g., Improve testability]
+| Field              | Value                                                  |
+| ------------------ | ------------------------------------------------------ |
+| **Project/Module** | [프로젝트 이름]                                              |
+| **Target Files**   | [리팩터링할 파일 목록]                                          |
+| **Date Created**   | [생성 날짜]                                                |
+| **Author**         | [작성자]                                                  |
+| **Status**         | Draft / In Review / Approved / In Progress / Completed |
 
-### Constraints
-- [ ] [Constraint 1: e.g., Cannot change public API]
-- [ ] [Constraint 2: e.g., Must maintain backward compatibility]
-- [ ] [Constraint 3: e.g., No changes to database schema]
-
-### Risk Level
-- [ ] Low - Minor changes, well-tested code
-- [ ] Medium - Moderate changes, some risk
-- [ ] High - Significant changes, careful attention needed
 
 ---
 
-## Pre-Refactoring Checklist
+## 개요
 
-### Test Coverage Assessment
+### 목표
+- [ ] [주요 목표: 예: 결제 처리 가독성 향상]
+- [ ] [부가 목표: 예: 코드 중복 감소]
+- [ ] [추가 목표: 예: 테스트 용이성 향상]
+
+### 제약조건
+- [ ] [제약 조건 1: 예: 공개 API 변경 불가]
+- [ ] [제약 조건 2: 예: 하위 호환성 유지 필수]
+- [ ] [제약 조건 3: 예: 데이터베이스 스키마 변경 금지]
+
+
+### 위험수준
+- [ ] Low - 변경 범위가 작고 충분히 테스트된 코드
+- [ ] Medium - 중간 수준의 변경, 일부 위험 존재
+- [ ] High - 큰 규모의 변경, 신중한 검토 필요
+
+---
+
+## 리팩터링 전 체크리스트
+
+### 테스트 커버리지 평가
 
 | Metric | Current | Target | Status |
 |--------|---------|--------|--------|
@@ -45,17 +52,18 @@ Use this template to document and track your refactoring effort.
 | Integration Tests | Yes/No | Yes | |
 | All Tests Passing | Yes/No | Yes | |
 
-### Required Before Starting
-- [ ] All tests passing
-- [ ] Code reviewed and understood
-- [ ] Backup/version control in place
-- [ ] User approval obtained
+### 시작 전 필수 사항
+- [ ] 모든 테스트 통과
+- [ ] 코드 검토 및 이해 완료
+- [ ] 백업 또는 버전 관리 준비 완료
+- [ ] 사용자 승인 획득
+
 
 ---
 
-## Identified Code Smells
+## 식별된 코드 스멜
 
-### Summary
+### 요약
 
 | # | Smell | Location | Severity | Priority |
 |---|-------|----------|----------|----------|
@@ -63,134 +71,144 @@ Use this template to document and track your refactoring effort.
 | 2 | [e.g., Duplicate Code] | [file:line] | Medium | P2 |
 | 3 | [e.g., Feature Envy] | [file:line] | Low | P3 |
 
-### Detailed Analysis
+### 상세 분석
 
-#### Smell #1: [Name]
+#### 코드 스멜 #1: [이름]
 
-**Location**: `path/to/file.js:45-120`
+**위치**: `path/to/file.js:45-120`
 
-**Description**: [Detailed description of the problem]
+**설명**: [문제에 대한 상세 설명]
 
-**Impact**:
-- [Impact 1]
-- [Impact 2]
+**영향**:
+- [영향 1]
+- [영향 2]
 
-**Proposed Solution**: [Brief overview of how to fix]
+**제안된 해결 방안**: [해결 방법에 대한 간략한 설명]
 
 ---
 
-## Refactoring Phases
+## 리팩터링 단계
 
-### Phase A: Quick Wins (Low Risk)
+### Phase A: 빠른 개선 사항 (낮은 위험도)
 
-**Objective**: Simple improvements with immediate value
+**목적**: 즉각적인 효과를 얻을 수 있는 간단한 개선
 
-**Estimated Changes**: [X files, Y methods]
+**예상 변경 범위**: [X개 파일, Y개 메서드]
 
-**User Approval Required**: Yes / No
+**사용자 승인 필요 여부**: Yes / No
 
 | # | Task | File | Refactoring | Status |
 |---|------|------|-------------|--------|
-| A1 | Rename variable `x` to `userCount` | utils.js:15 | Rename Variable | [ ] |
-| A2 | Remove unused `oldHandler()` | api.js:89 | Remove Dead Code | [ ] |
-| A3 | Extract duplicate validation | form.js:23,67 | Extract Method | [ ] |
+| A1 | 변수 `x`를 `userCount`로 이름 변경 | utils.js:15 | Rename Variable | [ ] |
+| A2 | 사용되지 않는 `oldHandler()` 제거 | api.js:89 | Remove Dead Code | [ ] |
+| A3 | 중복된 검증 로직 추출  | form.js:23,67 | Extract Method | [ ] |
 
-**Rollback Plan**: Revert commits A1-A3
-
----
-
-### Phase B: Structural Improvements (Medium Risk)
-
-**Objective**: Improve code organization and clarity
-
-**Estimated Changes**: [X files, Y methods]
-
-**User Approval Required**: Yes
-
-**Dependencies**: Phase A must be complete
-
-| # | Task | File | Refactoring | Status |
-|---|------|------|-------------|--------|
-| B1 | Extract `calculatePrice()` from long method | order.js:45 | Extract Method | [ ] |
-| B2 | Introduce `OrderDetails` parameter object | order.js:12 | Introduce Parameter Object | [ ] |
-| B3 | Move `formatAddress()` to Address class | customer.js:78 | Move Method | [ ] |
-
-**Rollback Plan**: Revert to post-Phase-A commit
+**롤백 계획**: A1-A3 커밋 되돌리기
 
 ---
 
-### Phase C: Architectural Changes (Higher Risk)
+### Phase B: 구조 개선 (중간 위험도)
 
-**Objective**: Address deeper structural issues
+**목적**: 코드 구조와 가독성 개선
 
-**Estimated Changes**: [X files, Y methods]
+**예상 변경 범위**: [X개 파일, Y개 메서드]
 
-**User Approval Required**: Yes
+**사용자 승인 필요 여부**: Yes
 
-**Dependencies**: Phases A and B must be complete
+**의존성**: Phase A 완료 필수
 
-| # | Task | File | Refactoring | Status |
-|---|------|------|-------------|--------|
-| C1 | Replace price switch with polymorphism | pricing.js:30 | Replace Conditional with Polymorphism | [ ] |
-| C2 | Extract `NotificationService` class | user.js:100 | Extract Class | [ ] |
 
-**Rollback Plan**: Revert to post-Phase-B commit
+| #  | Task                               | File           | Refactoring                | Status |
+| -- | ---------------------------------- | -------------- | -------------------------- | ------ |
+| B1 | 긴 메서드에서 `calculatePrice()` 추출      | order.js:45    | Extract Method             | [ ]    |
+| B2 | `OrderDetails` 매개변수 객체 도입          | order.js:12    | Introduce Parameter Object | [ ]    |
+| B3 | `formatAddress()`를 Address 클래스로 이동 | customer.js:78 | Move Method                | [ ]    |
+
+
+**롤백 계획**: Phase A 완료 후 커밋으로 되돌리기
 
 ---
 
-## Detailed Refactoring Steps
+### Phase C: 아키텍처 변경 (높은 위험도)
 
-### Task [ID]: [Task Name]
+**목적**: 더 깊은 구조적 문제 해결
 
-**Smell Addressed**: [Smell name]
+**예상 변경 범위**: [X개 파일, Y개 메서드]
 
-**Refactoring Technique**: [Technique name]
+**사용자 승인 필요 여부**: Yes
+
+**의존성**: Phase A와 B 완료 필수
+
+| #  | Task                         | File          | Refactoring                           | Status |
+| -- | ---------------------------- | ------------- | ------------------------------------- | ------ |
+| C1 | 가격 계산 switch 문을 다형성으로 대체     | pricing.js:30 | Replace Conditional with Polymorphism | [ ]    |
+| C2 | `NotificationService` 클래스 추출 | user.js:100   | Extract Class                         | [ ]    |
+
+
+**롤백 계획**: Phase B 완료 후 커밋으로 되돌리기
+
+---
+
+## 상세 리팩터링 절차
+
+### 작업 [ID]: [작업 이름]
+
+
+**Smell Addressed**: [코드 스멜 이름]
+
+**Refactoring Technique**: [리팩터링 기법 이름]
 
 **Risk Level**: Low / Medium / High
 
-#### Context
 
-**Before** (Current State):
+#### 배경
+
+**Before** (현재 상태):
 ```javascript
 // Paste current code here
 ```
 
-**After** (Expected State):
+**After** (예상 상태):
 ```javascript
 // Paste expected code here
 ```
 
-#### Step-by-Step Mechanics
+#### 단계별 수행 절차
 
-1. [ ] **Step 1**: [Description]
-   - Test: Run tests after this step
-   - Expected: All tests pass
+1. [ ] **Step 1**: [설명]
 
-2. [ ] **Step 2**: [Description]
-   - Test: Run tests after this step
-   - Expected: All tests pass
+   - Test: 해당 단계 후 테스트 실행
+   - Expected: 모든 테스트 통과
 
-3. [ ] **Step 3**: [Description]
-   - Test: Run tests after this step
-   - Expected: All tests pass
+2. [ ] **Step 2**: [설명]
 
-#### Verification
+   - Test: 해당 단계 후 테스트 실행
+   - Expected: 모든 테스트 통과
 
-- [ ] All tests passing
-- [ ] Behavior unchanged
-- [ ] Code compiles
-- [ ] No new warnings
+3. [ ] **Step 3**: [설명]
 
-#### Commit Message
+   - Test: 해당 단계 후 테스트 실행
+   - Expected: 모든 테스트 통과
+
+
+#### 검증
+
+- [ ] 모든 테스트 통과
+- [ ] 동작 변경 없음
+- [ ] 코드 컴파일 성공
+- [ ] 새로운 경고 없음
+
+
+#### 커밋 메시지
 ```
 refactor: [Describe the refactoring]
 ```
 
 ---
 
-## Progress Tracking
+## 진행 상황 추적
 
-### Phase Status
+### 단계 상태
 
 | Phase | Status | Started | Completed | Tests Passing |
 |-------|--------|---------|-----------|---------------|
@@ -198,17 +216,18 @@ refactor: [Describe the refactoring]
 | B | Not Started / In Progress / Done | | | |
 | C | Not Started / In Progress / Done | | | |
 
-### Issues Encountered
+### 발생한 이슈
 
-| # | Issue | Resolution | Status |
-|---|-------|------------|--------|
-| 1 | [Description] | [How resolved] | Open / Resolved |
+| # | Issue | Resolution | Status          |
+| - | ----- | ---------- | --------------- |
+| 1 | [설명]  | [해결 방법]    | Open / Resolved |
 
 ---
 
-## Metrics Comparison
+## 지표 비교
 
-### Before Refactoring
+### 리팩터링 전
+
 
 | Metric | File 1 | File 2 | Total |
 |--------|--------|--------|-------|
@@ -230,36 +249,40 @@ refactor: [Describe the refactoring]
 
 ---
 
-## Post-Refactoring Checklist
+## 리팩터링 후 체크리스트
 
-- [ ] All tests passing
-- [ ] No new warnings or errors
-- [ ] Code compiles successfully
-- [ ] Manual verification completed
-- [ ] Documentation updated (if needed)
-- [ ] Code reviewed
-- [ ] Metrics improved
-- [ ] User sign-off obtained
-
----
-
-## Lessons Learned
-
-### What Went Well
-- [Item 1]
-- [Item 2]
-
-### What Could Be Improved
-- [Item 1]
-- [Item 2]
-
-### Recommendations for Future
-- [Item 1]
-- [Item 2]
+- [ ] 모든 테스트 통과
+- [ ] 새로운 경고 또는 오류 없음
+- [ ] 코드 컴파일 성공
+- [ ] 수동 검증 완료
+- [ ] 문서 업데이트 완료 (필요한 경우)
+- [ ] 코드 리뷰 완료
+- [ ] 지표 개선 확인
+- [ ] 사용자 최종 승인 획득
 
 ---
 
-## Approvals
+## 회고 및 학습 내용
+
+### 잘된 점
+
+- [항목 1]
+- [항목 2]
+
+### 개선이 필요한 점
+
+- [항목 1]
+- [항목 2]
+
+### 향후 권장 사항
+
+- [항목 1]
+- [항목 2]
+
+
+---
+
+## 승인
 
 | Role | Name | Date | Signature |
 |------|------|------|-----------|
@@ -269,24 +292,27 @@ refactor: [Describe the refactoring]
 
 ---
 
-## Appendix
+## 부록
 
-### A. Related Documentation
-- [Link to relevant docs]
+### A. 관련 문서
 
-### B. Reference Materials
-- [Link to code smells catalog]
-- [Link to refactoring catalog]
+- [관련 문서 링크]
 
-### C. Tools Used
-- [Testing framework]
-- [Linting tools]
-- [Complexity analysis tools]
+### B. 참고 자료
+
+- [코드 스멜 카탈로그 링크]
+- [리팩터링 카탈로그 링크]
+
+### C. 사용 도구
+
+- [테스트 프레임워크]
+- [린팅 도구]
+- [복잡도 분석 도구]
 
 ---
 
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/skills
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

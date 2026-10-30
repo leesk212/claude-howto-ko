@@ -1,33 +1,36 @@
 ---
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git diff:*)
 argument-hint: [message]
-description: Create a git commit with context
+description: 컨텍스트를 사용하여 git 커밋 생성
 ---
+<!-- i18n-source: 01-slash-commands/commit.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
 
-## Context
+## 컨텍스트
 
-- Current git status: !`git status`
-- Current git diff: !`git diff HEAD`
-- Current branch: !`git branch --show-current`
-- Recent commits: !`git log --oneline -10`
+- 현재 git 상태: !`git status`
+- 현재 git diff: !`git diff HEAD`
+- 현재 브랜치: !`git branch --show-current`
+- 최근 커밋: !`git log --oneline -10`
 
-## Your task
+## 당신의 작업
 
-Based on the above changes, create a single git commit.
+위 변경 사항을 바탕으로 단일 git 커밋을 생성하세요.
 
-If a message was provided via arguments, use it: $ARGUMENTS
+인수를 통해 메시지가 제공된 경우, 해당 메시지를 사용하세요: $ARGUMENTS
 
-Otherwise, analyze the changes and create an appropriate commit message following conventional commits format:
-- `feat:` for new features
-- `fix:` for bug fixes
-- `docs:` for documentation changes
-- `refactor:` for code refactoring
-- `test:` for adding tests
-- `chore:` for maintenance tasks
+그렇지 않은 경우, 변경 사항을 분석하여 conventional commits 형식에 맞는 적절한 커밋 메시지를 생성하세요:
+- `feat:` 새로운 기능용
+- `fix:` 버그 수정용
+- `docs:` 문서 변경용
+- `refactor:` 코드 리팩터링용
+- `test:` 테스트 추가용
+- `chore:` 유지보수 작업용
 
 ---
-**Last Updated**: August 4, 2026
-**Claude Code Version**: 2.1.220
-**Sources**:
+**최종 업데이트**: 2026년 8월 4일
+**Claude Code 버전**: 2.1.220
+**출처**:
 - https://code.claude.com/docs/en/commands
-**Compatible Models**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
