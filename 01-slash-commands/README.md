@@ -1,6 +1,6 @@
 <!-- i18n-source: 01-slash-commands/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: efbe356 -->
+<!-- i18n-date: 2026-11-02 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -32,7 +32,7 @@
 | `/advisor [model\|off]` | 어드바이저를 구성합니다. 대화형 대화 상자로 열리며, 데스크톱 앱, 원격 제어, 헤드리스(`-p` / Agent SDK) 세션에서는 텍스트 형식을 사용합니다 — 인자 없는 `/advisor`, `/advisor <model>`, 또는 `/advisor off` (v2.1.260+) |
 | `/agents` | 더 이상 작동하는 명령어가 아닙니다: 대화형 마법사는 v2.1.198에서 제거되었고, v2.1.281부터 `/agents`는 `/` 메뉴나 `/help`에 나타나지 않습니다 — 입력하면 마법사가 어디로 갔는지만 설명합니다. Claude에게 서브에이전트 생성·관리를 요청하거나 `.claude/agents/` 파일을 직접 편집하십시오 |
 | `/artifacts` | 내가 소유하거나 나와 공유된 아티팩트를 나열한 다음, 세션에 첨부하거나 브라우저에서 열거나 링크를 복사합니다 (v2.1.208+). `d`로 삭제하면 확인을 요청합니다: 1 또는 Enter는 유지, 2는 삭제, Esc는 취소 (v2.1.305) |
-| `/auto-mode-setup` | 프로젝트와 최근 세션에서 `autoMode.environment` 항목 초안을 작성하고, 초안을 검토한 뒤 사용자 설정에 저장합니다. Pro/Max/Team: v2.1.228+ (네이티브 Windows는 v2.1.233+); Enterprise 또는 Console API 키: v2.1.283+. v2.1.304부터 Bedrock, Vertex, Foundry, Claude 앱 게이트웨이, 텔레메트리 꺼짐 세션에서도 사용할 수 있습니다 |
+| `/auto-mode-setup` | 프로젝트와 최근 세션에서 `autoMode.environment` 항목 초안을 작성하고, 초안을 검토한 뒤 사용자 설정에 저장합니다. Pro/Max/Ultra/Team: v2.1.228+ (네이티브 Windows는 v2.1.233+); Enterprise 또는 Console API 키: v2.1.283+. v2.1.304부터 Bedrock, Vertex, Foundry, Claude 앱 게이트웨이, 텔레메트리 꺼짐 세션에서도 사용할 수 있습니다 |
 | `/branch [name]` | 현재 시점의 대화 사본으로 전환하며 원본은 보존합니다 (`/resume`으로 원본으로 돌아갈 수 있음) |
 | `/fork [prompt]` | 현재 대화를 새 **백그라운드 세션**으로 복사하고 여기서 계속 작업합니다. 그 시점부터 두 세션은 독립적이며, 사본은 `claude agents`에 자체 행을 갖습니다 (v2.1.212+). 사본이 제자리에서 편집하는 경우를 제외하고, Claude Code는 코드를 변경하기 전에 자체 워크트리를 만들도록 지시합니다 (격리 지시는 v2.1.221+ 필요) |
 | `/subtask <task>` | 전체 대화를 상속하는 **포크된 서브에이전트**를 생성하여, 사용자가 계속 작업하는 동안 해당 작업을 수행합니다. 완료되면 결과가 이 대화로 돌아옵니다 (v2.1.212+) |
@@ -48,12 +48,12 @@
 | `/cost` | `/usage`의 타이핑 단축 별칭 — 비용 탭을 엽니다 (v2.1.118+) |
 | `/desktop` | 데스크톱 앱에서 계속 (별칭: `/app`) |
 | `/diff` | 커밋되지 않은 변경 사항에 대한 대화형 Diff 뷰어. 전체 화면 렌더링에서는 대신 대화 옆에 Diff 패널을 열어 작업을 계속하는 동안 열린 상태로 유지합니다 — 추가/삭제된 줄 수와 함께 변경된 파일을 나열하며, Claude가 파일을 편집하거나 셸 명령을 실행할 때마다 새로 고칩니다. `/diff`를 다시 실행하거나 `✕`를 클릭하면 닫힙니다 (v2.1.260+). 클래식 렌더러는 프롬프트 자리에 뷰어를 엽니다 |
-| `/doctor` | 설치 상태를 진단합니다 — Claude가 응답 중일 때도 열 수 있습니다. 번들 스킬로서 Claude가 설정을 점검하고 수정 사항을 제안하며, 사용자가 확인하면 적용합니다(`claude doctor`는 읽기 전용 진단을 실행). Pro, Max, Team, Enterprise 플랜에서는 점검 시 `/usage`가 권장하는 변경 사항도 제안합니다 (v2.1.305, 원격 제어가 연결된 동안에는 건너뜀). `/doctor prompt-audit`(또는 `/checkup prompt-audit`)는 CLAUDE.md 파일, 스킬, 에이전트, 명령어에서 이전 모델용으로 작성된 프롬프트 패턴을 점검합니다 (v2.1.283) |
-| `/effort [low\|medium\|high\|xhigh\|max\|auto\|ultracode [on\|off]]` | 대화형 화살표 키 슬라이더로 노력 수준을 설정합니다. 수준: `low` → `medium` → `high` → `xhigh` (v2.1.111에 새로 추가) → `max`. 기본값은 Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5에서 `medium`, Opus 5, Sonnet 5, Opus 4.8에서 `high`, Opus 4.7에서 `xhigh`입니다. `xhigh`는 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8 또는 Opus 4.7이 필요합니다. `max`는 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동합니다. `/effort`가 모델별 설정이 되기 전에 저장된 수준은 Opus 5.5처럼 새로 출시된 모델에는 적용되지 않습니다 (v2.1.280). 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on\|off]`)도 있습니다 — 모델 노력 수준이 아니며, 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하게 합니다. v2.1.284부터 더 이상 `xhigh`를 강제하지 않으며 수준을 바꿔도 켜진 상태로 유지됩니다. `/effort ultracode`는 세션 동안 유지되며, `ultracode` 설정을 사용하면 영구적으로 유지됩니다 |
+| `/doctor` | 설치 상태를 진단합니다 — Claude가 응답 중일 때도 열 수 있습니다. 번들 스킬로서 Claude가 설정을 점검하고 수정 사항을 제안하며, 사용자가 확인하면 적용합니다(`claude doctor`는 읽기 전용 진단을 실행). Pro, Max, Ultra, Team, Enterprise 플랜에서는 점검 시 `/usage`가 권장하는 변경 사항도 제안합니다 (v2.1.305, 원격 제어가 연결된 동안에는 건너뜀). `/doctor prompt-audit`(또는 `/checkup prompt-audit`)는 CLAUDE.md 파일, 스킬, 에이전트, 명령어에서 이전 모델용으로 작성된 프롬프트 패턴을 점검합니다 (v2.1.283) |
+| `/effort [low\|medium\|high\|xhigh\|max\|auto\|ultracode [on\|off]]` | 대화형 화살표 키 슬라이더로 노력 수준을 설정합니다. 수준: `low` → `medium` → `high` → `xhigh` (v2.1.111에 새로 추가) → `max`. 기본값은 Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5에서 `medium`, Opus 5, Sonnet 5, Opus 4.8에서 `high`, Opus 4.7에서 `xhigh`입니다. `xhigh`는 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8 또는 Opus 4.7이 필요합니다. `max`는 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동합니다. `/effort`가 모델별 설정이 되기 전에 저장된 수준은 Opus 5.5처럼 새로 출시된 모델에는 적용되지 않습니다 (v2.1.280). 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on\|off]`)도 있습니다 — 모델 노력 수준이 아니며, 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하게 합니다. v2.1.284부터 더 이상 `xhigh`를 강제하지 않으며 수준을 바꿔도 켜진 상태로 유지됩니다. `/effort ultracode`는 세션 동안 유지되며, `ultracode` 설정을 사용하면 영구적으로 유지됩니다. Claude가 작업 중일 때 실행하면 새 수준은 다음 메시지부터 적용됩니다. 현재 턴 안에서 바꾸려면 Claude가 도구 호출을 실행하는 동안 메시지(예: `keep going`)를 대기열에 넣으세요 |
 | `/exit` | REPL 종료 (별칭: `/quit`) |
 | `/export [filename]` | 현재 대화를 파일 또는 클립보드로 내보냅니다 |
 | `/usage-credits` | 속도 제한을 위한 추가 사용량 구성 (v2.1.144에서 `/extra-usage`에서 이름 변경, `/extra-usage`는 여전히 별칭으로 작동) |
-| `/fast [on\|off]` | 빠른 모드 전환. Opus 5.5(v2.1.280부터 빠른 모드 기본값), Opus 5, Opus 4.8에 적용됩니다 |
+| `/fast [on\|off]` | 빠른 모드 전환. Opus 5.5(v2.1.280부터 빠른 모드 기본값), Opus 5, Opus 4.8에 적용됩니다. Opus 4.8의 빠른 모드는 2026년 10월 30일부로 지원 중단(deprecated)되었으며 2026년 11월 30일에 제거됩니다. 그 이후에는 Opus 4.8의 빠른 요청이 표준 속도로 대체되지 않고 오류를 반환하므로, 속도 향상을 유지하려면 Opus 5.5로 전환하세요 (v2.1.316) |
 | `/feedback` | 피드백 제출. v2.1.141부터 최근 세션(지난 24시간 또는 7일)을 첨부할 수 있어 여러 세션에 걸친 보고서에 컨텍스트가 포함됩니다. v2.1.178부터 `/bug`는 제출 전에 설명이 필요합니다. |
 | `/focus` | 포커스 뷰 전환 (v2.1.110에 추가, 포커스 토글용 `Ctrl+O`를 대체) |
 | `/goal <statement>` | 세션 수준 완료 조건을 등록합니다. Claude는 목표가 달성될 때까지 계속 작업합니다. `/goal clear`는 이를 제거합니다. 활성 목표는 상태 표시줄에 나타나며, 경과 시간, 턴 수, 토큰 사용량을 보여주는 라이브 오버레이 패널이 함께 표시됩니다 (v2.1.139에 추가). |
@@ -79,7 +79,7 @@
 | `/plugin` | 플러그인 관리 |
 | `/proactive` | `/loop`의 별칭 (v2.1.105에 추가) |
 | `/powerup` | 애니메이션 데모가 있는 대화형 레슨을 통해 기능 발견 |
-| `/privacy-settings` | 개인 정보 설정 (Pro/Max 전용) |
+| `/privacy-settings` | 개인 정보 설정 (Pro/Max/Ultra 전용) |
 | `/release-notes` | 변경 로그 보기 |
 | `/recap` | 세션으로 돌아올 때 세션 요약 표시 (v2.1.108에 추가) |
 | `/reload-plugins` | 활성 플러그인 다시 로드. v2.1.221부터 대부분의 설치가 즉시 활성화되므로, 설치 요약에 `Run /reload-plugins to activate.`가 표시될 때만 필요합니다. v2.1.260부터 헤드리스 세션에서도 사용할 수 있어 Claude Code Desktop 및 SDK 명령어 목록에도 나타납니다 |
@@ -87,6 +87,7 @@
 | `/remote-control` | claude.ai에서 원격 제어 (별칭: `/rc`) |
 | `/remote-env` | 기본 원격 환경 구성 |
 | `/rename [name]` | 세션 이름 변경 |
+| `/restart` | Claude Code를 다시 시작하고 이 세션을 재개하여 설치된 업데이트를 적용합니다. 업데이트가 설치된 뒤 푸터에 안내가 표시되면 실행하세요. Pro, Max 또는 Ultra 플랜과 macOS 또는 Linux(WSL 제외)의 네이티브 설치가 필요합니다. v2.1.288+ (별칭: `/update`) |
 | `/resume [session]` | 대화 재개 (별칭: `/continue`) |
 | `/review [low\|medium\|high\|xhigh\|max\|ultra] [--fix] [--comment] [pr#\|branch\|path]` | `/code-review`의 별칭 (v2.1.223): 현재 Diff 또는 전달한 PR 번호, 브랜치, 경로를 검토합니다 — 예: `/review 1234`. 동일한 노력 수준과 플래그를 사용합니다. 수준을 지정하지 않으면 마지막으로 입력한 `low`–`max` 수준을 재사용합니다 |
 | `/rewind` | 대화 및/또는 코드 되감기 (별칭: `/checkpoint`, `/undo`) |
@@ -106,7 +107,7 @@
 | `/terminal-setup` | 터미널 키 바인딩 구성 |
 | `/theme` | 테마 선택기 열기 / 사용자 정의 테마 관리 (v2.1.118). `~/.claude/themes/<name>.json`의 JSON으로 사용자 정의 테마 정의 |
 | `/tui [default\|fullscreen]` | 터미널 UI 렌더러를 설정하고(`fullscreen`은 깜박임 없는 렌더링 제공) 해당 렌더러로 다시 실행합니다. 인자 없는 `/tui`는 현재 렌더러를 출력합니다 (v2.1.110에 추가) |
-| `/ultrareview` | 포괄적인 클라우드 기반 다중 에이전트 코드 리뷰 (v2.1.111에 추가). 이제 권장 호출 방식은 `/code-review ultra`이며, `/ultrareview`는 별칭으로 남아 있습니다. Pro 및 Max에서 무료 실행 3회가 포함되며, 이후에는 사용량 크레딧이 필요합니다 |
+| `/ultrareview` | 포괄적인 클라우드 기반 다중 에이전트 코드 리뷰 (v2.1.111에 추가). 이제 권장 호출 방식은 `/code-review ultra`이며, `/ultrareview`는 별칭으로 남아 있습니다. Pro, Max, Ultra에서 무료 실행 3회가 포함되며, 이후에는 사용량 크레딧이 필요합니다 |
 | `/upgrade` | 상위 플랜 티어 업그레이드 페이지 열기 |
 | `/usage` | 표준 사용량 대시보드 (v2.1.118) — 플랜 사용량 제한, 속도 제한, 비용, 일일 세션 통계를 결합합니다. `/cost`와 `/stats`는 특정 탭을 여는 타이핑 단축 별칭입니다. max 노력 수준, 워크플로, 상시 로드 컨텍스트, 큰 도구 결과에 대해 경고합니다 (v2.1.299). v2.1.305부터 각 경고는 한 줄짜리 수정 사항이며, `f`를 누르면 Claude Code가 적용할 수 있는 수정을 적용합니다 |
 | `/voice` | 눌러서 말하기 음성 받아쓰기 전환 |
@@ -658,8 +659,8 @@ Deploy the application to production:
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/output-styles
 - https://code.claude.com/docs/en/skills
@@ -698,6 +699,9 @@ Deploy the application to production:
 - https://code.claude.com/docs/en/routines#where-the-name-routines-still-appears
 - https://code.claude.com/docs/en/artifacts#find-an-artifact-again
 - https://code.claude.com/docs/en/auto-mode-config#generate-environment-entries-with-auto-mode-setup
+- https://code.claude.com/docs/en/feature-availability#ultra-plan
+- https://code.claude.com/docs/en/changelog#2-1-316
+- https://code.claude.com/docs/en/model-config#when-a-new-effort-level-starts
 **호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
 
 *[Claude How To](../) 가이드 시리즈의 일부입니다*

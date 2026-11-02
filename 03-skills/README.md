@@ -1,6 +1,6 @@
 <!-- i18n-source: 03-skills/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: efbe356 -->
+<!-- i18n-date: 2026-11-02 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -161,7 +161,7 @@ user-invocable: false                       # 슬래시 메뉴에서 숨김
 allowed-tools: Read, Grep, Glob             # 스킬 실행 중 이 도구들을 사전 승인(권한 프롬프트 없음)
 disallowed-tools: Write, Edit               # 활성 상태일 때 특정 도구 제거 (v2.1.152)
 model: opus                                 # 사용할 특정 모델
-effort: high                                # 노력 수준 재정의 (low, medium, high, xhigh, max)
+effort: high                                # 현재 턴의 나머지 동안 적용할 노력 수준 (low, medium, high, xhigh, max)
 context: fork                               # 격리된 서브에이전트에서 실행
 agent: Explore                              # 컨텍스트가 fork일 때 에이전트 유형
 background: false                           # fork 스킬은 백그라운드에서 실행(기본값 true); false = 포그라운드
@@ -179,7 +179,7 @@ paths: "src/api/**/*.ts"               # 스킬 활성화 시기를 제한하는
 | Field | Description |
 |-------|-------------|
 | `name` | 권장(이식성): 소문자, 숫자, 하이픈만 사용 (최대 64자). Claude Code에서 `anthropic-skills`와 `synced`는 예약어입니다. |
-| `description` | 스킬이 무엇을 하고 언제 사용해야 하는지. `description`과 `when_to_use`를 합친 텍스트는 스킬 목록에서 1,536자에서 잘립니다(`skillListingMaxDescChars`로 설정 가능). 자동 호출 매칭에 중요합니다. |
+| `description` | 스킬이 무엇을 하고 언제 사용해야 하는지. `description`과 `when_to_use`를 합친 텍스트는 스킬 목록에서 1,536자에서 잘립니다(`skillListingMaxDescChars`로 설정 가능). 자동 호출 매칭에 중요합니다. 꺾쇠괄호는 `&lt;`와 `&gt;`로 표시되므로 자리 표시자는 `[branch]`처럼 쓰거나 `argument-hint`에 넣으세요. |
 | `when_to_use` | Claude가 스킬을 호출해야 하는 시점에 대한 추가 컨텍스트. 스킬 목록에서 `description` 뒤에 덧붙으며 1,536자 제한에 포함됩니다. |
 | `argument-hint` | `/` 자동 완성 메뉴에 표시되는 힌트 (예: `"[filename] [format]"`). |
 | `disable-model-invocation` | `true` = 사용자만 `/name`을 통해 호출할 수 있습니다. Claude는 자동 호출하지 않습니다. |
@@ -187,7 +187,7 @@ paths: "src/api/**/*.ts"               # 스킬 활성화 시기를 제한하는
 | `allowed-tools` | 스킬이 권한 프롬프트 없이 사용할 수 있는 도구들의 쉼표로 구분된 목록. 관리형 설정의 `strictPluginOnlyCustomization`에 `hooks`가 포함되어 있으면, 프런트매터에 `hooks`를 선언한 개인 또는 프로젝트 스킬은 이 사전 승인을 잃습니다(v2.1.304). 해당 `hooks`를 제거하거나 스킬을 플러그인으로 옮기세요. |
 | `disallowed-tools` | 스킬이 활성 상태일 때 제거할 도구들의 쉼표로 구분된 목록 (`allowed-tools`를 보완합니다). v2.1.152에 추가됨. |
 | `model` | 스킬이 활성 상태일 때 모델 재정의 (예: `opus`, `sonnet`). |
-| `effort` | 스킬이 활성 상태일 때 노력 수준 재정의: `low`, `medium`, `high`, `xhigh` 또는 `max`. 다섯 가지 모두 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 지원됩니다. 기본 노력 수준은 노력 설정을 지원하는 모든 모델에서 `high`이며, 예외로 Opus 5.5, Sonnet 5.5, Haiku 5.5는 `medium`, Opus 4.7은 `xhigh`가 기본값입니다. |
+| `effort` | 현재 턴의 나머지 동안 적용할 노력 수준입니다(`context: fork`인 경우 대신 포크된 서브에이전트의 수준). 세션 노력 수준을 재정의하지만 `CLAUDE_CODE_EFFORT_LEVEL` 환경 변수는 재정의하지 않습니다. 값: `low`, `medium`, `high`, `xhigh` 또는 `max`. 다섯 가지 모두 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 지원됩니다. 기본 노력 수준은 노력 설정을 지원하는 모든 모델에서 `high`이며, 예외로 Opus 5.5, Sonnet 5.5, Haiku 5.5는 `medium`, Opus 4.7은 `xhigh`가 기본값입니다. |
 | `context` | `fork`는 스킬을 자체 컨텍스트 창을 가진 포크된 서브에이전트 컨텍스트에서 실행합니다. |
 | `agent` | `context: fork`일 때 서브에이전트 유형 (예: `Explore`, `Plan`, `general-purpose`). |
 | `background` | `context: fork`와 함께 쓸 때만 의미가 있습니다. `context: fork` 스킬의 기본값은 `true`이므로 백그라운드에서 실행됩니다. 포그라운드에서 실행하려면 `false`로 설정합니다. v2.1.218에 추가됨. |
@@ -910,8 +910,8 @@ chmod +x ~/.claude/skills/my-skill/scripts/*.py
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/skills
 - https://code.claude.com/docs/en/slash-commands
@@ -941,4 +941,6 @@ chmod +x ~/.claude/skills/my-skill/scripts/*.py
 - https://code.claude.com/docs/en/skills#frontmatter-reference
 - https://code.claude.com/docs/en/skills#skill-not-triggering
 - https://code.claude.com/docs/en/skills#work-on-claude-api-projects
+- https://code.claude.com/docs/en/model-config#set-the-effort-level
+- https://code.claude.com/docs/en/skills#angle-brackets-in-a-skill-description
 **호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

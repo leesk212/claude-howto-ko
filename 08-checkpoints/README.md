@@ -1,6 +1,6 @@
 <!-- i18n-source: 08-checkpoints/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: efbe356 -->
+<!-- i18n-date: 2026-11-02 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -50,7 +50,7 @@
 
 ## 되감기 옵션
 
-되감기를 수행하면 다음 6가지 옵션이 제공됩니다:
+되감기를 수행하면 최대 6가지 옵션이 제공됩니다:
 
 1. **코드와 대화 복원** -- 파일과 메시지를 해당 체크포인트 상태로 모두 복원
 2. **대화만 복원** -- 메시지만 되돌리고 파일은 현재 상태 유지
@@ -58,6 +58,8 @@
 4. **여기서부터 요약** -- 선택 시점 이후의 대화를 AI가 생성한 요약으로 압축하여 컨텍스트 공간을 확보. 이전 메시지는 유지되며 디스크 파일은 변경되지 않음. 원본 메시지는 세션에 보존됨. 필요 시 특정 주제 중심으로 요약 가능
 5. **여기까지 요약** -- 반대 방향의 요약: 선택 시점 *이전*의 모든 내용을 AI가 생성한 요약으로 압축하고, 이 시점 이후의 메시지는 그대로 유지. "여기서부터 요약"과 함께 사용하면 컨텍스트 창을 양방향으로 원하는 부분만 압축 가능. 디스크 파일은 변경되지 않으며 원본 메시지는 세션 기록에 보존됨
 6. **취소** -- 작업을 취소하고 현재 상태로 복귀
+
+두 가지 코드 복원 옵션은 선택한 체크포인트에 되돌릴 파일 변경이 있을 때만 표시되며, 두 가지 요약 옵션은 `DISABLE_COMPACT`가 설정되어 있으면 숨겨집니다(v2.1.311+).
 
 > **참고**: 대화를 복원하거나 **여기서부터 요약**을 선택하면 선택한 메시지의 원본 프롬프트가 입력창에 복원되어 다시 전송하거나 수정할 수 있습니다. **여기까지 요약**을 선택하면 입력창이 빈 상태로 대화의 끝에 머무릅니다.
 
@@ -251,7 +253,7 @@ Claude Code는 **최근 100개 체크포인트**의 스냅숏만 보관하며, �
 체크포인트에는 다음과 같은 제한이 있습니다:
 
 - **Bash로만 변경한 파일은 추적되지 않음** - Claude가 파일 편집 도구로 한 번 편집한 파일이라면, 이후 Bash 명령어가 그 파일에 가한 변경도 `/rewind`로 되돌릴 수 있지만, Bash 명령어로만 변경된 파일은 추적되지 않음. v2.1.309부터 `sed -i`도 다른 Bash 편집과 동일하게 취급됨
-- **외부 변경은 추적되지 않음** - Claude Code 외부(에디터, 터미널 등)에서 발생한 변경은 기록되지 않음
+- **외부 변경은 추적되지 않음** - Claude Code 외부(에디터, 터미널, 다른 세션 등)에서 발생한 변경은 일반적으로 기록되지 않음. 단, 이 세션에서 Claude가 편집한 파일을 건드린 경우에는 코드 복원이 그 변경을 덮어쓸 수 있음(v2.1.311부터 /rewind 경고에 이 내용이 표시됨)
 - **버전 관리 시스템 대체 불가** - 영구적이고 감사 가능한 변경 이력은 Git을 사용해야 함
 - **서브에이전트 편집은 복원되지 않음** - 대화에서 Claude가 아직 편집하지 않은 파일을 서브에이전트가 편집하면 추적되지 않으므로 `/rewind`는 이를 그대로 둠(git으로 되돌려야 함). 예외적으로 포그라운드 `context: fork` 스킬의 편집은 메인 세션과 마찬가지로 복원됨
 
@@ -350,8 +352,8 @@ Claude Code는 **최근 100개 체크포인트**의 스냅숏만 보관하며, �
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/checkpointing
 - https://code.claude.com/docs/en/settings
@@ -363,4 +365,7 @@ Claude Code는 **최근 100개 체크포인트**의 스냅숏만 보관하며, �
 - https://code.claude.com/docs/en/checkpointing#bash-command-changes-not-tracked
 - https://code.claude.com/docs/en/checkpointing#subagent-edits-not-restored
 - https://code.claude.com/docs/en/checkpointing#rewound-messages-can-return-if-you-exit-before-your-next-prompt
+- https://code.claude.com/docs/en/checkpointing#external-changes-not-tracked
+- https://code.claude.com/docs/en/changelog#2-1-311
+- https://code.claude.com/docs/en/checkpointing#rewind-and-summarize
 **호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

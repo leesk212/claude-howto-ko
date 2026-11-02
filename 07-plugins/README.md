@@ -1,6 +1,6 @@
 <!-- i18n-source: 07-plugins/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: efbe356 -->
+<!-- i18n-date: 2026-11-02 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -539,6 +539,8 @@ documentation/
 /plugin install <plugin-name>@claude-community
 ```
 
+> **지원 중단(deprecated)**: `anthropics/claude-code`에 있는 이전 `claude-code-plugins` 마켓플레이스는 지원 중단되었습니다. Anthropic의 플러그인은 `claude plugin install <plugin>@claude-plugins-official`로 설치하고, `/plugin marketplace add anthropics/claude-code`를 실행하는 튜토리얼 단계는 건너뛰세요. 이 마켓플레이스에서 이미 설치한 플러그인은 `claude-plugins-official`에서 계속 업데이트됩니다. 단, `ralph-wiggum`(현재 `ralph-loop`, 명령어 `/ralph-loop:`)과 `claude-opus-4-5-migration`(사용 종료, `claude plugin uninstall claude-opus-4-5-migration@claude-code-plugins` 실행)은 예외입니다.
+
 ```mermaid
 graph TB
     A["Plugin Marketplace"]
@@ -659,7 +661,7 @@ docs-helper       0.9.0     community  +610       Doc-style guide enforcement
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `name` | Yes | kebab-case 형식의 마켓플레이스 이름 |
+| `name` | Yes | kebab-case 형식의 마켓플레이스 이름입니다. 사용자는 같은 이름의 마켓플레이스 두 개를 추가할 수 없으므로 다른 작성자가 쓰지 않을 만한 이름을 고르세요 |
 | `owner` | Yes | 마켓플레이스를 유지 관리하는 조직 또는 사용자: 필수 `name`(선택 `email`, `url`)을 가진 객체 |
 | `plugins` | Yes | 플러그인 항목 배열 |
 | `plugins[].name` | Yes | 플러그인 이름(kebab-case) |
@@ -869,7 +871,7 @@ claude plugin init <name>                    # 새 플러그인 스캐폴드 생
 | `plugin validate` | `--strict` | 경고를 오류로 처리 |
 | `plugin validate` | `--json` | 기계가 읽을 수 있는 검증 보고서 출력(v2.1.259+) |
 
-`claude plugin validate`는 `.mcp.json` 항목도 검사하며(v2.1.281+), `outputStyles`, `themes`, `monitors`, `lspServers` 경로가 없거나 플러그인 디렉터리 밖을 가리키면 실패합니다(v2.1.283+).
+`claude plugin validate`는 `.mcp.json` 항목도 검사하며(v2.1.281+), `outputStyles`, `themes`, `monitors`, `lspServers` 경로가 없거나 플러그인 디렉터리 밖을 가리키면 실패합니다(v2.1.283+). 또한 플러그인 README에 마켓플레이스에서 해당 플러그인을 설치하는 줄이 없으면 붙여 넣을 줄과 함께 `Advice` 블록을 출력합니다. 이 조언은 `--strict`를 사용하더라도 판정이나 종료 코드를 바꾸지 않습니다(v2.1.295+).
 
 예시: `claude plugin tag ./my-plugin`은 버전 문자열이 아니라 플러그인 **경로**를 받습니다. `plugin.json`에서 도출한 `{name}--v{version}` git 태그를 생성하며, `plugin.json`과 이를 감싸는 마켓플레이스 항목이 일치하는지 검증합니다. 배포를 위한 플러그인 릴리스를 만드는 권장 방법입니다.
 
@@ -925,8 +927,8 @@ claude plugin install my-plugin@my-marketplace --accept-command <sha256>
 세션에서 `/plugin install <plugin> --marketplace <source>`는 마켓플레이스를 인라인으로 지정하고 설치 전에 추가를 제안하므로, 마켓플레이스를 찾고 추가하는 과정이 더 이상 별도 단계가 아닙니다. 셸에서도 `claude plugin install <plugin> --marketplace <source>`가 같은 동작을 합니다(v2.1.292+). 필요하면 `claude plugin marketplace add`와 동일한 정책 검사를 거쳐 마켓플레이스를 추가한 뒤 플러그인을 설치합니다.
 
 ```bash
-/plugin install code-review --marketplace anthropics/claude-code
-claude plugin install code-review --marketplace anthropics/claude-code   # 셸에서 동일하게 실행(v2.1.292+)
+/plugin install deploy-helper --marketplace your-org/plugins
+claude plugin install deploy-helper --marketplace your-org/plugins   # 셸에서 동일하게 실행(v2.1.292+)
 ```
 
 ## 설치 방법
@@ -1019,7 +1021,7 @@ export FORCE_AUTOUPDATE_PLUGINS=1
 
 # SSH 키가 없는 CI 실행기 — 플러그인 설치 시 HTTPS 강제
 export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1
-claude plugin install code-review@claude-code-plugins
+claude plugin install code-review@claude-plugins-official
 ```
 
 > **원격 세션 플러그인 로딩(v2.1.179)**: v2.1.179에서는 원격 세션의 플러그인 로딩 성능이 개선되어 원격 세션에 연결하면 플러그인을 더 빠르게 사용할 수 있습니다.
@@ -1376,8 +1378,8 @@ git 소스 플러그인에 대해 `claude plugin list`가 `Version: unknown`을 
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/plugins
 - https://code.claude.com/docs/en/plugins-reference
@@ -1437,4 +1439,8 @@ git 소스 플러그인에 대해 `claude plugin list`가 `Version: unknown`을 
 - https://code.claude.com/docs/en/plugins/troubleshooting#a-plugin-installed-from-a-git-repository-shows-version-unknown
 - https://code.claude.com/docs/en/plugins/host-marketplace
 - https://code.claude.com/docs/en/plugins/components#frontmatter-fields-in-plugin-agents
+- https://code.claude.com/docs/en/plugins/anthropic-marketplaces#deprecated-claude-code-plugins-marketplace
+- https://code.claude.com/docs/en/github-actions#run-a-skill
+- https://code.claude.com/docs/en/plugins/cli-reference#advice-on-the-readme
+- https://code.claude.com/docs/en/plugins/create-marketplace#host-your-marketplace
 **호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

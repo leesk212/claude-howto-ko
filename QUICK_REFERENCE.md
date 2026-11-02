@@ -1,6 +1,6 @@
 <!-- i18n-source: QUICK_REFERENCE.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: efbe356 -->
+<!-- i18n-date: 2026-11-02 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
@@ -101,7 +101,7 @@ claude --plugin-dir ./07-plugins/pr-review
 # plan               - 읽기 전용 분석, 수정 없음
 # auto               - 백그라운드 분류기가 권한을 자동 결정
 # dontAsk            - 사전 승인된 도구만 실행, 나머지는 모두 거부
-# bypassPermissions  - 모든 작업 자동 승인(--permission-mode bypassPermissions, --dangerously-skip-permissions와 동일)
+# bypassPermissions  - 거부 규칙과 어떤 모드도 자동 승인하지 않는 일부 작업을 제외한 모든 작업 자동 승인(--permission-mode bypassPermissions, --dangerously-skip-permissions와 동일)
 
 # 세션 관리
 /resume                # 이전 대화 이어서 진행(인수 없으면 과거 세션 선택기)
@@ -532,8 +532,8 @@ A: 물론입니다! 예제는 자유롭게 사용자 환경에 맞게 수정할 
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/workflows#set-a-size-guideline
 - https://code.claude.com/docs/en/memory#agents-md

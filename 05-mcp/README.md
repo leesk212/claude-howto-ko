@@ -1,6 +1,6 @@
 <!-- i18n-source: 05-mcp/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: efbe356 -->
+<!-- i18n-date: 2026-11-02 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -217,6 +217,7 @@ URL은 `https://`를 사용해야 합니다. 이 옵션은 Claude Code v2.1.64 �
 
 - **시작 인증 알림 (v2.1.193 이상)**: 시작 시 Claude Code는 아직 인증이 필요한 MCP 서버 목록을 알림으로 표시하여, 로그인이 필요한 서버가 조용히 작동하지 않는 상태로 방치되지 않도록 합니다.
 - **`headersHelper` 자동 새로 고침 (v2.1.193 이상)**: `headersHelper`를 통해 사용자 지정 인증을 제공하는 경우, 서버가 HTTP 401 또는 403을 반환하면 도우미가 자동으로 다시 호출됩니다. 수동 재연결 없이 자격 증명이 즉시 새로 고쳐집니다. [사용자 지정 인증을 위해 동적 헤더 사용](https://code.claude.com/docs/en/mcp)을 참조하세요.
+- **인증 프록시 뒤의 OAuth (v2.1.299 이상)**: 프록시 자체의 헤더는 `--header`, `headers` 또는 `headersHelper`로 전달하고, 이 헤더들에는 `Authorization`을 넣지 말고, `claude mcp login <name>`으로 로그인하세요. 구성된 `Authorization` 헤더는 자격 증명으로 사용되며 OAuth로 대체되지 않습니다.
 
 > **경고** (v2.1.238): 프로젝트 `.mcp.json`의 `headersHelper`와, 프로젝트 또는 `--add-dir` 에이전트 파일의 인라인 MCP 서버는 이제 `claude -p`에서도 해당 폴더의 신뢰 대화상자가 수락되어 있어야 합니다. 이런 도우미는 또한 **상속된 자격 증명 환경 변수 없이** 실행되며, 사용자·관리형·claude.ai 범위의 도우미는 대신 Claude 구성 디렉터리에서 실행됩니다. 상속된 자격 증명이나 신뢰되지 않은 상태의 실행에 의존하던 프로젝트 구성은 신뢰 대화상자를 수락하고 다른 방식으로 자격 증명을 제공할 때까지 동작하지 않습니다.
 
@@ -310,6 +311,8 @@ MCP 앱은 최초의 공식 MCP 확장으로, MCP 도구 호출이 채팅 인터
 ## MCP 정보 요청(Elicitation)
 
 MCP 서버는 대화형 대화상자를 통해 사용자에게 구조화된 입력을 요청할 수 있습니다(v2.1.49 이상). 이를 통해 MCP 서버는 워크플로 중간에 추가 정보를 요청할 수 있습니다. 예를 들어, 확인을 요청하거나, 옵션 목록에서 선택하거나, 필수 필드를 채워 MCP 서버 상호 작용에 대화형 기능을 추가할 수 있습니다.
+
+Java MCP SDK 0.17.0 이하로 만든 서버가 "rejected Claude Code's elicitation capability"와 함께 연결을 거부하면, Java MCP SDK 0.17.1+로 업그레이드하거나 해당 항목에 `"bareElicitationCapability": true`를 추가하세요(stdio, `sse`, `http`, `ws`, v2.1.281+). 이 설정은 폼 모드 정보 요청으로만 제한합니다.
 
 ## 도구 설명 및 지침 상한
 
@@ -431,9 +434,9 @@ claude mcp add-json events-server '{"type":"stdio","command":"npx","args":["@mod
 
 > **참고**: JSON 구성(`.mcp.json`, `~/.claude.json`, `claude mcp add-json`)에서 `type` 필드는 `http`의 별칭으로 `streamable-http`를 받습니다. MCP 사양은 이 전송을 `streamable-http`라고 부르므로, 서버 자체 문서에서 복사한 구성을 수정 없이 사용할 수 있습니다.
 
-v2.1.238부터 `claude mcp list`와 `claude mcp get`은 비활성화된 서버를 상태 확인을 위해 연결하지 않고 `⊘ Disabled`로 표시합니다.
+v2.1.238부터 `claude mcp list`와 `claude mcp get`은 비활성화된 서버를 상태 확인을 위해 연결하지 않고 `⊘ Disabled`로 표시합니다. 조직 정책 중 하나가 거부한 서버는 두 명령 모두에서 `✘ Blocked by enterprise managed policy`로 표시되며, 허용 목록, 거부 목록 또는 기타 관리형 MCP 제한으로 필터링된 서버는 목록에 표시되지 않고 숨겨집니다.
 
-`claude mcp login <name>` / `claude mcp logout <name>`은 `/mcp` 메뉴의 OAuth 흐름과 상호 작용 없이 인증하거나 로그아웃하는 비대화형 방식입니다. `login`에 `--no-browser`를 추가하면 SSH 또는 헤드리스 세션에서 OAuth를 stdin을 통해 완료할 수 있습니다.
+`claude mcp login <name>` / `claude mcp logout <name>`은 `/mcp` 메뉴의 OAuth 흐름과 상호 작용 없이 인증하거나 로그아웃하는 비대화형 방식입니다. `login`에 `--no-browser`를 추가하면 SSH 또는 헤드리스 세션에서 OAuth를 stdin을 통해 완료할 수 있습니다. `claude mcp remove`는 저장된 OAuth 토큰을 삭제하지만 폐기하지는 않습니다. 권한 부여 서버가 지원하는 경우 토큰을 폐기하려면 `claude mcp remove <name>` 전에 `claude mcp logout <name>`을 실행하세요.
 
 ## 사용 가능한 MCP 서버 표
 
@@ -543,7 +546,7 @@ MCP 구성은 대체 기본값과 함께 환경 변수 확장을 지원합니다
 
 변수는 런타임에 확장됩니다.
 - `${VAR}` - 환경 변수를 사용합니다. 설정되지 않았고 기본값도 없으면 서버는 문자 그대로의 `${VAR}`로 로드되며, `claude mcp list`와 `/mcp`가 누락된 변수에 대해 경고합니다
-- `${VAR:-default}` - 환경 변수를 사용하며, 설정되지 않은 경우 기본값으로 대체
+- `${VAR:-default}` - 환경 변수를 사용하며, 설정되지 않은 경우 기본값으로 대체. 빈 문자열로 설정된 변수는 설정된 것으로 간주되어 빈 값으로 확장됩니다(예: `url`이 `/mcp`가 됨). 기본값을 쓰려면 변수를 해제하세요
 
 ### 예시 2: 데이터베이스 MCP 설정
 
@@ -1357,8 +1360,8 @@ export GITHUB_PERSONAL_ACCESS_TOKEN="your_token"
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/mcp
 - https://code.claude.com/docs/en/managed-mcp
@@ -1385,4 +1388,10 @@ export GITHUB_PERSONAL_ACCESS_TOKEN="your_token"
 - https://code.claude.com/docs/en/mcp#time-limits-on-mcp-tool-calls
 - https://code.claude.com/docs/en/changelog#2-1-307
 - https://code.claude.com/docs/en/mcp#mark-tools-that-are-safe-to-call-twice
+- https://code.claude.com/docs/en/mcp#variables-set-to-an-empty-string
+- https://code.claude.com/docs/en/mcp#managing-your-servers
+- https://code.claude.com/docs/en/mcp#server-status
+- https://code.claude.com/docs/en/errors#mcp-server-rejected-the-elicitation-capability
+- https://code.claude.com/docs/en/mcp#elicitation-modes-claude-code-declares
+- https://code.claude.com/docs/en/mcp#use-oauth-with-a-server-behind-an-authenticating-proxy
 **호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

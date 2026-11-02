@@ -1,6 +1,6 @@
 <!-- i18n-source: CATALOG.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: efbe356 -->
+<!-- i18n-date: 2026-11-02 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
@@ -76,9 +76,10 @@
 | `/release-notes` | 릴리스 노트 표시 | 새로운 기능 확인 |
 | `/remote-control` | 원격 제어 활성화 | 원격 접속 |
 | `/permissions` | 권한 관리 | 접근 권한 제어 |
-| `/auto-mode-setup` | 프로젝트와 최근 세션을 바탕으로 `autoMode.environment` 항목 초안을 만들고, 검토한 뒤 사용자 설정에 저장. Pro/Max/Team은 v2.1.228+(네이티브 Windows는 v2.1.233+), Enterprise 또는 Console API 키는 v2.1.283+, Bedrock·Vertex·Foundry 및 원격 측정이 꺼진 세션은 v2.1.304+. 클라우드 세션에서는 사용 불가 | 자동 모드에 환경 정보 알려 주기 |
+| `/auto-mode-setup` | 프로젝트와 최근 세션을 바탕으로 `autoMode.environment` 항목 초안을 만들고, 검토한 뒤 사용자 설정에 저장. Pro/Max/Ultra/Team은 v2.1.228+(네이티브 Windows는 v2.1.233+), Enterprise 또는 Console API 키는 v2.1.283+, Bedrock·Vertex·Foundry 및 원격 측정이 꺼진 세션은 v2.1.304+. 클라우드 세션에서는 사용 불가 | 자동 모드에 환경 정보 알려 주기 |
 | `/rename` | 현재 세션 이름 변경 | 세션 정리 |
 | `/resume` | 이전 세션 이어서 작업 | 작업 계속하기 |
+| `/restart` | Claude Code를 다시 시작하고 이 세션을 재개하여 설치된 업데이트 적용(별칭 `/update`). Pro/Max/Ultra 플랜, macOS 또는 Linux 네이티브 설치(WSL 제외), v2.1.288+ | 푸터에 업데이트가 설치되었다고 표시된 후 |
 | `/tui [default\|fullscreen]` | 터미널 UI 렌더러 설정(`fullscreen` = 깜빡임 없는 대체 화면). 인수 없는 `/tui`는 현재 렌더러를 출력 | 전체 화면/tmux에서 깜빡임 없는 렌더링 |
 | `/tasks` | 백그라운드 작업 표시 | 비동기 작업 모니터링 |
 | `/schedule [description]` | 일정, API 호출 또는 GitHub 이벤트에 따라 Anthropic 클라우드에서 실행되는 클라우드 예약 작업(이전 이름 routines)을 생성, 수정, 조회, 실행. 별칭: `/routines` | 내 컴퓨터 없이 실행되는 반복 자동화 |
@@ -93,12 +94,12 @@
 | `/stats` | `/usage`의 통계 탭을 여는 단축 별칭 (v2.1.118+) | 세션 통계 확인 |
 | `/statusline` | 상태 표시줄 구성 | 상태 표시 사용자 지정 |
 | `/stickers` | Claude Code 스티커 주문 | 재미 요소 |
-| `/fast` | 빠른 출력 모드 전환. **Opus 5.5**(v2.1.280부터 기본값), **Opus 5, Opus 4.8**에 적용 | 응답 속도 향상 |
+| `/fast` | 빠른 출력 모드 전환. **Opus 5.5**(v2.1.280부터 기본값), **Opus 5, Opus 4.8**에 적용(Opus 4.8 빠른 모드는 2026년 10월 30일부로 지원 중단되었으며 2026년 11월 30일에 제거 예정이므로 Opus 5.5로 이전) | 응답 속도 향상 |
 | `/terminal-setup` | 터미널 연동 설정 | 터미널 기능 설정 |
 | `/undo` | `/rewind`의 별칭 (v2.1.108) | `/rewind`와 동일 |
 | `/upgrade` | 상위 플랜으로 전환하는 업그레이드 페이지 열기 | 플랜 업그레이드 |
 | `/team-onboarding` | 현재 프로젝트의 Claude Code 사용 내역을 기반으로 팀원 온보딩 가이드 생성 | 신규 팀원 온보딩 (v2.1.101) |
-| `/code-review ultra` | 현재 변경 사항에 대해 클라우드 기반 멀티 에이전트 코드 리뷰 실행. `/ultrareview`는 별칭으로 남아 있으며 `/code-review ultra`가 권장 호출 방식입니다. Pro와 Max에서 무료 3회 실행 후에는 사용량 크레딧이 필요합니다 | 여러 에이전트를 통한 병합 전 심층 리뷰 (v2.1.112) |
+| `/code-review ultra` | 현재 변경 사항에 대해 클라우드 기반 멀티 에이전트 코드 리뷰 실행. `/ultrareview`는 별칭으로 남아 있으며 `/code-review ultra`가 권장 호출 방식입니다. Pro, Max, Ultra에서 무료 3회 실행 후에는 사용량 크레딧이 필요합니다 | 여러 에이전트를 통한 병합 전 심층 리뷰 (v2.1.112) |
 | `/fewer-permission-prompts` | 대화 기록을 분석하여 자주 사용하는 읽기 전용 도구의 허용 목록을 우선순위에 따라 제안 | 프로젝트에서 반복적인 권한 요청 감소 (v2.1.112) |
 | `/skill-doctor` | 로드된 스킬 중 사용되지 않는 스킬과 그 컨텍스트 비용 표시. `/plugin` 관리자의 **Stats** 탭에서 열리며 `-p`에서는 텍스트로 출력 | 더 이상 필요 없는 스킬 정리 (v2.1.252+) |
 
@@ -136,7 +137,7 @@ Claude Code는 도구 사용 권한을 제어하는 6가지 권한 모드를 지
 | `acceptEdits` | 파일 수정은 자동 승인하고 나머지는 권한 요청 | 신뢰할 수 있는 편집 워크플로 |
 | `plan` | 조사 후 계획을 제안하며, 승인하기 전까지 소스를 편집하지 않음 | 계획 수립 및 탐색 |
 | `auto` | 백그라운드 안전 분류기 검사와 함께 모든 작업 수행 | 긴 작업, 프롬프트 피로 감소 |
-| `bypassPermissions` | 모든 권한 확인 건너뛰기 | CI/CD, 헤드리스 환경 |
+| `bypassPermissions` | 권한 프롬프트 건너뛰기. 거부 규칙과 어떤 모드도 자동 승인하지 않는 작업(예: 중요 경로 `rm`)은 여전히 프롬프트를 표시하거나 거부 | CI/CD, 헤드리스 환경 |
 | `dontAsk` | 권한이 필요한 도구는 건너뜀 | 비대화형 스크립트 |
 
 > **참고**: `auto` 모드를 사용하려면 자격 요건을 갖춘 플랜, 모델, 공급자가 필요합니다. [09-advanced-features/](09-advanced-features/README.md#자동-모드)를 참고하세요. `bypassPermissions`는 신뢰할 수 있는 샌드박스 환경에서만 사용해야 합니다.
@@ -255,7 +256,7 @@ cp -r 03-skills/* ~/.claude/skills/
 | `/claude-in-chrome [task]` | Claude in Chrome을 통해 브라우저에서 작업 수행(페이지 테스트, 양식 작성, 콘솔 로그 읽기). Chrome 연동이 활성화된 경우 사용 가능 | 브라우저 작업 |
 | `/dataviz [request]` | 차트, 그래프, 대시보드 디자인 가이드: 차트 형태, 역할별 색상, 색맹 안전성과 대비를 위한 팔레트 검증 | 차트나 대시보드를 만들 때 |
 | `/debug [description]` | 세션의 디버그 로깅을 켜고 세션 디버그 로그로 문제 해결 | Claude Code 자체 디버깅 |
-| `/design` *(v2.1.265+)* | 여러 아트보드로 구성된 디자인 캔버스 생성 — UI 목업, 화면 흐름, 랜딩 페이지, 포스터 — 코드가 아닌 시각적으로 다듬음. Pro/Max/Team/Enterprise | HTML보다 직접 다듬고 싶은 화면이나 페이지를 디자인할 때 |
+| `/design` *(v2.1.265+)* | 여러 아트보드로 구성된 디자인 캔버스 생성 — UI 목업, 화면 흐름, 랜딩 페이지, 포스터 — 코드가 아닌 시각적으로 다듬음. Pro/Max/Ultra/Team/Enterprise | HTML보다 직접 다듬고 싶은 화면이나 페이지를 디자인할 때 |
 | `/design-sync [hint]` | 저장소의 React 디자인 시스템을 변환해 Claude Design에 업로드하여 실제 컴포넌트로 디자인하게 함. Anthropic API 전용. 독립형 Claude Design(claude.ai/design)은 2026년 12월 14일에 종료됩니다. | 디자인 시스템을 Claude Design에 동기화할 때 |
 | `/design-login` | `/design-sync`용 디자인 시스템 접근 권한 부여(2026년 12월 14일까지 종료되는 독립형 claude.ai/design 사이트에 로그인) | `/design-sync` 실행 전 |
 | `/design consent`, `/design revoke` | Claude에게 Claude Design 접근 권한을 부여하거나 철회. Claude가 `/design consent` 실행을 요청하면 프롬프트에 직접 입력하세요 | Claude Design 접근 권한 부여 또는 해제 |
@@ -531,7 +532,7 @@ cp 02-memory/personal-CLAUDE.md ~/.claude/CLAUDE.md
 | **Usage-Limit Auto-Continue** | claude.ai 사용량 한도에 막혀 있던 세션은 한도가 초기화되면 Claude Code가 자동으로 이어서 진행 (v2.1.234) | 기본적으로 켜져 있음. `/config` → "Continue automatically at usage limit"에서 끄기. [Advanced Features](09-advanced-features/) 참고 |
 | **`spellcheck` setting** | `PATH`에 있는 aspell, hunspell, ispell 중 하나를 사용해 프롬프트 입력의 철자 오류에 밑줄 표시. 기본적으로 꺼짐 (v2.1.235) | 검사기를 설치한 뒤 `~/.claude/settings.json`에 `"spellcheck": { "enabled": true }` 설정. 사용자, `--settings`, 관리되는 설정에서만 동작하며 프로젝트 설정에서는 무시됨. [Advanced Features](09-advanced-features/) 참고 |
 | **Agent Teams Default Model** | `/config`의 "Default teammate model" 설정이 제거됨. 생성 호출에서 명시적으로 지정하지 않으면 팀원은 이제 기본적으로 팀 리더의 모델을 상속 (v2.1.234) | [Subagents — Agent Teams](04-subagents/README.md#에이전트-팀-실험적) 참고 |
-| **`/design`** | 디자인 캔버스 — 아티팩트 위에 만들어지고 코드가 아닌 시각적으로 다듬는 여러 아트보드 기반 시각 디자인(UI 목업, 화면 흐름, 랜딩 페이지, 포스터). v2.1.265+ 필요, Pro/Max/Team/Enterprise | CLI 또는 Desktop 앱에서 `/design` 실행. [Slash Commands](01-slash-commands/README.md) 참고 |
+| **`/design`** | 디자인 캔버스 — 아티팩트 위에 만들어지고 코드가 아닌 시각적으로 다듬는 여러 아트보드 기반 시각 디자인(UI 목업, 화면 흐름, 랜딩 페이지, 포스터). v2.1.265+ 필요, Pro/Max/Ultra/Team/Enterprise | CLI 또는 Desktop 앱에서 `/design` 실행. [Slash Commands](01-slash-commands/README.md) 참고 |
 | **`notify_when_idle`** | 같은 머신의 다른 세션에 다음 번 유휴 상태가 될 때 알림을 한 번 보내 달라고 요청하는 세션 간 `SendMessage` 입력 — 옵트인, 일회성, 폴링 없음 (v2.1.236). 관련: `ListAgents`가 세션 자신의 이름을 보고하고 실행 중인 팀원 목록을 표시하며, Windows에서도 세션 간 메시징 지원 (v2.1.239) | `SendMessage`에 `notify_when_idle` 전달. [Advanced Features](09-advanced-features/README.md#세션-간-메시징) 참고 |
 | **Plugin manifest fields** | `plugin.json`이 `workflows`, `channels`, `dependencies`(semver), `outputStyles`, `keywords`, `metadata`, `lspServers`, `experimental.themes` / `experimental.monitors`를 지원. CLI에는 `claude plugin new`, `remove`/`rm`, `prune`/`autoremove`와 `--with`, `-f`/`--force`, `--available`, `--push`, `--dry-run` 플래그가 추가됨 | [Plugins](07-plugins/README.md) 참고 |
 | **Restricted Mode** | `--tools`가 개별적으로 지정하지 않는 한(`default` 프리셋으로는 안 됨) 명령어나 코드를 실행하는 기본 제공 도구(Bash, PowerShell 등)와 WebFetch를 제거하고, 사용자·프로젝트·로컬 설정을 무시하며(관리되는 설정과 `--settings`는 계속 적용), 파일 도구를 작업 디렉터리로 제한하고, `bypassPermissions`를 거부하며, 클라우드 세션 생성을 거부 (v2.1.248+) | `claude --restricted` 또는 `CLAUDE_CODE_RESTRICTED=1`. [CLI](10-cli/README.md) 참고 |
@@ -595,8 +596,8 @@ chmod +x ~/.claude/hooks/*.sh
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/sub-agents
 - https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
@@ -638,4 +639,7 @@ chmod +x ~/.claude/hooks/*.sh
 - https://code.claude.com/docs/en/routines
 - https://code.claude.com/docs/en/auto-mode-config#generate-environment-entries-with-auto-mode-setup
 - https://code.claude.com/docs/en/scheduled-tasks
+- https://code.claude.com/docs/en/feature-availability#ultra-plan
+- https://code.claude.com/docs/en/ultrareview#pricing-and-free-runs
+- https://code.claude.com/docs/en/changelog#2-1-316
 **호환 모델**: Claude Fable 5.1, Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
