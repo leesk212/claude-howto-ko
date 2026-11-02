@@ -1,6 +1,6 @@
 <!-- i18n-source: 02-memory/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: efbe356 -->
+<!-- i18n-date: 2026-11-02 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../../resources/logos/claude-howto-logo-dark.svg">
@@ -551,6 +551,8 @@ graph TD
 npm install -g @anthropic-ai/claude-code@latest
 ```
 
+> **참고**: 기본적으로 Claude Code의 postinstall 단계를 건너뛰는 npm 12에서는 이 명령이 `Error: claude native binary not installed.`로 끝납니다. 네이티브 설치 프로그램으로 전환하거나 [Fix an npm 12 install](https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install)을 따르세요.
+
 ### 자동 메모리 켜기 또는 끄기
 
 자동 메모리는 **기본적으로 켜져 있습니다**. `autoMemoryEnabled` 설정(기본값 `true`)으로 제어하며, `false`이면 Claude는 자동 메모리 디렉터리에서 읽지도 쓰지도 않습니다. 세션 중에 `/memory`로 전환할 수도 있습니다.
@@ -980,7 +982,7 @@ graph LR
 
 - **적절한 계층 수준 사용**:
   - **관리 정책**: 회사 전체 정책, 보안 표준, 규정 준수 요구 사항
-  - **프로젝트 메모리**: 팀 표준, 아키텍처, 코딩 규칙 (git에 커밋)
+  - **프로젝트 메모리**: 팀 표준, 코딩 규칙, Claude가 코드에서 읽어 낼 수 없는 결정 사항 (git에 커밋)
   - **사용자 메모리**: 개인 환경 설정, 커뮤니케이션 스타일, 도구 선택
   - **디렉터리 메모리**: 모듈별 규칙 및 재정의
 
@@ -1004,6 +1006,8 @@ graph LR
 - **민감한 데이터 포함 금지**: 개인 식별 정보(PII), 개인 정보 또는 독점 기밀을 포함하지 마세요.
 
 - **콘텐츠 중복 금지**: 대신 가져오기 (`@path`)를 사용하여 기존 문서를 참조하세요.
+
+- **Claude가 직접 읽을 수 있는 내용 설명 금지**: Claude는 저장소를 읽으므로 아키텍처 개요와 파일 구조는 생략하세요. Claude가 계속 놓치는 줄에 IMPORTANT나 대문자 강조를 붙이지도 마세요. 대신 파일을 줄이거나, 예외를 둘 수 없는 규칙은 훅이나 거부(deny) 규칙으로 바꾸세요.
 
 - **모호한 표현 금지**: "모범 사례를 따릅니다" 또는 "좋은 코드를 작성합니다"와 같은 일반적인 진술을 피하세요.
 
@@ -1250,8 +1254,8 @@ Opus 5 또는 Fable 5를 대상으로 하는 기존 CLAUDE.md 파일에서 검�
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/memory
 - https://code.claude.com/docs/en/memory#agents-md
@@ -1269,4 +1273,6 @@ Opus 5 또는 Fable 5를 대상으로 하는 기존 CLAUDE.md 파일에서 검�
 - https://code.claude.com/docs/en/memory#how-it-works
 - https://code.claude.com/docs/en/memory#path-specific-rules
 - https://code.claude.com/docs/en/memory#how-claude-md-files-load
+- https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install
+- https://code.claude.com/docs/en/best-practices
 **호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
