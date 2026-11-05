@@ -1,6 +1,6 @@
 <!-- i18n-source: CLAUDE.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 # CLAUDE.md
 

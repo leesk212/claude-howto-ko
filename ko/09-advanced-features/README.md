@@ -1,6 +1,6 @@
 <!-- i18n-source: 09-advanced-features/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../../resources/logos/claude-howto-logo-dark.svg">
@@ -232,7 +232,7 @@ claude --model opusplan "design and implement the new API"
 - `Option + T` (macOS) / `Alt + T` (Windows/Linux) - 확장 사고 전환. Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5 및 Fable 모델에서는 사고를 끌 수 없습니다. 이 모델들에서는 전환 키, `alwaysThinkingEnabled`, `MAX_THINKING_TOKENS=0`이 아무 효과가 없습니다.
 
 **자동 활성화**:
-- 모든 모델 (Opus 5, Opus 4.8, Opus 4.7, Sonnet 4.6, Haiku 4.5)에 기본적으로 활성화되어 있습니다.
+- 모든 모델 (Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 모델, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Sonnet 4.6, Haiku 4.5)에 기본적으로 활성화되어 있습니다.
 - Opus 5 / Opus 4.8: 노력 수준이 있는 적응형 추론: `low` (○), `medium` (◐), `high` (●), `xhigh`, `max`. 기본값은 Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5에서 `medium`이고, Opus 5 (v2.1.219), Sonnet 5, Opus 4.8 (v2.1.154), Opus 4.6, Sonnet 4.6에서 `high`이며, Opus 4.7에서 `xhigh`입니다. `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다 (Opus 4.6 / Sonnet 4.6에서는 `high`로 대체됩니다). `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동합니다 (세션 전용). Haiku 4.5에는 노력 수준이 없습니다. Opus 5, Opus 4.8, Opus 4.7은 1M 토큰의 기본 컨텍스트 창을 가집니다 (1M 컨텍스트 수정은 v2.1.117에 적용됨 — 이전에는 `/context`가 Opus 4.7을 200K 창에 대해 잘못 계산하여 조기 자동 압축을 트리거했습니다). v2.1.129부터 `/context`는 UI 내에서만 시각화를 표시합니다. ASCII 시각화는 더 이상 대화 컨텍스트로 유출되지 않으므로 (호출당 약 1.6k 토큰 절약), `/context`는 자유롭게 호출해도 안전합니다.
 - Opus 4.6 / Sonnet 4.6의 Pro/Max 구독자: v2.1.117에서 기본 노력 수준이 `medium`에서 `high`로 상향 조정되었습니다.
 - 다른 모델: 최대 31,999 토큰의 고정 예산
@@ -262,7 +262,7 @@ claude --effort high "complex architectural review"
 /effort high
 ```
 
-> **참고:** 프롬프트의 "ultrathink" 키워드는 심층 추론 모드를 활성화합니다. 노력 수준 `low`, `medium`, `high`, `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6에서 지원됩니다 (Haiku 4.5는 지원하지 않음). `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다. 기본 노력 수준은 Opus 5.5, Sonnet 5.5, Haiku 5.5에서 `medium`이고, Opus 5, Sonnet 5, Opus 4.8 (및 Opus 4.6 / Sonnet 4.6)에서 `high`이며, Opus 4.7에서 `xhigh`입니다. 첫 실행 시 기본 노력 수준을 고정하는 Opus 4.8 및 Opus 4.7과 달리 Opus 5에는 그런 고정이 없으므로, 이전에 설정한 수준이 그대로 유지됩니다. `/effort` 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on|off]`)도 있는데, 이는 모델 노력 수준이 **아니며** 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하도록 합니다. v2.1.284부터는 더 이상 `xhigh`를 강제하지 않고 수준을 바꿔도 켜진 상태로 유지됩니다. `--effort ultracode`와 Agent SDK의 `effortLevel: "ultracode"`는 여전히 `xhigh`를 설정합니다.
+> **참고:** 프롬프트의 "ultrathink" 키워드는 심층 추론 모드를 활성화합니다. v2.1.311부터 대화형 터미널에서 이 키워드를 입력하면 Anthropic API를 통해 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 해당 턴을 `xhigh` 노력 수준으로 실행합니다(적용 가능하면 단어가 무지개색으로 바뀌며, Claude가 작업하는 중에 입력하면 그 턴의 나머지 부분의 노력 수준을 높입니다. VS Code는 v2.1.316부터 지원). Bedrock이나 다른 모델에서는 대신 노력 수준을 설정하십시오. `CLAUDE_CODE_DISABLE_ULTRATHINK=1`(v2.1.316)로 이 키워드를 끌 수 있습니다. 노력 수준 `low`, `medium`, `high`, `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6에서 지원됩니다 (Haiku 4.5는 지원하지 않음). `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다. 기본 노력 수준은 Opus 5.5, Sonnet 5.5, Haiku 5.5에서 `medium`이고, Opus 5, Sonnet 5, Opus 4.8 (및 Opus 4.6 / Sonnet 4.6)에서 `high`이며, Opus 4.7에서 `xhigh`입니다. 첫 실행 시 기본 노력 수준을 고정하는 Opus 4.8 및 Opus 4.7과 달리 Opus 5에는 그런 고정이 없으므로, 이전에 설정한 수준이 그대로 유지됩니다. `/effort` 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on|off]`)도 있는데, 이는 모델 노력 수준이 **아니며** 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하도록 합니다. v2.1.284부터는 더 이상 `xhigh`를 강제하지 않고 수준을 바꿔도 켜진 상태로 유지됩니다. `--effort ultracode`와 Agent SDK의 `effortLevel: "ultracode"`는 여전히 `xhigh`를 설정합니다.
 
 ### Opus 5의 안전 분류기 대체 동작
 
@@ -470,11 +470,11 @@ claude auto-mode reset --yes
 
 엔터프라이즈 배포를 위해 `autoMode.environment` 관리형 설정을 통해 **신뢰할 수 있는 인프라를 구성**합니다. 이를 통해 관리자는 신뢰할 수 있는 CI/CD 환경, 배포 대상 및 인프라 패턴을 정의할 수 있습니다.
 
-**`/auto-mode-setup`으로 환경 항목 초안 작성**: 이 안내형 명령어는 프로젝트와 최근 세션을 읽고 `autoMode.environment` 항목(때로는 규칙 항목)을 제안하며, 수락하면 `~/.claude/settings.json`에 기록합니다. Pro, Max, Team은 v2.1.228+(네이티브 Windows에서는 v2.1.233+)가 필요하고, Enterprise와 Claude Console API 키는 v2.1.283+가 필요합니다. v2.1.304부터는 Bedrock, Vertex, Foundry 및 텔레메트리가 꺼진 환경에서도 작동합니다.
+**`/auto-mode-setup`으로 환경 항목 초안 작성**: 이 안내형 명령어는 프로젝트와 최근 세션을 읽고 `autoMode.environment` 항목(때로는 규칙 항목)을 제안하며, 수락하면 `~/.claude/settings.json`에 기록합니다. Pro, Max, Ultra, Team은 v2.1.228+(네이티브 Windows에서는 v2.1.233+)가 필요하고, Enterprise와 Claude Console API 키는 v2.1.283+가 필요합니다. v2.1.304부터는 Bedrock, Vertex, Foundry 및 텔레메트리가 꺼진 환경에서도 작동합니다.
 
 #### `"$defaults"`로 기본값 확장 (v2.1.118)
 
-v2.1.118부터 `autoMode.allow`, `autoMode.soft_deny`, `autoMode.environment`는 `"$defaults"` 토큰을 허용하여 기본 제공 목록을 교체하는 대신 사용자 규칙을 **추가**합니다. v2.1.118 이전에는 사용자 정의 배열이 기본 제공 목록을 조용히 덮어썼습니다.
+v2.1.118부터 `autoMode.allow`, `autoMode.soft_deny`, `autoMode.environment`는 `"$defaults"` 토큰을 허용하여 기본 제공 목록을 교체하는 대신 사용자 규칙을 **추가**합니다. v2.1.118 이전에는 사용자 정의 배열이 기본 제공 목록을 조용히 덮어썼습니다. `"$defaults"`가 없는 배열은 지금도 해당 섹션의 기본 제공 항목을 대체합니다. 단, v2.1.316부터 `"$defaults"`가 없는 `allow` 목록도 예약된 작업 프롬프트에 대한 기본 제공 규칙은 유지합니다.
 
 #### `autoMode.hard_deny`를 사용한 무조건 차단 (v2.1.136)
 
@@ -488,7 +488,7 @@ v2.1.118부터 `autoMode.allow`, `autoMode.soft_deny`, `autoMode.environment`는
 }
 ```
 
-**이전 (기본 제공 항목 대체 — v2.1.118 이전 동작):**
+**`"$defaults"` 없이 (해당 섹션의 기본 제공 항목 대체 — v2.1.118 이전의 유일한 동작):**
 
 ```json
 {
@@ -524,7 +524,7 @@ v2.1.118부터 `autoMode.allow`, `autoMode.soft_deny`, `autoMode.environment`는
 }
 ```
 
-같은 릴리스에서 자동 모드가 작업을 차단할 때 **거부 사유**가 표시됩니다 — 트랜스크립트, 거부 토스트, `/permissions` 아래의 최근 거부 목록에서 볼 수 있습니다 (v2.1.193+).
+같은 릴리스에서 자동 모드가 작업을 차단할 때 **거부 사유**가 표시됩니다 — 트랜스크립트, 거부 토스트, `/permissions` 아래의 **Recently blocked** 탭(v2.1.314 이전 이름은 Recently denied)에서 볼 수 있습니다 (v2.1.193+).
 
 #### 내장된 의도 기반 보호 (v2.1.183)
 
@@ -687,6 +687,8 @@ export CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
 
 > **사용 가능 여부 (v2.1.310)**: Amazon Bedrock, Claude Platform on AWS, Google Cloud's Agent Platform 또는 Microsoft Foundry에서, 또는 `DISABLE_TELEMETRY`나 `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`가 설정된 경우 모니터를 사용하려면 Claude Code v2.1.310 이상이 필요합니다. Windows에서는 Git Bash가 필요합니다.
 
+> **훅 (v2.1.314)**: `Bash`와 매칭되는 훅이 이제 모니터 도구가 시작하는 셸 명령어에서도 실행됩니다. 이 훅은 명령어를 차단하거나 승인을 요청할 수 있지만, 승인하거나 다시 작성할 수는 없습니다. 또한 `Monitor(tail *)` 같은 훅 `if` 조건은 `Bash(tail *)`가 Bash 명령어와 매칭되는 방식과 같이 모니터의 명령어와 매칭됩니다.
+
 ### 왜 중요한가요?
 
 `/loop` 또는 `sleep`을 사용하는 폴링은 변경 사항이 있는지 여부와 관계없이 매 주기마다 전체 API 왕복을 소모합니다. 모니터는 이벤트가 발생할 때까지 조용히 있으며, 명령어가 조용한 동안에는 **토큰을 전혀 소비하지 않습니다**. 이벤트가 발생하면 Claude는 즉시 반응하므로, 다음 폴링 주기까지 기다리느라 발견이 늦어지지 않습니다. 몇 분 이상 실행되는 모든 작업에 대해 이는 폴링 루프보다 저렴하고 빠릅니다.
@@ -810,7 +812,7 @@ in 45 minutes, run the integration tests
 export CLAUDE_CODE_DISABLE_CRON=1
 ```
 
-> **`/schedule` API 키 티어에 의해 자동 비활성화됨 (v2.1.139)**: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, 또는 `apiKeyHelper` 중 하나라도 설정되어 있으면 클라우드 `/schedule`은 자동으로 비활성화됩니다. claude.ai로 로그인되어 있는 경우에도 마찬가지입니다. 동일한 조건으로 [원격 제어](#원격-제어-비활성화-disableremotecontrol-v21128), claude.ai MCP 커넥터, 알림 설정이 비활성화됩니다. `/schedule`을 사용하려면 API 키를 해제하거나 Pro/Max OAuth 티어에서 실행하십시오. 로컬 `CronCreate`에는 영향을 미치지 않습니다.
+> **`/schedule` API 키 티어에 의해 자동 비활성화됨 (v2.1.139)**: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, 또는 `apiKeyHelper` 중 하나라도 설정되어 있으면 클라우드 `/schedule`은 자동으로 비활성화됩니다. claude.ai로 로그인되어 있는 경우에도 마찬가지입니다. 동일한 조건으로 [원격 제어](#원격-제어-비활성화-disableremotecontrol-v21128), claude.ai MCP 커넥터, 알림 설정이 비활성화됩니다. `/schedule`을 사용하려면 API 키를 해제하거나 Pro/Max/Ultra OAuth 티어에서 실행하십시오. 로컬 `CronCreate`에는 영향을 미치지 않습니다.
 
 ### 예시: 배포 모니터링
 
@@ -836,7 +838,7 @@ export CLAUDE_CODE_DISABLE_CRON=1
 | `acceptEdits` | 파일 읽기 및 편집; 명령어에 대해 프롬프트를 표시 |
 | `plan` | 파일만 읽음 (연구 모드, 편집 불가) |
 | `auto` | 백그라운드 안전 분류기 검사를 거쳐 모든 작업 수행. 적격한 모델(모든 제공자에서 Sonnet 5 이상, Opus 4.7 이상, Haiku 5.5 또는 Fable 모델. Anthropic API 및 Claude Platform on AWS에서는 Opus 4.6과 Sonnet 4.6도 해당)과 제공자가 필요합니다. 모든 플랜에서 사용 가능하며, [자동 모드](#자동-모드)를 참조하십시오 |
-| `bypassPermissions` | 모든 작업, 권한 검사 없음 (위험) |
+| `bypassPermissions` | 프롬프트 없이 모든 작업 수행. 단, 중요 경로 `rm` 삭제처럼 어떤 모드도 자동 승인하지 않는 작업은 제외 (위험) |
 | `dontAsk` | 미리 승인된 도구만 실행; 다른 모든 것은 거부 |
 
 > **참고**: `default` 권한 모드는 v2.1.200에서 **Manual**로 이름이 바뀌었으며(CLI, `--help`, VS Code, JetBrains 전반), 이 모드가 활성화된 동안에는 하단에 회색 ⏸ 배지가 표시됩니다(v2.1.203). `--permission-mode manual`과 `--permission-mode default` 모두 작동하며, 설정의 `"defaultMode": "manual"`과 `"defaultMode": "default"`도 마찬가지입니다. 설정 키는 `permissions.defaultMode`이며 `permissions.mode` 키는 없으므로, 아래 예시는 정식 철자를 사용합니다.
@@ -847,7 +849,7 @@ CLI에서 `Shift+Tab`으로 모드를 순환할 수 있습니다. `--permission-
 
 v2.1.160부터 `acceptEdits` 모드에서도 셸 시작 파일 (`.zshenv`, `.zlogin`, `.bash_login`, `~/.config/git/`) 및 코드 실행 빌드 구성 (`.npmrc`, `.yarnrc*`, `bunfig.toml`, `.bazelrc`, `.pre-commit-config.yaml`, `.devcontainer/`, …)을 작성하기 전에 프롬프트를 표시합니다. 그렇지 않으면 의도치 않은 명령어 실행으로 이어질 수 있기 때문입니다.
 
-> **`--dangerously-skip-permissions` 확장 경로 범위 (v2.1.121, v2.1.126)**: `--dangerously-skip-permissions` CLI 플래그 (및 동등한 `bypassPermissions` 모드)는 이제 훨씬 더 광범위한 허용 목록 (`.claude/skills/`, `.claude/agents/`, `.claude/commands/`, `.claude/`, `.git/`, `.vscode/`, 셸 구성 파일)에 대한 쓰기 프롬프트를 우회합니다. 재앙적인 삭제 명령어 (`rm -rf /` 등)는 이 모드에서도 여전히 프롬프트를 표시합니다. v2.1.281부터 터미널 프롬프트는 2분간 기다린 후 재작성 힌트와 함께 명령어를 거부하여 무인 세션이 계속 진행되도록 하며, v2.1.309부터 데스크톱 앱과 VS Code는 같은 힌트와 함께 즉시 거부합니다(`CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT=1`로 타임아웃을 끌 수 있습니다). 자동 모드도 이러한 중요 경로 삭제를 같은 방식으로 처리하며(터미널에서는 2분 프롬프트, 그 외에서는 즉시 거부), 해당 변수가 설정된 경우에만 분류기로 보냅니다. v2.1.304부터 `/Volumes/USB`나 WSL의 `/mnt/c/Users` 같은 마운트된 드라이브 경로에 대한 재귀 `rm`은 `rm` 허용 규칙이 있더라도 같은 처리를 받습니다. 이 프롬프트를 끄려면 `CLAUDE_CODE_DISABLE_MOUNTED_DRIVE_RM_PROMPT=1`로 Claude Code를 시작하십시오(설정의 `env` 블록은 무시됩니다). 이 플래그는 이전보다 더 날카로운 도구로 취급하십시오. 일회용 샌드박스에서만 사용하십시오.
+> **`--dangerously-skip-permissions` 확장 경로 범위 (v2.1.121, v2.1.126)**: `--dangerously-skip-permissions` CLI 플래그 (및 동등한 `bypassPermissions` 모드)는 이제 훨씬 더 광범위한 허용 목록 (`.claude/skills/`, `.claude/agents/`, `.claude/commands/`, `.claude/`, `.git/`, `.vscode/`, 셸 구성 파일)에 대한 쓰기 프롬프트를 우회합니다. 재앙적인 삭제 명령어 (`rm -rf /` 등)는 이 모드에서도 여전히 프롬프트를 표시합니다. v2.1.281부터 터미널 프롬프트는 2분간 기다린 후 재작성 힌트와 함께 명령어를 거부하여 무인 세션이 계속 진행되도록 하며, v2.1.309부터 데스크톱 앱과 VS Code는 `PermissionRequest` 훅이 허용하지 않는 한 같은 힌트와 함께 즉시 거부합니다(`CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT=1`로 터미널 타임아웃을 끄고 VS Code 패널이 대신 묻게 할 수 있습니다). 자동 모드도 이러한 중요 경로 삭제를 같은 방식으로 처리하며(터미널에서는 2분 프롬프트, 그 외에서는 즉시 거부), 해당 변수가 설정된 경우에만 분류기로 보냅니다. `Dangerous rm operation not ruled out`으로 표시된 명령어(셸이 파싱된 것과 다르게 읽을 수 있는 명령어)도 같은 방식으로 처리되며, `Bash(*)` 허용 규칙, 샌드박스 자동 허용, `PreToolUse` `"allow"`로도 승인되지 않습니다. v2.1.311부터는 실행 환경에 `CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS=1`을 설정하고 Claude Code를 시작하면(설정의 `env` 블록에서는 무시됨) `bypassPermissions` 모드 자체에서 이러한 삭제가 프롬프트 없이 실행됩니다. 단, 계획 모드, VS Code 패널, 데스크톱에서는 적용되지 않으며, `PermissionRequest` 훅, Bash·Edit·Read에 대한 deny 또는 ask 규칙, `--permission-prompt-tool`이 적용되는 동안에도 적용되지 않습니다. v2.1.304부터 `/Volumes/USB`나 WSL의 `/mnt/c/Users` 같은 마운트된 드라이브 경로에 대한 재귀 `rm`은 `rm` 허용 규칙이 있더라도 같은 처리를 받습니다. 이 프롬프트를 끄려면 `CLAUDE_CODE_DISABLE_MOUNTED_DRIVE_RM_PROMPT=1`로 Claude Code를 시작하십시오(설정의 `env` 블록은 무시됩니다). 이 플래그는 이전보다 더 날카로운 도구로 취급하십시오. 일회용 샌드박스에서만 사용하십시오.
 
 > **Windows 셸 감지 (v2.1.120, v2.1.126)**: Git for Windows / Git Bash는 더 이상 필수가 아닙니다. Git Bash가 없으면 Claude Code는 PowerShell을 셸 도구로 사용합니다. v2.1.126부터 PowerShell 도구가 활성화되면 PowerShell이 *기본* 셸이며, Microsoft Store, PATH가 없는 MSI, 또는 `.NET 전역 도구`를 통해 설치된 PowerShell 7도 감지합니다.
 
@@ -1100,7 +1102,7 @@ claude -r "auth-refactor" "finish this PR"
 
 > **v2.1.212 업데이트**: 이제 에이전트 보기에서 인수 없이 `/resume`을 입력하면 지난 세션 선택기(표시 목록에서 제거된 세션 포함)가 열리고, 선택한 세션을 백그라운드 세션으로 다시 시작합니다.
 
-> **v2.1.304 업데이트**: Pro 및 Max 플랜에서 오래 비활성 상태였던 대화를 다시 시작할 때 5시간 사용 한도의 상당 부분을 사용하게 되면 **Resume this conversation?** 대화 상자가 표시됩니다. 그래도 다시 시작하거나 새 대화를 시작할 수 있습니다(이전 대화를 언급하면 Claude가 여전히 찾아볼 수 있습니다).
+> **v2.1.304 업데이트**: Pro, Max, Ultra 플랜에서 오래 비활성 상태였던 대화를 다시 시작할 때 5시간 사용 한도의 상당 부분을 사용하게 되면 **Resume this conversation?** 대화 상자가 표시됩니다. 그래도 다시 시작하거나 새 대화를 시작할 수 있습니다(이전 대화를 언급하면 Claude가 여전히 찾아볼 수 있습니다).
 
 ### 세션 포크 및 브랜치
 
@@ -1162,7 +1164,7 @@ claude --resume auth-refactor --fork-session "alternative approach"
 
 > **OTEL 텔레메트리 — `tool_decision` 속성 (v2.1.301)**: `tool_decision` 이벤트에 `classifier_verdict`와 `permission_mode`가 추가됩니다.
 
-> **OTEL 텔레메트리 — `safety_event` (v2.1.307)**: 권한 규칙, 자동 모드, 안전 검사, 훅 또는 샌드박스가 거부하거나, 승인을 요청하거나, 되돌려 보낸 각 도구 호출에 대해 새로운 `claude_code.safety_event` 로그 이벤트가 발생하며, `category`, `decision`(`accept`/`reject`/`sent_back`), `decision_source` 속성을 포함합니다. 명령어 텍스트, 파일 경로, 호스트 이름은 포함하지 않습니다.
+> **OTEL 텔레메트리 — `safety_event` (v2.1.307, v2.1.312부터 더 이상 전송되지 않음)**: 권한 규칙, 자동 모드, 안전 검사, 훅 또는 샌드박스가 거부하거나, 승인을 요청하거나, 되돌려 보낸 각 도구 호출에 대해 `claude_code.safety_event` 로그 이벤트가 발생했으며, `category`, `decision`(`accept`/`reject`/`sent_back`), `decision_source` 속성을 포함했습니다. 명령어 텍스트, 파일 경로, 호스트 이름은 포함하지 않습니다. v2.1.312 변경 로그에 따르면 Claude Code는 더 이상 이 이벤트를 보내지 않지만, 모니터링 문서에는 여전히 나열되어 있습니다.
 
 > **OTEL 텔레메트리 — 조인 속성 (v2.1.310)**: `tool_decision` 및 `tool_result` 이벤트에 호출을 API 응답과 조인하기 위한 `request_id`가 추가되고, 서브에이전트 이벤트에는 `parent_agent_id`가 포함됩니다.
 
@@ -1680,7 +1682,7 @@ CLAUDE_CODE_NO_FLICKER=1 claude  # 전체 화면으로 직접 시작
 
 채널은 외부 서비스에서 MCP 서버를 통해 실행 중인 Claude Code 세션으로 이벤트를 푸시하는 연구 미리보기 기능입니다. 소스에는 Telegram, Discord, iMessage 및 임의의 웹훅이 포함되어 Claude가 폴링 없이 실시간 알림에 반응할 수 있도록 합니다.
 
-> **인증 (v2.1.128+)**: `--channels`는 이제 Pro/Max OAuth **및** API 키 (콘솔) 인증 모두에서 작동합니다. 이전 릴리스에서는 OAuth가 필요했습니다.
+> **인증 (v2.1.128+)**: `--channels`는 이제 Pro/Max/Ultra OAuth **및** API 키 (콘솔) 인증 모두에서 작동합니다. 이전 릴리스에서는 OAuth가 필요했습니다.
 
 ### 채널 구독
 
@@ -1782,7 +1784,7 @@ Claude Code는 보이는 창에서 브라우저를 제어합니다. 사용자는
 
 ## 원격 제어
 
-원격 제어를 사용하면 휴대폰, 태블릿 또는 모든 브라우저에서 로컬로 실행 중인 Claude Code 세션을 계속할 수 있습니다. 로컬 세션은 사용자 컴퓨터에서 계속 실행되며, 아무것도 클라우드로 이동하지 않습니다. Pro, Max, Team 및 Enterprise 플랜에서 사용할 수 있습니다 (v2.1.51+). Enterprise 사용자 지정 역할로 액세스가 관리되는 경우, 클라우드 세션 권한과 **Claude Code remote control** 권한을 모두 가진 역할이 필요합니다.
+원격 제어를 사용하면 휴대폰, 태블릿 또는 모든 브라우저에서 로컬로 실행 중인 Claude Code 세션을 계속할 수 있습니다. 로컬 세션은 사용자 컴퓨터에서 계속 실행되며, 아무것도 클라우드로 이동하지 않습니다. Pro, Max, Ultra, Team 및 Enterprise 플랜에서 사용할 수 있습니다 (v2.1.51+). Enterprise 사용자 지정 역할로 액세스가 관리되는 경우, 클라우드 세션 권한과 **Claude Code remote control** 권한을 모두 가진 역할이 필요합니다.
 
 원격 제어는 **더 이상 연구 미리보기가 아닙니다**. 이 레이블은 2026년 34주차에 제거되었습니다. 이제 `claude remote-control`을 실행 중인 모든 머신은 Claude 앱의 Code 탭에 **기기 카드**로 표시되므로, 먼저 해당 머신에서 세션을 시작한 뒤 연결할 필요 없이 휴대폰에서 바로 그 머신의 세션을 시작할 수 있습니다.
 
@@ -1873,7 +1875,7 @@ Team 또는 Enterprise 플랜의 관리자는 `disableRemoteControl` 설정을 �
 
 > **API 키 티어에 의해 원격 제어가 자동 비활성화되는 경우 (v2.1.139)**: `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `apiKeyHelper` 중 하나라도 설정되어 있으면 원격 제어가 **자동으로 비활성화됩니다**. claude.ai로 동시에 로그인되어 있는 경우에도 마찬가지입니다.
 >
-> 동일한 조건으로 [`/schedule`](#예약된-작업), claude.ai MCP 커넥터, 알림 설정이 비활성화됩니다. 이 네 가지 claude.ai 연결 기능은 OAuth 로그인이 활성 자격 증명일 때만 작동합니다. 이러한 기능을 사용하려면 API 키를 해제하거나 Pro/Max OAuth 티어에서 실행하십시오.
+> 동일한 조건으로 [`/schedule`](#예약된-작업), claude.ai MCP 커넥터, 알림 설정이 비활성화됩니다. 이 네 가지 claude.ai 연결 기능은 OAuth 로그인이 활성 자격 증명일 때만 작동합니다. 이러한 기능을 사용하려면 API 키를 해제하거나 Pro/Max/Ultra OAuth 티어에서 실행하십시오.
 
 ---
 
@@ -1905,7 +1907,7 @@ claude --teleport
 /teleport
 ```
 
-`/tp`는 `/teleport`의 별칭입니다. 둘 다 claude.ai 구독이 필요합니다. 클라우드 세션에는 로컬에서 계속하는 방법을 설명하는 `/teleport` 힌트가 표시됩니다 (v2.1.223).
+`/tp`는 `/teleport`의 별칭입니다. 둘 다 claude.ai 구독이 필요합니다. 클라우드 세션에는 로컬에서 계속하는 방법을 설명하는 `/teleport` 힌트가 표시됩니다 (v2.1.223). 클라우드 세션이 압축되었다면 요약만 넘어오며, 요약된 이전 메시지는 터미널로 복사되지 않습니다(v2.1.311부터 Claude Code가 이에 대해 경고합니다).
 
 > **변경 로그 기반**: v2.1.223 변경 로그에는 알려진 세션으로 바로 이동하는 인수 형식
 > `claude --teleport <session id>`가 나와 있습니다. CLI 참조 문서는 인수 없는 선택기 형식만
@@ -1921,7 +1923,7 @@ claude --teleport
 
 ## 데스크톱 앱
 
-Claude Code 데스크톱 앱은 시각적 차이 검토, 병렬 세션 및 통합 커넥터를 갖춘 독립형 애플리케이션을 제공합니다. macOS 및 Windows (Pro, Max, Team 및 Enterprise 플랜)에서 사용할 수 있습니다.
+Claude Code 데스크톱 앱은 시각적 차이 검토, 병렬 세션 및 통합 커넥터를 갖춘 독립형 애플리케이션을 제공합니다. macOS 및 Windows (Pro, Max, Ultra, Team 및 Enterprise 플랜)에서 사용할 수 있습니다.
 
 ### 설치
 
@@ -1946,7 +1948,7 @@ Claude Code 데스크톱 앱은 시각적 차이 검토, 병렬 세션 및 통�
 | **차이점 보기** | 인라인 주석이 있는 파일별 시각적 검토; Claude는 주석을 읽고 수정 |
 | **앱 미리보기** | 라이브 검증을 위해 임베디드 브라우저와 함께 개발 서버 자동 시작 |
 | **PR 모니터링** | **Auto-fix**는 Claude가 실패한 CI 검사와 리뷰 댓글을 수정하게 하고, **Merge when ready**는 GitHub 자동 병합을 켭니다(기본 브랜치가 병합 큐를 사용하지 않으면 로컬 세션에서는 squash). 둘 다 세션의 **Changes** 카드에 있는 풀 리퀘스트의 **⋮** 메뉴에 있습니다 |
-| **병렬 세션** | 자동 Git 워크트리 격리를 통해 사이드바에 여러 세션 표시 |
+| **병렬 세션** | 사이드바에 여러 세션 표시. 프롬프트 상자 아래의 **Worktree** 버튼을 켜면 세션에 자체 Git 워크트리를 제공함(기본값은 꺼짐) |
 | **예약된 작업** | 앱이 열려 있는 동안 실행되는 반복 작업 (시간별, 일별, 주중, 주별) |
 | **풍부한 렌더링** | 구문 강조 표시가 있는 코드, 마크다운 및 다이어그램 렌더링; GitHub-Flavored-Markdown 작업 목록 확인란 (`- [ ]` / `- [x]`)은 확인란으로 렌더링됩니다 (v2.1.149+) |
 
@@ -2079,10 +2081,12 @@ claude -w
 ```json
 {
   "worktree": {
-    "sparsePaths": ["packages/my-package", "shared/"]
+    "sparsePaths": [".claude", "packages/my-package", "shared/"]
   }
 }
 ```
+
+각 워크트리가 저장소의 `.claude/settings.json`과 `.claude/rules/`도 받도록 `.claude`를 포함하십시오.
 
 ### 기본 브랜치 참조 (`worktree.baseRef`)
 
@@ -2172,7 +2176,7 @@ claude --settings '{"sandbox": {"enabled": true}}'
 | `sandbox.credentials` | (v2.1.187+) 샌드박스 명령어가 자격 증명 파일 및 비밀 환경 변수를 읽는 것을 차단합니다. |
 | `sandbox.allowAppleEvents` | (v2.1.181+, macOS) 샌드박스 명령어가 Apple Event를 보내도록 옵트인합니다. |
 | `sandbox.filesystem.disabled` | (v2.1.216+) 네트워크 격리는 유지하면서 파일 시스템 격리를 완전히 건너뜁니다. 파일 샌드박싱이 도구를 망가뜨리지만 네트워크 이그레스 제어는 계속 활성화해야 할 때 유용합니다. 사용자 설정, 관리형 설정 또는 `--settings`에서만 적용되며, 프로젝트 설정으로는 설정할 수 없습니다. |
-| `sandbox.excludedCommands` | `"docker compose *"`처럼 `Bash(...)` 규칙 구문으로 쓴 명령어 패턴으로, 샌드박스 밖에서 실행되며 일반 권한 흐름을 거칩니다. v2.1.309부터 샌드박스가 활성화되어 있지만 실행할 수 없는 동안에는 샌드박스 쓰기 목록 경로에 쓰기 전에 묻습니다 |
+| `sandbox.excludedCommands` | `"docker compose *"`처럼 `Bash(...)` 규칙 구문으로 쓴 명령어 패턴으로, 샌드박스 밖에서 실행되며 일반 권한 흐름을 거칩니다. 단, 항목이 Bash 호출의 모든 명령어를 포함할 때만 그렇습니다(`docker compose *` 항목만 있으면 `npm ci && docker compose build`는 샌드박스 안에서 실행됨). 또한 `sudo`, `cd`, 리디렉션, heredoc 같은 일부 형태는 그 경우에도 샌드박스 안에 남습니다(v2.1.314에서 이 설정의 설명이 수정됨). v2.1.309부터 샌드박스가 활성화되어 있지만 실행할 수 없는 동안에는 샌드박스 쓰기 목록 경로에 쓰기 전에 묻습니다 |
 | `sandbox.allowNestedUserNamespaces` | (v2.1.305+, Linux/WSL2) 샌드박스 명령어가 사용자 네임스페이스(Chromium/Electron 샌드박스, 중첩 bubblewrap, `unshare`)를 만들 수 있게 합니다. 이는 보안 경계를 끄는 것이며, 사용자 또는 관리형 설정이나 `--settings`에서만 적용됩니다. rootless Podman에는 대신 `excludedCommands`를 사용하십시오 |
 
 **Linux/WSL 바이너리 경로** (v2.1.133+) — 비표준 설치 위치에서 Claude Code를 가리킵니다:
@@ -2745,9 +2749,20 @@ Claude Code 및 관련 기능에 대한 자세한 정보는 다음을 참조하�
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
+- https://code.claude.com/docs/en/permission-modes#turn-off-the-critical-path-removal-prompt-in-bypasspermissions-mode
+- https://github.com/anthropics/claude-code/releases/tag/v2.1.314
+- https://code.claude.com/docs/en/desktop#run-a-session-in-its-own-worktree
+- https://code.claude.com/docs/en/settings-reference#worktree-sparsepaths
+- https://code.claude.com/docs/en/model-config#use-ultrathink-for-one-off-deep-reasoning
+- https://code.claude.com/docs/en/feature-availability#ultra-plan
+- https://code.claude.com/docs/en/changelog#2-1-312
+- https://code.claude.com/docs/en/auto-mode-config#override-the-block-and-allow-rules
+- https://code.claude.com/docs/en/changelog#2-1-314
+- https://code.claude.com/docs/en/changelog#2-1-316
+- https://code.claude.com/docs/en/claude-code-on-the-web#continue-a-cloud-session-in-your-terminal
 - https://code.claude.com/docs/en/output-styles
 - https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
 - https://code.claude.com/docs/en/permissions

@@ -1,6 +1,6 @@
 <!-- i18n-source: 06-hooks/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../../resources/logos/claude-howto-logo-dark.svg">
@@ -61,7 +61,7 @@
 | `hooks` | 훅 정의 배열 | `[{ "type": "command", ... }]` |
 | `type` | 훅 유형: `"command"`(bash), `"prompt"`(LLM), `"http"`(웹훅), `"mcp_tool"`(MCP 도구 호출, v2.1.118+), `"agent"`(서브에이전트) | `"command"` |
 | `command` | 실행할 셸 명령어 | `"$CLAUDE_PROJECT_DIR/.claude/hooks/format.sh"` |
-| `timeout` | 선택 사항인 타임아웃(초). 기본값: command/http/mcp_tool은 600, prompt는 30, agent는 60입니다. | `30` |
+| `timeout` | 선택 사항인 타임아웃(초). 기본값: command/http/mcp_tool은 600, prompt는 30, agent는 60입니다. prompt 및 agent 훅에서는 1 미만의 값을 1초로 간주합니다(v2.1.312+). | `30` |
 | `once` | `true`이면 첫 번째 실행이 성공한 뒤 훅이 제거됩니다(실패/차단/타임아웃된 실행에서는 유지). 스킬 프런트매터에서만 동작하며 설정과 에이전트 프런트매터에서는 무시됩니다 | `true` |
 | `async` | `true`이면 차단하지 않고 백그라운드에서 실행합니다 | `true` |
 | `asyncRewake` | `true`이면 백그라운드에서 실행하고 종료 코드 2일 때 Claude를 깨웁니다. `async`를 포함합니다. | `true` |
@@ -131,6 +131,8 @@
 유효한 `if` 패턴 예시: `Edit(src/**)`(`src/` 아래 편집), `Read(~/.ssh/**)`(모든 SSH 키 읽기), `Read(.env)`(현재 디렉터리 또는 그 아래의 모든 `.env`), `Bash(git push *)`(`git push` 하위 명령어만).
 
 > **v2.1.214 업데이트**: 훅 `if` 조건의 단일 세그먼트 `dir/**` 패턴(예: `Edit(src/**)`)은 이제 `<cwd>/dir`에만 매칭되며, 트리의 모든 깊이에 있는 해당 디렉터리에는 매칭되지 않습니다. 이전에는 `src/**`가 `foo/src/**`에도 매칭되었습니다. 모든 깊이에서 매칭하려면 `**/dir/**`를 사용하십시오. **중요**: 이 범위 축소는 훅 `if:` 조건과 allow 규칙 자동 승인에만 적용되며, deny/ask 권한 규칙은 여전히 모든 깊이의 `dir/**`와 매칭됩니다.
+
+> **v2.1.314 업데이트**: `Monitor(tail *)` 같은 `if` 패턴은 `Bash(tail *)`가 Bash의 셸 명령어에 매칭되는 것처럼 Monitor 도구가 시작하는 셸 명령어에 매칭됩니다. 매처가 `Bash`인 훅은 Monitor의 셸 명령어에서도 실행되며, 이를 차단하거나 확인을 요청할 수는 있지만 승인하거나 다시 작성할 수는 없습니다.
 
 ## 훅 유형
 
@@ -333,7 +335,7 @@ Claude가 도구 매개변수를 만든 뒤, 처리하기 전에 실행됩니다
 - `permissionDecision`: `"allow"`, `"deny"`, `"ask"`, `"defer"`
   - `"allow"`는 권한 프롬프트를 건너뜁니다(사용자 상호 작용이 필요한 도구와 조직에서 `ask`로 설정한 커넥터 도구는 제외)
   - `"deny"`는 도구 호출을 막습니다
-  - `"ask"`는 사용자에게 확인을 요청하며, 프롬프트에 훅이 속한 플러그인이나 스킬의 이름이 표시됩니다(v2.1.301)
+  - `"ask"`는 사용자에게 확인을 요청하며, 프롬프트에 훅이 속한 플러그인이나 스킬의 이름이 표시됩니다(v2.1.301). 자동 모드에서는 호출이 분류기 대신 프롬프트로 전달됩니다. 다만 Claude Code 자체 검사가 표시한 호출(보호된 경로, 샌드박스 없는 재시도)은 분류기가 여전히 거부할 수 있으며, `SubagentHandback` 호출은 프롬프트 없이 실행되므로 이를 막으려면 `"deny"`를 반환하세요
   - `"defer"`는 나중에 도구를 재개할 수 있도록 턴을 종료하며, `-p`를 사용한 비대화형 모드에서만 동작합니다(대화형 세션에서는 경고를 기록하고 무시합니다). 결과에는 `stop_reason: "tool_deferred"`가 포함됩니다. 이 값에서는 `permissionDecisionReason`, `updatedInput`, `additionalContext`가 모두 무시됩니다
   - 훅이 무엇을 반환하든 deny 및 ask 규칙은 여전히 평가됩니다. 여러 `PreToolUse` 훅의 결정이 다르면 우선순위는 `deny` > `defer` > `ask` > `allow`입니다
 - `permissionDecisionReason`: 결정에 대한 설명입니다. `"ask"`에서는 (Claude가 아닌) 사용자에게, `"deny"`에서는 Claude에게 표시되며, `"allow"`와 `"defer"`에서는 디버그 로그에만 기록됩니다
@@ -745,7 +747,7 @@ hooks:
 | `agent_id` | 이 훅을 실행하는 에이전트의 식별자 |
 | `agent_type` | 에이전트 이름(예: `"Explore"` 또는 `"security-reviewer"`)입니다. 세션이 `--agent`를 사용하거나 훅이 서브에이전트 안에서 실행될 때만 존재합니다 |
 | `worktree` | 에이전트가 git 워크트리에서 실행 중인 경우 해당 워크트리 경로 |
-| `effort.level` | (v2.1.133+) 활성 effort 수준: `low`, `medium`, `high`, `xhigh`, `max` |
+| `effort.level` | (v2.1.133+) 훅이 실행될 때의 effort 수준 설정으로, 스킬, 서브에이전트 또는 `ultrathink` 수준을 포함합니다: `low`, `medium`, `high`, `xhigh`, `max`. 방금 변경한 수준은 적용되기 전에 여기에 표시될 수 있습니다 |
 
 ### 종료 코드
 
@@ -794,6 +796,8 @@ hooks:
 
 > **지원 중단(deprecated)된 `PreToolUse` 결정 형식**: `PreToolUse`에서 최상위 `decision` 및 `reason` 필드는 **지원 중단**되었습니다. 대신 `hookSpecificOutput.permissionDecision`(`allow` / `deny` / `ask` / `defer`)과 `permissionDecisionReason`을 사용하십시오. 결정 간 우선순위는 `deny` > `defer` > `ask` > `allow`입니다. 또한 `suppressOutput`은 허용되지만 **아무 효과가 없습니다**.
 
+> **출력 상한**: 훅의 `additionalContext`, `systemMessage`, `initialUserMessage` 문자열과 일반 stdout은 각각 10,000자로 제한됩니다. 더 긴 출력은 세션 디렉터리의 파일에 저장되고, 그 경로와 처음 2,000자의 미리 보기로 대체되며, Claude에게 파일을 읽으라고 요청하지는 않습니다. v2.1.314부터는 `PreCompact` 훅에도 적용됩니다. 이 훅의 출력이 매우 크면 압축이 실패하거나 반복될 수 있었기 때문입니다.
+
 #### `terminalSequence`(v2.1.141)
 
 훅은 JSON 출력에 `terminalSequence`를 설정하여 원시 OSC(operating system command) 이스케이프 시퀀스를 내보낼 수 있습니다. 훅이 반환되면 호스트가 이 시퀀스를 제어 터미널에 씁니다. 별도의 TTY 없이도 데스크톱 알림, 창 제목 업데이트, 터미널 벨을 사용할 때 유용합니다.
@@ -823,7 +827,7 @@ Claude가 턴을 마칠 때 알림이 실행되도록 `Stop` 훅에 구성하십
 | `${CLAUDE_PLUGIN_DATA}` | 플러그인 훅 | 플러그인 데이터 디렉터리 경로 |
 | `CLAUDE_CODE_SESSIONEND_HOOKS_TIMEOUT_MS` | SessionEnd 훅 | SessionEnd 훅의 타임아웃(밀리초)을 설정합니다(기본값 대체) |
 | `CLAUDE_CODE_SESSION_ID` | Bash 도구 하위 프로세스(v2.1.132+) | 세션 UUID로, 훅 입력 JSON의 `session_id` 필드와 일치합니다. bash 로그와 훅 텔레메트리를 연결할 때 사용합니다. |
-| `CLAUDE_EFFORT` | Bash 도구 하위 프로세스(v2.1.133+) | 활성 effort 수준(`low`/`medium`/`high`/`xhigh`/`max`)으로, 훅 입력 JSON의 `effort.level`과 일치합니다. |
+| `CLAUDE_EFFORT` | Bash 도구 하위 프로세스 및 훅 명령어(v2.1.133+) | 하위 프로세스가 시작될 때의 effort 수준 설정(`low`/`medium`/`high`/`xhigh`/`max`)으로, 훅 입력 JSON의 `effort.level`과 일치합니다. |
 | `CLAUDE_CODE_STOP_HOOK_BLOCK_CAP` | 프로세스 전체(v2.1.143+) | Claude Code가 다음 차단을 무시하고 턴을 종료하기 전까지 허용되는 Stop 훅 연속 차단 최대 횟수(기본값 `8`). `0`으로 설정하면 상한이 비활성화됩니다. |
 
 ## 프롬프트 기반 훅
@@ -1070,7 +1074,7 @@ import sys
 import tempfile
 
 # 구성
-CONTEXT_LIMIT = 1000000  # Opus 5, Sonnet 5, Opus 4.8, Sonnet 4.6은 1M, Haiku 4.5는 200000 (사용 모델에 맞게 조정)
+CONTEXT_LIMIT = 1000000  # Opus/Sonnet/Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Sonnet 4.6은 1M, Haiku 4.5는 200000 (사용 모델에 맞게 조정)
 USE_TIKTOKEN = False    # 정확도를 높이려면 tiktoken 설치 후 True로 설정
 
 
@@ -1597,7 +1601,7 @@ echo $?
 | 항목 | 동작 |
 |--------|----------|
 | **타임아웃** | command/http/mcp_tool은 기본 600초(prompt는 30초, agent는 60초)이며, 훅별로 구성할 수 있습니다 |
-| **병렬 처리** | 매칭되는 모든 훅이 병렬로 실행됩니다. v2.1.302부터 한 이벤트에서 prompt 또는 agent 훅은 최대 12개까지만 동시에 실행되고 나머지는 차례를 기다립니다. |
+| **병렬 처리** | 매칭되는 모든 훅이 병렬로 실행됩니다. v2.1.312부터 prompt 또는 agent 훅은 세션당(서브에이전트 포함) 최대 24개까지 동시에 실행되며, 여기에 이벤트 타임아웃보다 오래 기다린 훅이 최대 12개까지 추가로 실행되고 나머지는 차례를 기다립니다(v2.1.302–v2.1.311: 한 이벤트당 최대 12개). |
 | **중복 제거** | 동일한 훅 명령어는 중복 제거됩니다 |
 | **환경** | Claude Code의 환경에서 현재 디렉터리를 기준으로 실행됩니다 |
 
@@ -1653,8 +1657,8 @@ chmod +x ~/.claude/hooks/*.sh
 
 ---
 
-**마지막 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/hooks
 - https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
@@ -1678,4 +1682,11 @@ chmod +x ~/.claude/hooks/*.sh
 - https://code.claude.com/docs/en/hooks#limits-on-skill-hooks
 - https://code.claude.com/docs/en/changelog#2-1-309
 - https://code.claude.com/docs/en/hooks#failed-hooks-on-windows-without-git-bash
+- https://code.claude.com/docs/en/changelog#2-1-312
+- https://code.claude.com/docs/en/changelog#2-1-314
+- https://code.claude.com/docs/en/hooks#pretooluse-ask-decisions-in-auto-mode
+- https://code.claude.com/docs/en/hooks#common-input-fields
+- https://code.claude.com/docs/en/hooks#json-output
+- https://code.claude.com/docs/en/env-vars#variables
+- https://code.claude.com/docs/en/model-config#extended-context
 **호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5

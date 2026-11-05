@@ -1,6 +1,6 @@
 <!-- i18n-source: 09-advanced-features/planning-mode-examples.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 # 계획 모드 예제(Planning Mode Examples)
 
@@ -538,10 +538,10 @@ Claude: 종합적인 성능 최적화 계획을 수립하겠습니다.
 7. 각 단계마다 **테스트 계획**을 포함하세요.
 
 ---
-**최종 업데이트**: 2026년 7월 29일
-**Claude Code 버전**: 2.1.220
+**최종 업데이트**: 2026년 11월 1일
+**Claude Code 버전**: 2.1.316
 **출처**:
 - https://code.claude.com/docs/en/changelog
-- https://code.claude.com/docs/en/best-practices
+- https://code.claude.com/docs/en/permission-modes#analyze-before-you-edit-with-plan-mode
 - https://code.claude.com/docs/en/model-config
 **호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
