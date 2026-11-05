@@ -1,6 +1,6 @@
 <!-- i18n-source: 01-slash-commands/README.md -->
-<!-- i18n-source-sha: efbe356 -->
-<!-- i18n-date: 2026-11-02 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -53,7 +53,7 @@
 | `/exit` | REPL 종료 (별칭: `/quit`) |
 | `/export [filename]` | 현재 대화를 파일 또는 클립보드로 내보냅니다 |
 | `/usage-credits` | 속도 제한을 위한 추가 사용량 구성 (v2.1.144에서 `/extra-usage`에서 이름 변경, `/extra-usage`는 여전히 별칭으로 작동) |
-| `/fast [on\|off]` | 빠른 모드 전환. Opus 5.5(v2.1.280부터 빠른 모드 기본값), Opus 5, Opus 4.8에 적용됩니다. Opus 4.8의 빠른 모드는 2026년 10월 30일부로 지원 중단(deprecated)되었으며 2026년 11월 30일에 제거됩니다. 그 이후에는 Opus 4.8의 빠른 요청이 표준 속도로 대체되지 않고 오류를 반환하므로, 속도 향상을 유지하려면 Opus 5.5로 전환하세요 (v2.1.316) |
+| `/fast [on\|off]` | 빠른 모드 전환. Opus 5.5(v2.1.280부터 빠른 모드 기본값), Opus 5, Opus 4.8에 적용됩니다. Opus 4.8의 빠른 모드는 2026년 10월 30일부로 지원 중단(deprecated)되었으며 2026년 11월 30일에 제거됩니다. 그 이후에는 Opus 4.8에 대한 빠른 요청이 표준 속도로 대체되지 않고 오류를 반환하므로, 속도 향상을 유지하려면 Opus 5.5로 전환하세요 (v2.1.316) |
 | `/feedback` | 피드백 제출. v2.1.141부터 최근 세션(지난 24시간 또는 7일)을 첨부할 수 있어 여러 세션에 걸친 보고서에 컨텍스트가 포함됩니다. v2.1.178부터 `/bug`는 제출 전에 설명이 필요합니다. |
 | `/focus` | 포커스 뷰 전환 (v2.1.110에 추가, 포커스 토글용 `Ctrl+O`를 대체) |
 | `/goal <statement>` | 세션 수준 완료 조건을 등록합니다. Claude는 목표가 달성될 때까지 계속 작업합니다. `/goal clear`는 이를 제거합니다. 활성 목표는 상태 표시줄에 나타나며, 경과 시간, 턴 수, 토큰 사용량을 보여주는 라이브 오버레이 패널이 함께 표시됩니다 (v2.1.139에 추가). |
@@ -87,7 +87,7 @@
 | `/remote-control` | claude.ai에서 원격 제어 (별칭: `/rc`) |
 | `/remote-env` | 기본 원격 환경 구성 |
 | `/rename [name]` | 세션 이름 변경 |
-| `/restart` | Claude Code를 다시 시작하고 이 세션을 재개하여 설치된 업데이트를 적용합니다. 업데이트가 설치된 뒤 푸터에 안내가 표시되면 실행하세요. Pro, Max 또는 Ultra 플랜과 macOS 또는 Linux(WSL 제외)의 네이티브 설치가 필요합니다. v2.1.288+ (별칭: `/update`) |
+| `/restart` | Claude Code를 다시 시작하고 이 세션을 재개하여 설치된 업데이트를 적용합니다. 업데이트가 설치된 뒤 하단 표시줄에서 제안하면 실행하세요. Pro, Max 또는 Ultra 플랜과 macOS 또는 Linux의 네이티브 설치(WSL 제외)가 필요합니다. v2.1.288+ (별칭: `/update`) |
 | `/resume [session]` | 대화 재개 (별칭: `/continue`) |
 | `/review [low\|medium\|high\|xhigh\|max\|ultra] [--fix] [--comment] [pr#\|branch\|path]` | `/code-review`의 별칭 (v2.1.223): 현재 Diff 또는 전달한 PR 번호, 브랜치, 경로를 검토합니다 — 예: `/review 1234`. 동일한 노력 수준과 플래그를 사용합니다. 수준을 지정하지 않으면 마지막으로 입력한 `low`–`max` 수준을 재사용합니다 |
 | `/rewind` | 대화 및/또는 코드 되감기 (별칭: `/checkpoint`, `/undo`) |

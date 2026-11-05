@@ -1,6 +1,6 @@
 <!-- i18n-source: 02-memory/README.md -->
-<!-- i18n-source-sha: efbe356 -->
-<!-- i18n-date: 2026-11-02 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -551,7 +551,7 @@ graph TD
 npm install -g @anthropic-ai/claude-code@latest
 ```
 
-> **참고**: 기본적으로 Claude Code의 postinstall 단계를 건너뛰는 npm 12에서는 이 명령이 `Error: claude native binary not installed.`로 끝납니다. 네이티브 설치 프로그램으로 전환하거나 [Fix an npm 12 install](https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install)을 따르세요.
+> **참고**: 기본적으로 Claude Code의 postinstall 단계를 건너뛰는 npm 12에서는 이 명령어가 `Error: claude native binary not installed.`로 끝납니다. 네이티브 설치 프로그램으로 전환하거나 [Fix an npm 12 install](https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install)을 따르세요.
 
 ### 자동 메모리 켜기 또는 끄기
 
@@ -1007,7 +1007,7 @@ graph LR
 
 - **콘텐츠 중복 금지**: 대신 가져오기 (`@path`)를 사용하여 기존 문서를 참조하세요.
 
-- **Claude가 직접 읽을 수 있는 내용 설명 금지**: Claude는 저장소를 읽으므로 아키텍처 개요와 파일 구조는 생략하세요. Claude가 계속 놓치는 줄에 IMPORTANT나 대문자 강조를 붙이지도 마세요. 대신 파일을 줄이거나, 예외를 둘 수 없는 규칙은 훅이나 거부(deny) 규칙으로 바꾸세요.
+- **Claude가 스스로 읽을 수 있는 내용은 설명하지 마세요**: Claude는 저장소를 직접 읽으므로 아키텍처 개요와 파일 구조는 생략하세요. Claude가 계속 놓치는 줄에 IMPORTANT나 전부 대문자 표기를 덧붙이지도 마세요. 대신 파일을 줄이거나, 예외가 있어서는 안 되는 규칙은 훅이나 거부(deny) 규칙으로 바꾸세요.
 
 - **모호한 표현 금지**: "모범 사례를 따릅니다" 또는 "좋은 코드를 작성합니다"와 같은 일반적인 진술을 피하세요.
 

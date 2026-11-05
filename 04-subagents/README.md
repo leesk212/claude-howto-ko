@@ -1,6 +1,6 @@
 <!-- i18n-source: 04-subagents/README.md -->
-<!-- i18n-source-sha: efbe356 -->
-<!-- i18n-date: 2026-11-02 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -136,7 +136,7 @@ to solving problems.
 | `description` | 예 | 목적에 대한 자연어 설명. 자동 호출을 장려하려면 "use PROACTIVELY"를 포함하십시오 |
 | `tools` | 아니요 | 특정 도구의 쉼표로 구분된 목록. 생략하면 모든 도구를 상속합니다. 에이전트가 `claude --agent`로 주 스레드로 실행될 때 생성 가능한 서브에이전트를 제한하는 `Agent(agent_name)` 구문을 지원하며, 서브에이전트 안에서는 유형 목록이 무시됩니다. MCP: `mcp__<server>__*`는 서버 전체를 허용합니다(v2.1.299+: 정확히 그 서버 이름에만 일치). |
 | `disallowedTools` | 아니요 | 서브에이전트가 사용해서는 안 되는 도구의 쉼표로 구분된 목록. 이름에 `__`가 포함된 MCP 서버의 경우: 여기에 `mcp__reports__*`를 쓰면 모든 `reports__v2` 도구도 함께 막히므로 `reports` 도구를 하나씩 나열하십시오. `tools`에서는 이런 서버를 `mcp__reports__v2__*`로 허용합니다 |
-| `model` | 아니요 | 사용할 모델: `sonnet`, `opus`, `haiku`, 전체 모델 ID 또는 `inherit`. 기본값은 구성된 서브에이전트 모델입니다. Claude가 Agent 도구를 호출할 때 `model`을 전달할 수도 있지만, 별칭(`sonnet`, `opus`, `haiku` 또는 `fable`)만 가능하며 전체 모델 ID나 `inherit`는 사용할 수 없습니다 |
+| `model` | 아니요 | 사용할 모델: `sonnet`, `opus`, `haiku`, 전체 모델 ID 또는 `inherit`. 기본값은 구성된 서브에이전트 모델입니다. Claude가 Agent 도구를 호출할 때 `model`을 전달할 수도 있지만, 별칭(`sonnet`, `opus`, `haiku`, `fable`)만 가능하며 전체 모델 ID나 `inherit`는 사용할 수 없습니다 |
 | `permissionMode` | 아니요 | `default`(Manual 모드, v2.1.200부터 `manual`도 별칭으로 허용), `acceptEdits`, `dontAsk`, `bypassPermissions`, `plan`, `auto`. v2.1.212부터 Task 도구의 `mode` 호출 매개변수는 지원 중단(deprecated)되어 무시되며, 여기서 재정의하지 않으면 서브에이전트는 기본적으로 부모 세션의 권한 모드를 상속합니다. 부모가 `bypassPermissions`, `acceptEdits` 또는 `auto`로 실행 중이면 서브에이전트의 `permissionMode`는 무시됩니다. 부모가 `plan` 모드이면 `permissionMode` 값과 관계없이 서브에이전트도 계획 모드에 머물며(에이전트 팀 팀원으로 실행되는 경우 제외), `dontAsk`를 설정했다면 계획 모드에서 확인을 요청했을 작업이 대신 거부됩니다 |
 | `maxTurns` | 아니요 | 서브에이전트가 취할 수 있는 에이전트 턴의 최대 수 |
 | `skills` | 아니요 | 미리 로드할 스킬의 쉼표로 구분된 목록. 시작 시 전체 스킬 콘텐츠를 서브에이전트의 컨텍스트에 주입합니다. **v2.1.133+:** 서브에이전트도 Skill 도구를 통해 프로젝트, 사용자 및 플러그인 스킬을 발견합니다. 이는 주 세션과 동일한 카탈로그이며, 더 이상 자체 내장된 세트에 국한되지 않습니다. 미리 로드되는 스킬은 최대 32개이며 각각 한 번만 로드되고, Skill 도구가 있는 서브에이전트는 나머지도 호출할 수 있습니다(v2.1.295). |
@@ -150,7 +150,7 @@ to solving problems.
 | `color` | 아니요 | 작업 목록과 트랜스크립트에서 서브에이전트의 표시 색상. `red`, `blue`, `green`, `yellow`, `purple`, `orange`, `pink`, `cyan` 중 하나 |
 | `experimental` | 아니요 | 실험적 설정 블록(v2.1.248+). `experimental.cacheTtl`은 이 서브에이전트의 캐시 TTL을 `"5m"` 또는 `"1h"`로 설정합니다 |
 | `omitClaudeMd` | 아니요 | `true`로 설정하면 사용자, 프로젝트, 로컬 CLAUDE.md 파일 없이 서브에이전트를 시작합니다(v2.1.271+). 관리형 정책 파일은 여전히 로드되며, 관리형 서브에이전트는 예외입니다. 에이전트가 `--agent` 또는 `agent` 설정으로 주 세션 에이전트로 실행될 때는 무시됩니다. `--agents` JSON에서도 사용할 수 있습니다 |
-| `autoCompactWindow` | 아니요 | 이 서브에이전트의 컨텍스트를 주 대화 창보다 일찍 자동 압축합니다(v2.1.296+, `--agents` JSON에서도 사용 가능). v2.1.312부터는 이전에 재정의할 수 없던 `CLAUDE_CODE_AUTO_COMPACT_WINDOW`로 설정된 창도 낮출 수 있으며, 그 창을 높이지는 않습니다 |
+| `autoCompactWindow` | 아니요 | 이 서브에이전트의 컨텍스트를 주 대화 창보다 일찍 자동 압축합니다(v2.1.296+, `--agents` JSON에서도 사용 가능). v2.1.312부터는 이전에 재정의할 수 없었던 `CLAUDE_CODE_AUTO_COMPACT_WINDOW`로 설정된 창도 낮춥니다. 그 창을 높이지는 않습니다 |
 
 #### 서브에이전트 모델 환경 변수
 
@@ -859,7 +859,7 @@ graph TB
 - **세션당 하나의 팀**: 단일 세션에서 중첩 팀 또는 여러 팀을 생성할 수 없습니다
 - **고정된 리더십**: 팀 리더 역할은 팀원에게 이전될 수 없습니다
 - **분할 창 제한**: tmux/iTerm2 필요; VS Code 터미널, Windows 터미널 또는 Ghostty에서는 사용할 수 없습니다
-- **분할 창 권한**: 분할 창 팀원은 리더의 `--disallowedTools`와 `--tools`(v2.1.309+)를 이어받지만 `--allowedTools`는 이어받지 않습니다. 분할 창에서 작업을 미리 승인하려면 리더를 `claude --settings '{"permissions":{"allow":["Bash(npm *)"]}}'`로 시작하십시오. 인-프로세스 팀원은 리더의 실시간 규칙을 사용합니다. 명령줄 거부 규칙을 팀원에게 온전히 전달할 수 없으면 생성이 중단됩니다("cannot be handed to a teammate intact"). 이 경우 `/config`에서 **Teammate mode**를 `in-process`로 설정하십시오
+- **분할 창 권한**: 분할 창 팀원은 리더의 `--disallowedTools`와 `--tools`(v2.1.309+)를 이어받지만 `--allowedTools`는 이어받지 않습니다. 분할 창에서 작업을 미리 승인하려면 리더를 `claude --settings '{"permissions":{"allow":["Bash(npm *)"]}}'`로 시작하십시오. 인-프로세스 팀원은 리더의 실시간 규칙을 사용합니다. 명령줄 거부 규칙을 팀원에게 온전히 넘길 수 없으면 생성이 중단됩니다("cannot be handed to a teammate intact"). 이 경우 `/config`에서 **Teammate mode**를 `in-process`로 설정하세요
 - **세션 간 팀 불가**: 팀원은 현재 세션 내에서만 존재합니다
 
 > **경고**: 에이전트 팀은 실험적 기능입니다. 중요하지 않은 작업으로 먼저 테스트하고, 예기치 않은 동작이 있는지 팀원 조정을 모니터링하십시오.
@@ -976,7 +976,7 @@ graph TB
 
 - **컨텍스트 효율성** - 에이전트가 주 컨텍스트를 보존하여 더 긴 세션을 가능하게 합니다
 - **지연 시간** - 서브에이전트는 깨끗한 상태로 시작하며 초기 컨텍스트를 수집하는 데 지연 시간을 추가할 수 있습니다
-- **토큰 비용** - 모든 서브에이전트는 자체 요청을 보내며, 이는 주 대화와 같은 사용량에 집계됩니다. 위임으로 얻는 것은 병렬 처리, 새로운 시각의 검토자, 또는 컨텍스트 밖으로 밀어낸 잡다한 출력이지 더 똑똑한 답이 아닙니다. 간단한 작업에는 `model: haiku`를 사용하고 짧은 요약을 돌려받도록 요청하세요
+- **토큰 비용** - 모든 서브에이전트는 자체 요청을 보내며, 이 요청은 주 대화와 같은 사용량에 포함됩니다. 위임으로 얻는 것은 병렬 처리, 새로운 시각의 리뷰어, 또는 컨텍스트에서 시끄러운 출력을 분리하는 것이지 더 똑똑한 답이 아닙니다. 간단한 작업에는 `model: haiku`를 사용하고 짧은 요약을 돌려받도록 요청하세요
 
 ### 주요 동작
 

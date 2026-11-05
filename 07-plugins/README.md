@@ -1,6 +1,6 @@
 <!-- i18n-source: 07-plugins/README.md -->
-<!-- i18n-source-sha: efbe356 -->
-<!-- i18n-date: 2026-11-02 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -539,7 +539,7 @@ documentation/
 /plugin install <plugin-name>@claude-community
 ```
 
-> **지원 중단(deprecated)**: `anthropics/claude-code`에 있는 이전 `claude-code-plugins` 마켓플레이스는 지원 중단되었습니다. Anthropic의 플러그인은 `claude plugin install <plugin>@claude-plugins-official`로 설치하고, `/plugin marketplace add anthropics/claude-code`를 실행하는 튜토리얼 단계는 건너뛰세요. 이 마켓플레이스에서 이미 설치한 플러그인은 `claude-plugins-official`에서 계속 업데이트됩니다. 단, `ralph-wiggum`(현재 `ralph-loop`, 명령어 `/ralph-loop:`)과 `claude-opus-4-5-migration`(사용 종료, `claude plugin uninstall claude-opus-4-5-migration@claude-code-plugins` 실행)은 예외입니다.
+> **지원 중단(Deprecated)**: `anthropics/claude-code`에 있던 이전 `claude-code-plugins` 마켓플레이스는 지원이 중단되었습니다. Anthropic 플러그인은 `claude plugin install <plugin>@claude-plugins-official`로 설치하고, `/plugin marketplace add anthropics/claude-code`를 실행하는 튜토리얼 단계는 건너뛰세요. 이 마켓플레이스에서 이미 설치한 플러그인은 `claude-plugins-official`에서 계속 업데이트됩니다. 단, `ralph-wiggum`(이제 `ralph-loop`, 명령어 `/ralph-loop:`)과 `claude-opus-4-5-migration`(폐기됨, `claude plugin uninstall claude-opus-4-5-migration@claude-code-plugins` 실행)은 예외입니다.
 
 ```mermaid
 graph TB
@@ -661,7 +661,7 @@ docs-helper       0.9.0     community  +610       Doc-style guide enforcement
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `name` | Yes | kebab-case 형식의 마켓플레이스 이름입니다. 사용자는 같은 이름의 마켓플레이스 두 개를 추가할 수 없으므로 다른 작성자가 쓰지 않을 만한 이름을 고르세요 |
+| `name` | Yes | kebab-case 형식의 마켓플레이스 이름. 사용자는 같은 이름의 마켓플레이스 두 개를 추가할 수 없으므로 다른 작성자가 쓸 가능성이 낮은 이름을 고르세요 |
 | `owner` | Yes | 마켓플레이스를 유지 관리하는 조직 또는 사용자: 필수 `name`(선택 `email`, `url`)을 가진 객체 |
 | `plugins` | Yes | 플러그인 항목 배열 |
 | `plugins[].name` | Yes | 플러그인 이름(kebab-case) |
@@ -871,7 +871,7 @@ claude plugin init <name>                    # 새 플러그인 스캐폴드 생
 | `plugin validate` | `--strict` | 경고를 오류로 처리 |
 | `plugin validate` | `--json` | 기계가 읽을 수 있는 검증 보고서 출력(v2.1.259+) |
 
-`claude plugin validate`는 `.mcp.json` 항목도 검사하며(v2.1.281+), `outputStyles`, `themes`, `monitors`, `lspServers` 경로가 없거나 플러그인 디렉터리 밖을 가리키면 실패합니다(v2.1.283+). 또한 플러그인 README에 마켓플레이스에서 해당 플러그인을 설치하는 줄이 없으면 붙여 넣을 줄과 함께 `Advice` 블록을 출력합니다. 이 조언은 `--strict`를 사용하더라도 판정이나 종료 코드를 바꾸지 않습니다(v2.1.295+).
+`claude plugin validate`는 `.mcp.json` 항목도 검사하며(v2.1.281+), `outputStyles`, `themes`, `monitors`, `lspServers` 경로가 없거나 플러그인 디렉터리 밖을 가리키면 실패합니다(v2.1.283+). 또한 플러그인 README에 마켓플레이스에서 설치하는 줄이 없으면 붙여 넣을 줄과 함께 `Advice` 블록을 출력합니다. 이 조언은 `--strict`를 사용해도 판정이나 종료 코드를 바꾸지 않습니다(v2.1.295+).
 
 예시: `claude plugin tag ./my-plugin`은 버전 문자열이 아니라 플러그인 **경로**를 받습니다. `plugin.json`에서 도출한 `{name}--v{version}` git 태그를 생성하며, `plugin.json`과 이를 감싸는 마켓플레이스 항목이 일치하는지 검증합니다. 배포를 위한 플러그인 릴리스를 만드는 권장 방법입니다.
 

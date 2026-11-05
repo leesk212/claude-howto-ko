@@ -1,6 +1,6 @@
 <!-- i18n-source: QUICK_REFERENCE.md -->
-<!-- i18n-source-sha: efbe356 -->
-<!-- i18n-date: 2026-11-02 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">

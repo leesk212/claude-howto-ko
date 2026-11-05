@@ -1,6 +1,6 @@
 <!-- i18n-source: claude_concepts_guide.md -->
-<!-- i18n-source-sha: efbe356 -->
-<!-- i18n-date: 2026-11-02 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
@@ -1288,7 +1288,7 @@ Esc + Esc
 **활성화:**
 - 세션 중 `Alt+T`(macOS에서는 `Option+T`)로 전환
 - Opus 4.7+, Sonnet 5+, Haiku 5.5, Fable은 항상 적응형 추론(adaptive reasoning)을 사용하므로 고정 `MAX_THINKING_TOKENS` 예산이 적용되지 않습니다. 깊이는 `/effort`로 제어하세요
-- 프롬프트에 `ultrathink`를 입력하면 Anthropic API를 통한 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 해당 턴 하나를 `xhigh` 노력으로 실행합니다(터미널 v2.1.311+, VS Code v2.1.316+). `CLAUDE_CODE_DISABLE_ULTRATHINK`로 이 키워드를 끌 수 있습니다
+- 프롬프트에 `ultrathink`를 입력하면 Anthropic API를 통한 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 해당 턴 하나를 `xhigh` 노력 수준으로 실행합니다(터미널 v2.1.311+, VS Code v2.1.316+). `CLAUDE_CODE_DISABLE_ULTRATHINK`로 이 키워드를 끌 수 있습니다
 
 ```bash
 # 노력 수준으로 추론 깊이 제어
@@ -1428,7 +1428,7 @@ Claude Code는 적응형 추론 노력(reasoning effort)을 지원하는 다음 
 | Claude Sonnet 5 | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `high` — v2.1.197부터 v2.1.280 전까지 Pro/Team Standard의 기본 모델(현재는 Opus 5.5) |
 | Claude Opus 4.8 | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `high`(v2.1.154부터) |
 | Claude Opus 4.7 (legacy) | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `xhigh`(Opus 4.7 출시일인 2026-04-16부터) |
-| Claude Sonnet 4.6 | 1M 토큰 | `low`, `medium`, `high`, `max` | `high`(v2.1.117에서 Pro/Max 구독자 대상으로 `medium`에서 상향) |
+| Claude Sonnet 4.6 | 1M 토큰 | `low`, `medium`, `high`, `max` | `high`(Pro/Max 구독자는 v2.1.117에서 `medium`에서 상향) |
 | Claude Haiku 4.5 | 200K 토큰 | — (노력 수준 미지원) | — |
 
 > **참고**: `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다. `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6, Sonnet 4.6에서 동작합니다(세션 한정). Haiku 4.5는 노력 수준을 지원하지 않습니다.

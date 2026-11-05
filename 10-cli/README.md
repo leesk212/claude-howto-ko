@@ -1,6 +1,6 @@
 <!-- i18n-source: 10-cli/README.md -->
-<!-- i18n-source-sha: efbe356 -->
-<!-- i18n-date: 2026-11-02 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -32,11 +32,11 @@ graph TD
 
 **v2.1.113**부터 Claude Code CLI는 선택적 npm 종속성을 통해 **플랫폼별 네이티브 바이너리**(macOS, Linux, Windows)를 시작합니다. 이 바이너리는 설치 시 운영체제 및 아키텍처에 맞춰지며, 이전 번들 JavaScript 런타임은 더 이상 macOS 또는 Linux의 기본값이 아닙니다.
 
-**권장 설치 방법**은 네이티브 설치 프로그램입니다(`curl -fsSL https://claude.ai/install.sh | bash`, Windows에서는 `irm https://claude.ai/install.ps1 | iex`). 공식 README에서 npm 설치는 지원 중단(deprecated)되었으므로 네이티브 설치 프로그램, Homebrew(`brew install --cask claude-code`) 또는 WinGet(`winget install Anthropic.ClaudeCode`)을 사용하십시오. 참고로 `npm install -g @anthropic-ai/claude-code`(Node.js 22+)는 플랫폼별 선택적 종속성을 통해 동일한 네이티브 바이너리를 설치합니다. 기본적으로 Claude Code의 postinstall 단계를 건너뛰는 npm 12에서는 이 설치가 `Error: claude native binary not installed.`로 끝나므로, 네이티브 설치 프로그램으로 전환하거나 [Fix an npm 12 install](https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install)을 따르십시오.
+**권장 설치 방법**은 네이티브 설치 프로그램입니다(`curl -fsSL https://claude.ai/install.sh | bash`, Windows에서는 `irm https://claude.ai/install.ps1 | iex`). 공식 README에서 npm 설치는 지원 중단(deprecated)되었으므로 네이티브 설치 프로그램, Homebrew(`brew install --cask claude-code`) 또는 WinGet(`winget install Anthropic.ClaudeCode`)을 사용하십시오. 참고로 `npm install -g @anthropic-ai/claude-code`(Node.js 22+)는 플랫폼별 선택적 종속성을 통해 동일한 네이티브 바이너리를 설치합니다. npm 12에서는 Claude Code의 postinstall 단계를 기본적으로 건너뛰므로 이 설치가 `Error: claude native binary not installed.`로 끝납니다. 네이티브 설치 프로그램으로 바꾸거나 [Fix an npm 12 install](https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install)을 따르세요.
 
 **다운로드 호스트** (v2.1.116+): 네이티브 바이너리 아티팩트는 `https://downloads.claude.ai/claude-code-releases`에서 제공됩니다.
 
-> **기업 / 프록시 사용자**: 네트워크에서 명시적인 허용 목록이 필요한 경우, `downloads.claude.ai` (및 `https://downloads.claude.ai/claude-code-releases`)를 프록시 egress 규칙에 추가하십시오. 이전에 `storage.googleapis.com` 또는 npm 레지스트리만 허용 목록에 추가했던 환경은 업데이트해야 하며, 그렇지 않으면 `claude update` 및 초기 설치가 실패합니다. Bedrock, Mantle, Vertex, Foundry에서는 Claude Code가 `downloads.claude.ai`의 서명된 파일에서 모델 설정도 불러옵니다(v2.1.311). 이를 끄려면 `CLAUDE_CODE_MODEL_CATALOG=off`를 설정하십시오.
+> **기업 / 프록시 사용자**: 네트워크에서 명시적인 허용 목록이 필요한 경우, `downloads.claude.ai` (및 `https://downloads.claude.ai/claude-code-releases`)를 프록시 egress 규칙에 추가하십시오. 이전에 `storage.googleapis.com` 또는 npm 레지스트리만 허용 목록에 추가했던 환경은 업데이트해야 하며, 그렇지 않으면 `claude update` 및 초기 설치가 실패합니다. Bedrock, Mantle, Vertex, Foundry에서는 Claude Code가 `downloads.claude.ai`의 서명된 파일에서 모델 설정도 불러옵니다(v2.1.311). 이를 끄려면 `CLAUDE_CODE_MODEL_CATALOG=off`를 설정하세요.
 
 이전 JavaScript 번들은 Windows 및 해당 번들에 고정된 환경을 위해 여전히 생성됩니다. 이러한 설치는 Glob 및 Grep을 일등 도구로 계속 제공합니다([도구 및 권한 관리](#도구-및-권한-관리) 섹션의 Glob/Grep 각주 참조).
 
@@ -52,7 +52,7 @@ graph TD
 | `claude -c -p "query"` | 인쇄 모드에서 계속합니다 | `claude -c -p "check for type errors"` |
 | `claude -r "<session>" "query"` | ID 또는 이름으로 세션을 재개합니다 | `claude -r "auth-refactor" "finish this PR"` |
 | `claude update` | 최신 버전으로 업데이트합니다 | `claude update` |
-| `/restart` (슬래시 명령어, 별칭 `/update`) | 설치된 업데이트를 적용하기 위해 Claude Code를 다시 시작하고 이 세션을 재개합니다. Pro, Max, Ultra 플랜, macOS 또는 Linux의 네이티브 설치에서 사용 가능하며 WSL은 제외됩니다 (v2.1.288+) | `/restart` |
+| `/restart` (slash command, alias `/update`) | Claude Code를 다시 시작하고 이 세션을 재개하여 설치된 업데이트를 적용합니다. Pro, Max, Ultra 플랜, macOS 또는 Linux 네이티브 설치(WSL 제외) (v2.1.288+) | `/restart` |
 | `/doctor` (slash command) | 설치, 구성 및 플러그인 상태를 진단합니다. v2.1.116부터 Claude가 응답 중일 때도 열 수 있으며, 상태 아이콘을 인라인으로 표시하고, 감지된 문제를 자동으로 해결하기 위해 `f` 키 입력을 받습니다. v2.1.178에서는 레이아웃이 더 명확한 상태 아이콘과 강조된 명령이 있는 평면 트리로 새로 고쳐졌습니다 | REPL 내에서 `/doctor`를 실행합니다 |
 | `claude mcp` | MCP 서버를 구성합니다 (인증을 위한 `login`/`logout` 포함, v2.1.186+). | [MCP 문서](../05-mcp/)를 참조하십시오 |
 | `claude mcp serve` | Claude Code를 MCP 서버로 실행합니다 | `claude mcp serve` |
@@ -840,7 +840,7 @@ claude --model opusplan "design and implement the API"
 
 > **Fable 5.1과 `fable` 별칭 (v2.1.257)**: Fable 5.1(`claude-fable-5-1`)은 **v2.1.257**에 포함되었으며, `fable` 별칭은 이제 Fable 5가 아닌 이 모델로 해석됩니다. 공식 model-config 페이지에는 Fable 5.1이 "Claude Code v2.1.255 이상이 필요하다"고 되어 있지만 2.1.255는 공개되지 않았으므로, 실제로 설치할 수 있는 첫 릴리스는 v2.1.257입니다. Claude apps 게이트웨이에서는 `fable`과 `best`가 여전히 **Fable 5**로 해석되므로, 그곳에서는 `/model`에서 5.1을 명시적으로 선택하십시오. 조직에서 최신 Fable 모델을 사용할 수 없으면 `fable`과 `best`는 이전 Fable 모델로 한 번 재시도합니다 (v2.1.301).
 
-> **빠른 모드는 Opus 5.5, Opus 5, Opus 4.8에서 실행됩니다 (v2.1.280)**: v2.1.219부터 `/fast`는 **Opus 5와 Opus 4.8**에 적용되며, Opus 4.7은 빠른 모드에서 제외되었습니다. Opus 5의 빠른 모드는 Mtok당 $10/$50로 청구됩니다. 빠른 모드는 v2.1.154에서 처음 Opus 4.8로 이동했으며(표준 요금의 약 2배로 출력 속도 약 2.5배), 그 전에는 v2.1.142에서 Opus 4.6에서 Opus 4.7로 전환되었습니다. `CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE` 환경 변수는 **v2.1.154에서 지원 중단되었고 2026-06-01에 제거되었습니다**. Opus 4.6에서는 더 이상 빠른 모드를 사용할 수 없으므로 Opus 5 또는 Opus 4.8을 선택하십시오. **v2.1.280부터 빠른 모드의 기본값은 Opus 5.5입니다**(Mtok당 $8/$40). Opus 5와 Opus 4.8은 연구 프리뷰로 $10/$50에 계속 지원됩니다(Opus 5.5의 빠른 모드는 정식 출시). **Opus 4.8의 빠른 모드는 2026년 10월 30일부로 지원 중단되었으며 2026년 11월 30일에 제거됩니다** (v2.1.316). 그 이후 Opus 4.8의 빠른 모드 요청은 표준 속도로 폴백하지 않고 오류를 반환하므로, 속도 향상을 유지하려면 Opus 5.5로 이동하십시오. 빠른 모드와 표준 속도는 별도의 프롬프트 캐시를 사용합니다. 처음 빠른 모드로 전환하면 대화를 캐시 없이 빠른 모드 요금으로 다시 읽고, 이후 전환할 때마다(속도 제한 후 자동 폴백 포함) 해당 속도에서 캐시되지 않은 부분을 다시 읽으므로 세션 시작 시에 켜십시오.
+> **빠른 모드는 Opus 5.5, Opus 5, Opus 4.8에서 실행됩니다 (v2.1.280)**: v2.1.219부터 `/fast`는 **Opus 5와 Opus 4.8**에 적용되며, Opus 4.7은 빠른 모드에서 제외되었습니다. Opus 5의 빠른 모드는 Mtok당 $10/$50로 청구됩니다. 빠른 모드는 v2.1.154에서 처음 Opus 4.8로 이동했으며(표준 요금의 약 2배로 출력 속도 약 2.5배), 그 전에는 v2.1.142에서 Opus 4.6에서 Opus 4.7로 전환되었습니다. `CLAUDE_CODE_OPUS_4_6_FAST_MODE_OVERRIDE` 환경 변수는 **v2.1.154에서 지원 중단되었고 2026-06-01에 제거되었습니다**. Opus 4.6에서는 더 이상 빠른 모드를 사용할 수 없으므로 Opus 5 또는 Opus 4.8을 선택하십시오. **v2.1.280부터 빠른 모드의 기본값은 Opus 5.5입니다**(Mtok당 $8/$40). Opus 5와 Opus 4.8은 $10/$50로 연구 미리보기(research preview)로 계속 지원됩니다(Opus 5.5의 빠른 모드는 정식 출시(GA) 상태입니다). **Opus 4.8의 빠른 모드는 2026년 10월 30일부터 지원 중단되었으며 2026년 11월 30일에 제거됩니다** (v2.1.316). 그 이후에는 Opus 4.8의 빠른 모드 요청이 표준 속도로 폴백하지 않고 오류를 반환하므로, 속도 향상을 유지하려면 Opus 5.5로 옮기세요. 빠른 모드와 표준 속도는 별도의 프롬프트 캐시를 사용합니다. 처음 빠른 모드로 전환하면 대화를 캐시 없이 빠른 모드 요금으로 다시 읽고, 이후 전환할 때마다(속도 제한 후 자동 폴백 포함) 해당 속도에서 캐시되지 않은 부분을 다시 읽으므로 세션 시작 시에 켜십시오.
 
 ### 노력 수준 (Opus 5 / Sonnet 5 / Opus 4.8 / Opus 4.7)
 
@@ -857,7 +857,7 @@ claude --effort high "complex review"
 export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7), 또는 max — 기본값은 Opus 5에서 high
 ```
 
-프롬프트의 "ultrathink" 키워드는 깊은 추론을 활성화합니다. v2.1.311부터 대화형 터미널에서 입력하면 Anthropic API를 통한 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 해당 턴을 `xhigh`로 실행하며(가능하면 무지개색으로 표시, VS Code는 v2.1.316부터), `CLAUDE_CODE_DISABLE_ULTRATHINK=1`(v2.1.316)로 끌 수 있습니다. `/effort` 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on|off]`)도 있는데, 이는 모델 노력 수준이 **아니며** 세션의 노력 수준과 관계없이 Claude가 동적 워크플로를 오케스트레이션하도록 합니다. v2.1.284부터 더 이상 `xhigh`를 강제하지 않으며 수준을 바꿔도 켜진 상태로 유지됩니다. `--effort ultracode`와 Agent SDK의 `effortLevel: "ultracode"`는 여전히 `xhigh`를 설정합니다.
+프롬프트의 "ultrathink" 키워드는 깊은 추론을 활성화합니다. v2.1.311부터 대화형 터미널에서 입력하면 Anthropic API를 통한 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 해당 턴을 `xhigh`로 실행하며(가능하면 무지개색으로 표시, VS Code는 v2.1.316부터), `CLAUDE_CODE_DISABLE_ULTRATHINK=1` (v2.1.316)로 끌 수 있습니다. `/effort` 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on|off]`)도 있는데, 이는 모델 노력 수준이 **아니며** 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 오케스트레이션하도록 합니다. v2.1.284부터 더 이상 `xhigh`를 강제하지 않으며 수준을 바꿔도 켜진 상태로 유지됩니다. `--effort ultracode`와 Agent SDK의 `effortLevel: "ultracode"`는 여전히 `xhigh`를 설정합니다.
 
 ---
 
@@ -873,7 +873,7 @@ export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Opus 5.5, Son
 | `ANTHROPIC_DEFAULT_SONNET_MODEL` | 기본 Sonnet 모델 ID 재정의 |
 | `ANTHROPIC_DEFAULT_HAIKU_MODEL` | 기본 Haiku 모델 ID 재정의 |
 | `MAX_THINKING_TOKENS` | 확장 사고 토큰 예산 설정 |
-| `CLAUDE_CODE_EFFORT_LEVEL` | 노력 수준 설정 (`low`/`medium`/`high`/`xhigh`/`max`) — 기본값은 Opus 5.5, Sonnet 5.5, Haiku 5.5에서 `medium`, Opus 5, Sonnet 5, Opus 4.8에서 `high` (Opus 4.7에서 `xhigh`); `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5 또는 Opus 4.8/4.7 필요; `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동; `auto` 또는 `unset`으로 설정하면 노력 수준을 보내지 않아 API 기본값이 적용됩니다. `--effort`와 `/effort`보다 우선합니다 |
+| `CLAUDE_CODE_EFFORT_LEVEL` | 노력 수준 설정 (`low`/`medium`/`high`/`xhigh`/`max`) — 기본값은 Opus 5.5, Sonnet 5.5, Haiku 5.5에서 `medium`, Opus 5, Sonnet 5, Opus 4.8에서 `high` (Opus 4.7에서 `xhigh`); `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5 또는 Opus 4.8/4.7 필요; `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동. `auto` 또는 `unset`으로 설정하면 노력 수준을 보내지 않아 API의 기본값이 적용됩니다. `--effort`와 `/effort`보다 우선합니다 |
 | `CLAUDE_CODE_SIMPLE` | `--bare` 플래그로 설정되는 최소 모드 |
 | `CLAUDE_CODE_SAFE_MODE` | 모든 사용자 정의를 비활성화한 상태로 시작하려면 `1`로 설정합니다 (CLAUDE.md, 플러그인, 스킬, 훅, MCP) — 구성 문제 격리를 위한 `--safe-mode`의 환경 변수 형식 (v2.1.169) |
 | `CLAUDE_CODE_DISABLE_BUNDLED_SKILLS` | 모델에서 번들된 스킬, 워크플로, 명령을 숨기려면 `1`로 설정합니다 (v2.1.169) |
@@ -943,7 +943,7 @@ export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Opus 5.5, Son
 | `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | Workflow 도구의 실행당 동시 에이전트 한도를 높입니다. 1–256 허용 (v2.1.269) |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | 서버 측 검토 대신 Claude Code 자체의 자동 모드 분류기 요청을 사용하려면 `0`으로 설정합니다 — Bedrock, Vertex, Foundry, 게이트웨이에서는 v2.1.278부터, 직접 Anthropic API 연결에서는 v2.1.281부터 (후자에서는 로컬 분류기가 사용량에 포함되며 `1`로 옵트인) |
 | `CLAUDE_CODE_AUTO_MODE_MODEL` | 클라이언트 측 자동 모드 분류기에 사용할 전체 모델 ID(예: `claude-sonnet-4-6`). 지정하지 않으면 Sonnet 5를 사용하며, 서버 측 자동 모드의 모델은 바꾸지 않습니다. Opus 5, Sonnet 5.5, Opus 5.5 또는 조직 정책에서 제외한 모델이면 무시됩니다 (v2.1.302) |
-| `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | 실행 환경에서 `1`로 설정하면 중요 경로 `rm` 프롬프트 동작이 바뀝니다. `--dangerously-skip-permissions`(bypassPermissions) 모드에서는 터미널 프롬프트에 시간 제한이 없고 VS Code 채팅 패널은 사용자에게 묻습니다. 자동 모드에서는 터미널, VS Code 패널, `-p` 실행, Agent SDK 세션에서 분류기가 대신 결정합니다. 설정하지 않으면 무인 세션이 계속 진행되도록 터미널 프롬프트가 2분 후 다시 작성 힌트와 함께 명령을 거부합니다 (v2.1.281) |
+| `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | 실행 환경에서 `1`로 설정하면 중요 경로 `rm` 프롬프트가 바뀝니다. `--dangerously-skip-permissions` (bypassPermissions) 모드에서는 터미널 프롬프트에 시간 제한이 없어지고 VS Code 채팅 패널은 사용자에게 묻습니다. 자동 모드에서는 터미널, VS Code 패널, `-p` 실행, Agent SDK 세션 모두에서 분류기가 대신 결정합니다. 설정하지 않으면 무인 세션이 계속 진행되도록 터미널 프롬프트가 2분 후 다시 작성 힌트와 함께 명령을 거부합니다 (v2.1.281) |
 | `CLAUDE_CODE_DISABLE_MOUNTED_DRIVE_RM_PROMPT` | `/Volumes/USB`나 WSL의 `/mnt/c` 같은 마운트된 드라이브 경로에 대한 재귀 `rm` 프롬프트를 끄려면 실행 환경에서 `1`로 설정합니다(설정 `env` 블록에서는 무시됨) (v2.1.304) |
 | `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | CI처럼 신뢰 여부를 물을 수 없는 폴더에서 `claude ultrareview`가 `Error: Workspace not trusted`로 종료하지 않도록 실행 환경에서 `1`로 설정합니다. 모든 실행이 신뢰할 수 있는 폴더에서 시작되는 경우에만 사용하십시오 (v2.1.309) |
 | `CLAUDE_CODE_DISABLE_FILE_MENTIONS` | 파일과 디렉터리의 `@` 멘션 확장을 중지하려면 `1`로 설정합니다. Claude는 멘션된 경로와 함께 파일 도구로 읽으라는 안내를 받습니다. 프로젝트 및 로컬 설정에서는 무시됩니다 (v2.1.299) |
@@ -951,9 +951,9 @@ export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Opus 5.5, Son
 | `CLAUDE_CODE_GZIP_REQUEST_BODIES` | `api.anthropic.com`으로 보내는 큰 API, 원격 측정, 아티팩트 게시 요청 본문의 gzip 압축을 끄려면 `0`으로 설정합니다. 프록시 뒤, 클라이언트 인증서 사용 시, `NODE_EXTRA_CA_CERTS` 사용 시에는 압축이 자동으로 생략됩니다. Claude Code가 감지하지 못하는 TLS 검사 프록시가 압축된 요청을 잘못 처리하면 `0`을 사용하십시오. v2.1.300부터 원격 측정이 비활성화되어도 압축이 적용됩니다 (v2.1.300) |
 | `CLAUDE_CODE_ARTIFACT_PUBLISH_EDITS` | Claude가 아티팩트 게시 과정에서 아티팩트 파일에 작은 변경을 적용하지 않도록 하려면 `0`으로 설정합니다. 그러면 Claude는 파일 도구로 파일을 편집한 뒤 별도 단계로 게시합니다 (v2.1.300) |
 | `CLAUDE_CODE_EVEN_MORE_DANGEROUSLY_SKIP_PERMISSIONS` | 실행 환경에서 `1`로 설정하면(설정의 `env` 블록에서는 무시됨) `bypassPermissions` 모드에서 중요 경로 `rm`/`rmdir` 명령이 프롬프트 없이 실행됩니다. 계획 모드, VS Code 패널, Desktop, 또는 `PermissionRequest` 훅이나 Bash/Edit/Read ask·deny 규칙이 적용되는 동안에는 효과가 없습니다 (v2.1.311) |
-| `CLAUDE_CODE_MODEL_CATALOG` | `off`로 설정하면 Bedrock, Mantle, Vertex, Foundry에서 Claude Code가 `downloads.claude.ai`의 서명된 파일에서 모델 설정을 불러오지 않습니다 (v2.1.311) |
-| `CLAUDE_CODE_DISABLE_ULTRATHINK` | `ultrathink` 키워드를 끄려면 `1`로 설정합니다 (v2.1.316) |
-| `CLAUDE_CODE_SUBAGENT_EFFORT` | 다른 곳에서 지정하지 않을 때 서브에이전트가 세션의 노력 수준을 상속하는 대신 실행할 노력 수준입니다 (v2.1.316) |
+| `CLAUDE_CODE_MODEL_CATALOG` | `off`로 설정하면 Bedrock, Mantle, Vertex, Foundry의 Claude Code가 `downloads.claude.ai`의 서명된 파일에서 모델 설정을 불러오지 않습니다 (v2.1.311) |
+| `CLAUDE_CODE_DISABLE_ULTRATHINK` | `1`로 설정하면 `ultrathink` 키워드를 끕니다 (v2.1.316) |
+| `CLAUDE_CODE_SUBAGENT_EFFORT` | 다른 곳에서 지정하지 않았을 때 서브에이전트가 세션의 노력 수준을 상속하는 대신 사용할 노력 수준 (v2.1.316) |
 | `CLAUDE_CODE_ENABLE_TODO_TOOLS` | 할 일/작업 추적 도구(`TaskCreate`/`Get`/`Update`/`List`, `TodoWrite`)를 복원하려면 `1`로 설정합니다. 이 도구는 기본적으로 Claude 3.x 모델, Opus 4~4.7, Sonnet 4~4.6, Haiku 4.5에서만 사용할 수 있습니다 (v2.1.268) |
 | `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | WebFetch가 가져온 URL을 캐시하는 기간. 기본값 15분 (v2.1.233) |
 | `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | Linux 전용: Bash 명령에 메모리 cgroup을 적용하도록 옵트인합니다 (v2.1.233) |
@@ -1003,7 +1003,7 @@ export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Opus 5.5, Son
 | `syncClaudeAiSkills` / `syncClaudeAiPlugins` | (v2.1.275) claude.ai 계정에서 활성화한 스킬이나 플러그인을 터미널 세션에 동기화하지 않으려면 둘 중 하나를 `false`로 설정합니다. |
 | `attribution` | (v2.1.281) 모든 커밋 및 PR 기여 표시를 숨기려면 `"attribution": false`로 설정합니다. 이전 CLI 버전은 이 값을 담은 설정 파일을 건너뛰므로, 여러 버전에서 공유하는 파일에는 객체 형식을 유지하십시오. |
 | `maxProseWidth` | (v2.1.282) 넓은 터미널에서 Claude 산문의 너비를 제한합니다. 표와 코드 블록은 전체 너비를 유지합니다. |
-| `idleCompaction` | (v2.1.290) 자리를 비운 긴 대화를 프롬프트 캐시가 만료되기 직전에 압축하여, 다음 메시지가 전체 대화 대신 요약을 보내도록 합니다. 1시간 캐시 TTL을 쓰는 대화형 터미널 세션에서 컨텍스트가 200K 토큰(`CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS`)에 도달하고 약 1시간이 지나면 기본적으로 켜집니다. v2.1.314부터는 VS Code 채팅 패널과 Desktop 앱의 Code 탭(로컬 또는 SSH 세션)에서도, 텔레메트리를 끈 구독자에게도, 그리고 1시간 프롬프트 캐시가 켜진 Bedrock, Vertex, Foundry, LLM 게이트웨이에서도 실행됩니다. 끄려면 `false`로 설정하거나 `/config`의 `Idle compaction` 행에서 끕니다 (v2.1.302). `DISABLE_AUTO_COMPACT`도 이를 끕니다. |
+| `idleCompaction` | (v2.1.290) 자리를 비운 긴 대화를 프롬프트 캐시가 만료되기 직전에 압축하여, 다음 메시지가 전체 대화 대신 요약을 보내도록 합니다. 1시간 캐시 TTL을 쓰는 대화형 터미널 세션에서 컨텍스트가 200K 토큰(`CLAUDE_CODE_IDLE_COMPACT_MIN_TOKENS`)에 도달하고 약 1시간이 지나면 기본적으로 켜집니다. v2.1.314부터는 VS Code 채팅 패널과 Desktop 앱의 Code 탭(로컬 또는 SSH 세션)에서도, 원격 측정을 끈 구독자에게도, 그리고 1시간 프롬프트 캐시가 켜진 Bedrock, Vertex, Foundry, LLM 게이트웨이에서도 실행됩니다. 끄려면 `false`로 설정하거나 `/config`의 `Idle compaction` 행에서 끕니다 (v2.1.302). `DISABLE_AUTO_COMPACT`도 이를 끕니다. |
 
 ```json
 {

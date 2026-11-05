@@ -1,6 +1,6 @@
 <!-- i18n-source: README.md -->
-<!-- i18n-source-sha: efbe356 -->
-<!-- i18n-date: 2026-11-02 -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
@@ -147,7 +147,7 @@ Claude Code의 진정한 강점은 기능 조합에 있습니다. 슬래시 명�
 
 ## 15분 안에 시작하기
 
-> **설치 참고 사항**: v2.1.113부터 Claude Code는 macOS, Linux, Windows용 네이티브 바이너리로 제공됩니다. 권장 설치 방법은 네이티브 설치 프로그램(`curl -fsSL https://claude.ai/install.sh | bash`)입니다. 공식 README에서 npm 설치는 지원 중단(deprecated)되었으므로 네이티브 설치 프로그램, Homebrew(`brew install --cask claude-code`) 또는 WinGet(`winget install Anthropic.ClaudeCode`)을 사용하세요. 참고로 `npm install -g @anthropic-ai/claude-code`는 설치 시 플랫폼별 선택적 의존성을 통해 같은 네이티브 바이너리를 가져옵니다. 기본적으로 Claude Code의 postinstall 단계를 건너뛰는 npm 12에서는 이 설치가 `Error: claude native binary not installed.`로 끝나므로, 네이티브 설치 프로그램으로 전환하거나 [Fix an npm 12 install](https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install)을 따르세요. v2.1.116부터는 다운로드가 `https://downloads.claude.ai/claude-code-releases`에서 제공되므로, 기업 환경의 프록시에서는 해당 호스트를 허용 목록에 추가해야 합니다.
+> **설치 참고 사항**: v2.1.113부터 Claude Code는 macOS, Linux, Windows용 네이티브 바이너리로 제공됩니다. 권장 설치 방법은 네이티브 설치 프로그램(`curl -fsSL https://claude.ai/install.sh | bash`)입니다. 공식 README에서 npm 설치는 지원 중단(deprecated)되었으므로 네이티브 설치 프로그램, Homebrew(`brew install --cask claude-code`) 또는 WinGet(`winget install Anthropic.ClaudeCode`)을 사용하세요. 참고로 `npm install -g @anthropic-ai/claude-code`는 설치 시 플랫폼별 선택적 의존성을 통해 같은 네이티브 바이너리를 가져옵니다. npm 12에서는 Claude Code의 postinstall 단계를 기본적으로 건너뛰므로 이 설치가 `Error: claude native binary not installed.`로 끝납니다. 네이티브 설치 프로그램으로 바꾸거나 [Fix an npm 12 install](https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install)을 따르세요. v2.1.116부터는 다운로드가 `https://downloads.claude.ai/claude-code-releases`에서 제공되므로, 기업 환경의 프록시에서는 해당 호스트를 허용 목록에 추가해야 합니다.
 
 ```bash
 # 1. Clone the guide
