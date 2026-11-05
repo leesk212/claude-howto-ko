@@ -1,0 +1,3831 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Claude 개념 완벽 가이드 — Claude Code 사용 가이드</title>
+  <meta name="description" content="Master Claude Code in a Weekend" />
+  <link rel="icon" href="assets/resources/logos/claude-howto-logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css" />
+  <link rel="stylesheet" href="assets/tailwind.css" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    // Apply the saved theme before paint to avoid flash of unstyled content.
+    (function () {
+      try {
+        var saved = localStorage.getItem('claude-howto-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+
+  <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/85 backdrop-blur dark:border-slate-800 dark:bg-slate-950/85">
+    <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
+      <button
+        type="button"
+        id="nav-toggle"
+        class="inline-flex items-center justify-center rounded-md border border-slate-200 p-2 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
+        aria-label="Open navigation"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path d="M3 5h14a1 1 0 110 2H3a1 1 0 110-2zm0 4h14a1 1 0 110 2H3a1 1 0 110-2zm0 4h14a1 1 0 110 2H3a1 1 0 110-2z"/>
+        </svg>
+      </button>
+      <a href="index.html" class="flex items-center gap-2 font-semibold tracking-tight">
+        <img
+          src="assets/resources/logos/claude-howto-logo.svg"
+          alt=""
+          class="h-7 w-auto dark:hidden"
+          onerror="this.style.display='none'"
+        />
+        <img
+          src="assets/resources/logos/claude-howto-logo-dark.svg"
+          alt=""
+          class="hidden h-7 w-auto dark:block"
+          onerror="this.style.display='none'"
+        />
+        <span class="text-sm sm:text-base">Claude Code 사용 가이드</span>
+      </a>
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="https://github.com/leesk212/claude-howto-ko/blob/ko/claude_concepts_guide.md"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden items-center gap-1.5 rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 sm:inline-flex"
+          title="View this page's markdown source on GitHub"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span>GitHub에서 편집</span>
+        </a>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="inline-flex items-center justify-center rounded-md border border-slate-200 p-2 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+          aria-label="Toggle theme"
+        >
+          <svg class="hidden h-5 w-5 dark:block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.95 2.05a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM18 9a1 1 0 110 2h-1a1 1 0 110-2h1zm-2.05 4.95a1 1 0 011.41 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.95-2.05a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM3 9a1 1 0 110 2H2a1 1 0 110-2h1zm2.05-4.95a1 1 0 011.41-1.41l.71.71a1 1 0 11-1.41 1.41l-.71-.71zM10 6a4 4 0 100 8 4 4 0 000-8z"/>
+          </svg>
+          <svg class="h-5 w-5 dark:hidden" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mx-auto flex max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-72 -translate-x-full transform overflow-y-auto border-r border-slate-200 bg-white px-4 pb-10 pt-20 transition-transform duration-200 ease-out dark:border-slate-800 dark:bg-slate-950 lg:sticky lg:top-20 lg:z-0 lg:h-[calc(100vh-5rem)] lg:translate-x-0 lg:bg-transparent lg:px-0 lg:pt-0 lg:dark:bg-transparent"
+    >
+      <nav class="space-y-6 text-sm">
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            소개
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="guide.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                주말 동안 Claude Code 마스터하기
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            학습 로드맵
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="LEARNING-ROADMAP.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                📚 Claude Code 학습 로드맵
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            빠른 참조
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="QUICK_REFERENCE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude Code 예제 - 빠른 참조 카드
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Claude 개념 가이드
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href=""
+                class="block rounded-md px-3 py-1.5 transition-colors bg-brand-50 font-semibold text-brand-700 dark:bg-brand-700/20 dark:text-brand-100"
+              >
+                Claude 개념 완벽 가이드
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            슬래시 명령어
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="01-slash-commands/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                슬래시 명령어
+              </a>
+            </li>
+            <li>
+              <a
+                href="01-slash-commands/commit.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                commit
+              </a>
+            </li>
+            <li>
+              <a
+                href="01-slash-commands/doc-refactor.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서 리팩터링
+              </a>
+            </li>
+            <li>
+              <a
+                href="01-slash-commands/generate-api-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API 문서 생성기
+              </a>
+            </li>
+            <li>
+              <a
+                href="01-slash-commands/optimize.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 최적화
+              </a>
+            </li>
+            <li>
+              <a
+                href="01-slash-commands/pr.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                풀 리퀘스트 준비 체크리스트
+              </a>
+            </li>
+            <li>
+              <a
+                href="01-slash-commands/push-all.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                모든 것을 커밋하고 푸시하기
+              </a>
+            </li>
+            <li>
+              <a
+                href="01-slash-commands/setup-ci-cd.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                CI/CD 파이프라인 설정
+              </a>
+            </li>
+            <li>
+              <a
+                href="01-slash-commands/unit-test-expand.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                단위 테스트 확장
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            메모리
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="02-memory/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                메모리 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="02-memory/directory-api-CLAUDE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API 모듈 표준
+              </a>
+            </li>
+            <li>
+              <a
+                href="02-memory/personal-CLAUDE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                저의 개발 선호 사항
+              </a>
+            </li>
+            <li>
+              <a
+                href="02-memory/project-CLAUDE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                프로젝트 구성
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            스킬
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="03-skills/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                에이전트 스킬 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/blog-draft/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                SKILL
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/blog-draft/templates/draft-template.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                [블로그 게시물 제목]
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/blog-draft/templates/outline-template.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                블로그 게시물 개요: [Title]
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/brand-voice/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                브랜드 보이스 스킬
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/brand-voice/tone-examples.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                브랜드 보이스 톤 예시
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/claude-md/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                프로젝트 이름
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/code-review-specialist/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 검토 스킬
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/code-review-specialist/templates/finding-template.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Code Review Finding Template
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/code-review-specialist/templates/review-checklist.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Code Review Checklist
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/doc-generator/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API 문서 생성기 기능
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/refactor/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 리팩터링 스킬
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/refactor/references/code-smells.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 스멜 카탈로그
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/refactor/references/refactoring-catalog.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                리팩터링 카탈로그
+              </a>
+            </li>
+            <li>
+              <a
+                href="03-skills/refactor/templates/refactoring-plan.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                리팩터링 계획 템플릿
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            서브에이전트
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="04-subagents/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                서브에이전트 - 종합 참조 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/clean-code-reviewer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                클린 코드 리뷰어 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/code-reviewer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 리뷰어 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/data-scientist.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                데이터 사이언티스트 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/debugger.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                디버거 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/documentation-writer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서 작성 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/implementation-agent.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                구현 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/performance-optimizer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                성능 최적화 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/secure-reviewer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                보안 코드 리뷰어
+              </a>
+            </li>
+            <li>
+              <a
+                href="04-subagents/test-engineer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                테스트 엔지니어 에이전트
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            MCP Protocol
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="05-mcp/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                MCP (모델 컨텍스트 프로토콜)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            훅
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="06-hooks/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                훅
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            플러그인
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="07-plugins/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude Code 플러그인
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/devops-automation/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                DevOps 자동화 플러그인
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/devops-automation/agents/alert-analyzer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                알림 분석기
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/devops-automation/agents/deployment-specialist.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                배포 전문가
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/devops-automation/agents/incident-commander.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                사고 대응 총괄자
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/devops-automation/commands/deploy.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                애플리케이션 배포
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/devops-automation/commands/incident.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                장애 대응
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/devops-automation/commands/rollback.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                배포 롤백
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/devops-automation/commands/status.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                시스템 상태 점검
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서화 플러그인
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/agents/api-documenter.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API Documenter
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/agents/code-commentator.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Code Commentator
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/agents/example-generator.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Example Generator
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/commands/generate-api-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API Documentation Generator
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/commands/generate-readme.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                README 생성기
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/commands/sync-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서 동기화
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/commands/validate-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서 검증
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/templates/adr-template.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                ADR [번호]: [제목]
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/templates/api-endpoint.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                [METHOD] /api/v1/[endpoint]
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/documentation/templates/function-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                함수: `functionName`
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/pr-review/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                PR 리뷰 플러그인
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/pr-review/agents/performance-analyzer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                성능 분석기
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/pr-review/agents/security-reviewer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                보안 리뷰어
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/pr-review/agents/test-checker.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                테스트 검사기
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/pr-review/commands/check-security.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                보안 점검
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/pr-review/commands/check-tests.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                테스트 커버리지 점검
+              </a>
+            </li>
+            <li>
+              <a
+                href="07-plugins/pr-review/commands/review-pr.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                PR 리뷰
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            체크포인트
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="08-checkpoints/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                체크포인트 및 되감기
+              </a>
+            </li>
+            <li>
+              <a
+                href="08-checkpoints/checkpoint-examples.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                체크포인트 예제(Checkpoints and Rewind Examples)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            고급 기능
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="09-advanced-features/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                고급 기능
+              </a>
+            </li>
+            <li>
+              <a
+                href="09-advanced-features/planning-mode-examples.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                계획 모드 예제(Planning Mode Examples)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            CLI Reference
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="10-cli/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                CLI 참조
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Feature Catalog
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="CATALOG.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude Code 기능 카탈로그
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Index
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="INDEX.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude Code 예시 - 전체 색인
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Style Guide
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="STYLE_GUIDE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                스타일 가이드
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            참고 자료
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="resources.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                유용한 리소스 목록
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Additional Docs
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="CHANGELOG.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                변경 로그
+              </a>
+            </li>
+            <li>
+              <a
+                href="CODE_OF_CONDUCT.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                기여자 행동 강령
+              </a>
+            </li>
+            <li>
+              <a
+                href="CONTRIBUTING.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude How To 기여 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="SECURITY.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                보안 정책
+              </a>
+            </li>
+            <li>
+              <a
+                href="TRANSLATION_NOTES.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                번역 용어집 및 스타일 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="clean-code-rules.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                AI 코드 생성을 위한 클린 코드 규칙
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <div
+      id="sidebar-backdrop"
+      class="fixed inset-0 z-30 hidden bg-slate-900/40 lg:hidden"
+      aria-hidden="true"
+    ></div>
+
+    <main class="flex min-w-0 flex-1 flex-col">
+      <nav class="mb-4 text-xs text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center gap-1.5">
+          <li><a href="index.html" class="hover:underline">홈</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-slate-700 dark:text-slate-200">Claude 개념 가이드</li>
+          <li aria-hidden="true">/</li>
+          <li class="text-slate-700 dark:text-slate-200">Claude 개념 완벽 가이드</li>
+        </ol>
+      </nav>
+
+      <article class="prose prose-slate max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline prose-code:rounded prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:before:content-none prose-code:after:content-none prose-pre:bg-slate-900 prose-pre:text-slate-100 prose-img:rounded-lg prose-table:text-sm dark:prose-invert dark:prose-code:bg-slate-800 dark:prose-pre:bg-slate-900">
+        <!-- i18n-source: claude_concepts_guide.md -->
+<!-- i18n-source-sha: 2b530b7 -->
+<!-- i18n-date: 2026-11-06 -->
+<p><picture>
+<source media="(prefers-color-scheme: dark)" srcset="assets/resources/logos/claude-howto-logo-dark.svg"/>
+<img alt="Claude How To" loading="lazy" src="assets/resources/logos/claude-howto-logo.svg"/>
+</picture></p>
+<h1 id="claude-개념-완벽-가이드">Claude 개념 완벽 가이드</h1>
+<p>Claude Code의 기능이 어떻게 동작하고 서로 어떻게 맞물리는지에 대한 개념 개요입니다. 슬래시 명령어, 서브에이전트, 메모리, MCP, 스킬, 플러그인, 훅 등을 아키텍처 다이어그램, 의사결정 표, 비교 자료로 정리합니다.</p>
+<blockquote>
+<p><strong>이 가이드 사용법</strong>: 이 페이지는 <em>개념</em>을 설명합니다. 각 기능이 무엇인지, 내부적으로 어떻게 동작하는지, 언제 사용해야 하는지를 다룹니다. <strong>복사해서 바로 쓸 수 있는 템플릿과 전체 참조 자료는 번호가 붙은 모듈</strong>(<code>01-</code>부터 <code>10-</code>까지)에 있으며, 각 섹션에서 해당 모듈로 연결됩니다. 여기서 전체적인 그림을 먼저 잡은 뒤, 실제 설정은 모듈로 가서 진행하세요.</p>
+</blockquote>
+<hr/>
+<h2 id="목차">목차</h2>
+<ol>
+<li><a href="#슬래시-명령어">슬래시 명령어</a> — <a href="01-slash-commands/index.html">모듈</a></li>
+<li><a href="#서브에이전트">서브에이전트</a> — <a href="04-subagents/index.html">모듈</a></li>
+<li><a href="#메모리">메모리</a> — <a href="02-memory/index.html">모듈</a></li>
+<li><a href="#mcp-프로토콜">MCP 프로토콜</a> — <a href="05-mcp/index.html">모듈</a></li>
+<li><a href="#에이전트-스킬">에이전트 스킬</a> — <a href="03-skills/index.html">모듈</a></li>
+<li><a href="#claude-code-플러그인">플러그인</a> — <a href="07-plugins/index.html">모듈</a></li>
+<li><a href="#비교-및-통합">비교 및 통합</a></li>
+<li><a href="#요약-표">요약 표</a></li>
+<li><a href="#빠른-시작-가이드">빠른 시작 가이드</a></li>
+<li><a href="#훅">훅</a> — <a href="06-hooks/index.html">모듈</a></li>
+<li><a href="#체크포인트와-되감기">체크포인트와 되감기</a> — <a href="08-checkpoints/index.html">모듈</a></li>
+<li><a href="#고급-기능">고급 기능</a> — <a href="09-advanced-features/index.html">모듈</a></li>
+<li><a href="#모델과-추론-노력">모델과 추론 노력</a> — <a href="10-cli/index.html">모듈</a></li>
+<li><a href="#참고-자료">참고 자료</a></li>
+</ol>
+<hr/>
+<h2 id="슬래시-명령어">슬래시 명령어</h2>
+<h3 id="개요">개요</h3>
+<p>슬래시 명령어는 Markdown 파일로 저장되어 Claude Code가 실행할 수 있는, 사용자가 직접 호출하는 단축 명령입니다. 팀이 자주 쓰는 프롬프트와 워크플로를 표준화할 수 있게 해 줍니다.</p>
+<h3 id="아키텍처">아키텍처</h3>
+<pre class="mermaid">graph TD
+    A["User Input: /command-name"] --&gt;|Triggers| B["Search .claude/commands/"]
+    B --&gt;|Finds| C["command-name.md"]
+    C --&gt;|Loads| D["Markdown Content"]
+    D --&gt;|Executes| E["Claude Processes Prompt"]
+    E --&gt;|Returns| F["Result in Context"]
+</pre>
+<h3 id="파일-구조">파일 구조</h3>
+<pre class="mermaid">graph LR
+    A["Project Root"] --&gt;|contains| B[".claude/commands/"]
+    B --&gt;|contains| C["optimize.md"]
+    B --&gt;|contains| D["test.md"]
+    B --&gt;|contains| E["docs/"]
+    E --&gt;|contains| F["generate-api-docs.md"]
+    E --&gt;|contains| G["generate-readme.md"]
+</pre>
+<h3 id="명령어-구성-표">명령어 구성 표</h3>
+<table>
+<thead>
+<tr>
+<th>위치</th>
+<th>범위</th>
+<th>사용 가능 대상</th>
+<th>사용 사례</th>
+<th>Git 추적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.claude/commands/</code></td>
+<td>프로젝트 전용</td>
+<td>팀원</td>
+<td>팀 워크플로, 공유 표준</td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td><code>~/.claude/commands/</code></td>
+<td>개인</td>
+<td>개별 사용자</td>
+<td>여러 프로젝트에 걸친 개인 단축 명령</td>
+<td>❌ 아니요</td>
+</tr>
+<tr>
+<td>하위 디렉터리</td>
+<td>네임스페이스</td>
+<td>상위 디렉터리 기준</td>
+<td>카테고리별 정리</td>
+<td>✅ 예</td>
+</tr>
+</tbody>
+</table>
+<h3 id="기능-및-역량">기능 및 역량</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>예시</th>
+<th>지원</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>셸 스크립트 실행</td>
+<td><code>bash scripts/deploy.sh</code></td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td>파일 참조</td>
+<td><code>@path/to/file.js</code></td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td>Bash 통합</td>
+<td><code>$(git log --oneline)</code></td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td>인수</td>
+<td><code>/pr --verbose</code></td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td>MCP 명령어</td>
+<td><code>/mcp__github__list_prs</code></td>
+<td>✅ 예</td>
+</tr>
+</tbody>
+</table>
+<h3 id="실전-예제">실전 예제</h3>
+<p>복사해서 바로 쓸 수 있는 명령어 템플릿 8종이 <strong><a href="01-slash-commands/index.html">01-slash-commands/</a></strong> 에 있습니다. <code>/optimize</code>, <code>/pr</code>, <code>/commit</code>, <code>/push-all</code>, <code>/generate-api-docs</code>, <code>/doc-refactor</code>, <code>/setup-ci-cd</code>, <code>/unit-test-expand</code>입니다.</p>
+<p><strong><a href="01-slash-commands/index.html">01-slash-commands/README.md</a></strong> 에는 전체 내장 명령어 참조(60개 이상)와 프런트매터 필드 표도 들어 있습니다.</p>
+<h3 id="명령어-수명-주기-다이어그램">명령어 수명 주기 다이어그램</h3>
+<pre class="mermaid">sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant FS as File System
+    participant CLI as Shell/Bash
+
+    User-&gt;&gt;Claude: Types /optimize
+    Claude-&gt;&gt;FS: Searches .claude/commands/
+    FS--&gt;&gt;Claude: Returns optimize.md
+    Claude-&gt;&gt;Claude: Loads Markdown content
+    Claude-&gt;&gt;User: Displays prompt context
+    User-&gt;&gt;Claude: Provides code to analyze
+    Claude-&gt;&gt;CLI: (May execute scripts)
+    CLI--&gt;&gt;Claude: Results
+    Claude-&gt;&gt;User: Returns analysis
+</pre>
+<h3 id="모범-사례">모범 사례</h3>
+<table>
+<thead>
+<tr>
+<th>✅ 권장</th>
+<th>❌ 비권장</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>명확하고 동작 중심적인 이름 사용</td>
+<td>일회성 작업용 명령어 만들기</td>
+</tr>
+<tr>
+<td>description에 트리거 단어 문서화</td>
+<td>명령어 안에 복잡한 로직 구현</td>
+</tr>
+<tr>
+<td>명령어는 단일 작업에 집중</td>
+<td>중복 명령어 만들기</td>
+</tr>
+<tr>
+<td>프로젝트 명령어는 버전 관리</td>
+<td>민감한 정보 하드코딩</td>
+</tr>
+<tr>
+<td>하위 디렉터리로 정리</td>
+<td>명령어를 길게 나열</td>
+</tr>
+<tr>
+<td>단순하고 읽기 쉬운 프롬프트 사용</td>
+<td>축약되거나 모호한 표현 사용</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="서브에이전트">서브에이전트</h2>
+<h3 id="개요-1">개요</h3>
+<p>서브에이전트는 격리된 컨텍스트 창과 맞춤형 시스템 프롬프트를 가진 전문 AI 어시스턴트입니다. 관심사를 깔끔하게 분리하면서 작업을 위임해 실행할 수 있게 해 줍니다.</p>
+<p>서브에이전트는 자신의 서브에이전트를 생성할 수 있으며, <strong>기본적으로 깊이 3까지 중첩됩니다(v2.1.219)</strong>. 따라서 계층 구조가 아래 그림처럼 메인 → 서브에이전트 한 단계로 제한되지 않습니다. 한도를 바꾸려면 <code>CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH</code>를 설정하고, 중첩을 끄려면 <code>1</code>로 설정하세요. (변경 이력: v2.1.172–v2.1.216에서는 기본적으로 최대 5단계까지 중첩되었고 변경할 방법이 없었습니다. v2.1.217에서는 깊이 1의 옵트인 방식으로 바뀌었고, v2.1.219에서 기본값이 3이 되었습니다.)</p>
+<h3 id="아키텍처-다이어그램">아키텍처 다이어그램</h3>
+<pre class="mermaid">graph TB
+    User["👤 User"]
+    Main["🎯 Main Agent&lt;br/&gt;(Coordinator)"]
+    Reviewer["🔍 Code Reviewer&lt;br/&gt;Subagent"]
+    Tester["✅ Test Engineer&lt;br/&gt;Subagent"]
+    Docs["📝 Documentation&lt;br/&gt;Subagent"]
+
+    User --&gt;|asks| Main
+    Main --&gt;|delegates| Reviewer
+    Main --&gt;|delegates| Tester
+    Main --&gt;|delegates| Docs
+    Reviewer --&gt;|returns result| Main
+    Tester --&gt;|returns result| Main
+    Docs --&gt;|returns result| Main
+    Main --&gt;|synthesizes| User
+</pre>
+<h3 id="서브에이전트-수명-주기">서브에이전트 수명 주기</h3>
+<pre class="mermaid">sequenceDiagram
+    participant User
+    participant MainAgent as Main Agent
+    participant CodeReviewer as Code Reviewer&lt;br/&gt;Subagent
+    participant Context as Separate&lt;br/&gt;Context Window
+
+    User-&gt;&gt;MainAgent: "Build new auth feature"
+    MainAgent-&gt;&gt;MainAgent: Analyze task
+    MainAgent-&gt;&gt;CodeReviewer: "Review this code"
+    CodeReviewer-&gt;&gt;Context: Initialize clean context
+    Context-&gt;&gt;CodeReviewer: Load reviewer instructions
+    CodeReviewer-&gt;&gt;CodeReviewer: Perform review
+    CodeReviewer--&gt;&gt;MainAgent: Return findings
+    MainAgent-&gt;&gt;MainAgent: Incorporate results
+    MainAgent--&gt;&gt;User: Provide synthesis
+</pre>
+<h3 id="서브에이전트-구성-표">서브에이전트 구성 표</h3>
+<table>
+<thead>
+<tr>
+<th>구성 항목</th>
+<th>타입</th>
+<th>목적</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>에이전트 식별자</td>
+<td><code>code-reviewer</code></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td>목적 및 트리거 용어</td>
+<td><code>Comprehensive code quality analysis</code></td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>List/String</td>
+<td>허용된 도구</td>
+<td><code>Read, Grep, Glob, Bash</code></td>
+</tr>
+<tr>
+<td><em>(Markdown 본문)</em></td>
+<td>Markdown</td>
+<td>시스템 프롬프트 / 행동 지침</td>
+<td>맞춤 가이드라인</td>
+</tr>
+</tbody>
+</table>
+<h3 id="도구-접근-계층">도구 접근 계층</h3>
+<pre class="mermaid">graph TD
+    A["Subagent Configuration"] --&gt;|Option 1| B["Inherit All Tools&lt;br/&gt;from Main Thread"]
+    A --&gt;|Option 2| C["Specify Individual Tools"]
+    B --&gt;|Includes| B1["File Operations"]
+    B --&gt;|Includes| B2["Shell Commands"]
+    B --&gt;|Includes| B3["MCP Tools"]
+    C --&gt;|Explicit List| C1["read, grep, diff"]
+    C --&gt;|Explicit List| C2["Bash(npm:*), Bash(test:*)"]
+</pre>
+<h3 id="실전-예제-1">실전 예제</h3>
+<p>바로 사용할 수 있는 서브에이전트 정의 9종이 <strong><a href="04-subagents/index.html">04-subagents/</a></strong> 에 있습니다. <code>code-reviewer</code>, <code>clean-code-reviewer</code>, <code>secure-reviewer</code>, <code>test-engineer</code>, <code>documentation-writer</code>, <code>implementation-agent</code>, <code>performance-optimizer</code>, <code>debugger</code>, <code>data-scientist</code>입니다.</p>
+<p><strong><a href="04-subagents/index.html">04-subagents/README.md</a></strong> 에는 전체 프런트매터 참조, 도구 접근 규칙, 중첩 한도, 에이전트 팀이 정리되어 있습니다.</p>
+<h3 id="서브에이전트-컨텍스트-관리">서브에이전트 컨텍스트 관리</h3>
+<pre class="mermaid">graph TB
+    A["Main Agent Context&lt;br/&gt;50,000 tokens"]
+    B["Subagent 1 Context&lt;br/&gt;20,000 tokens"]
+    C["Subagent 2 Context&lt;br/&gt;20,000 tokens"]
+    D["Subagent 3 Context&lt;br/&gt;20,000 tokens"]
+
+    A --&gt;|Clean slate| B
+    A --&gt;|Clean slate| C
+    A --&gt;|Clean slate| D
+
+    B --&gt;|Results only| A
+    C --&gt;|Results only| A
+    D --&gt;|Results only| A
+
+    style A fill:#e1f5ff
+    style B fill:#fff9c4
+    style C fill:#fff9c4
+    style D fill:#fff9c4
+</pre>
+<h3 id="서브에이전트를-사용해야-할-때">서브에이전트를 사용해야 할 때</h3>
+<table>
+<thead>
+<tr>
+<th>시나리오</th>
+<th>서브에이전트 사용</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>여러 단계로 이루어진 복잡한 기능</td>
+<td>✅ 예</td>
+<td>관심사 분리, 컨텍스트 오염 방지</td>
+</tr>
+<tr>
+<td>간단한 코드 리뷰</td>
+<td>❌ 아니요</td>
+<td>불필요한 오버헤드</td>
+</tr>
+<tr>
+<td>병렬 작업 실행</td>
+<td>✅ 예</td>
+<td>서브에이전트마다 자체 컨텍스트 보유</td>
+</tr>
+<tr>
+<td>전문 지식이 필요한 경우</td>
+<td>✅ 예</td>
+<td>맞춤 시스템 프롬프트</td>
+</tr>
+<tr>
+<td>오래 걸리는 분석</td>
+<td>✅ 예</td>
+<td>메인 컨텍스트 고갈 방지</td>
+</tr>
+<tr>
+<td>단일 작업</td>
+<td>❌ 아니요</td>
+<td>불필요하게 지연 시간 증가</td>
+</tr>
+</tbody>
+</table>
+<h3 id="에이전트-팀">에이전트 팀</h3>
+<p>에이전트 팀은 관련 작업을 수행하는 여러 에이전트를 조율합니다. 한 번에 하나의 서브에이전트에게 위임하는 대신, 메인 에이전트가 협업하고 중간 결과를 공유하며 공동 목표를 향해 일하는 에이전트 그룹을 오케스트레이션할 수 있습니다. 프런트엔드 에이전트, 백엔드 에이전트, 테스트 에이전트가 병렬로 작업하는 풀스택 기능 개발 같은 대규모 작업에 유용합니다.</p>
+<hr/>
+<h2 id="메모리">메모리</h2>
+<h3 id="개요-2">개요</h3>
+<p>메모리는 Claude가 세션과 대화를 넘어 컨텍스트를 유지할 수 있게 해 줍니다. 메모리는 두 가지 형태로 존재합니다. claude.ai의 자동 종합(synthesis)과 Claude Code의 파일 시스템 기반 CLAUDE.md입니다.</p>
+<h3 id="메모리-아키텍처">메모리 아키텍처</h3>
+<pre class="mermaid">graph TB
+    A["Claude Session"]
+    B["User Input"]
+    C["Memory System"]
+    D["Memory Storage"]
+
+    B --&gt;|User provides info| C
+    C --&gt;|Synthesizes every 24h| D
+    D --&gt;|Loads automatically| A
+    A --&gt;|Uses context| C
+</pre>
+<h3 id="claude-code의-메모리-계층7단계">Claude Code의 메모리 계층(7단계)</h3>
+<p>Claude Code는 7단계 계층에서 메모리를 로드합니다. CLAUDE.md 파일들은 서로를 덮어쓰지 않고 컨텍스트에 이어 붙여지며, managed → user → project → local 순서로 로드됩니다(나중에 로드되는, 더 구체적인 파일이 마지막에 읽힙니다).</p>
+<pre class="mermaid">graph TD
+    A["1. Managed Policy&lt;br/&gt;Enterprise admin policies"] --&gt; B["2. Project Memory&lt;br/&gt;./CLAUDE.md"]
+    B --&gt; C["3. Project Rules&lt;br/&gt;.claude/rules/*.md"]
+    C --&gt; D["4. User Memory&lt;br/&gt;~/.claude/CLAUDE.md"]
+    D --&gt; E["5. User Rules&lt;br/&gt;~/.claude/rules/*.md"]
+    E --&gt; F["6. Local Memory&lt;br/&gt;./CLAUDE.local.md"]
+    F --&gt; G["7. Auto Memory&lt;br/&gt;Automatically captured preferences"]
+
+    style A fill:#fce4ec,stroke:#333,color:#333
+    style B fill:#e1f5fe,stroke:#333,color:#333
+    style C fill:#e1f5fe,stroke:#333,color:#333
+    style D fill:#f3e5f5,stroke:#333,color:#333
+    style E fill:#f3e5f5,stroke:#333,color:#333
+    style F fill:#e8f5e9,stroke:#333,color:#333
+    style G fill:#fff3e0,stroke:#333,color:#333
+</pre>
+<h3 id="메모리-위치-표">메모리 위치 표</h3>
+<table>
+<thead>
+<tr>
+<th>단계</th>
+<th>위치</th>
+<th>범위</th>
+<th>우선순위</th>
+<th>공유</th>
+<th>적합한 용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Managed Policy</td>
+<td>엔터프라이즈 관리자</td>
+<td>조직</td>
+<td>최상</td>
+<td>조직 전체 사용자</td>
+<td>컴플라이언스, 보안 정책</td>
+</tr>
+<tr>
+<td>2. Project</td>
+<td><code>./CLAUDE.md</code></td>
+<td>프로젝트</td>
+<td>높음</td>
+<td>팀(Git)</td>
+<td>팀 표준, 아키텍처</td>
+</tr>
+<tr>
+<td>3. Project Rules</td>
+<td><code>.claude/rules/*.md</code></td>
+<td>프로젝트</td>
+<td>높음</td>
+<td>팀(Git)</td>
+<td>모듈화된 프로젝트 규칙</td>
+</tr>
+<tr>
+<td>4. User</td>
+<td><code>~/.claude/CLAUDE.md</code></td>
+<td>개인</td>
+<td>중간</td>
+<td>개인</td>
+<td>개인 선호</td>
+</tr>
+<tr>
+<td>5. User Rules</td>
+<td><code>~/.claude/rules/*.md</code></td>
+<td>개인</td>
+<td>중간</td>
+<td>개인</td>
+<td>개인 규칙 모듈</td>
+</tr>
+<tr>
+<td>6. Local</td>
+<td><code>./CLAUDE.local.md</code></td>
+<td>로컬</td>
+<td>낮음</td>
+<td>공유 안 함</td>
+<td>머신별 설정</td>
+</tr>
+<tr>
+<td>7. Auto Memory</td>
+<td>자동</td>
+<td>저장소별</td>
+<td>최하</td>
+<td>개인</td>
+<td>학습된 선호, 패턴</td>
+</tr>
+</tbody>
+</table>
+<h3 id="자동-메모리">자동 메모리</h3>
+<p>자동 메모리(Auto Memory)는 세션 중에 관찰된 사용자 선호와 패턴을 자동으로 기록합니다. Claude는 사용자와의 상호작용에서 학습하여 다음을 기억합니다.</p>
+<ul>
+<li>코딩 스타일 선호</li>
+<li>자주 하는 수정 사항</li>
+<li>프레임워크 및 도구 선택</li>
+<li>커뮤니케이션 스타일 선호</li>
+</ul>
+<p>자동 메모리는 백그라운드에서 동작하며 수동 설정이 필요하지 않습니다.</p>
+<h3 id="메모리-업데이트-수명-주기">메모리 업데이트 수명 주기</h3>
+<pre class="mermaid">sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant Editor as File System
+    participant Memory as CLAUDE.md
+
+    User-&gt;&gt;Claude: "Remember: use async/await"
+    Claude-&gt;&gt;User: "Which memory file?"
+    User-&gt;&gt;Claude: "Project memory"
+    Claude-&gt;&gt;Editor: Open ~/.claude/settings.json
+    Claude-&gt;&gt;Memory: Write to ./CLAUDE.md
+    Memory--&gt;&gt;Claude: File saved
+    Claude-&gt;&gt;Claude: Load updated memory
+    Claude--&gt;&gt;User: "Memory saved!"
+</pre>
+<h3 id="실전-예제-2">실전 예제</h3>
+<p>복사해서 바로 쓸 수 있는 메모리 템플릿이 <strong><a href="02-memory/index.html">02-memory/</a></strong> 에 있습니다.</p>
+<ul>
+<li><strong><code>project-CLAUDE.md</code></strong> — <code>./CLAUDE.md</code>용 팀 전체 프로젝트 표준</li>
+<li><strong><code>personal-CLAUDE.md</code></strong> — <code>~/.claude/CLAUDE.md</code>용 개인 선호</li>
+<li><strong><code>directory-api-CLAUDE.md</code></strong> — 하위 트리에 적용되는 디렉터리 범위 표준</li>
+</ul>
+<p><strong><a href="02-memory/index.html">02-memory/README.md</a></strong> 에서 전체 계층, import 문법, <code>.claude/rules/</code>, 자동 메모리, CLAUDE.md를 200줄 이내로 유지하는 방법을 다룹니다.</p>
+<h3 id="claude-webdesktop의-메모리">Claude Web/Desktop의 메모리</h3>
+<h4 id="메모리-종합-타임라인">메모리 종합 타임라인</h4>
+<pre class="mermaid">graph LR
+    A["Day 1: User&lt;br/&gt;Conversations"] --&gt;|24 hours| B["Day 2: Memory&lt;br/&gt;Synthesis"]
+    B --&gt;|Automatic| C["Memory Updated&lt;br/&gt;Summarized"]
+    C --&gt;|Loaded in| D["Day 2-N:&lt;br/&gt;New Conversations"]
+    D --&gt;|Add to| E["Memory"]
+    E --&gt;|24 hours later| F["Memory Refreshed"]
+</pre>
+<h3 id="자동-메모리-내용">자동 메모리 내용</h3>
+<p>자동 메모리는 Claude가 세션을 거치며 사용자에 대해 학습한 내용을 <code>~/.claude/projects/&lt;project&gt;/memory/</code>에 저장하며, <code>MEMORY.md</code>로 색인합니다. 파일 구성, 로딩 한도, 활성화·비활성화 방법은 <strong><a href="02-memory/index.html">02-memory/README.md</a></strong> 를 참고하세요.</p>
+<h3 id="메모리-기능-비교">메모리 기능 비교</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>Claude Web/Desktop</th>
+<th>Claude Code (CLAUDE.md)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>자동 종합</td>
+<td>✅ 24시간마다</td>
+<td>❌ 수동</td>
+</tr>
+<tr>
+<td>프로젝트 간 공유</td>
+<td>✅ 공유됨</td>
+<td>❌ 프로젝트별</td>
+</tr>
+<tr>
+<td>팀 접근</td>
+<td>✅ 공유 프로젝트</td>
+<td>✅ Git 추적</td>
+</tr>
+<tr>
+<td>검색 가능</td>
+<td>✅ 내장</td>
+<td>✅ <code>/memory</code>로</td>
+</tr>
+<tr>
+<td>편집 가능</td>
+<td>✅ 채팅 내</td>
+<td>✅ 파일 직접 편집</td>
+</tr>
+<tr>
+<td>가져오기/내보내기</td>
+<td>✅ 예</td>
+<td>✅ 복사/붙여넣기</td>
+</tr>
+<tr>
+<td>영속성</td>
+<td>✅ 24시간 이상</td>
+<td>✅ 무기한</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="mcp-프로토콜">MCP 프로토콜</h2>
+<h3 id="개요-3">개요</h3>
+<p>MCP(Model Context Protocol)는 Claude가 외부 도구, API, 실시간 데이터 소스에 접근하기 위한 표준화된 방법입니다. 메모리와 달리 MCP는 변화하는 데이터에 실시간으로 접근할 수 있게 해 줍니다.</p>
+<h3 id="mcp-아키텍처">MCP 아키텍처</h3>
+<pre class="mermaid">graph TB
+    A["Claude"]
+    B["MCP Server"]
+    C["External Service"]
+
+    A --&gt;|Request: list_issues| B
+    B --&gt;|Query| C
+    C --&gt;|Data| B
+    B --&gt;|Response| A
+
+    A --&gt;|Request: create_issue| B
+    B --&gt;|Action| C
+    C --&gt;|Result| B
+    B --&gt;|Response| A
+</pre>
+<h3 id="mcp-생태계">MCP 생태계</h3>
+<pre class="mermaid">graph TB
+    A["Claude"] --&gt;|MCP| B["Filesystem&lt;br/&gt;MCP Server"]
+    A --&gt;|MCP| C["GitHub&lt;br/&gt;MCP Server"]
+    A --&gt;|MCP| D["Database&lt;br/&gt;MCP Server"]
+    A --&gt;|MCP| E["Slack&lt;br/&gt;MCP Server"]
+    A --&gt;|MCP| F["Google Docs&lt;br/&gt;MCP Server"]
+
+    B --&gt;|File I/O| G["Local Files"]
+    C --&gt;|API| H["GitHub Repos"]
+    D --&gt;|Query| I["PostgreSQL/MySQL"]
+    E --&gt;|Messages| J["Slack Workspace"]
+    F --&gt;|Docs| K["Google Drive"]
+</pre>
+<h3 id="mcp-설정-과정">MCP 설정 과정</h3>
+<pre class="mermaid">sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant Config as Config File
+    participant Service as External Service
+
+    User-&gt;&gt;Claude: Type /mcp
+    Claude-&gt;&gt;Claude: List available MCP servers
+    Claude-&gt;&gt;User: Show options
+    User-&gt;&gt;Claude: Select GitHub MCP
+    Claude-&gt;&gt;Config: Update configuration
+    Config-&gt;&gt;Claude: Activate connection
+    Claude-&gt;&gt;Service: Test connection
+    Service--&gt;&gt;Claude: Authentication successful
+    Claude-&gt;&gt;User: ✅ MCP connected!
+</pre>
+<h3 id="사용-가능한-mcp-서버-표">사용 가능한 MCP 서버 표</h3>
+<table>
+<thead>
+<tr>
+<th>MCP 서버</th>
+<th>목적</th>
+<th>주요 도구</th>
+<th>인증</th>
+<th>실시간</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Filesystem</strong></td>
+<td>파일 작업</td>
+<td>read, write, delete</td>
+<td>OS 권한</td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td><strong>GitHub</strong></td>
+<td>저장소 관리</td>
+<td>list_prs, create_issue, push</td>
+<td>OAuth</td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td><strong>Slack</strong></td>
+<td>팀 커뮤니케이션</td>
+<td>send_message, list_channels</td>
+<td>토큰</td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>SQL 쿼리</td>
+<td>query, insert, update</td>
+<td>자격 증명</td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td><strong>Google Docs</strong></td>
+<td>문서 접근</td>
+<td>read, write, share</td>
+<td>OAuth</td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td><strong>Asana</strong></td>
+<td>프로젝트 관리</td>
+<td>create_task, update_status</td>
+<td>API 키</td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td><strong>Stripe</strong></td>
+<td>결제 데이터</td>
+<td>list_charges, create_invoice</td>
+<td>API 키</td>
+<td>✅ 예</td>
+</tr>
+<tr>
+<td><strong>Memory</strong></td>
+<td>영속 메모리</td>
+<td>store, retrieve, delete</td>
+<td>로컬</td>
+<td>❌ 아니요</td>
+</tr>
+</tbody>
+</table>
+<h3 id="실전-예제-3">실전 예제</h3>
+<p>바로 사용할 수 있는 MCP 서버 구성이 <strong><a href="05-mcp/index.html">05-mcp/</a></strong> 에 있습니다. <code>github-mcp.json</code>, <code>database-mcp.json</code>, <code>filesystem-mcp.json</code>, <code>multi-mcp.json</code>(한 파일에 서버 4개)입니다.</p>
+<p><strong><a href="05-mcp/index.html">05-mcp/README.md</a></strong> 에서 전체 <code>claude mcp add</code> 문법, 전송 방식(transport), 범위(scope), OAuth, 엔터프라이즈 허용 목록(allowlist)을 다룹니다.</p>
+<h3 id="mcp와-메모리-의사결정-매트릭스">MCP와 메모리: 의사결정 매트릭스</h3>
+<pre class="mermaid">graph TD
+    A["Need external data?"]
+    A --&gt;|No| B["Use Memory"]
+    A --&gt;|Yes| C["Does it change frequently?"]
+    C --&gt;|No/Rarely| B
+    C --&gt;|Yes/Often| D["Use MCP"]
+
+    B --&gt;|Stores| E["Preferences&lt;br/&gt;Context&lt;br/&gt;History"]
+    D --&gt;|Accesses| F["Live APIs&lt;br/&gt;Databases&lt;br/&gt;Services"]
+
+    style B fill:#e1f5ff
+    style D fill:#fff9c4
+</pre>
+<h3 id="요청응답-패턴">요청/응답 패턴</h3>
+<pre class="mermaid">sequenceDiagram
+    participant App as Claude
+    participant MCP as MCP Server
+    participant DB as Database
+
+    App-&gt;&gt;MCP: Request: "SELECT * FROM users WHERE id=1"
+    MCP-&gt;&gt;DB: Execute query
+    DB--&gt;&gt;MCP: Result set
+    MCP--&gt;&gt;App: Return parsed data
+    App-&gt;&gt;App: Process result
+    App-&gt;&gt;App: Continue task
+
+    Note over MCP,DB: Real-time access&lt;br/&gt;No caching
+</pre>
+<hr/>
+<h2 id="에이전트-스킬">에이전트 스킬</h2>
+<h3 id="개요-4">개요</h3>
+<p>에이전트 스킬은 지침, 스크립트, 리소스를 담은 폴더로 패키징된, 모델이 호출하는 재사용 가능한 기능입니다. Claude는 관련 스킬을 자동으로 감지하고 사용합니다.</p>
+<h3 id="스킬-아키텍처">스킬 아키텍처</h3>
+<pre class="mermaid">graph TB
+    A["Skill Directory"]
+    B["SKILL.md"]
+    C["YAML Metadata"]
+    D["Instructions"]
+    E["Scripts"]
+    F["Templates"]
+
+    A --&gt; B
+    B --&gt; C
+    B --&gt; D
+    E --&gt; A
+    F --&gt; A
+</pre>
+<h3 id="스킬-로딩-과정">스킬 로딩 과정</h3>
+<pre class="mermaid">sequenceDiagram
+    participant User
+    participant Claude as Claude
+    participant System as System
+    participant Skill as Skill
+
+    User-&gt;&gt;Claude: "Create Excel report"
+    Claude-&gt;&gt;System: Scan available skills
+    System-&gt;&gt;System: Load skill metadata
+    Claude-&gt;&gt;Claude: Match user request to skills
+    Claude-&gt;&gt;Skill: Load xlsx skill SKILL.md
+    Skill--&gt;&gt;Claude: Return instructions + tools
+    Claude-&gt;&gt;Claude: Execute skill
+    Claude-&gt;&gt;User: Generate Excel file
+</pre>
+<h3 id="스킬-유형-및-위치-표">스킬 유형 및 위치 표</h3>
+<table>
+<thead>
+<tr>
+<th>유형</th>
+<th>위치</th>
+<th>범위</th>
+<th>공유</th>
+<th>동기화</th>
+<th>적합한 용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>사전 구축</td>
+<td>내장</td>
+<td>전역</td>
+<td>모든 사용자</td>
+<td>자동</td>
+<td>문서 생성</td>
+</tr>
+<tr>
+<td>개인</td>
+<td><code>~/.claude/skills/</code></td>
+<td>개인</td>
+<td>아니요</td>
+<td>수동</td>
+<td>개인 자동화</td>
+</tr>
+<tr>
+<td>프로젝트</td>
+<td><code>.claude/skills/</code></td>
+<td>팀</td>
+<td>예</td>
+<td>Git</td>
+<td>팀 표준</td>
+</tr>
+<tr>
+<td>플러그인</td>
+<td>플러그인 설치로</td>
+<td>경우에 따라 다름</td>
+<td>경우에 따라 다름</td>
+<td>자동</td>
+<td>통합 기능</td>
+</tr>
+</tbody>
+</table>
+<h3 id="사전-구축-스킬">사전 구축 스킬</h3>
+<pre class="mermaid">graph TB
+    A["Pre-built Skills"]
+    B["PowerPoint (pptx)"]
+    C["Excel (xlsx)"]
+    D["Word (docx)"]
+    E["PDF"]
+
+    A --&gt; B
+    A --&gt; C
+    A --&gt; D
+    A --&gt; E
+
+    B --&gt; B1["Create presentations"]
+    B --&gt; B2["Edit slides"]
+    C --&gt; C1["Create spreadsheets"]
+    C --&gt; C2["Analyze data"]
+    D --&gt; D1["Create documents"]
+    D --&gt; D2["Format text"]
+    E --&gt; E1["Generate PDFs"]
+    E --&gt; E2["Fill forms"]
+</pre>
+<h3 id="번들-스킬">번들 스킬</h3>
+<p>Claude Code에는 설치 없이 바로 쓸 수 있는 번들 스킬이 포함되어 있습니다. 예를 들면 다음과 같습니다.</p>
+<table>
+<thead>
+<tr>
+<th>스킬</th>
+<th>명령어</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Batch</strong></td>
+<td><code>/batch</code></td>
+<td>여러 파일 또는 항목에 걸쳐 작업 실행</td>
+</tr>
+<tr>
+<td><strong>Claude API</strong></td>
+<td><code>/claude-api</code></td>
+<td>프로젝트 언어에 맞는 Claude API 및 Managed Agents 참조 자료를 로드합니다. 코드가 <code>anthropic</code> 또는 <code>@anthropic-ai/sdk</code>를 import하면 자동으로 활성화됩니다. 하위 명령어로 <code>api-version</code>(v2.1.307), <code>managed-agents-secure</code>(v2.1.304) 등이 있습니다</td>
+</tr>
+<tr>
+<td><strong>Code Review</strong></td>
+<td><code>/code-review</code></td>
+<td>선택한 노력 수준으로 현재 diff의 정확성 버그를 리뷰합니다. 품질/재사용 정리를 담당하는 <code>/simplify</code>와는 별개의 스킬이며, v2.1.154에서 다시 분리되었습니다. v2.1.246부터는 모든 환경에서 Claude가 스스로 시작할 수도 있습니다</td>
+</tr>
+<tr>
+<td><strong>Simplify</strong></td>
+<td><code>/simplify</code></td>
+<td>품질, 재사용, 정리 리뷰 — v2.1.154부터 다시 <code>/code-review</code>와 별개</td>
+</tr>
+<tr>
+<td><strong>Debug</strong></td>
+<td><code>/debug</code></td>
+<td>현재 세션의 디버그 로깅을 켜고 세션 디버그 로그를 읽어 문제를 해결</td>
+</tr>
+<tr>
+<td><strong>Fewer Permission Prompts</strong></td>
+<td><code>/fewer-permission-prompts</code></td>
+<td>트랜스크립트를 스캔해 자주 쓰는 읽기 전용 도구에 대한 우선순위별 허용 목록을 제안</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td><code>/loop</code></td>
+<td>타이머로 반복 작업 예약</td>
+</tr>
+<tr>
+<td><strong>Run</strong></td>
+<td><code>/run</code></td>
+<td>프로젝트 앱을 실행·조작해 변경 사항을 검증(v2.1.145+)</td>
+</tr>
+<tr>
+<td><strong>Run Skill Generator</strong></td>
+<td><code>/run-skill-generator</code></td>
+<td><code>/run</code>과 <code>/verify</code>에 앱 빌드·실행·조작 방법을 알려 주는 프로젝트별 스킬을 작성(v2.1.145+)</td>
+</tr>
+<tr>
+<td><strong>Verify</strong></td>
+<td><code>/verify</code></td>
+<td>변경 사항이 실제로 동작하는지 검증(v2.1.145+). v2.1.215부터 명시적 호출로만 실행</td>
+</tr>
+</tbody>
+</table>
+<p>이 번들 스킬들은 항상 사용할 수 있으며 설치나 설정이 필요하지 않습니다.</p>
+<h3 id="실전-예제-4">실전 예제</h3>
+<p>스크립트, 템플릿, 참조 파일을 모두 갖춘 완전한 스킬 6종이 <strong><a href="03-skills/index.html">03-skills/</a></strong> 에 있습니다.</p>
+<ul>
+<li><strong><code>code-review-specialist/</code></strong> — 리뷰 체크리스트, 발견 사항 템플릿, Python 지표 스크립트 2개</li>
+<li><strong><code>refactor/</code></strong> — 코드 스멜 카탈로그, 리팩터링 카탈로그, 계획 템플릿, 분석 스크립트 2개</li>
+<li><strong><code>doc-generator/</code></strong> — 소스 코드에서 API 문서 생성</li>
+<li><strong><code>blog-draft/</code></strong> — 버전 관리되는 출력 규칙을 갖춘 개요·초안 템플릿</li>
+<li><strong><code>brand-voice/</code></strong> — 어조 규칙과 메시지 템플릿(<code>user-invocable: false</code> 사용 예시)</li>
+<li><strong><code>claude-md/</code></strong> — CLAUDE.md 파일 생성, 업데이트, 점검</li>
+</ul>
+<p>전체 프런트매터 참조와 점진적 공개(progressive disclosure) 모델은 <strong><a href="03-skills/index.html">03-skills/README.md</a></strong> 를 참고하세요.</p>
+<h3 id="스킬-탐색-및-호출">스킬 탐색 및 호출</h3>
+<pre class="mermaid">graph TD
+    A["User Request"] --&gt; B["Claude Analyzes"]
+    B --&gt;|Scans| C["Available Skills"]
+    C --&gt;|Metadata check| D["Skill Description Match?"]
+    D --&gt;|Yes| E["Load SKILL.md"]
+    D --&gt;|No| F["Try next skill"]
+    F --&gt;|More skills?| D
+    F --&gt;|No more| G["Use general knowledge"]
+    E --&gt; H["Extract Instructions"]
+    H --&gt; I["Execute Skill"]
+    I --&gt; J["Return Results"]
+</pre>
+<h3 id="스킬과-다른-기능-비교">스킬과 다른 기능 비교</h3>
+<pre class="mermaid">graph TB
+    A["Extending Claude"]
+    B["Slash Commands"]
+    C["Subagents"]
+    D["Memory"]
+    E["MCP"]
+    F["Skills"]
+
+    A --&gt; B
+    A --&gt; C
+    A --&gt; D
+    A --&gt; E
+    A --&gt; F
+
+    B --&gt;|User-invoked| G["Quick shortcuts"]
+    C --&gt;|Auto-delegated| H["Isolated contexts"]
+    D --&gt;|Persistent| I["Cross-session context"]
+    E --&gt;|Real-time| J["External data access"]
+    F --&gt;|Auto-invoked| K["Autonomous execution"]
+</pre>
+<hr/>
+<h2 id="claude-code-플러그인">Claude Code 플러그인</h2>
+<h3 id="개요-5">개요</h3>
+<p>Claude Code 플러그인은 명령 한 번으로 설치되는 맞춤 설정(슬래시 명령어, 서브에이전트, MCP 서버, 훅)의 묶음입니다. 여러 기능을 하나의 응집력 있고 공유 가능한 패키지로 결합하는, 가장 상위 수준의 확장 메커니즘입니다.</p>
+<h3 id="아키텍처-1">아키텍처</h3>
+<pre class="mermaid">graph TB
+    A["Plugin"]
+    B["Slash Commands"]
+    C["Subagents"]
+    D["MCP Servers"]
+    E["Hooks"]
+    F["Configuration"]
+
+    A --&gt;|bundles| B
+    A --&gt;|bundles| C
+    A --&gt;|bundles| D
+    A --&gt;|bundles| E
+    A --&gt;|bundles| F
+</pre>
+<h3 id="플러그인-로딩-과정">플러그인 로딩 과정</h3>
+<pre class="mermaid">sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant Plugin as Plugin Marketplace
+    participant Install as Installation
+    participant SlashCmds as Slash Commands
+    participant Subagents
+    participant MCPServers as MCP Servers
+    participant Hooks
+    participant Tools as Configured Tools
+
+    User-&gt;&gt;Claude: claude --plugin-dir ./07-plugins/pr-review
+    Claude-&gt;&gt;Plugin: Download plugin manifest
+    Plugin--&gt;&gt;Claude: Return plugin definition
+    Claude-&gt;&gt;Install: Extract components
+    Install-&gt;&gt;SlashCmds: Configure
+    Install-&gt;&gt;Subagents: Configure
+    Install-&gt;&gt;MCPServers: Configure
+    Install-&gt;&gt;Hooks: Configure
+    SlashCmds--&gt;&gt;Tools: Ready to use
+    Subagents--&gt;&gt;Tools: Ready to use
+    MCPServers--&gt;&gt;Tools: Ready to use
+    Hooks--&gt;&gt;Tools: Ready to use
+    Tools--&gt;&gt;Claude: Plugin installed ✅
+</pre>
+<h3 id="플러그인-유형-및-배포">플러그인 유형 및 배포</h3>
+<table>
+<thead>
+<tr>
+<th>유형</th>
+<th>범위</th>
+<th>공유</th>
+<th>주체</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>공식</td>
+<td>전역</td>
+<td>모든 사용자</td>
+<td>Anthropic</td>
+<td>PR Review, Security Guidance</td>
+</tr>
+<tr>
+<td>커뮤니티</td>
+<td>공개</td>
+<td>모든 사용자</td>
+<td>커뮤니티</td>
+<td>DevOps, Data Science</td>
+</tr>
+<tr>
+<td>조직</td>
+<td>내부</td>
+<td>팀원</td>
+<td>회사</td>
+<td>사내 표준, 도구</td>
+</tr>
+<tr>
+<td>개인</td>
+<td>개인</td>
+<td>단일 사용자</td>
+<td>개발자</td>
+<td>맞춤 워크플로</td>
+</tr>
+</tbody>
+</table>
+<h3 id="플러그인-정의-구조">플러그인 정의 구조</h3>
+<p>매니페스트는 <code>.claude-plugin/plugin.json</code>에 있는 JSON 파일입니다. 필수 항목은 <code>name</code>뿐이며, 인식되지 않는 최상위 키는 제거됩니다.</p>
+<pre class="codehilite"><code class="language-json">{
+  "name": "plugin-name",
+  "version": "1.0.0",
+  "description": "What this plugin does"
+}
+</code></pre>
+<h3 id="플러그인-구조">플러그인 구조</h3>
+<pre class="codehilite"><code>my-plugin/
+├── .claude-plugin/
+│   └── plugin.json
+├── commands/
+│   ├── task-1.md
+│   ├── task-2.md
+│   └── workflows/
+├── agents/
+│   ├── specialist-1.md
+│   ├── specialist-2.md
+│   └── configs/
+├── skills/
+│   └── skill-name/
+│       └── SKILL.md
+├── hooks/
+│   └── hooks.json
+├── .mcp.json
+├── bin/
+│   └── my-tool
+├── .lsp.json
+├── settings.json
+├── templates/
+│   └── issue-template.md
+├── scripts/
+│   ├── helper-1.sh
+│   └── helper-2.py
+├── docs/
+│   ├── README.md
+│   └── USAGE.md
+└── tests/
+    └── plugin.test.js
+</code></pre>
+<h3 id="실전-예제-5">실전 예제</h3>
+<p>설치 가능한 완전한 플러그인 3종이 <strong><a href="07-plugins/index.html">07-plugins/</a></strong> 에 있습니다.</p>
+<ul>
+<li><strong><code>pr-review/</code></strong> — 리뷰 명령어, 전문 에이전트 3개, GitHub MCP, 리뷰 전 훅</li>
+<li><strong><code>documentation/</code></strong> — 문서 생성 명령어, 에이전트 3개, 재사용 가능한 템플릿</li>
+<li><strong><code>devops-automation/</code></strong> — deploy/rollback/status/incident 명령어, 에이전트 3개, Kubernetes MCP, 셸 스크립트</li>
+</ul>
+<p>각 플러그인에는 <code>.claude-plugin/plugin.json</code> 매니페스트와 디렉터리 구성이 포함되어 있습니다.</p>
+<h3 id="플러그인-마켓플레이스">플러그인 마켓플레이스</h3>
+<pre class="mermaid">graph TB
+    A["Plugin Marketplace"]
+    B["Official&lt;br/&gt;Anthropic"]
+    C["Community&lt;br/&gt;Marketplace"]
+    D["Enterprise&lt;br/&gt;Registry"]
+
+    A --&gt; B
+    A --&gt; C
+    A --&gt; D
+
+    B --&gt;|Categories| B1["Development"]
+    B --&gt;|Categories| B2["DevOps"]
+    B --&gt;|Categories| B3["Documentation"]
+
+    C --&gt;|Search| C1["DevOps Automation"]
+    C --&gt;|Search| C2["Mobile Dev"]
+    C --&gt;|Search| C3["Data Science"]
+
+    D --&gt;|Internal| D1["Company Standards"]
+    D --&gt;|Internal| D2["Legacy Systems"]
+    D --&gt;|Internal| D3["Compliance"]
+</pre>
+<h3 id="플러그인-설치-및-수명-주기">플러그인 설치 및 수명 주기</h3>
+<pre class="mermaid">graph LR
+    A["Discover"] --&gt;|Browse| B["Marketplace"]
+    B --&gt;|Select| C["Plugin Page"]
+    C --&gt;|View| D["Components"]
+    D --&gt;|Install| E["/plugin install"]
+    E --&gt;|Extract| F["Configure"]
+    F --&gt;|Activate| G["Use"]
+    G --&gt;|Check| H["Update"]
+    H --&gt;|Available| G
+    G --&gt;|Done| I["Disable"]
+    I --&gt;|Later| J["Enable"]
+    J --&gt;|Back| G
+</pre>
+<h3 id="플러그인-기능-비교">플러그인 기능 비교</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>슬래시 명령어</th>
+<th>스킬</th>
+<th>서브에이전트</th>
+<th>플러그인</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>설치</strong></td>
+<td>수동 복사</td>
+<td>수동 복사</td>
+<td>수동 설정</td>
+<td>명령 한 번</td>
+</tr>
+<tr>
+<td><strong>설정 시간</strong></td>
+<td>5분</td>
+<td>10분</td>
+<td>15분</td>
+<td>2분</td>
+</tr>
+<tr>
+<td><strong>번들링</strong></td>
+<td>단일 파일</td>
+<td>단일 파일</td>
+<td>단일 파일</td>
+<td>여러 개</td>
+</tr>
+<tr>
+<td><strong>버전 관리</strong></td>
+<td>수동</td>
+<td>수동</td>
+<td>수동</td>
+<td>자동</td>
+</tr>
+<tr>
+<td><strong>팀 공유</strong></td>
+<td>파일 복사</td>
+<td>파일 복사</td>
+<td>파일 복사</td>
+<td>설치 ID</td>
+</tr>
+<tr>
+<td><strong>업데이트</strong></td>
+<td>수동</td>
+<td>수동</td>
+<td>수동</td>
+<td>자동 제공</td>
+</tr>
+<tr>
+<td><strong>의존성</strong></td>
+<td>없음</td>
+<td>없음</td>
+<td>없음</td>
+<td>포함 가능</td>
+</tr>
+<tr>
+<td><strong>마켓플레이스</strong></td>
+<td>아니요</td>
+<td>아니요</td>
+<td>아니요</td>
+<td>예</td>
+</tr>
+<tr>
+<td><strong>배포</strong></td>
+<td>저장소</td>
+<td>저장소</td>
+<td>저장소</td>
+<td>마켓플레이스</td>
+</tr>
+</tbody>
+</table>
+<h3 id="플러그인-사용-사례">플러그인 사용 사례</h3>
+<table>
+<thead>
+<tr>
+<th>사용 사례</th>
+<th>권장 사항</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>팀 온보딩</strong></td>
+<td>✅ 플러그인 사용</td>
+<td>즉시 설정, 모든 구성 포함</td>
+</tr>
+<tr>
+<td><strong>프레임워크 설정</strong></td>
+<td>✅ 플러그인 사용</td>
+<td>프레임워크별 명령어를 묶어 제공</td>
+</tr>
+<tr>
+<td><strong>엔터프라이즈 표준</strong></td>
+<td>✅ 플러그인 사용</td>
+<td>중앙 배포, 버전 관리</td>
+</tr>
+<tr>
+<td><strong>간단한 작업 자동화</strong></td>
+<td>❌ 명령어 사용</td>
+<td>지나치게 복잡함</td>
+</tr>
+<tr>
+<td><strong>단일 도메인 전문성</strong></td>
+<td>❌ 스킬 사용</td>
+<td>너무 무거우므로 스킬 사용</td>
+</tr>
+<tr>
+<td><strong>전문 분석</strong></td>
+<td>❌ 서브에이전트 사용</td>
+<td>직접 만들거나 스킬 사용</td>
+</tr>
+<tr>
+<td><strong>실시간 데이터 접근</strong></td>
+<td>❌ MCP 사용</td>
+<td>독립적으로 사용하고 번들하지 않음</td>
+</tr>
+</tbody>
+</table>
+<h3 id="플러그인을-만들어야-할-때">플러그인을 만들어야 할 때</h3>
+<pre class="mermaid">graph TD
+    A["Should I create a plugin?"]
+    A --&gt;|Need multiple components| B{"Multiple commands&lt;br/&gt;or subagents&lt;br/&gt;or MCPs?"}
+    B --&gt;|Yes| C["✅ Create Plugin"]
+    B --&gt;|No| D["Use Individual Feature"]
+    A --&gt;|Team workflow| E{"Share with&lt;br/&gt;team?"}
+    E --&gt;|Yes| C
+    E --&gt;|No| F["Keep as Local Setup"]
+    A --&gt;|Complex setup| G{"Needs auto&lt;br/&gt;configuration?"}
+    G --&gt;|Yes| C
+    G --&gt;|No| D
+</pre>
+<h3 id="플러그인-게시">플러그인 게시</h3>
+<p><strong>게시 단계:</strong></p>
+<ol>
+<li>모든 구성 요소를 갖춘 플러그인 구조 만들기</li>
+<li><code>.claude-plugin/plugin.json</code> 매니페스트 작성</li>
+<li>문서가 담긴 <code>README.md</code> 작성</li>
+<li><code>claude --plugin-dir ./my-plugin</code>으로 로컬 테스트</li>
+<li>플러그인 마켓플레이스에 제출</li>
+<li>리뷰 및 승인 받기</li>
+<li>마켓플레이스에 게시</li>
+<li>사용자는 명령 한 번으로 설치 가능</li>
+</ol>
+<h3 id="플러그인-readme-예시">플러그인 README 예시</h3>
+<p><strong><a href="07-plugins/index.html">07-plugins/</a></strong> 의 완전한 플러그인 3종을 참고하세요. <code>pr-review/</code>, <code>documentation/</code>, <code>devops-automation/</code> 각각에 그대로 복사해 쓸 수 있는 전체 <code>README.md</code>, 매니페스트, 명령어, 에이전트, MCP 구성이 들어 있습니다.</p>
+<h3 id="플러그인과-수동-구성-비교">플러그인과 수동 구성 비교</h3>
+<p><strong>수동 설정(2시간 이상):</strong>
+- 슬래시 명령어를 하나씩 설치
+- 서브에이전트를 개별적으로 생성
+- MCP를 따로따로 구성
+- 훅을 수동으로 설정
+- 모든 것을 문서화
+- 팀과 공유(팀원이 올바르게 구성하기를 기대)</p>
+<p><strong>플러그인 사용 시(2분):</strong></p>
+<pre class="codehilite"><code class="language-bash">claude --plugin-dir ./07-plugins/pr-review
+# ✅ 모든 것이 설치 및 구성됨
+# ✅ 즉시 사용 가능
+# ✅ 팀이 동일한 설정을 정확히 재현 가능
+</code></pre>
+<hr/>
+<h2 id="비교-및-통합">비교 및 통합</h2>
+<h3 id="기능-비교-매트릭스">기능 비교 매트릭스</h3>
+<table>
+<thead>
+<tr>
+<th>기능</th>
+<th>호출 방식</th>
+<th>지속성</th>
+<th>범위</th>
+<th>사용 사례</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>슬래시 명령어</strong></td>
+<td>수동(<code>/cmd</code>)</td>
+<td>세션 내에서만</td>
+<td>단일 명령어</td>
+<td>빠른 단축 명령</td>
+</tr>
+<tr>
+<td><strong>서브에이전트</strong></td>
+<td>자동 위임</td>
+<td>격리된 컨텍스트</td>
+<td>전문 작업</td>
+<td>작업 분산</td>
+</tr>
+<tr>
+<td><strong>메모리</strong></td>
+<td>자동 로드</td>
+<td>세션 간 유지</td>
+<td>사용자/팀 컨텍스트</td>
+<td>장기 학습</td>
+</tr>
+<tr>
+<td><strong>MCP 프로토콜</strong></td>
+<td>자동 조회</td>
+<td>실시간 외부</td>
+<td>실시간 데이터 접근</td>
+<td>동적 정보</td>
+</tr>
+<tr>
+<td><strong>스킬</strong></td>
+<td>자동 호출</td>
+<td>파일 시스템 기반</td>
+<td>재사용 가능한 전문성</td>
+<td>자동화된 워크플로</td>
+</tr>
+</tbody>
+</table>
+<h3 id="상호작용-타임라인">상호작용 타임라인</h3>
+<pre class="mermaid">graph LR
+    A["Session Start"] --&gt;|Load| B["Memory (CLAUDE.md)"]
+    B --&gt;|Discover| C["Available Skills"]
+    C --&gt;|Register| D["Slash Commands"]
+    D --&gt;|Connect| E["MCP Servers"]
+    E --&gt;|Ready| F["User Interaction"]
+
+    F --&gt;|Type /cmd| G["Slash Command"]
+    F --&gt;|Request| H["Skill Auto-Invoke"]
+    F --&gt;|Query| I["MCP Data"]
+    F --&gt;|Complex task| J["Delegate to Subagent"]
+
+    G --&gt;|Uses| B
+    H --&gt;|Uses| B
+    I --&gt;|Uses| B
+    J --&gt;|Uses| B
+</pre>
+<h3 id="실전-통합-예제-고객-지원-자동화">실전 통합 예제: 고객 지원 자동화</h3>
+<h4 id="아키텍처-2">아키텍처</h4>
+<pre class="mermaid">graph TB
+    User["Customer Email"] --&gt;|Receives| Router["Support Router"]
+
+    Router --&gt;|Analyze| Memory["Memory&lt;br/&gt;Customer history"]
+    Router --&gt;|Lookup| MCP1["MCP: Customer DB&lt;br/&gt;Previous tickets"]
+    Router --&gt;|Check| MCP2["MCP: Slack&lt;br/&gt;Team status"]
+
+    Router --&gt;|Route Complex| Sub1["Subagent: Tech Support&lt;br/&gt;Context: Technical issues"]
+    Router --&gt;|Route Simple| Sub2["Subagent: Billing&lt;br/&gt;Context: Payment issues"]
+    Router --&gt;|Route Urgent| Sub3["Subagent: Escalation&lt;br/&gt;Context: Priority handling"]
+
+    Sub1 --&gt;|Format| Skill1["Skill: Response Generator&lt;br/&gt;Brand voice maintained"]
+    Sub2 --&gt;|Format| Skill2["Skill: Response Generator"]
+    Sub3 --&gt;|Format| Skill3["Skill: Response Generator"]
+
+    Skill1 --&gt;|Generate| Output["Formatted Response"]
+    Skill2 --&gt;|Generate| Output
+    Skill3 --&gt;|Generate| Output
+
+    Output --&gt;|Post| MCP3["MCP: Slack&lt;br/&gt;Notify team"]
+    Output --&gt;|Send| Reply["Customer Reply"]
+</pre>
+<h4 id="요청-흐름">요청 흐름</h4>
+<pre class="codehilite"><code class="language-markdown">## 고객 지원 요청 흐름
+
+### 1. 수신 이메일
+"파일을 업로드하려고 하면 500 오류가 발생합니다. 작업이 완전히 막혔어요!"
+
+### 2. 메모리 조회
+- 지원 표준이 담긴 CLAUDE.md 로드
+- 고객 이력 확인: VIP 고객, 이번 달 3번째 장애
+
+### 3. MCP 쿼리
+- GitHub MCP: 열린 이슈 목록 조회(관련 버그 리포트 발견)
+- Database MCP: 시스템 상태 확인(보고된 장애 없음)
+- Slack MCP: 엔지니어링 팀이 인지하고 있는지 확인
+
+### 4. 스킬 감지 및 로딩
+- 요청이 "Technical Support" 스킬과 일치
+- 스킬에서 지원 응답 템플릿 로드
+
+### 5. 서브에이전트 위임
+- Tech Support 서브에이전트로 라우팅
+- 컨텍스트 제공: 고객 이력, 오류 상세, 알려진 이슈
+- 서브에이전트는 read, bash, grep 도구에 대한 전체 접근 권한 보유
+
+### 6. 서브에이전트 처리
+Tech Support 서브에이전트:
+- 코드베이스에서 파일 업로드 시 발생하는 500 오류 검색
+- 커밋 8f4a2c의 최근 변경 사항 발견
+- 임시 해결책 문서 작성
+
+### 7. 스킬 실행
+Response Generator 스킬:
+- Brand Voice 가이드라인 적용
+- 공감하는 어조로 응답 형식 구성
+- 임시 해결 단계 포함
+- 관련 문서 링크 추가
+
+### 8. MCP 출력
+- #support Slack 채널에 업데이트 게시
+- 엔지니어링 팀 태그
+- Jira MCP에서 티켓 업데이트
+
+### 9. 응답
+고객이 받는 내용:
+- 공감하는 확인 메시지
+- 원인 설명
+- 즉시 적용 가능한 임시 해결책
+- 영구 수정 일정
+- 관련 이슈 링크
+</code></pre>
+<h3 id="전체-기능-오케스트레이션">전체 기능 오케스트레이션</h3>
+<pre class="mermaid">sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant Memory as Memory&lt;br/&gt;CLAUDE.md
+    participant MCP as MCP Servers
+    participant Skills as Skills
+    participant SubAgent as Subagents
+
+    User-&gt;&gt;Claude: Request: "Build auth system"
+    Claude-&gt;&gt;Memory: Load project standards
+    Memory--&gt;&gt;Claude: Auth standards, team practices
+    Claude-&gt;&gt;MCP: Query GitHub for similar implementations
+    MCP--&gt;&gt;Claude: Code examples, best practices
+    Claude-&gt;&gt;Skills: Detect matching Skills
+    Skills--&gt;&gt;Claude: Security Review Skill + Testing Skill
+    Claude-&gt;&gt;SubAgent: Delegate implementation
+    SubAgent-&gt;&gt;SubAgent: Build feature
+    Claude-&gt;&gt;Skills: Apply Security Review Skill
+    Skills--&gt;&gt;Claude: Security checklist results
+    Claude-&gt;&gt;SubAgent: Delegate testing
+    SubAgent--&gt;&gt;Claude: Test results
+    Claude-&gt;&gt;User: Complete system delivered
+</pre>
+<h3 id="각-기능을-사용해야-할-때">각 기능을 사용해야 할 때</h3>
+<pre class="mermaid">graph TD
+    A["New Task"] --&gt; B{Type of Task?}
+
+    B --&gt;|Repeated workflow| C["Slash Command"]
+    B --&gt;|Need real-time data| D["MCP Protocol"]
+    B --&gt;|Remember for next time| E["Memory"]
+    B --&gt;|Specialized subtask| F["Subagent"]
+    B --&gt;|Domain-specific work| G["Skill"]
+
+    C --&gt; C1["✅ Team shortcut"]
+    D --&gt; D1["✅ Live API access"]
+    E --&gt; E1["✅ Persistent context"]
+    F --&gt; F1["✅ Parallel execution"]
+    G --&gt; G1["✅ Auto-invoked expertise"]
+</pre>
+<h3 id="선택-의사결정-트리">선택 의사결정 트리</h3>
+<pre class="mermaid">graph TD
+    Start["Need to extend Claude?"]
+
+    Start --&gt;|Quick repeated task| A{"Manual or Auto?"}
+    A --&gt;|Manual| B["Slash Command"]
+    A --&gt;|Auto| C["Skill"]
+
+    Start --&gt;|Need external data| D{"Real-time?"}
+    D --&gt;|Yes| E["MCP Protocol"]
+    D --&gt;|No/Cross-session| F["Memory"]
+
+    Start --&gt;|Complex project| G{"Multiple roles?"}
+    G --&gt;|Yes| H["Subagents"]
+    G --&gt;|No| I["Skills + Memory"]
+
+    Start --&gt;|Long-term context| J["Memory"]
+    Start --&gt;|Team workflow| K["Slash Command +&lt;br/&gt;Memory"]
+    Start --&gt;|Full automation| L["Skills +&lt;br/&gt;Subagents +&lt;br/&gt;MCP"]
+</pre>
+<hr/>
+<h2 id="요약-표">요약 표</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>슬래시 명령어</th>
+<th>서브에이전트</th>
+<th>메모리</th>
+<th>MCP</th>
+<th>스킬</th>
+<th>플러그인</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>설정 난이도</strong></td>
+<td>쉬움</td>
+<td>보통</td>
+<td>쉬움</td>
+<td>보통</td>
+<td>보통</td>
+<td>쉬움</td>
+</tr>
+<tr>
+<td><strong>학습 곡선</strong></td>
+<td>낮음</td>
+<td>보통</td>
+<td>낮음</td>
+<td>보통</td>
+<td>보통</td>
+<td>낮음</td>
+</tr>
+<tr>
+<td><strong>팀 이점</strong></td>
+<td>높음</td>
+<td>높음</td>
+<td>보통</td>
+<td>높음</td>
+<td>높음</td>
+<td>매우 높음</td>
+</tr>
+<tr>
+<td><strong>자동화 수준</strong></td>
+<td>낮음</td>
+<td>높음</td>
+<td>보통</td>
+<td>높음</td>
+<td>높음</td>
+<td>매우 높음</td>
+</tr>
+<tr>
+<td><strong>컨텍스트 관리</strong></td>
+<td>단일 세션</td>
+<td>격리</td>
+<td>영속</td>
+<td>실시간</td>
+<td>영속</td>
+<td>모든 기능</td>
+</tr>
+<tr>
+<td><strong>유지 관리 부담</strong></td>
+<td>낮음</td>
+<td>보통</td>
+<td>낮음</td>
+<td>보통</td>
+<td>보통</td>
+<td>낮음</td>
+</tr>
+<tr>
+<td><strong>확장성</strong></td>
+<td>좋음</td>
+<td>우수</td>
+<td>좋음</td>
+<td>우수</td>
+<td>우수</td>
+<td>우수</td>
+</tr>
+<tr>
+<td><strong>공유 용이성</strong></td>
+<td>보통</td>
+<td>보통</td>
+<td>좋음</td>
+<td>좋음</td>
+<td>좋음</td>
+<td>우수</td>
+</tr>
+<tr>
+<td><strong>버전 관리</strong></td>
+<td>수동</td>
+<td>수동</td>
+<td>수동</td>
+<td>수동</td>
+<td>수동</td>
+<td>자동</td>
+</tr>
+<tr>
+<td><strong>설치</strong></td>
+<td>수동 복사</td>
+<td>수동 설정</td>
+<td>해당 없음</td>
+<td>수동 설정</td>
+<td>수동 복사</td>
+<td>명령 한 번</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="빠른-시작-가이드">빠른 시작 가이드</h2>
+<h3 id="1주-차-간단하게-시작하기">1주 차: 간단하게 시작하기</h3>
+<ul>
+<li>자주 하는 작업용 슬래시 명령어 2~3개 만들기</li>
+<li>설정에서 메모리 활성화</li>
+<li>CLAUDE.md에 팀 표준 문서화</li>
+</ul>
+<h3 id="2주-차-실시간-접근-추가하기">2주 차: 실시간 접근 추가하기</h3>
+<ul>
+<li>MCP 1개 설정(GitHub 또는 Database)</li>
+<li><code>/mcp</code>로 구성</li>
+<li>워크플로에서 실시간 데이터 조회</li>
+</ul>
+<h3 id="3주-차-작업-분산하기">3주 차: 작업 분산하기</h3>
+<ul>
+<li>특정 역할을 위한 첫 서브에이전트 만들기</li>
+<li>Claude에게 만들어 달라고 요청하거나 <code>.claude/agents/&lt;name&gt;.md</code> 파일 추가(<code>/agents</code> 마법사는 제거됨)</li>
+<li>간단한 작업으로 위임 테스트</li>
+</ul>
+<h3 id="4주-차-모든-것을-자동화하기">4주 차: 모든 것을 자동화하기</h3>
+<ul>
+<li>반복 자동화를 위한 첫 스킬 만들기</li>
+<li>스킬 마켓플레이스를 이용하거나 직접 제작</li>
+<li>모든 기능을 결합해 완전한 워크플로 구성</li>
+</ul>
+<h3 id="지속적으로">지속적으로</h3>
+<ul>
+<li>매달 메모리 검토 및 업데이트</li>
+<li>패턴이 생기면 새 스킬 추가</li>
+<li>MCP 쿼리 최적화</li>
+<li>서브에이전트 프롬프트 개선</li>
+</ul>
+<hr/>
+<h2 id="훅">훅</h2>
+<h3 id="개요-6">개요</h3>
+<p>훅은 Claude Code 이벤트에 반응하여 자동으로 실행되는 이벤트 기반 셸 명령어입니다. 수동 개입 없이 자동화, 검증, 맞춤 워크플로를 구현할 수 있게 해 줍니다.</p>
+<h3 id="훅-이벤트">훅 이벤트</h3>
+<p>Claude Code는 다섯 가지 훅 타입(command, http, mcp_tool, prompt, agent)에 걸쳐 <strong>33개의 훅 이벤트</strong>를 지원합니다.</p>
+<table>
+<thead>
+<tr>
+<th>훅 이벤트</th>
+<th>트리거</th>
+<th>사용 사례</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SessionStart</strong></td>
+<td>세션 시작/재개/clear/compact</td>
+<td>환경 설정, 초기화</td>
+</tr>
+<tr>
+<td><strong>Setup</strong></td>
+<td><code>--init-only</code>로 실행하거나, <code>-p</code>와 <code>--init</code> / <code>--maintenance</code>를 함께 사용할 때(일반 시작 시에는 실행되지 않음)</td>
+<td>도구 프로비저닝, 의존성 설치</td>
+</tr>
+<tr>
+<td><strong>InstructionsLoaded</strong></td>
+<td>CLAUDE.md 또는 규칙 파일 로드</td>
+<td>검증, 변환, 보강</td>
+</tr>
+<tr>
+<td><strong>UserPromptSubmit</strong></td>
+<td>사용자가 프롬프트 제출</td>
+<td>입력 검증, 프롬프트 필터링</td>
+</tr>
+<tr>
+<td><strong>UserPromptExpansion</strong></td>
+<td>입력한 슬래시 명령어(스킬, 사용자 정의 명령어, MCP 프롬프트)가 프롬프트로 확장될 때. 확장을 차단할 수 있음</td>
+<td>직접 <code>/command</code> 사용 차단 또는 기록, 스킬별 컨텍스트 추가</td>
+</tr>
+<tr>
+<td><strong>PreToolUse</strong></td>
+<td>도구 실행 전</td>
+<td>검증, 승인 게이트, 로깅</td>
+</tr>
+<tr>
+<td><strong>PermissionRequest</strong></td>
+<td>권한 대화 상자 표시</td>
+<td>자동 승인/거부 흐름</td>
+</tr>
+<tr>
+<td><strong>PermissionDenied</strong></td>
+<td>자동 모드가 도구 호출을 거부(수동 거부 시에는 실행되지 않음)</td>
+<td>로깅, 분석, 정책 적용</td>
+</tr>
+<tr>
+<td><strong>PostToolUse</strong></td>
+<td>도구 실행 성공 후</td>
+<td>자동 포매팅, 알림, 정리</td>
+</tr>
+<tr>
+<td><strong>PostToolUseFailure</strong></td>
+<td>도구 실행 실패</td>
+<td>오류 처리, 로깅</td>
+</tr>
+<tr>
+<td><strong>PostToolBatch</strong></td>
+<td>도구 사용 배치 완료 후</td>
+<td>집계 보고, 일괄 검증</td>
+</tr>
+<tr>
+<td><strong>Notification</strong></td>
+<td>알림 전송</td>
+<td>경보, 외부 연동</td>
+</tr>
+<tr>
+<td><strong>MessageDisplay</strong></td>
+<td>어시스턴트 메시지 텍스트가 표시되는 동안</td>
+<td>표시되는 메시지 텍스트 변환 또는 숨기기</td>
+</tr>
+<tr>
+<td><strong>SubagentStart</strong></td>
+<td>서브에이전트 생성</td>
+<td>컨텍스트 주입, 초기화</td>
+</tr>
+<tr>
+<td><strong>SubagentStop</strong></td>
+<td>서브에이전트 종료</td>
+<td>결과 검증, 로깅</td>
+</tr>
+<tr>
+<td><strong>Stop</strong></td>
+<td>Claude가 응답 완료</td>
+<td>요약 생성, 정리 작업</td>
+</tr>
+<tr>
+<td><strong>StopFailure</strong></td>
+<td>API 오류로 턴 종료</td>
+<td>오류 복구, 로깅</td>
+</tr>
+<tr>
+<td><strong>TeammateIdle</strong></td>
+<td>에이전트 팀의 팀원이 유휴 상태</td>
+<td>작업 분배, 조율</td>
+</tr>
+<tr>
+<td><strong>TaskCompleted</strong></td>
+<td>작업이 완료로 표시됨. todo 도구가 활성화된 경우에만 실행되며, todo 도구는 Claude 3.x 모델, Opus 4~4.7, Sonnet 4~4.6, Haiku 4.5에서만 기본 제공됩니다. <code>CLAUDE_CODE_ENABLE_TODO_TOOLS=1</code>로 다시 켤 수 있습니다(v2.1.233)</td>
+<td>작업 후 처리</td>
+</tr>
+<tr>
+<td><strong>TaskCreated</strong></td>
+<td>TaskCreate로 작업 생성. todo 도구가 활성화된 경우에만 실행되며, todo 도구는 Claude 3.x 모델, Opus 4~4.7, Sonnet 4~4.6, Haiku 4.5에서만 기본 제공됩니다. <code>CLAUDE_CODE_ENABLE_TODO_TOOLS=1</code>로 다시 켤 수 있습니다(v2.1.233)</td>
+<td>작업 추적, 로깅</td>
+</tr>
+<tr>
+<td><strong>ConfigChange</strong></td>
+<td>설정 파일 변경</td>
+<td>검증, 전파</td>
+</tr>
+<tr>
+<td><strong>CwdChanged</strong></td>
+<td>작업 디렉터리 변경</td>
+<td>디렉터리별 설정</td>
+</tr>
+<tr>
+<td><strong>DirectoryAdded</strong></td>
+<td>세션 도중 <code>/add-dir</code> 또는 SDK <code>register_repo_root</code> 제어 요청으로 새 작업 디렉터리 등록</td>
+<td>새로 추가된 디렉터리용 도구 설정</td>
+</tr>
+<tr>
+<td><strong>FileChanged</strong></td>
+<td>감시 중인 파일 변경</td>
+<td>파일 모니터링, 재빌드 트리거</td>
+</tr>
+<tr>
+<td><strong>PreCompact</strong></td>
+<td>컨텍스트 압축 전</td>
+<td>상태 보존</td>
+</tr>
+<tr>
+<td><strong>PostCompact</strong></td>
+<td>압축 완료 후</td>
+<td>압축 후 작업</td>
+</tr>
+<tr>
+<td><strong>PreModelSwitch</strong></td>
+<td>요청된 모델 전환이 적용되기 전</td>
+<td>모델 변경 제어 또는 거부</td>
+</tr>
+<tr>
+<td><strong>PostModelSwitch</strong></td>
+<td>세션 모델 변경 후</td>
+<td>모델 변경 기록 또는 대응</td>
+</tr>
+<tr>
+<td><strong>WorktreeCreate</strong></td>
+<td>워크트리 생성 중</td>
+<td>기본 git 워크트리 생성 대체. 워크트리 경로를 출력해야 함</td>
+</tr>
+<tr>
+<td><strong>WorktreeRemove</strong></td>
+<td>워크트리 제거 중</td>
+<td>정리, 리소스 해제</td>
+</tr>
+<tr>
+<td><strong>Elicitation</strong></td>
+<td>MCP 서버가 사용자 입력 요청</td>
+<td>입력 검증</td>
+</tr>
+<tr>
+<td><strong>ElicitationResult</strong></td>
+<td>사용자가 elicitation에 응답</td>
+<td>응답 처리</td>
+</tr>
+<tr>
+<td><strong>SessionEnd</strong></td>
+<td>세션 종료</td>
+<td>정리, 최종 로깅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="자주-쓰는-훅">자주 쓰는 훅</h3>
+<p>훅은 <code>~/.claude/settings.json</code>(사용자 수준) 또는 <code>.claude/settings.json</code>(프로젝트 수준)에서 구성합니다.</p>
+<pre class="codehilite"><code class="language-json">{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | xargs npx eslint"
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre>
+<h3 id="훅-환경-변수">훅 환경 변수</h3>
+<ul>
+<li>훅 입력은 stdin으로 JSON 형태로 전달됩니다(<code>session_id</code>, <code>tool_name</code>, <code>tool_input.file_path</code>, …). <code>jq</code>로 읽으세요</li>
+<li><code>$CLAUDE_CODE_SESSION_ID</code> - 현재 세션 식별자</li>
+<li><code>$CLAUDE_PROJECT_DIR</code> - 프로젝트 디렉터리 경로</li>
+</ul>
+<h3 id="모범-사례-1">모범 사례</h3>
+<p>✅ <strong>권장:</strong>
+- 훅은 빠르게 유지(1초 미만)
+- 검증과 자동화에 훅 사용
+- 오류를 우아하게 처리
+- 절대 경로 사용</p>
+<p>❌ <strong>비권장:</strong>
+- 대화형 훅 만들기
+- 오래 걸리는 작업에 훅 사용
+- 자격 증명 하드코딩</p>
+<p><strong>참고</strong>: 자세한 예제는 <a href="06-hooks/index.html">06-hooks/</a>를 참고하세요</p>
+<hr/>
+<h2 id="체크포인트와-되감기">체크포인트와 되감기</h2>
+<h3 id="개요-7">개요</h3>
+<p>체크포인트를 사용하면 대화 상태를 저장하고 이전 시점으로 되감을 수 있어, 안전하게 실험하고 여러 접근 방식을 탐색할 수 있습니다.</p>
+<h3 id="핵심-개념">핵심 개념</h3>
+<table>
+<thead>
+<tr>
+<th>개념</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>체크포인트</strong></td>
+<td>메시지, 파일, 컨텍스트를 포함한 대화 상태의 스냅샷</td>
+</tr>
+<tr>
+<td><strong>되감기</strong></td>
+<td>이전 체크포인트로 돌아가 이후 변경 사항을 버림</td>
+</tr>
+<tr>
+<td><strong>분기점</strong></td>
+<td>여러 접근 방식을 탐색하는 출발점이 되는 체크포인트</td>
+</tr>
+</tbody>
+</table>
+<h3 id="체크포인트-접근">체크포인트 접근</h3>
+<p>체크포인트는 사용자 프롬프트마다 자동으로 생성됩니다. 되감으려면 다음과 같이 합니다.</p>
+<pre class="codehilite"><code class="language-bash"># Esc를 두 번 눌러 체크포인트 브라우저 열기
+Esc + Esc
+
+# 또는 /rewind 명령어 사용
+/rewind
+</code></pre>
+<p>체크포인트를 선택하면 다음 여섯 가지 옵션 중에서 고를 수 있습니다.
+1. <strong>Restore code and conversation</strong> -- 코드와 대화를 모두 해당 시점으로 되돌림
+2. <strong>Restore conversation</strong> -- 메시지만 되감고 현재 코드는 유지
+3. <strong>Restore code</strong> -- 파일만 되돌리고 대화는 유지
+4. <strong>Summarize from here</strong> -- 이 지점부터의 대화를 요약으로 압축
+5. <strong>Summarize up to here</strong> -- 이 지점 이전의 모든 내용을 요약으로 압축
+6. <strong>Never mind</strong> -- 취소</p>
+<h3 id="사용-사례">사용 사례</h3>
+<table>
+<thead>
+<tr>
+<th>시나리오</th>
+<th>워크플로</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>접근 방식 탐색</strong></td>
+<td>저장 → A 시도 → 저장 → 되감기 → B 시도 → 비교</td>
+</tr>
+<tr>
+<td><strong>안전한 리팩터링</strong></td>
+<td>저장 → 리팩터링 → 테스트 → 실패 시: 되감기</td>
+</tr>
+<tr>
+<td><strong>A/B 테스트</strong></td>
+<td>저장 → 디자인 A → 저장 → 되감기 → 디자인 B → 비교</td>
+</tr>
+<tr>
+<td><strong>실수 복구</strong></td>
+<td>문제 발견 → 마지막 정상 상태로 되감기</td>
+</tr>
+</tbody>
+</table>
+<h3 id="구성">구성</h3>
+<p>체크포인트는 기본적으로 켜져 있으며, <code>fileCheckpointingEnabled</code>로 제어합니다.</p>
+<pre class="codehilite"><code class="language-json">{
+  "fileCheckpointingEnabled": true
+}
+</code></pre>
+<p><strong>참고</strong>: 자세한 예제는 <a href="08-checkpoints/index.html">08-checkpoints/</a>를 참고하세요</p>
+<hr/>
+<h2 id="고급-기능">고급 기능</h2>
+<h3 id="계획-모드">계획 모드</h3>
+<p>코딩 전에 상세한 구현 계획을 세웁니다.</p>
+<p><strong>활성화:</strong></p>
+<pre class="codehilite"><code class="language-bash">/plan Implement user authentication system
+</code></pre>
+<p><strong>이점:</strong>
+- 시간 추정이 포함된 명확한 로드맵
+- 위험 평가
+- 체계적인 작업 분해
+- 검토 및 수정 기회</p>
+<h3 id="확장-사고">확장 사고</h3>
+<p>복잡한 문제를 위한 깊은 추론입니다.</p>
+<p><strong>활성화:</strong>
+- 세션 중 <code>Alt+T</code>(macOS에서는 <code>Option+T</code>)로 전환
+- Opus 4.7+, Sonnet 5+, Haiku 5.5, Fable은 항상 적응형 추론(adaptive reasoning)을 사용하므로 고정 <code>MAX_THINKING_TOKENS</code> 예산이 적용되지 않습니다. 깊이는 <code>/effort</code>로 제어하세요
+- 프롬프트에 <code>ultrathink</code>를 입력하면 Anthropic API를 통한 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 해당 턴 하나를 <code>xhigh</code> 노력 수준으로 실행합니다(터미널 v2.1.311+, VS Code v2.1.316+). <code>CLAUDE_CODE_DISABLE_ULTRATHINK</code>로 이 키워드를 끌 수 있습니다</p>
+<pre class="codehilite"><code class="language-bash"># 노력 수준으로 추론 깊이 제어
+/effort high
+</code></pre>
+<p><strong>이점:</strong>
+- 트레이드오프에 대한 철저한 분석
+- 더 나은 아키텍처 결정
+- 엣지 케이스 고려
+- 체계적인 평가</p>
+<h3 id="백그라운드-작업">백그라운드 작업</h3>
+<p>대화를 막지 않고 오래 걸리는 작업을 실행합니다.</p>
+<p><strong>사용법:</strong></p>
+<pre class="codehilite"><code class="language-bash">User: Run tests in background
+
+Claude: Started task bg-1234
+
+/tasks               # 백그라운드 작업 보기 및 관리(별칭: /bashes)
+</code></pre>
+<h3 id="권한-모드">권한 모드</h3>
+<p>Claude가 할 수 있는 일을 제어합니다.</p>
+<table>
+<thead>
+<tr>
+<th>모드</th>
+<th>설명</th>
+<th>사용 사례</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>manual</strong></td>
+<td>민감한 작업에 대해 확인을 요청하는 표준 권한(v2.1.200부터 Manual로 표시. 설정 값은 여전히 <code>default</code>이며 훅과 SDK도 이 값을 보고함)</td>
+<td>일반 개발</td>
+</tr>
+<tr>
+<td><strong>acceptEdits</strong></td>
+<td>파일 편집을 확인 없이 자동 수락</td>
+<td>신뢰할 수 있는 편집 워크플로</td>
+</tr>
+<tr>
+<td><strong>plan</strong></td>
+<td>분석과 계획만 수행, 파일 수정 없음</td>
+<td>코드 리뷰, 아키텍처 계획</td>
+</tr>
+<tr>
+<td><strong>auto</strong></td>
+<td>분류기가 안전한 작업은 승인하고 위험한 작업은 차단. 연속 3회 또는 총 20회 차단된 후에만 다시 확인 요청</td>
+<td>안전성과 자율성의 균형</td>
+</tr>
+<tr>
+<td><strong>dontAsk</strong></td>
+<td>확인이 필요한 작업은 모두 자동 거부. 사전 승인된 도구와 읽기만 실행</td>
+<td>잠금된 CI 및 스크립트</td>
+</tr>
+<tr>
+<td><strong>bypassPermissions</strong></td>
+<td>제한 없는 전체 접근, 안전 검사 없음</td>
+<td>CI/CD 파이프라인, 신뢰할 수 있는 스크립트</td>
+</tr>
+</tbody>
+</table>
+<p><strong>사용법:</strong></p>
+<pre class="codehilite"><code class="language-bash">claude --permission-mode plan          # 읽기 전용 분석
+claude --permission-mode acceptEdits   # 편집 자동 수락
+claude --permission-mode auto          # 안전한 작업 자동 승인
+claude --permission-mode dontAsk       # 사전 승인된 도구만 실행, 나머지는 거부
+</code></pre>
+<h3 id="헤드리스-모드print-모드">헤드리스 모드(Print 모드)</h3>
+<p><code>-p</code>(print) 플래그를 사용해 대화형 입력 없이 Claude Code를 실행하여 자동화와 CI/CD에 활용합니다.</p>
+<p><strong>사용법:</strong></p>
+<pre class="codehilite"><code class="language-bash"># 특정 작업 실행(v2.1.302부터 -p는 Manual 모드로 시작하므로 권한 모드나 --allowedTools를 지정)
+claude -p "Run all tests" --permission-mode auto
+
+# 분석을 위해 입력을 파이프로 전달
+cat error.log | claude -p "explain this error"
+
+# CI/CD 통합(GitHub Actions)
+- name: AI Code Review
+  run: claude -p "Review PR changes and report issues"
+
+# 스크립트용 JSON 출력
+claude -p --output-format json "list all functions in src/"
+</code></pre>
+<h3 id="예약-작업">예약 작업</h3>
+<p><code>/loop</code> 명령어로 세션 범위의 작업을 반복 일정에 따라 실행합니다. 세션이 끝난 뒤에도 유지되어야 하는 일정에는 <code>/schedule</code>을 사용하는 클라우드 예약 작업(이전 명칭: 루틴) 또는 Desktop 예약 작업을 사용하세요.</p>
+<p><strong>사용법:</strong></p>
+<pre class="codehilite"><code class="language-bash">/loop every 30m "Run tests and report failures"
+/loop every 2h "Check for dependency updates"
+/loop every 1d "Generate daily summary of code changes"
+</code></pre>
+<p>예약 작업은 백그라운드에서 실행되며 완료되면 결과를 보고합니다. 지속적인 모니터링, 주기적 점검, 자동화된 유지 관리 워크플로에 유용합니다.</p>
+<h3 id="chrome-통합">Chrome 통합</h3>
+<p>Claude Code는 웹 자동화 작업을 위해 Chrome 브라우저와 통합할 수 있습니다. 개발 워크플로 안에서 바로 웹 페이지 탐색, 양식 작성, 스크린샷 촬영, 웹사이트 데이터 추출 같은 기능을 사용할 수 있습니다.</p>
+<h3 id="세션-관리">세션 관리</h3>
+<p>여러 작업 세션을 관리합니다.</p>
+<p><strong>명령어:</strong></p>
+<pre class="codehilite"><code class="language-bash">/resume                # 이전 대화 재개
+/rename "Feature"      # 현재 세션 이름 지정
+/fork                  # 새 세션으로 분기
+claude -c              # 가장 최근 대화 이어 가기
+claude -r "Feature"    # 이름/ID로 세션 재개
+</code></pre>
+<h3 id="대화형-기능">대화형 기능</h3>
+<p><strong>키보드 단축키:</strong>
+- <code>Ctrl + R</code> - 명령어 기록 검색
+- <code>Tab</code> - 자동 완성
+- <code>↑ / ↓</code> - 명령어 기록
+- <code>Ctrl + L</code> - 화면 지우기</p>
+<p><strong>여러 줄 입력:</strong> <code>\</code> + Enter, Option+Enter(macOS), Shift+Enter 또는 Ctrl+J를 눌러 새 줄을 시작합니다. <code>\end</code> 종료자는 없습니다.</p>
+<h3 id="구성-1">구성</h3>
+<p>전체 구성 예시입니다.</p>
+<pre class="codehilite"><code class="language-json">{
+  "alwaysThinkingEnabled": true,
+  "showThinkingSummaries": true,
+  "permissions": {
+    "defaultMode": "manual"
+  }
+}
+</code></pre>
+<p>백그라운드 작업을 위한 <code>settings.json</code> 블록은 없습니다. 이 기능은 <code>CLAUDE_CODE_DISABLE_BACKGROUND_TASKS</code> 환경 변수로 제어하며, 동시 실행 수는 <code>CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS</code>(기본값 <code>20</code>)로 제어합니다.</p>
+<p><strong>참고</strong>: 종합 가이드는 <a href="09-advanced-features/index.html">09-advanced-features/</a>를 참고하세요</p>
+<hr/>
+<h2 id="모델과-추론-노력">모델과 추론 노력</h2>
+<p>Claude Code는 적응형 추론 노력(reasoning effort)을 지원하는 다음 모델을 지원합니다.</p>
+<table>
+<thead>
+<tr>
+<th>모델</th>
+<th>컨텍스트 창</th>
+<th>노력 수준</th>
+<th>기본 노력 수준(Claude Code)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Opus 5.5</td>
+<td>1M 토큰(네이티브)</td>
+<td><code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td>
+<td><code>medium</code> — v2.1.280부터 기본 모델이자 기본 Opus 모델(Claude Code v2.1.280+ 필요)</td>
+</tr>
+<tr>
+<td>Claude Sonnet 5.5</td>
+<td>1M 토큰(네이티브)</td>
+<td><code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td>
+<td><code>medium</code> — v2.1.284부터 Anthropic API의 기본 Sonnet 모델(Claude Code v2.1.284+ 필요)</td>
+</tr>
+<tr>
+<td>Claude Haiku 5.5</td>
+<td>1M 토큰(네이티브)</td>
+<td><code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td>
+<td><code>medium</code> — v2.1.293부터 Anthropic API의 기본 Haiku 모델(Claude Code v2.1.293+ 필요)</td>
+</tr>
+<tr>
+<td>Claude Opus 5</td>
+<td>1M 토큰(네이티브)</td>
+<td><code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td>
+<td><code>high</code> — v2.1.219부터 v2.1.280 전까지 기본 Opus 모델(Claude Code v2.1.219+ 필요)</td>
+</tr>
+<tr>
+<td>Claude Sonnet 5</td>
+<td>1M 토큰(네이티브)</td>
+<td><code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td>
+<td><code>high</code> — v2.1.197부터 v2.1.280 전까지 Pro/Team Standard의 기본 모델(현재는 Opus 5.5)</td>
+</tr>
+<tr>
+<td>Claude Opus 4.8</td>
+<td>1M 토큰(네이티브)</td>
+<td><code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td>
+<td><code>high</code>(v2.1.154부터)</td>
+</tr>
+<tr>
+<td>Claude Opus 4.7 (legacy)</td>
+<td>1M 토큰(네이티브)</td>
+<td><code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td>
+<td><code>xhigh</code>(Opus 4.7 출시일인 2026-04-16부터)</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td>1M 토큰</td>
+<td><code>low</code>, <code>medium</code>, <code>high</code>, <code>max</code></td>
+<td><code>high</code>(Pro/Max 구독자는 v2.1.117에서 <code>medium</code>에서 상향)</td>
+</tr>
+<tr>
+<td>Claude Haiku 4.5</td>
+<td>200K 토큰</td>
+<td>— (노력 수준 미지원)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>참고</strong>: <code>xhigh</code>는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다. <code>max</code>는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6, Sonnet 4.6에서 동작합니다(세션 한정). Haiku 4.5는 노력 수준을 지원하지 않습니다.</p>
+<p><strong>참고</strong>: v2.1.117에서 Opus 4.7 세션이 네이티브 1M 창 대신 200K 기준으로 <code>/context</code>를 계산하던 버그가 수정되었습니다. Opus 4.7에서 실제로 1M 컨텍스트를 사용하려면 v2.1.117 이상으로 업그레이드하세요. Opus 5와 Opus 4.8도 네이티브 1M 토큰 창을 제공합니다.</p>
+<p><strong>참고</strong>: v2.1.118에서 <code>/cost</code>와 <code>/stats</code>가 <code>/usage</code>로 통합되었습니다. 이제 <code>/usage</code>가 비용/통계 등의 탭을 갖춘 표준 명령어이며, <code>/cost</code>와 <code>/stats</code>는 해당 탭을 여는 단축 별칭으로 남아 있습니다. v2.1.149부터 비용 보기에서 카테고리별(스킬, 서브에이전트, 플러그인, MCP 서버별) 지출 내역도 확인할 수 있습니다.</p>
+</blockquote>
+<h2 id="참고-자료">참고 자료</h2>
+<ul>
+<li><a href="https://code.claude.com/docs/en/overview">Claude Code 문서</a></li>
+<li><a href="https://code.claude.com/docs/en/changelog">Claude Code 변경 로그</a></li>
+<li><a href="https://github.com/modelcontextprotocol/servers">MCP GitHub 서버</a></li>
+<li><a href="https://github.com/anthropics/anthropic-cookbook">Anthropic Cookbook</a></li>
+</ul>
+<hr/>
+<p><strong>최종 업데이트</strong>: 2026년 11월 1일
+<strong>Claude Code 버전</strong>: 2.1.316
+<strong>출처</strong>:
+- https://code.claude.com/docs/en/plugins/manifest-reference
+- https://code.claude.com/docs/en/plugins/create
+- https://code.claude.com/docs/en/plugins/install
+- https://code.claude.com/docs/en/settings-reference
+- https://code.claude.com/docs/en/interactive-mode
+- https://code.claude.com/docs/en/checkpointing
+- https://code.claude.com/docs/en/memory
+- https://code.claude.com/docs/en/skills
+- https://code.claude.com/docs/en/tools-reference#task-tool-availability
+- https://www.anthropic.com/news/claude-sonnet-5
+- https://code.claude.com/docs/en/cli-reference
+- https://code.claude.com/docs/en/model-config
+- https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
+- https://code.claude.com/docs/en/hooks
+- https://code.claude.com/docs/en/sub-agents
+- https://code.claude.com/docs/en/permission-modes
+- https://code.claude.com/docs/en/commands
+- https://code.claude.com/docs/en/remote-control
+- https://code.claude.com/docs/en/hooks#userpromptexpansion
+- https://code.claude.com/docs/en/headless#auto-approve-tools
+- https://code.claude.com/docs/en/permission-modes#which-mode-a-non-interactive-run-starts-in
+- https://code.claude.com/docs/en/routines
+- https://code.claude.com/docs/en/scheduled-tasks
+- https://code.claude.com/docs/en/changelog#2-1-307
+- https://code.claude.com/docs/en/skills#work-on-claude-api-projects
+- https://code.claude.com/docs/en/model-config#adjust-effort-level
+- https://code.claude.com/docs/en/model-config#use-ultrathink-for-one-off-deep-reasoning
+<strong>호환 모델</strong>: Claude Fable 5.1, Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5</p>
+      </article>
+
+      <div class="mt-12 grid grid-cols-1 gap-3 border-t border-slate-200 pt-6 dark:border-slate-800 sm:grid-cols-2">
+        <a
+          href="QUICK_REFERENCE.html"
+          class="group rounded-lg border border-slate-200 p-4 transition hover:border-brand-500 hover:bg-brand-50/50 dark:border-slate-800 dark:hover:border-brand-500 dark:hover:bg-brand-700/10"
+        >
+          <div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">← Previous</div>
+          <div class="mt-1 font-semibold text-slate-900 group-hover:text-brand-700 dark:text-slate-100 dark:group-hover:text-brand-300">
+            Claude Code 예제 - 빠른 참조 카드
+          </div>
+        </a>
+        <a
+          href="01-slash-commands/index.html"
+          class="group rounded-lg border border-slate-200 p-4 text-right transition hover:border-brand-500 hover:bg-brand-50/50 dark:border-slate-800 dark:hover:border-brand-500 dark:hover:bg-brand-700/10"
+        >
+          <div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Next →</div>
+          <div class="mt-1 font-semibold text-slate-900 group-hover:text-brand-700 dark:text-slate-100 dark:group-hover:text-brand-300">
+            슬래시 명령어
+          </div>
+        </a>
+      </div>
+
+      <footer class="mt-12 border-t border-slate-200 pt-6 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+        <p>
+          Content rendered from
+          <a href="https://github.com/leesk212/claude-howto-ko/blob/ko/claude_concepts_guide.md" target="_blank" rel="noopener noreferrer" class="underline hover:text-brand-700 dark:hover:text-brand-300">
+            Claude 개념 완벽 가이드
+          </a>
+          on GitHub. Markdown is the single source of truth — re-run
+          <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono dark:bg-slate-800">scripts/build_website.py</code>
+          after editing to refresh the site.
+        </p>
+      </footer>
+    </main>
+
+    <aside class="hidden w-56 xl:block">
+      <div class="sticky top-24 text-sm">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          On this page
+        </div>
+        <ul class="space-y-1">
+          <li>
+            <a
+              href="#목차"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >목차</a>
+          </li>
+          <li>
+            <a
+              href="#슬래시-명령어"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >슬래시 명령어</a>
+          </li>
+          <li>
+            <a
+              href="#개요"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >개요</a>
+          </li>
+          <li>
+            <a
+              href="#아키텍처"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >아키텍처</a>
+          </li>
+          <li>
+            <a
+              href="#파일-구조"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >파일 구조</a>
+          </li>
+          <li>
+            <a
+              href="#명령어-구성-표"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >명령어 구성 표</a>
+          </li>
+          <li>
+            <a
+              href="#기능-및-역량"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >기능 및 역량</a>
+          </li>
+          <li>
+            <a
+              href="#실전-예제"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >실전 예제</a>
+          </li>
+          <li>
+            <a
+              href="#명령어-수명-주기-다이어그램"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >명령어 수명 주기 다이어그램</a>
+          </li>
+          <li>
+            <a
+              href="#모범-사례"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >모범 사례</a>
+          </li>
+          <li>
+            <a
+              href="#서브에이전트"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >서브에이전트</a>
+          </li>
+          <li>
+            <a
+              href="#개요-1"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >개요</a>
+          </li>
+          <li>
+            <a
+              href="#아키텍처-다이어그램"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >아키텍처 다이어그램</a>
+          </li>
+          <li>
+            <a
+              href="#서브에이전트-수명-주기"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >서브에이전트 수명 주기</a>
+          </li>
+          <li>
+            <a
+              href="#서브에이전트-구성-표"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >서브에이전트 구성 표</a>
+          </li>
+          <li>
+            <a
+              href="#도구-접근-계층"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >도구 접근 계층</a>
+          </li>
+          <li>
+            <a
+              href="#실전-예제-1"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >실전 예제</a>
+          </li>
+          <li>
+            <a
+              href="#서브에이전트-컨텍스트-관리"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >서브에이전트 컨텍스트 관리</a>
+          </li>
+          <li>
+            <a
+              href="#서브에이전트를-사용해야-할-때"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >서브에이전트를 사용해야 할 때</a>
+          </li>
+          <li>
+            <a
+              href="#에이전트-팀"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >에이전트 팀</a>
+          </li>
+          <li>
+            <a
+              href="#메모리"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >메모리</a>
+          </li>
+          <li>
+            <a
+              href="#개요-2"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >개요</a>
+          </li>
+          <li>
+            <a
+              href="#메모리-아키텍처"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >메모리 아키텍처</a>
+          </li>
+          <li>
+            <a
+              href="#claude-code의-메모리-계층7단계"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >Claude Code의 메모리 계층(7단계)</a>
+          </li>
+          <li>
+            <a
+              href="#메모리-위치-표"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >메모리 위치 표</a>
+          </li>
+          <li>
+            <a
+              href="#자동-메모리"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >자동 메모리</a>
+          </li>
+          <li>
+            <a
+              href="#메모리-업데이트-수명-주기"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >메모리 업데이트 수명 주기</a>
+          </li>
+          <li>
+            <a
+              href="#실전-예제-2"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >실전 예제</a>
+          </li>
+          <li>
+            <a
+              href="#claude-webdesktop의-메모리"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >Claude Web/Desktop의 메모리</a>
+          </li>
+          <li>
+            <a
+              href="#자동-메모리-내용"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >자동 메모리 내용</a>
+          </li>
+          <li>
+            <a
+              href="#메모리-기능-비교"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >메모리 기능 비교</a>
+          </li>
+          <li>
+            <a
+              href="#mcp-프로토콜"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >MCP 프로토콜</a>
+          </li>
+          <li>
+            <a
+              href="#개요-3"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >개요</a>
+          </li>
+          <li>
+            <a
+              href="#mcp-아키텍처"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >MCP 아키텍처</a>
+          </li>
+          <li>
+            <a
+              href="#mcp-생태계"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >MCP 생태계</a>
+          </li>
+          <li>
+            <a
+              href="#mcp-설정-과정"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >MCP 설정 과정</a>
+          </li>
+          <li>
+            <a
+              href="#사용-가능한-mcp-서버-표"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >사용 가능한 MCP 서버 표</a>
+          </li>
+          <li>
+            <a
+              href="#실전-예제-3"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >실전 예제</a>
+          </li>
+          <li>
+            <a
+              href="#mcp와-메모리-의사결정-매트릭스"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >MCP와 메모리: 의사결정 매트릭스</a>
+          </li>
+          <li>
+            <a
+              href="#요청응답-패턴"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >요청/응답 패턴</a>
+          </li>
+          <li>
+            <a
+              href="#에이전트-스킬"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >에이전트 스킬</a>
+          </li>
+          <li>
+            <a
+              href="#개요-4"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >개요</a>
+          </li>
+          <li>
+            <a
+              href="#스킬-아키텍처"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >스킬 아키텍처</a>
+          </li>
+          <li>
+            <a
+              href="#스킬-로딩-과정"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >스킬 로딩 과정</a>
+          </li>
+          <li>
+            <a
+              href="#스킬-유형-및-위치-표"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >스킬 유형 및 위치 표</a>
+          </li>
+          <li>
+            <a
+              href="#사전-구축-스킬"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >사전 구축 스킬</a>
+          </li>
+          <li>
+            <a
+              href="#번들-스킬"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >번들 스킬</a>
+          </li>
+          <li>
+            <a
+              href="#실전-예제-4"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >실전 예제</a>
+          </li>
+          <li>
+            <a
+              href="#스킬-탐색-및-호출"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >스킬 탐색 및 호출</a>
+          </li>
+          <li>
+            <a
+              href="#스킬과-다른-기능-비교"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >스킬과 다른 기능 비교</a>
+          </li>
+          <li>
+            <a
+              href="#claude-code-플러그인"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >Claude Code 플러그인</a>
+          </li>
+          <li>
+            <a
+              href="#개요-5"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >개요</a>
+          </li>
+          <li>
+            <a
+              href="#아키텍처-1"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >아키텍처</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-로딩-과정"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 로딩 과정</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-유형-및-배포"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 유형 및 배포</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-정의-구조"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 정의 구조</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-구조"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 구조</a>
+          </li>
+          <li>
+            <a
+              href="#실전-예제-5"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >실전 예제</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-마켓플레이스"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 마켓플레이스</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-설치-및-수명-주기"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 설치 및 수명 주기</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-기능-비교"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 기능 비교</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-사용-사례"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 사용 사례</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인을-만들어야-할-때"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인을 만들어야 할 때</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-게시"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 게시</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인-readme-예시"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인 README 예시</a>
+          </li>
+          <li>
+            <a
+              href="#플러그인과-수동-구성-비교"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >플러그인과 수동 구성 비교</a>
+          </li>
+          <li>
+            <a
+              href="#비교-및-통합"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >비교 및 통합</a>
+          </li>
+          <li>
+            <a
+              href="#기능-비교-매트릭스"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >기능 비교 매트릭스</a>
+          </li>
+          <li>
+            <a
+              href="#상호작용-타임라인"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >상호작용 타임라인</a>
+          </li>
+          <li>
+            <a
+              href="#실전-통합-예제-고객-지원-자동화"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >실전 통합 예제: 고객 지원 자동화</a>
+          </li>
+          <li>
+            <a
+              href="#전체-기능-오케스트레이션"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >전체 기능 오케스트레이션</a>
+          </li>
+          <li>
+            <a
+              href="#각-기능을-사용해야-할-때"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >각 기능을 사용해야 할 때</a>
+          </li>
+          <li>
+            <a
+              href="#선택-의사결정-트리"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >선택 의사결정 트리</a>
+          </li>
+          <li>
+            <a
+              href="#요약-표"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >요약 표</a>
+          </li>
+          <li>
+            <a
+              href="#빠른-시작-가이드"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >빠른 시작 가이드</a>
+          </li>
+          <li>
+            <a
+              href="#1주-차-간단하게-시작하기"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >1주 차: 간단하게 시작하기</a>
+          </li>
+          <li>
+            <a
+              href="#2주-차-실시간-접근-추가하기"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >2주 차: 실시간 접근 추가하기</a>
+          </li>
+          <li>
+            <a
+              href="#3주-차-작업-분산하기"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >3주 차: 작업 분산하기</a>
+          </li>
+          <li>
+            <a
+              href="#4주-차-모든-것을-자동화하기"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >4주 차: 모든 것을 자동화하기</a>
+          </li>
+          <li>
+            <a
+              href="#지속적으로"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >지속적으로</a>
+          </li>
+          <li>
+            <a
+              href="#훅"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >훅</a>
+          </li>
+          <li>
+            <a
+              href="#개요-6"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >개요</a>
+          </li>
+          <li>
+            <a
+              href="#훅-이벤트"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >훅 이벤트</a>
+          </li>
+          <li>
+            <a
+              href="#자주-쓰는-훅"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >자주 쓰는 훅</a>
+          </li>
+          <li>
+            <a
+              href="#훅-환경-변수"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >훅 환경 변수</a>
+          </li>
+          <li>
+            <a
+              href="#모범-사례-1"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >모범 사례</a>
+          </li>
+          <li>
+            <a
+              href="#체크포인트와-되감기"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >체크포인트와 되감기</a>
+          </li>
+          <li>
+            <a
+              href="#개요-7"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >개요</a>
+          </li>
+          <li>
+            <a
+              href="#핵심-개념"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >핵심 개념</a>
+          </li>
+          <li>
+            <a
+              href="#체크포인트-접근"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >체크포인트 접근</a>
+          </li>
+          <li>
+            <a
+              href="#사용-사례"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >사용 사례</a>
+          </li>
+          <li>
+            <a
+              href="#구성"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >구성</a>
+          </li>
+          <li>
+            <a
+              href="#고급-기능"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >고급 기능</a>
+          </li>
+          <li>
+            <a
+              href="#계획-모드"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >계획 모드</a>
+          </li>
+          <li>
+            <a
+              href="#확장-사고"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >확장 사고</a>
+          </li>
+          <li>
+            <a
+              href="#백그라운드-작업"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >백그라운드 작업</a>
+          </li>
+          <li>
+            <a
+              href="#권한-모드"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >권한 모드</a>
+          </li>
+          <li>
+            <a
+              href="#헤드리스-모드print-모드"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >헤드리스 모드(Print 모드)</a>
+          </li>
+          <li>
+            <a
+              href="#예약-작업"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >예약 작업</a>
+          </li>
+          <li>
+            <a
+              href="#chrome-통합"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >Chrome 통합</a>
+          </li>
+          <li>
+            <a
+              href="#세션-관리"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >세션 관리</a>
+          </li>
+          <li>
+            <a
+              href="#대화형-기능"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >대화형 기능</a>
+          </li>
+          <li>
+            <a
+              href="#구성-1"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >구성</a>
+          </li>
+          <li>
+            <a
+              href="#모델과-추론-노력"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >모델과 추론 노력</a>
+          </li>
+          <li>
+            <a
+              href="#참고-자료"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >참고 자료</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <script src="assets/vendor/pele/pele.global.js"></script>
+  <script>
+    (function () {
+      if (typeof pele === 'undefined') return;
+      // Mount each diagram into a fresh <div>, never into the <pre>: the <pre>
+      // would pass on the monospace font and the dark code-block background.
+      // Colours come from the --pele-* variables in site.css, so the theme
+      // toggle restyles diagrams without re-rendering them.
+      var headings = document.querySelectorAll(
+        'article h1, article h2, article h3, article h4'
+      );
+      // Text of the last heading before `node` in document order.
+      function headingBefore(node) {
+        var text = '';
+        for (var i = 0; i < headings.length; i++) {
+          if (!(headings[i].compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING)) break;
+          text = headings[i].textContent.trim();
+        }
+        return text;
+      }
+      document.querySelectorAll('pre.mermaid').forEach(function (pre) {
+        var source = pre.textContent;
+        var name = headingBefore(pre) || 'Diagram';
+        var container = document.createElement('div');
+        container.className = 'mermaid';
+        pre.replaceWith(container);
+        // Zoom makes a shrunk diagram a tab stop, so it needs a name beyond
+        // its role ("flowchart"). Pele draws a new <svg> on every render
+        // (resize, font load), so name it in onRender, not once after mount.
+        function nameDiagram() {
+          var svg = container.firstElementChild;
+          if (!svg || svg.localName !== 'svg') return;
+          if (svg.hasAttribute('aria-label') || svg.hasAttribute('aria-labelledby')) return;
+          var kind = svg.getAttribute('aria-roledescription');
+          svg.setAttribute('aria-label', kind ? name + ' — ' + kind : name);
+        }
+        try {
+          var m = pele.mount(container, source, {
+            zoom: 'auto',
+            autoDirection: true,
+            onRender: nameDiagram
+          });
+          // mount() reports a diagram it cannot parse or render on m.error
+          // (showing only a short message) instead of throwing: put the
+          // readable source back.
+          if (m.error !== undefined) {
+            m.destroy();
+            container.replaceWith(pre);
+          }
+        } catch (e) {
+          container.replaceWith(pre);
+        }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var toggle = document.getElementById('theme-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          var isDark = document.documentElement.classList.toggle('dark');
+          try {
+            localStorage.setItem('claude-howto-theme', isDark ? 'dark' : 'light');
+          } catch (e) {}
+        });
+      }
+      var navToggle = document.getElementById('nav-toggle');
+      var sidebar = document.getElementById('sidebar');
+      var backdrop = document.getElementById('sidebar-backdrop');
+      function closeSidebar() {
+        if (!sidebar) return;
+        sidebar.classList.add('-translate-x-full');
+        if (backdrop) backdrop.classList.add('hidden');
+      }
+      function openSidebar() {
+        if (!sidebar) return;
+        sidebar.classList.remove('-translate-x-full');
+        if (backdrop) backdrop.classList.remove('hidden');
+      }
+      if (navToggle && sidebar) {
+        navToggle.addEventListener('click', function () {
+          if (sidebar.classList.contains('-translate-x-full')) {
+            openSidebar();
+          } else {
+            closeSidebar();
+          }
+        });
+      }
+      if (backdrop) backdrop.addEventListener('click', closeSidebar);
+    })();
+  </script>
+</body>
+</html>

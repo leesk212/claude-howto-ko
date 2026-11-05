@@ -1,0 +1,151 @@
+/* Site-specific styles layered on top of Tailwind. */
+
+html {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Mermaid diagrams (rendered by Pele). Pele draws with the --pele-* custom
+   properties below, so the light/dark toggle on <html> restyles diagrams
+   without re-rendering them. Borders keep >= 3:1 against the page and the
+   node surface in both themes (WCAG 1.4.11). */
+.mermaid {
+  --pele-font: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --pele-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --pele-bg: #f8fafc;
+  --pele-fg: #0f172a;
+  --pele-muted: #475569;
+  --pele-line: #475569;
+  --pele-surface: #ffffff;
+  --pele-surface-alt: #f1f5f9;
+  --pele-border: #64748b;
+  --pele-accent: #0284c7;
+}
+
+.dark .mermaid {
+  --pele-bg: #020617;
+  --pele-fg: #e2e8f0;
+  --pele-muted: #94a3b8;
+  --pele-line: #94a3b8;
+  --pele-surface: #0f172a;
+  --pele-surface-alt: #1e293b;
+  --pele-border: #64748b;
+  --pele-accent: #38bdf8;
+}
+
+/* Layout applies to the mounted diagram only: a <pre class="mermaid"> left
+   in place (no JavaScript, or a diagram Pele cannot render) stays a normal,
+   readable dark code block. Centre and constrain width so diagrams read on
+   mobile. */
+div.mermaid {
+  background: transparent !important;
+  padding: 1rem 0;
+  margin: 1.5rem 0;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Pele puts its zoom buttons (a box 56px tall, 8px below the top edge) over
+   a diagram it shrank to fit, and sets [hidden] on the box when the diagram
+   fits. Start the diagram below the box so the buttons never cover a label.
+   Room on top, not on the side: Pele lays the diagram out to the content
+   width, so side padding would shrink it further and re-lay it out. */
+div.mermaid:has(> .pele-zoom:not([hidden])) {
+  padding-top: calc(8px + 56px + 0.5rem);
+}
+
+/* Dark mode: a node whose Mermaid source sets a fill but no text colour
+   (`style A fill:#e1f5ff`) gets a light fill, so its label would inherit the
+   light --pele-fg. Give such labels dark text, as in light mode. */
+.dark .mermaid .pele-node:has(> [style*="fill:"]) > .pele-label:not([style*="fill:"]) {
+  fill: #0f172a;
+}
+
+/* Prevent prose pre/code from inheriting the Tailwind dark prose background
+   which can clash with our slate-900 preference. */
+.prose pre {
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  line-height: 1.55;
+  font-size: 0.875rem;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* Inline code gets a softer treatment than fenced blocks. */
+.prose :where(p, li, h1, h2, h3, h4) code {
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+/* Tables wrap on mobile rather than forcing horizontal scroll on every page. */
+.prose table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .prose table {
+    display: table;
+    white-space: normal;
+  }
+}
+
+/* Anchor offset so sticky header doesn't cover heading targets. */
+.prose :where(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 6rem;
+}
+
+/* Hide focus rings on mouse, keep for keyboard. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Pygments syntax highlighting (paired with `markdown` codehilite extension). */
+.codehilite { background: transparent; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite .c, .codehilite .c1, .codehilite .cm { color: #999988; font-style: italic }
+.codehilite .k, .codehilite .kc, .codehilite .kd, .codehilite .kn, .codehilite .kp,
+.codehilite .kr, .codehilite .kt { color: #f0883e; font-weight: 600 }
+.codehilite .s, .codehilite .s1, .codehilite .s2 { color: #a5d6ff }
+.codehilite .nb { color: #79c0ff }
+.codehilite .nf { color: #d2a8ff }
+.codehilite .o, .codehilite .p { color: #ff7b72 }
+.codehilite .m, .codehilite .mi, .codehilite .mf { color: #79c0ff }
+.codehilite .nv, .codehilite .vc, .codehilite .vg, .codehilite .vi { color: #ffa657 }
+.codehilite .err { color: inherit }
+
+/* Light-theme readability tweaks for code colours. */
+:root:not(.dark) .codehilite .k,
+:root:not(.dark) .codehilite .kc,
+:root:not(.dark) .codehilite .kd,
+:root:not(.dark) .codehilite .kn,
+:root:not(.dark) .codehilite .kp,
+:root:not(.dark) .codehilite .kr,
+:root:not(.dark) .codehilite .kt { color: #cf222e; }
+:root:not(.dark) .codehilite .s,
+:root:not(.dark) .codehilite .s1,
+:root:not(.dark) .codehilite .s2 { color: #0a3069; }
+:root:not(.dark) .codehilite .nb { color: #0550ae; }
+:root:not(.dark) .codehilite .nf { color: #6f42c1; }
+:root:not(.dark) .codehilite .m,
+:root:not(.dark) .codehilite .mi,
+:root:not(.dark) .codehilite .mf { color: #0550ae; }

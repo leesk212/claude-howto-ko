@@ -1,0 +1,13 @@
+{
+  "tailwind": "v3.4.19",
+  "pele": "1.6.0",
+  "fonts": {
+    "family": [
+      "Fraunces",
+      "Inter",
+      "JetBrains Mono",
+      "Manrope"
+    ],
+    "files": 25
+  }
+}

@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Claude Code 사용 가이드 — 주말에 끝내는 Claude Code</title>
+  <meta
+    name="description"
+    content="claude 입력부터 에이전트, 훅, 스킬, MCP 서버 오케스트레이션까지 — 시각적 튜토리얼, 바로 복사해 쓰는 템플릿, 단계별 학습 경로를 제공하는 Claude Code 가이드입니다."
+  />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfaf7" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+  <link rel="icon" href="assets/resources/logos/claude-howto-logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css" />
+  <link rel="stylesheet" href="assets/landing.css" />
+  <script>
+    // Apply the saved theme before paint to avoid flash of unstyled content.
+    (function () {
+      try {
+        var saved = localStorage.getItem('claude-howto-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <script>
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  </script>
+  <script src="assets/landing.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#roadmap">로드맵으로 건너뛰기</a>
+
+  <header class="nav" id="top">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html" aria-label="Claude How-To 홈">
+        <img
+          src="assets/resources/logos/claude-howto-logo.svg"
+          alt="claude-howto"
+          class="nav-logo logo-light"
+          onerror="this.style.display='none'"
+        />
+        <img
+          src="assets/resources/logos/claude-howto-logo-dark.svg"
+          alt="claude-howto"
+          class="nav-logo logo-dark"
+          onerror="this.style.display='none'"
+        />
+      </a>
+      <nav class="nav-links" id="nav-menu" aria-label="주 메뉴">
+        <a href="#why">특징</a>
+        <a href="#vs-docs">공식 문서와 비교</a>
+        <a href="#roadmap">로드맵</a>
+        <a href="guide.html">가이드</a>
+        <a href="https://github.com/leesk212/claude-howto-ko" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm nav-cta" href="#roadmap">학습 시작</a>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="어두운 테마로 전환"
+        >
+          <svg class="ti-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <circle cx="10" cy="10" r="4" />
+            <path d="M10 1.8v2.2M10 16v2.2M1.8 10H4M16 10h2.2M4.2 4.2l1.6 1.6M14.2 14.2l1.6 1.6M15.8 4.2l-1.6 1.6M5.8 14.2l-1.6 1.6" stroke-linecap="round" />
+          </svg>
+          <svg class="ti-moon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+          </svg>
+        </button>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="메뉴 열기/닫기"
+        >
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path class="menu-open" d="M3 5.5h14M3 10h14M3 14.5h14" stroke-linecap="round" />
+            <path class="menu-close" d="M5 5l10 10M15 5L5 15" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow-row reveal" style="--d: 0s">
+            <p class="eyebrow">~/claude-howto · 주말 커리큘럼</p>
+<span class="version-pill">v2.1.310 기준</span>          </div>
+          <h1 class="hero-title reveal" style="--d: 0.08s">
+            주말에 끝내는<br /><em>Claude&nbsp;Code</em>
+          </h1>
+          <p class="hero-sub reveal" style="--d: 0.16s">
+            <code>claude</code> 입력부터 에이전트, 훅, 스킬, MCP 서버
+            오케스트레이션까지 — 시각적 튜토리얼, 바로 복사해 쓰는 템플릿,
+            단계별 학습 경로로 익힙니다.
+          </p>
+          <div class="hero-cta reveal" style="--d: 0.24s">
+            <a class="btn btn-primary" href="#roadmap">로드맵 시작하기</a>
+            <a class="btn btn-ghost" href="guide.html">가이드 읽기</a>
+          </div>
+          <dl class="hero-stats reveal" style="--d: 0.32s">
+            <div class="stat">
+              <dt>모듈</dt>
+              <dd>10</dd>
+            </div>
+            <div class="stat">
+              <dt>소요 시간</dt>
+              <dd>11–13시간</dd>
+            </div>
+            <div class="stat">
+              <dt>언어</dt>
+              <dd>6</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div
+          class="hero-term reveal"
+          style="--d: 0.2s"
+          role="img"
+          aria-label="짧은 Claude Code 세션의 터미널 기록: claude 실행, /init 및 /self-assessment 실행, 훅 동작, 서브에이전트의 작업 위임"
+        >
+          <div class="term">
+            <div class="term-bar">
+              <span class="term-dot"></span>
+              <span class="term-dot"></span>
+              <span class="term-dot"></span>
+              <span class="term-title">~/project — claude</span>
+            </div>
+            <div class="term-body" id="terminal">
+              <div class="t-line" data-t="cmd"><span class="t-pp">$</span><span class="t-tt">claude</span></div>
+              <div class="t-line" data-t="out" data-c="dim">Claude Code · working in ~/project</div>
+              <div class="t-line" data-t="cmd"><span class="t-pp t-pp-in">&gt;</span><span class="t-tt">/init</span></div>
+              <div class="t-line" data-t="out" data-c="ok">✓ wrote CLAUDE.md — 6 rules, 3 imports</div>
+              <div class="t-line" data-t="cmd"><span class="t-pp t-pp-in">&gt;</span><span class="t-tt">/self-assessment</span></div>
+              <div class="t-line" data-t="out" data-c="info">→ level: intermediate · start at 03-skills</div>
+              <div class="t-line" data-t="cmd"><span class="t-pp t-pp-in">&gt;</span><span class="t-tt">add rate limiting to the api</span></div>
+              <div class="t-line" data-t="out" data-c="warn">⚡ hook PreToolUse → ruff check . — passed</div>
+              <div class="t-line" data-t="out" data-c="ok">◆ Explore agent → mapped 14 routes — done</div>
+              <div class="t-line" data-t="cmd"><span class="t-pp">$</span><span class="t-tt"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="why">
+      <p class="kicker reveal">이 가이드를 써야 하는 이유</p>
+      <h2 class="section-title reveal">공식 문서는 <em>무엇</em>을 알려 줍니다.<br />이 가이드는 <em>어떻게</em>를 보여 줍니다.</h2>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" />
+              <path d="M10 6.5h4a3 3 0 0 1 3 3V14M14 17.5h-4a3 3 0 0 1-3-3V10" />
+            </svg>
+          </div>
+          <h3>기본은 시각 자료</h3>
+          <p>
+            Mermaid 다이어그램으로 각 기능의 내부 동작을 보여 주므로
+            <em>어떻게</em>뿐 아니라 <em>왜</em>까지 이해할 수 있습니다.
+          </p>
+        </article>
+        <article class="card reveal" style="--d: 0.08s">
+          <div class="card-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+              <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+            </svg>
+          </div>
+          <h3>복사해 쓰는 템플릿</h3>
+          <p>
+            실무에 바로 쓸 수 있는 슬래시 명령어, CLAUDE.md 파일, 훅 스크립트, MCP
+            설정, 플러그인 번들을 제공합니다 — 오늘 바로 프로젝트에 넣어 보세요.
+          </p>
+        </article>
+        <article class="card reveal" style="--d: 0.16s">
+          <div class="card-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="6" cy="19" r="2.5" />
+              <circle cx="18" cy="5" r="2.5" />
+              <path d="M8 17.5 10 15a10 10 0 0 1 6-7.5" />
+              <path d="M8.5 19H15" stroke-dasharray="2 2.6" />
+            </svg>
+          </div>
+          <h3>단계별 학습 경로</h3>
+          <p>
+            학습자에게 필요한 순서로 배열한 10개 모듈로 11–13시간 만에 입문자에서
+            파워 유저가 됩니다. 다음에 무엇을 배울지 고민할 필요가 없습니다.
+          </p>
+        </article>
+        <article class="card reveal" style="--d: 0.24s">
+          <div class="card-glyph" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11.5 11 14l4.5-5" />
+              <circle cx="12" cy="12" r="9" />
+            </svg>
+          </div>
+          <h3>자가 진단 내장</h3>
+          <p>
+            Claude Code 안에서 <code>/self-assessment</code> 또는 <code>/lesson-quiz</code>를
+            실행해 부족한 부분을 찾고 맞춤 학습 경로를 받으세요.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="vs-docs">
+      <p class="kicker reveal">공식 문서와 이 가이드 비교</p>
+      <h2 class="section-title reveal">같은 도구, 다른 역할</h2>
+      <p class="section-sub reveal">
+        이 가이드는
+        <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener noreferrer">공식 문서</a>를
+        보완합니다 — 공식 문서는 레퍼런스이고, 이 가이드는 커리큘럼입니다.
+      </p>
+      <div class="versus reveal">
+        <div class="versus-head" role="presentation">
+          <span></span>
+          <span class="v-docs">공식 문서</span>
+          <span class="v-guide">이 가이드</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">형식</span>
+          <span class="v-docs">레퍼런스 문서</span>
+          <span class="v-guide">Mermaid 다이어그램을 곁들인 시각적 튜토리얼</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">깊이</span>
+          <span class="v-docs">기능 설명</span>
+          <span class="v-guide">내부 동작 원리</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">예제</span>
+          <span class="v-docs">기본 코드 조각</span>
+          <span class="v-guide">바로 쓸 수 있는 실무용 템플릿</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">구성</span>
+          <span class="v-docs">기능별 구성</span>
+          <span class="v-guide">단계적 학습 경로(입문에서 고급까지)</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">온보딩</span>
+          <span class="v-docs">스스로 학습</span>
+          <span class="v-guide">예상 소요 시간이 포함된 안내형 로드맵</span>
+        </div>
+        <div class="versus-row">
+          <span class="v-label">자가 진단</span>
+          <span class="v-docs">없음</span>
+          <span class="v-guide">맞춤 학습 경로를 만들어 주는 대화형 퀴즈</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section roadmap" id="roadmap">
+      <p class="kicker reveal">로드맵</p>
+      <h2 class="section-title reveal">하나의 노선, 열 개의 역</h2>
+      <p class="section-sub reveal">
+        3개 레벨, 모듈 10개, 레슨 60개로 구성됩니다.
+        진행 상황은 브라우저에 저장되므로 학습하면서 레슨을 체크하세요.
+      </p>
+
+      <div class="progress-panel reveal" id="progress-panel">
+        <div class="ring-wrap" role="img" aria-label="전체 진행률">
+          <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="52" />
+            <circle class="ring-fg" id="ring-fg" cx="60" cy="60" r="52" />
+          </svg>
+          <div class="ring-label">
+            <span class="ring-pct" id="ring-pct">0%</span>
+            <span class="ring-cap">완료</span>
+          </div>
+        </div>
+        <div class="progress-mid">
+          <p class="counts">
+            <span>완료 <b id="c-done">0</b></span>
+            <span class="counts-sep" aria-hidden="true">·</span>
+            <span>진행 중 <b id="c-prog">0</b></span>
+            <span class="counts-sep" aria-hidden="true">·</span>
+            <span>시작 전 <b id="c-todo">60</b></span>
+          </p>
+          <div class="progress-actions">
+            <a class="btn btn-primary btn-sm" id="continue-btn" href="#roadmap">이어서 학습</a>
+            <span class="all-done" id="all-done" hidden>모두 완료 — 로드맵을 마쳤습니다.</span>
+            <button class="btn btn-ghost btn-sm" id="reset-btn" type="button">진행 상황 초기화</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="subway" id="subway">
+        <div class="track" aria-hidden="true"><div class="track-fill" id="track-fill"></div></div>
+        <section class="level" aria-labelledby="level-beginner">
+          <header class="level-head reveal">
+            <p class="level-name">레벨 1 — 입문</p>
+            <h3 class="level-title" id="level-beginner">시작하기</h3>
+            <p class="level-sum">첫날부터 생산성을 높입니다. 명령어, 메모리, 안전한 되감기, CLI 기본기를 익힙니다.</p>
+          </header>
+          <ol class="stations">
+            <li class="station reveal" data-module="slash-commands" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">01</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="01-slash-commands/index.html#개요">슬래시 명령어</a>
+                    </h4>
+                    <p class="station-tag">내장 명령어, 사용자 정의 명령어, 팀 단축 명령어를 다룹니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">30분</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/6</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-slash-commands"
+                >
+                  <span>레슨 6개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-slash-commands">
+                  <li class="lesson" data-lesson="slash-commands/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="01-slash-commands/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="slash-commands/built-in" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'내장 명령어 레퍼런스' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="01-slash-commands/index.html#내장-명령어-참조">내장 명령어 레퍼런스</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="slash-commands/custom" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'사용자 정의 명령어(현재는 스킬)' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="01-slash-commands/index.html#사용자-정의-명령어-이제-스킬">사용자 정의 명령어(현재는 스킬)</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="slash-commands/mcp-prompts" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'명령어로 쓰는 MCP 프롬프트' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="01-slash-commands/index.html#mcp-프롬프트를-명령어로">명령어로 쓰는 MCP 프롬프트</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="slash-commands/create" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'나만의 명령어 만들기' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="01-slash-commands/index.html#나만의-명령어-생성">나만의 명령어 만들기</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="slash-commands/best-practices" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'모범 사례' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="01-slash-commands/index.html#모범-사례">모범 사례</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+            <li class="station reveal" data-module="memory" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">02</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="02-memory/index.html#개요">메모리</a>
+                    </h4>
+                    <p class="station-tag">세션이 바뀌어도 유지되는 CLAUDE.md, 규칙, 자동 메모리를 다룹니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">45분</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/5</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-memory"
+                >
+                  <span>레슨 5개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-memory">
+                  <li class="lesson" data-lesson="memory/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="02-memory/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="memory/quick-start" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'빠른 시작: 메모리 초기화' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="02-memory/index.html#빠른-시작-메모리-초기화">빠른 시작: 메모리 초기화</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="memory/hierarchy" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'메모리 계층 구조' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="02-memory/index.html#claude-code의-메모리-계층-구조">메모리 계층 구조</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="memory/rules" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'모듈식 규칙 시스템' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="02-memory/index.html#모듈식-규칙-시스템">모듈식 규칙 시스템</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="memory/auto-memory" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'자동 메모리' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="02-memory/index.html#자동-메모리">자동 메모리</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+            <li class="station reveal" data-module="checkpoints" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">08</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="08-checkpoints/index.html#개요">체크포인트</a>
+                    </h4>
+                    <p class="station-tag">과감한 시도를 하고 키 한 번으로 되감습니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">45분</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/5</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-checkpoints"
+                >
+                  <span>레슨 5개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-checkpoints">
+                  <li class="lesson" data-lesson="checkpoints/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="08-checkpoints/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="checkpoints/accessing" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'체크포인트 열기' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="08-checkpoints/index.html#체크포인트-접근-방법">체크포인트 열기</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="checkpoints/rewind" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'되감기 옵션' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="08-checkpoints/index.html#되감기-옵션">되감기 옵션</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="checkpoints/patterns" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'워크플로 패턴' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="08-checkpoints/index.html#워크플로-패턴">워크플로 패턴</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="checkpoints/git" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'체크포인트와 Git' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="08-checkpoints/index.html#git과의-통합">체크포인트와 Git</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+            <li class="station reveal" data-module="cli" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">10</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="10-cli/index.html#개요">CLI</a>
+                    </h4>
+                    <p class="station-tag">대화형 모드와 출력(print) 모드, 플래그, 스크립팅을 다룹니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">30분</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/5</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-cli"
+                >
+                  <span>레슨 5개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-cli">
+                  <li class="lesson" data-lesson="cli/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="10-cli/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="cli/commands" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'CLI 명령어' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="10-cli/index.html#cli-명령">CLI 명령어</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="cli/flags" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'핵심 플래그' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="10-cli/index.html#핵심-플래그">핵심 플래그</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="cli/output" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'출력과 형식' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="10-cli/index.html#출력-및-형식">출력과 형식</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="cli/use-cases" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'활용도 높은 사용 사례' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="10-cli/index.html#고가치-사용-사례">활용도 높은 사용 사례</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+          </ol>
+        </section>
+        <section class="level" aria-labelledby="level-intermediate">
+          <header class="level-head reveal">
+            <p class="level-name">레벨 2 — 중급</p>
+            <h3 class="level-title" id="level-intermediate">워크플로 구축</h3>
+            <p class="level-sum">스킬과 훅으로 자동화하고, 실시간 데이터를 연결하며, 서브에이전트에 작업을 위임합니다.</p>
+          </header>
+          <ol class="stations">
+            <li class="station reveal" data-module="skills" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">03</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="03-skills/index.html#개요">스킬</a>
+                    </h4>
+                    <p class="station-tag">Claude가 필요할 때만 불러오는 재사용 가능한 전문 지식입니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">1시간</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/6</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-skills"
+                >
+                  <span>레슨 6개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-skills">
+                  <li class="lesson" data-lesson="skills/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="03-skills/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="skills/progressive-disclosure" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'점진적 공개' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="03-skills/index.html#스킬-작동-방식-점진적-공개">점진적 공개</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="skills/create" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'사용자 정의 스킬 만들기' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="03-skills/index.html#사용자-지정-스킬-생성">사용자 정의 스킬 만들기</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="skills/invocation" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'스킬 호출 제어' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="03-skills/index.html#스킬-호출-제어">스킬 호출 제어</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="skills/subagents" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'서브에이전트에서 스킬 실행' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="03-skills/index.html#서브에이전트에서-스킬-실행">서브에이전트에서 스킬 실행</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="skills/manage" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'스킬 관리' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="03-skills/index.html#스킬-관리">스킬 관리</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+            <li class="station reveal" data-module="hooks" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">06</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="06-hooks/index.html#개요">훅</a>
+                    </h4>
+                    <p class="station-tag">모든 도구 호출과 이벤트에 품질 게이트와 자동화를 적용합니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">1시간</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/7</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-hooks"
+                >
+                  <span>레슨 7개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-hooks">
+                  <li class="lesson" data-lesson="hooks/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="06-hooks/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="hooks/configuration" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'설정' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="06-hooks/index.html#구성">설정</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="hooks/types" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'훅 유형' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="06-hooks/index.html#훅-유형">훅 유형</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="hooks/events" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'훅 이벤트' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="06-hooks/index.html#훅-이벤트">훅 이벤트</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="hooks/io" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'훅 입력과 출력' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="06-hooks/index.html#훅-입력-및-출력">훅 입력과 출력</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="hooks/prompt-hooks" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'프롬프트 기반 훅' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="06-hooks/index.html#프롬프트-기반-훅">프롬프트 기반 훅</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="hooks/debugging" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'훅 디버깅' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="06-hooks/index.html#디버깅">훅 디버깅</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+            <li class="station reveal" data-module="mcp" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">05</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="05-mcp/index.html#개요">MCP</a>
+                    </h4>
+                    <p class="station-tag">GitHub, 데이터베이스, API를 실시간 도구로 연결합니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">1시간</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/6</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-mcp"
+                >
+                  <span>레슨 6개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-mcp">
+                  <li class="lesson" data-lesson="mcp/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="05-mcp/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="mcp/install" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'설치 방법' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="05-mcp/index.html#mcp-설치-방법">설치 방법</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="mcp/scopes" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'MCP 범위' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="05-mcp/index.html#mcp-스코프">MCP 범위</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="mcp/resources" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'@ 멘션으로 리소스 사용' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="05-mcp/index.html#-멘션을-통한-mcp-리소스">@ 멘션으로 리소스 사용</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="mcp/tool-search" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'MCP 도구 검색' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="05-mcp/index.html#mcp-도구-검색">MCP 도구 검색</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="mcp/serve" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'MCP 서버로 쓰는 Claude' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="05-mcp/index.html#mcp-서버로서의-claude-claude-mcp-serve">MCP 서버로 쓰는 Claude</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+            <li class="station reveal" data-module="subagents" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">04</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="04-subagents/index.html#개요">서브에이전트</a>
+                    </h4>
+                    <p class="station-tag">자체 컨텍스트와 도구를 가진 전문 에이전트에 작업을 위임합니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">1.5시간</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/7</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-subagents"
+                >
+                  <span>레슨 7개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-subagents">
+                  <li class="lesson" data-lesson="subagents/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="04-subagents/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="subagents/configuration" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'설정' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="04-subagents/index.html#구성">설정</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="subagents/built-in" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'내장 서브에이전트' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="04-subagents/index.html#내장-서브에이전트">내장 서브에이전트</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="subagents/chaining" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'서브에이전트 연결' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="04-subagents/index.html#서브에이전트-체이닝">서브에이전트 연결</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="subagents/background" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'백그라운드 서브에이전트' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="04-subagents/index.html#백그라운드-서브에이전트">백그라운드 서브에이전트</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="subagents/worktree" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'워크트리 격리' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="04-subagents/index.html#워크트리-격리">워크트리 격리</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="subagents/teams" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'에이전트 팀' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="04-subagents/index.html#에이전트-팀-실험적">에이전트 팀</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+          </ol>
+        </section>
+        <section class="level" aria-labelledby="level-advanced">
+          <header class="level-head reveal">
+            <p class="level-name">레벨 3 — 고급</p>
+            <h3 class="level-title" id="level-advanced">파워 유저</h3>
+            <p class="level-sum">계획을 세우고, 헤드리스·예약 실행을 활용한 뒤, 모든 것을 팀용 플러그인으로 패키징합니다.</p>
+          </header>
+          <ol class="stations">
+            <li class="station reveal" data-module="advanced-features" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">09</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="09-advanced-features/index.html#개요">고급 기능</a>
+                    </h4>
+                    <p class="station-tag">계획 모드, 자동 모드, 권한, 헤드리스 실행 등을 다룹니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">2–3시간</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/7</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-advanced-features"
+                >
+                  <span>레슨 7개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-advanced-features">
+                  <li class="lesson" data-lesson="advanced-features/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="09-advanced-features/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="advanced-features/planning" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'계획 모드' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="09-advanced-features/index.html#계획-모드">계획 모드</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="advanced-features/thinking" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'확장 사고' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="09-advanced-features/index.html#확장-사고">확장 사고</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="advanced-features/auto-mode" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'자동 모드' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="09-advanced-features/index.html#자동-모드">자동 모드</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="advanced-features/scheduled" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'예약 작업' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="09-advanced-features/index.html#예약된-작업">예약 작업</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="advanced-features/permissions" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'권한 모드' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="09-advanced-features/index.html#권한-모드">권한 모드</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="advanced-features/headless" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'헤드리스 모드' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="09-advanced-features/index.html#헤드리스-모드">헤드리스 모드</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+            <li class="station reveal" data-module="plugins" data-status="not-started">
+              <span class="node" aria-hidden="true"></span>
+              <article class="station-card">
+                <header class="station-head">
+                  <span class="station-num" aria-hidden="true">07</span>
+                  <div class="station-meta">
+                    <h4 class="station-title">
+                      <a href="07-plugins/index.html#개요">플러그인</a>
+                    </h4>
+                    <p class="station-tag">명령어, 에이전트, 훅, MCP를 한 번에 설치할 수 있게 묶습니다.</p>
+                  </div>
+                  <div class="station-side">
+                    <span class="station-time">2시간</span>
+                    <span class="pill" data-pill>시작 전</span>
+                  </div>
+                </header>
+                <div class="station-bar">
+                  <span class="bar" aria-hidden="true"><i data-bar></i></span>
+                  <span class="bar-count" data-count>0/6</span>
+                </div>
+                <button
+                  class="station-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="lessons-plugins"
+                >
+                  <span>레슨 6개</span>
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="lessons" id="lessons-plugins">
+                  <li class="lesson" data-lesson="plugins/overview" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'개요' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="07-plugins/index.html#개요">개요</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="plugins/architecture" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'플러그인 아키텍처' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="07-plugins/index.html#플러그인-아키텍처">플러그인 아키텍처</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="plugins/structure" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'플러그인 정의 구조' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="07-plugins/index.html#플러그인-정의-구조">플러그인 정의 구조</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="plugins/marketplace" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'플러그인 마켓플레이스' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="07-plugins/index.html#플러그인-마켓플레이스">플러그인 마켓플레이스</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="plugins/testing" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'플러그인 테스트' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="07-plugins/index.html#플러그인-테스트">플러그인 테스트</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                  <li class="lesson" data-lesson="plugins/publishing" data-status="not-started">
+                    <button
+                      class="check"
+                      type="button"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="'플러그인 배포' 완료로 표시"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path class="check-dash" d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        <path class="check-mark" d="M3.2 8.6 6.4 11.6 13 4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <a class="lesson-link" href="07-plugins/index.html#플러그인-게시">플러그인 배포</a>
+                    <span class="lesson-status" data-lstatus>시작 전</span>
+                  </li>
+                </ul>
+              </article>
+            </li>
+          </ol>
+        </section>
+      </div>
+    </section>
+
+    <section class="section" id="get-started">
+      <p class="kicker reveal">시작하기</p>
+      <h2 class="section-title reveal">15분 만에 첫 워크플로 만들기</h2>
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step-num" aria-hidden="true">01</span>
+          <h3>저장소 복제</h3>
+          <p>모든 내용이 마크다운이며 템플릿도 포함되어 있어 설치할 것이 없습니다.</p>
+          <div class="code">
+            <code>git clone https://github.com/leesk212/claude-howto-ko.git</code>
+            <button class="copy" type="button" data-copy="git clone https://github.com/leesk212/claude-howto-ko.git" aria-label="clone 명령어 복사">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+                <path d="M10.5 5.5V4a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 4v5A1.5 1.5 0 0 0 4 10.5h1.5" />
+              </svg>
+              <span class="copy-label">복사</span>
+            </button>
+          </div>
+        </li>
+        <li class="step reveal" style="--d: 0.08s">
+          <span class="step-num" aria-hidden="true">02</span>
+          <h3>자가 진단 받기</h3>
+          <p>Claude Code 안에서 내 레벨을 확인하고 이미 아는 내용은 건너뛰세요.</p>
+          <div class="code">
+            <code>/self-assessment</code>
+            <button class="copy" type="button" data-copy="/self-assessment" aria-label="self-assessment 명령어 복사">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+                <path d="M10.5 5.5V4a1.5 1.5 0 0 0-1.5-1.5H4A1.5 1.5 0 0 0 2.5 4v5A1.5 1.5 0 0 0 4 10.5h1.5" />
+              </svg>
+              <span class="copy-label">복사</span>
+            </button>
+          </div>
+        </li>
+        <li class="step reveal" style="--d: 0.16s">
+          <span class="step-num" aria-hidden="true">03</span>
+          <h3>로드맵 따라가기</h3>
+          <p>내 레벨에 맞는 모듈부터 학습하세요 — 진행 상황은 위에서 확인할 수 있습니다.</p>
+          <a class="step-link" href="#roadmap">내 레벨에서 시작하기 →</a>
+        </li>
+      </ol>
+      <span class="sr-only" id="copy-status" role="status" aria-live="polite"></span>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <img
+          src="assets/resources/logos/claude-howto-logo.svg"
+          alt=""
+          class="footer-logo logo-light"
+          onerror="this.style.display='none'"
+        />
+        <img
+          src="assets/resources/logos/claude-howto-logo-dark.svg"
+          alt=""
+          class="footer-logo logo-dark"
+          onerror="this.style.display='none'"
+        />
+        <p class="footer-note">
+          커뮤니티가 만드는 Claude Code 가이드입니다. 마크다운 원본이 기준입니다.
+        </p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">프로젝트</p>
+        <a href="https://github.com/leesk212/claude-howto-ko" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/leesk212/claude-howto-ko/blob/ko/LICENSE" target="_blank" rel="noopener noreferrer">MIT 라이선스</a>
+        <a href="https://github.com/leesk212/claude-howto-ko/blob/ko/CHANGELOG.md" target="_blank" rel="noopener noreferrer">변경 이력</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">다른 언어</p>
+        <a href="https://github.com/luongnv89/claude-howto" target="_blank" rel="noopener noreferrer" lang="en">English</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/vi/README.md" target="_blank" rel="noopener noreferrer" lang="vi">Tiếng Việt</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/zh/README.md" target="_blank" rel="noopener noreferrer" lang="zh">中文</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/ja/README.md" target="_blank" rel="noopener noreferrer" lang="ja">日本語</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/uk/README.md" target="_blank" rel="noopener noreferrer" lang="uk">Українська</a>
+        <a href="https://github.com/luongnv89/claude-howto/blob/main/ko/README.md" target="_blank" rel="noopener noreferrer" lang="ko">한국어</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-head">문서</p>
+        <a href="guide.html">가이드</a>
+        <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener noreferrer">공식 문서</a>
+<span class="footer-version">v2.1.310 기준</span>      </div>
+    </div>
+    <div class="footer-base">
+      <span>claude-howto · MIT 라이선스</span>
+      <span>원문: <a href="https://github.com/luongnv89/claude-howto" target="_blank" rel="noopener noreferrer">luongnv89/claude-howto</a> (MIT) · 한국어 번역판</span>
+      <a href="#top" class="footer-top">맨 위로 ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

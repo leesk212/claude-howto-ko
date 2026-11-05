@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>SKILL — Claude Code 사용 가이드</title>
+  <meta name="description" content="Master Claude Code in a Weekend" />
+  <link rel="icon" href="../../assets/resources/logos/claude-howto-logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css" />
+  <link rel="stylesheet" href="../../assets/tailwind.css" />
+  <link rel="stylesheet" href="../../assets/site.css" />
+  <script>
+    // Apply the saved theme before paint to avoid flash of unstyled content.
+    (function () {
+      try {
+        var saved = localStorage.getItem('claude-howto-theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+
+  <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/85 backdrop-blur dark:border-slate-800 dark:bg-slate-950/85">
+    <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
+      <button
+        type="button"
+        id="nav-toggle"
+        class="inline-flex items-center justify-center rounded-md border border-slate-200 p-2 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
+        aria-label="Open navigation"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path d="M3 5h14a1 1 0 110 2H3a1 1 0 110-2zm0 4h14a1 1 0 110 2H3a1 1 0 110-2zm0 4h14a1 1 0 110 2H3a1 1 0 110-2z"/>
+        </svg>
+      </button>
+      <a href="../../index.html" class="flex items-center gap-2 font-semibold tracking-tight">
+        <img
+          src="../../assets/resources/logos/claude-howto-logo.svg"
+          alt=""
+          class="h-7 w-auto dark:hidden"
+          onerror="this.style.display='none'"
+        />
+        <img
+          src="../../assets/resources/logos/claude-howto-logo-dark.svg"
+          alt=""
+          class="hidden h-7 w-auto dark:block"
+          onerror="this.style.display='none'"
+        />
+        <span class="text-sm sm:text-base">Claude Code 사용 가이드</span>
+      </a>
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="https://github.com/leesk212/claude-howto-ko/blob/ko/03-skills/blog-draft/SKILL.md"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden items-center gap-1.5 rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 sm:inline-flex"
+          title="View this page's markdown source on GitHub"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span>GitHub에서 편집</span>
+        </a>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="inline-flex items-center justify-center rounded-md border border-slate-200 p-2 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+          aria-label="Toggle theme"
+        >
+          <svg class="hidden h-5 w-5 dark:block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.95 2.05a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM18 9a1 1 0 110 2h-1a1 1 0 110-2h1zm-2.05 4.95a1 1 0 011.41 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.95-2.05a1 1 0 010 1.41l-.71.71a1 1 0 11-1.41-1.41l.71-.71a1 1 0 011.41 0zM3 9a1 1 0 110 2H2a1 1 0 110-2h1zm2.05-4.95a1 1 0 011.41-1.41l.71.71a1 1 0 11-1.41 1.41l-.71-.71zM10 6a4 4 0 100 8 4 4 0 000-8z"/>
+          </svg>
+          <svg class="h-5 w-5 dark:hidden" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mx-auto flex max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-72 -translate-x-full transform overflow-y-auto border-r border-slate-200 bg-white px-4 pb-10 pt-20 transition-transform duration-200 ease-out dark:border-slate-800 dark:bg-slate-950 lg:sticky lg:top-20 lg:z-0 lg:h-[calc(100vh-5rem)] lg:translate-x-0 lg:bg-transparent lg:px-0 lg:pt-0 lg:dark:bg-transparent"
+    >
+      <nav class="space-y-6 text-sm">
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            소개
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../guide.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                주말 동안 Claude Code 마스터하기
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            학습 로드맵
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../LEARNING-ROADMAP.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                📚 Claude Code 학습 로드맵
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            빠른 참조
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../QUICK_REFERENCE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude Code 예제 - 빠른 참조 카드
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Claude 개념 가이드
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../claude_concepts_guide.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude 개념 완벽 가이드
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            슬래시 명령어
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../01-slash-commands/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                슬래시 명령어
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../01-slash-commands/commit.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                commit
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../01-slash-commands/doc-refactor.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서 리팩터링
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../01-slash-commands/generate-api-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API 문서 생성기
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../01-slash-commands/optimize.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 최적화
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../01-slash-commands/pr.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                풀 리퀘스트 준비 체크리스트
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../01-slash-commands/push-all.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                모든 것을 커밋하고 푸시하기
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../01-slash-commands/setup-ci-cd.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                CI/CD 파이프라인 설정
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../01-slash-commands/unit-test-expand.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                단위 테스트 확장
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            메모리
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../02-memory/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                메모리 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../02-memory/directory-api-CLAUDE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API 모듈 표준
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../02-memory/personal-CLAUDE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                저의 개발 선호 사항
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../02-memory/project-CLAUDE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                프로젝트 구성
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            스킬
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                에이전트 스킬 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href=""
+                class="block rounded-md px-3 py-1.5 transition-colors bg-brand-50 font-semibold text-brand-700 dark:bg-brand-700/20 dark:text-brand-100"
+              >
+                SKILL
+              </a>
+            </li>
+            <li>
+              <a
+                href="templates/draft-template.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                [블로그 게시물 제목]
+              </a>
+            </li>
+            <li>
+              <a
+                href="templates/outline-template.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                블로그 게시물 개요: [Title]
+              </a>
+            </li>
+            <li>
+              <a
+                href="../brand-voice/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                브랜드 보이스 스킬
+              </a>
+            </li>
+            <li>
+              <a
+                href="../brand-voice/tone-examples.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                브랜드 보이스 톤 예시
+              </a>
+            </li>
+            <li>
+              <a
+                href="../claude-md/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                프로젝트 이름
+              </a>
+            </li>
+            <li>
+              <a
+                href="../code-review-specialist/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 검토 스킬
+              </a>
+            </li>
+            <li>
+              <a
+                href="../code-review-specialist/templates/finding-template.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Code Review Finding Template
+              </a>
+            </li>
+            <li>
+              <a
+                href="../code-review-specialist/templates/review-checklist.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Code Review Checklist
+              </a>
+            </li>
+            <li>
+              <a
+                href="../doc-generator/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API 문서 생성기 기능
+              </a>
+            </li>
+            <li>
+              <a
+                href="../refactor/SKILL.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 리팩터링 스킬
+              </a>
+            </li>
+            <li>
+              <a
+                href="../refactor/references/code-smells.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 스멜 카탈로그
+              </a>
+            </li>
+            <li>
+              <a
+                href="../refactor/references/refactoring-catalog.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                리팩터링 카탈로그
+              </a>
+            </li>
+            <li>
+              <a
+                href="../refactor/templates/refactoring-plan.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                리팩터링 계획 템플릿
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            서브에이전트
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../04-subagents/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                서브에이전트 - 종합 참조 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/clean-code-reviewer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                클린 코드 리뷰어 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/code-reviewer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                코드 리뷰어 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/data-scientist.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                데이터 사이언티스트 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/debugger.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                디버거 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/documentation-writer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서 작성 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/implementation-agent.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                구현 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/performance-optimizer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                성능 최적화 에이전트
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/secure-reviewer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                보안 코드 리뷰어
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../04-subagents/test-engineer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                테스트 엔지니어 에이전트
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            MCP Protocol
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../05-mcp/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                MCP (모델 컨텍스트 프로토콜)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            훅
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../06-hooks/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                훅
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            플러그인
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../07-plugins/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude Code 플러그인
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/devops-automation/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                DevOps 자동화 플러그인
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/devops-automation/agents/alert-analyzer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                알림 분석기
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/devops-automation/agents/deployment-specialist.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                배포 전문가
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/devops-automation/agents/incident-commander.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                사고 대응 총괄자
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/devops-automation/commands/deploy.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                애플리케이션 배포
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/devops-automation/commands/incident.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                장애 대응
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/devops-automation/commands/rollback.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                배포 롤백
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/devops-automation/commands/status.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                시스템 상태 점검
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서화 플러그인
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/agents/api-documenter.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API Documenter
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/agents/code-commentator.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Code Commentator
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/agents/example-generator.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Example Generator
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/commands/generate-api-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                API Documentation Generator
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/commands/generate-readme.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                README 생성기
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/commands/sync-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서 동기화
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/commands/validate-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                문서 검증
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/templates/adr-template.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                ADR [번호]: [제목]
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/templates/api-endpoint.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                [METHOD] /api/v1/[endpoint]
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/documentation/templates/function-docs.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                함수: `functionName`
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/pr-review/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                PR 리뷰 플러그인
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/pr-review/agents/performance-analyzer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                성능 분석기
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/pr-review/agents/security-reviewer.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                보안 리뷰어
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/pr-review/agents/test-checker.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                테스트 검사기
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/pr-review/commands/check-security.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                보안 점검
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/pr-review/commands/check-tests.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                테스트 커버리지 점검
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../07-plugins/pr-review/commands/review-pr.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                PR 리뷰
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            체크포인트
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../08-checkpoints/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                체크포인트 및 되감기
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../08-checkpoints/checkpoint-examples.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                체크포인트 예제(Checkpoints and Rewind Examples)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            고급 기능
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../09-advanced-features/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                고급 기능
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../09-advanced-features/planning-mode-examples.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                계획 모드 예제(Planning Mode Examples)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            CLI Reference
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../10-cli/index.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                CLI 참조
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Feature Catalog
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../CATALOG.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude Code 기능 카탈로그
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Index
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../INDEX.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude Code 예시 - 전체 색인
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Style Guide
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../STYLE_GUIDE.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                스타일 가이드
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            참고 자료
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../resources.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                유용한 리소스 목록
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            Additional Docs
+          </div>
+          <ul class="space-y-0.5">
+            <li>
+              <a
+                href="../../CHANGELOG.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                변경 로그
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../CODE_OF_CONDUCT.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                기여자 행동 강령
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../CONTRIBUTING.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                Claude How To 기여 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../SECURITY.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                보안 정책
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../TRANSLATION_NOTES.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                번역 용어집 및 스타일 가이드
+              </a>
+            </li>
+            <li>
+              <a
+                href="../../clean-code-rules.html"
+                class="block rounded-md px-3 py-1.5 transition-colors text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+              >
+                AI 코드 생성을 위한 클린 코드 규칙
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <div
+      id="sidebar-backdrop"
+      class="fixed inset-0 z-30 hidden bg-slate-900/40 lg:hidden"
+      aria-hidden="true"
+    ></div>
+
+    <main class="flex min-w-0 flex-1 flex-col">
+      <nav class="mb-4 text-xs text-slate-500 dark:text-slate-400" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center gap-1.5">
+          <li><a href="../../index.html" class="hover:underline">홈</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-slate-700 dark:text-slate-200">스킬</li>
+          <li aria-hidden="true">/</li>
+          <li class="text-slate-700 dark:text-slate-200">SKILL</li>
+        </ol>
+      </nav>
+
+      <article class="prose prose-slate max-w-none prose-headings:scroll-mt-24 prose-headings:font-semibold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline prose-code:rounded prose-code:bg-slate-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-sm prose-code:before:content-none prose-code:after:content-none prose-pre:bg-slate-900 prose-pre:text-slate-100 prose-img:rounded-lg prose-table:text-sm dark:prose-invert dark:prose-code:bg-slate-800 dark:prose-pre:bg-slate-900">
+        <hr/>
+<p>name: blog-draft
+description: 아이디어와 자료를 바탕으로 블로그 게시물을 작성합니다. 사용자가 블로그 게시물을 작성하거나, 연구를 통해 콘텐츠를 만들거나, 기사를 초안할 때 사용합니다. 연구, 브레인스토밍, 개요 작성, 버전 관리를 통한 반복적인 초안 작성을 안내합니다.</p>
+<hr/>
+<!-- i18n-source: 03-skills/blog-draft/SKILL.md -->
+<!-- i18n-source-sha: b968f42 -->
+<!-- i18n-date: 2026-10-31 -->
+<h2 id="사용자-입력">사용자 입력</h2>
+<pre class="codehilite"><code class="language-text">$ARGUMENTS
+</code></pre>
+<p>계속 진행하기 전에 사용자 입력을 <strong>반드시</strong> 고려해야 합니다. 사용자는 다음을 제공해야 합니다:
+- <strong>아이디어/주제</strong>: 블로그 게시물의 주요 개념 또는 테마
+- <strong>자료</strong>: 연구를 위한 URL, 파일 또는 참고 자료 (선택 사항이지만 권장됨)
+- <strong>대상 독자</strong>: 블로그 게시물이 누구를 위한 것인지 (선택 사항)
+- <strong>어조/스타일</strong>: 공식적, 비공식적, 기술적 등 (선택 사항)</p>
+<p><strong>중요</strong>: 사용자가 <strong>기존 블로그 게시물</strong>에 대한 업데이트를 요청하는 경우, 0-8단계를 건너뛰고 <strong>9단계</strong>부터 바로 시작하세요. 먼저 기존 초안 파일을 읽은 다음, 반복 프로세스를 진행하세요.</p>
+<h2 id="실행-흐름">실행 흐름</h2>
+<p>다음 단계를 순서대로 따르세요. <strong>명시된 사용자 승인 없이는 단계를 건너뛰거나 다음으로 진행하지 마세요.</strong></p>
+<h3 id="0단계-프로젝트-폴더-생성">0단계: 프로젝트 폴더 생성</h3>
+<ol>
+<li>다음 형식으로 폴더 이름을 생성합니다: <code>YYYY-MM-DD-short-topic-name</code></li>
+<li>오늘 날짜를 사용합니다.</li>
+<li>
+<p>주제에서 짧고 URL 친화적인 슬러그를 생성합니다 (소문자, 하이픈, 최대 5단어).</p>
+</li>
+<li>
+<p>폴더 구조를 생성합니다:
+   <code>blog-posts/
+   └── YYYY-MM-DD-short-topic-name/
+       └── resources/</code></p>
+</li>
+<li>
+<p>계속 진행하기 전에 사용자에게 폴더 생성을 확인합니다.</p>
+</li>
+</ol>
+<h3 id="1단계-연구-및-자료-수집">1단계: 연구 및 자료 수집</h3>
+<ol>
+<li>
+<p>블로그 게시물 디렉터리에 <code>resources/</code> 하위 폴더를 생성합니다.</p>
+</li>
+<li>
+<p>제공된 각 자료에 대해:</p>
+</li>
+<li><strong>URL</strong>: 주요 정보를 가져와 <code>resources/</code>에 마크다운 파일로 저장합니다.</li>
+<li><strong>파일</strong>: <code>resources/</code>에서 읽고 요약합니다.</li>
+<li>
+<p><strong>주제</strong>: 웹 검색을 사용하여 최신 정보를 수집합니다.</p>
+</li>
+<li>
+<p>각 자료에 대해 <code>resources/</code>에 요약 파일을 생성합니다:</p>
+</li>
+<li><code>resources/source-1-[short-name].md</code></li>
+<li><code>resources/source-2-[short-name].md</code></li>
+<li>
+<p>etc.</p>
+</li>
+<li>
+<p>각 요약에는 다음 내용이 포함되어야 합니다:
+   ```markdown
+   # Source: [Title/URL]</p>
+</li>
+</ol>
+<p>## Key Points
+   - Point 1
+   - Point 2</p>
+<p>## Relevant Quotes/Data
+   - Quote or statistic 1
+   - Quote or statistic 2</p>
+<p>## How This Relates to Topic
+   Brief explanation of relevance
+   ```</p>
+<ol>
+<li>사용자에게 연구 요약을 제시합니다.</li>
+</ol>
+<h3 id="2단계-브레인스토밍-및-명확화">2단계: 브레인스토밍 및 명확화</h3>
+<ol>
+<li>아이디어와 연구된 자료를 바탕으로 다음을 제시합니다:</li>
+<li>연구에서 파악된 <strong>주요 테마</strong></li>
+<li>블로그 게시물에 대한 <strong>잠재적 관점</strong></li>
+<li>다루어야 할 <strong>핵심 요점</strong></li>
+<li>
+<p>명확화가 필요한 정보의 <strong>공백</strong></p>
+</li>
+<li>
+<p>명확화 질문을 합니다:</p>
+</li>
+<li>독자들이 얻어가길 바라는 주요 메시지는 무엇인가요?</li>
+<li>연구에서 강조하고 싶은 특정 요점이 있나요?</li>
+<li>목표 길이는 얼마인가요? (짧음: 500-800단어, 중간: 1000-1500단어, 김: 2000단어 이상)</li>
+<li>
+<p>제외하고 싶은 요점이 있나요?</p>
+</li>
+<li>
+<p><strong>진행하기 전에 사용자 응답을 기다립니다.</strong></p>
+</li>
+</ol>
+<h3 id="3단계-개요-제안">3단계: 개요 제안</h3>
+<ol>
+<li>다음을 포함하는 구조화된 개요를 생성합니다:</li>
+</ol>
+<p>```markdown
+   # Blog Post Outline: [Title]</p>
+<p>## Meta Information
+   - <strong>Target Audience</strong>: [who]
+   - <strong>Tone</strong>: [style]
+   - <strong>Target Length</strong>: [word count]
+   - <strong>Main Takeaway</strong>: [key message]</p>
+<p>## Proposed Structure</p>
+<p>### Hook/Introduction
+   - Opening hook idea
+   - Context setting
+   - Thesis statement</p>
+<p>### Section 1: [Title]
+   - Key point A
+   - Key point B
+   - Supporting evidence from [source]</p>
+<p>### Section 2: [Title]
+   - Key point A
+   - Key point B</p>
+<p>[Continue for all sections...]</p>
+<p>### Conclusion
+   - Summary of key points
+   - Call to action or final thought</p>
+<p>## Sources to Cite
+   - Source 1
+   - Source 2
+   ```</p>
+<ol>
+<li>사용자에게 개요를 제시하고 <strong>승인 또는 수정 요청 여부를 묻습니다.</strong></li>
+</ol>
+<h3 id="4단계-승인된-개요-저장">4단계: 승인된 개요 저장</h3>
+<ol>
+<li>
+<p>사용자가 개요를 승인하면, 블로그 게시물 폴더에 <code>OUTLINE.md</code>로 저장합니다.</p>
+</li>
+<li>
+<p>개요가 저장되었는지 확인합니다.</p>
+</li>
+</ol>
+<h3 id="5단계-개요-커밋-git-저장소인-경우">5단계: 개요 커밋 (git 저장소인 경우)</h3>
+<ol>
+<li>
+<p>현재 디렉터리가 git 저장소인지 확인합니다.</p>
+</li>
+<li>
+<p>그렇다면:</p>
+</li>
+<li>새 파일들을 스테이징합니다: 블로그 게시물 폴더, resources, OUTLINE.md</li>
+<li>Create commit with message: <code>docs: Add outline for blog post - [topic-name]</code></li>
+<li>
+<p>원격 저장소에 푸시합니다.</p>
+</li>
+<li>
+<p>git 저장소가 아니라면, 이 단계를 건너뛰고 사용자에게 알립니다.</p>
+</li>
+</ol>
+<h3 id="6단계-초안-작성">6단계: 초안 작성</h3>
+<ol>
+<li>
+<p>승인된 개요를 바탕으로 블로그 게시물 초안 전체를 작성합니다.</p>
+</li>
+<li>
+<p>OUTLINE.md의 구조를 정확히 따릅니다.</p>
+</li>
+<li>
+<p>다음을 포함합니다:</p>
+</li>
+<li>훅를 포함한 매력적인 서론</li>
+<li>명확한 섹션 헤더</li>
+<li>연구 자료로부터의 뒷받침하는 증거 및 예시</li>
+<li>섹션 간의 부드러운 전환</li>
+<li>주요 메시지가 담긴 강력한 결론</li>
+<li>
+<p><strong>인용</strong>: 모든 비교, 통계, 데이터 포인트 및 사실적 주장은 원본 출처를 <strong>반드시</strong> 인용해야 합니다.</p>
+</li>
+<li>
+<p>초안을 블로그 게시물 폴더에 <code>draft-v0.1.md</code>로 저장합니다.</p>
+</li>
+<li>
+<p>형식:
+   ```markdown
+   # [Blog Post Title]</p>
+</li>
+</ol>
+<p><em>[Optional: subtitle or tagline]</em></p>
+<p>[Full content with inline citations...]</p>
+<hr/>
+<p>## References
+   - [1] Source 1 Title - URL or Citation
+   - [2] Source 2 Title - URL or Citation
+   - [3] Source 3 Title - URL or Citation
+   ```</p>
+<ol>
+<li><strong>인용 요구 사항</strong>:</li>
+<li>모든 데이터 포인트, 통계 또는 비교는 인라인 인용을 <strong>반드시</strong> 포함해야 합니다.</li>
+<li>번호가 매겨진 참조 [1], [2] 등을 사용하거나 이름이 지정된 인용 [Source Name]을 사용합니다.</li>
+<li>인용을 마지막의 참조 섹션에 연결합니다.</li>
+<li>Example: "Studies show that 65% of developers prefer TypeScript [1]"</li>
+<li>Example: "React outperforms Vue in rendering speed by 20% [React Benchmarks 2024]"</li>
+</ol>
+<h3 id="7단계-초안-커밋-git-저장소인-경우">7단계: 초안 커밋 (git 저장소인 경우)</h3>
+<ol>
+<li>
+<p>git 저장소인지 확인합니다.</p>
+</li>
+<li>
+<p>그렇다면:</p>
+</li>
+<li>초안 파일을 스테이징합니다.</li>
+<li>Create commit with message: <code>docs: Add draft v0.1 for blog post - [topic-name]</code></li>
+<li>
+<p>원격 저장소에 푸시합니다.</p>
+</li>
+<li>
+<p>git 저장소가 아니라면, 건너뛰고 사용자에게 알립니다.</p>
+</li>
+</ol>
+<h3 id="8단계-검토를-위한-초안-제시">8단계: 검토를 위한 초안 제시</h3>
+<ol>
+<li>
+<p>초안 내용을 사용자에게 제시합니다.</p>
+</li>
+<li>
+<p>피드백을 요청합니다:</p>
+</li>
+<li>전반적인 인상은 어떤가요?</li>
+<li>확장 또는 축소가 필요한 섹션이 있나요?</li>
+<li>어조 조정이 필요한가요?</li>
+<li>누락된 정보가 있나요?</li>
+<li>
+<p>특정 편집 또는 재작성이 필요한가요?</p>
+</li>
+<li>
+<p><strong>사용자 응답을 기다립니다.</strong></p>
+</li>
+</ol>
+<h3 id="9단계-반복-또는-최종화">9단계: 반복 또는 최종화</h3>
+<p><strong>사용자가 변경을 요청하는 경우:</strong>
+1. 요청된 모든 수정을 기록합니다.
+2. 다음 조정 사항과 함께 6단계로 돌아갑니다:
+   - 버전 번호를 증가시킵니다 (v0.2, v0.3 등).
+   - 모든 피드백을 반영합니다.
+   - <code>draft-v[X.Y].md</code>로 저장합니다.
+   - 7-8단계를 반복합니다.</p>
+<p><strong>사용자가 승인하는 경우:</strong>
+1. 최종 초안 버전을 확인합니다.
+2. 사용자가 요청하는 경우 선택적으로 <code>final.md</code>로 이름을 변경합니다.
+3. 블로그 게시물 생성 과정을 요약합니다:
+   - 생성된 총 버전 수
+   - 버전 간의 주요 변경 사항
+   - 최종 단어 수
+   - 생성된 파일</p>
+<h2 id="버전-추적">버전 추적</h2>
+<p>모든 초안은 점진적인 버전 관리를 통해 보존됩니다:
+- <code>draft-v0.1.md</code> - 초기 초안
+- <code>draft-v0.2.md</code> - 1차 피드백 후
+- <code>draft-v0.3.md</code> - 2차 피드백 후
+- 등</p>
+<p>이는 블로그 게시물의 진화를 추적하고 필요한 경우 되돌릴 수 있게 합니다.</p>
+<h2 id="출력-파일-구조">출력 파일 구조</h2>
+<pre class="codehilite"><code>blog-posts/
+└── YYYY-MM-DD-topic-name/
+    ├── resources/
+    │   ├── source-1-name.md
+    │   ├── source-2-name.md
+    │   └── ...
+    ├── OUTLINE.md
+    ├── draft-v0.1.md
+    ├── draft-v0.2.md (if iterations)
+    └── draft-v0.3.md (if more iterations)
+</code></pre>
+<h2 id="품질-향상을-위한-팁">품질 향상을 위한 팁</h2>
+<ul>
+<li><strong>훅</strong>: 질문, 놀라운 사실 또는 공감할 수 있는 시나리오로 시작합니다.</li>
+<li><strong>흐름</strong>: 각 단락은 다음 단락과 연결되어야 합니다.</li>
+<li><strong>증거</strong>: 연구 자료의 데이터로 주장을 뒷받침합니다.</li>
+<li><strong>인용</strong>: 다음의 경우 출처를 <strong>항상</strong> 인용합니다:</li>
+<li>모든 통계 및 데이터 포인트 (예: "[출처]에 따르면, 75%의 ...")</li>
+<li>제품, 서비스 또는 접근 방식 간의 비교 (예: "X는 Y보다 2배 빠르게 작동합니다 [출처]")</li>
+<li>시장 동향, 연구 결과 또는 벤치마크에 대한 사실적 주장</li>
+<li>[Source Name] 또는 [Author, Year] 형식으로 인라인 인용을 사용합니다.</li>
+<li><strong>어조</strong>: 전체적으로 일관된 어조를 유지합니다.</li>
+<li><strong>길이</strong>: 목표 단어 수를 준수합니다.</li>
+<li><strong>가독성</strong>: 짧은 단락, 적절한 경우 글머리 기호를 사용합니다.</li>
+<li><strong>CTA</strong>: 명확한 행동 유도 또는 생각할 거리를 제공하는 질문으로 끝냅니다.</li>
+</ul>
+<h2 id="참고-사항">참고 사항</h2>
+<ul>
+<li>명시된 체크포인트에서 항상 사용자 승인을 기다립니다.</li>
+<li>기록을 위해 모든 초안 버전을 보존합니다.</li>
+<li>URL이 제공될 때 최신 정보를 위해 웹 검색을 사용합니다.</li>
+<li>자료가 불충분한 경우, 사용자에게 더 많은 자료를 요청하거나 추가 연구를 제안합니다.</li>
+<li>대상 독자 (기술적, 일반적, 비즈니스 등)에 따라 어조를 조정합니다.</li>
+</ul>
+<hr/>
+<p><strong>최종 업데이트</strong>: 2026년 8월 4일
+<strong>Claude Code 버전</strong>: 2.1.220
+<strong>출처</strong>:
+- https://code.claude.com/docs/en/skills
+<strong>호환 모델</strong>: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5</p>
+      </article>
+
+      <div class="mt-12 grid grid-cols-1 gap-3 border-t border-slate-200 pt-6 dark:border-slate-800 sm:grid-cols-2">
+        <a
+          href="../index.html"
+          class="group rounded-lg border border-slate-200 p-4 transition hover:border-brand-500 hover:bg-brand-50/50 dark:border-slate-800 dark:hover:border-brand-500 dark:hover:bg-brand-700/10"
+        >
+          <div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">← Previous</div>
+          <div class="mt-1 font-semibold text-slate-900 group-hover:text-brand-700 dark:text-slate-100 dark:group-hover:text-brand-300">
+            에이전트 스킬 가이드
+          </div>
+        </a>
+        <a
+          href="templates/draft-template.html"
+          class="group rounded-lg border border-slate-200 p-4 text-right transition hover:border-brand-500 hover:bg-brand-50/50 dark:border-slate-800 dark:hover:border-brand-500 dark:hover:bg-brand-700/10"
+        >
+          <div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400">Next →</div>
+          <div class="mt-1 font-semibold text-slate-900 group-hover:text-brand-700 dark:text-slate-100 dark:group-hover:text-brand-300">
+            [블로그 게시물 제목]
+          </div>
+        </a>
+      </div>
+
+      <footer class="mt-12 border-t border-slate-200 pt-6 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+        <p>
+          Content rendered from
+          <a href="https://github.com/leesk212/claude-howto-ko/blob/ko/03-skills/blog-draft/SKILL.md" target="_blank" rel="noopener noreferrer" class="underline hover:text-brand-700 dark:hover:text-brand-300">
+            SKILL
+          </a>
+          on GitHub. Markdown is the single source of truth — re-run
+          <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono dark:bg-slate-800">scripts/build_website.py</code>
+          after editing to refresh the site.
+        </p>
+      </footer>
+    </main>
+
+    <aside class="hidden w-56 xl:block">
+      <div class="sticky top-24 text-sm">
+        <div class="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          On this page
+        </div>
+        <ul class="space-y-1">
+          <li>
+            <a
+              href="#사용자-입력"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >사용자 입력</a>
+          </li>
+          <li>
+            <a
+              href="#실행-흐름"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >실행 흐름</a>
+          </li>
+          <li>
+            <a
+              href="#0단계-프로젝트-폴더-생성"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >0단계: 프로젝트 폴더 생성</a>
+          </li>
+          <li>
+            <a
+              href="#1단계-연구-및-자료-수집"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >1단계: 연구 및 자료 수집</a>
+          </li>
+          <li>
+            <a
+              href="#2단계-브레인스토밍-및-명확화"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >2단계: 브레인스토밍 및 명확화</a>
+          </li>
+          <li>
+            <a
+              href="#3단계-개요-제안"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >3단계: 개요 제안</a>
+          </li>
+          <li>
+            <a
+              href="#4단계-승인된-개요-저장"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >4단계: 승인된 개요 저장</a>
+          </li>
+          <li>
+            <a
+              href="#5단계-개요-커밋-git-저장소인-경우"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >5단계: 개요 커밋 (git 저장소인 경우)</a>
+          </li>
+          <li>
+            <a
+              href="#6단계-초안-작성"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >6단계: 초안 작성</a>
+          </li>
+          <li>
+            <a
+              href="#7단계-초안-커밋-git-저장소인-경우"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >7단계: 초안 커밋 (git 저장소인 경우)</a>
+          </li>
+          <li>
+            <a
+              href="#8단계-검토를-위한-초안-제시"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >8단계: 검토를 위한 초안 제시</a>
+          </li>
+          <li>
+            <a
+              href="#9단계-반복-또는-최종화"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 pl-3 text-xs"
+            >9단계: 반복 또는 최종화</a>
+          </li>
+          <li>
+            <a
+              href="#버전-추적"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >버전 추적</a>
+          </li>
+          <li>
+            <a
+              href="#출력-파일-구조"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >출력 파일 구조</a>
+          </li>
+          <li>
+            <a
+              href="#품질-향상을-위한-팁"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >품질 향상을 위한 팁</a>
+          </li>
+          <li>
+            <a
+              href="#참고-사항"
+              class="block truncate text-slate-600 hover:text-brand-700 dark:text-slate-400 dark:hover:text-brand-300 "
+            >참고 사항</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <script src="../../assets/vendor/pele/pele.global.js"></script>
+  <script>
+    (function () {
+      if (typeof pele === 'undefined') return;
+      // Mount each diagram into a fresh <div>, never into the <pre>: the <pre>
+      // would pass on the monospace font and the dark code-block background.
+      // Colours come from the --pele-* variables in site.css, so the theme
+      // toggle restyles diagrams without re-rendering them.
+      var headings = document.querySelectorAll(
+        'article h1, article h2, article h3, article h4'
+      );
+      // Text of the last heading before `node` in document order.
+      function headingBefore(node) {
+        var text = '';
+        for (var i = 0; i < headings.length; i++) {
+          if (!(headings[i].compareDocumentPosition(node) & Node.DOCUMENT_POSITION_FOLLOWING)) break;
+          text = headings[i].textContent.trim();
+        }
+        return text;
+      }
+      document.querySelectorAll('pre.mermaid').forEach(function (pre) {
+        var source = pre.textContent;
+        var name = headingBefore(pre) || 'Diagram';
+        var container = document.createElement('div');
+        container.className = 'mermaid';
+        pre.replaceWith(container);
+        // Zoom makes a shrunk diagram a tab stop, so it needs a name beyond
+        // its role ("flowchart"). Pele draws a new <svg> on every render
+        // (resize, font load), so name it in onRender, not once after mount.
+        function nameDiagram() {
+          var svg = container.firstElementChild;
+          if (!svg || svg.localName !== 'svg') return;
+          if (svg.hasAttribute('aria-label') || svg.hasAttribute('aria-labelledby')) return;
+          var kind = svg.getAttribute('aria-roledescription');
+          svg.setAttribute('aria-label', kind ? name + ' — ' + kind : name);
+        }
+        try {
+          var m = pele.mount(container, source, {
+            zoom: 'auto',
+            autoDirection: true,
+            onRender: nameDiagram
+          });
+          // mount() reports a diagram it cannot parse or render on m.error
+          // (showing only a short message) instead of throwing: put the
+          // readable source back.
+          if (m.error !== undefined) {
+            m.destroy();
+            container.replaceWith(pre);
+          }
+        } catch (e) {
+          container.replaceWith(pre);
+        }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var toggle = document.getElementById('theme-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          var isDark = document.documentElement.classList.toggle('dark');
+          try {
+            localStorage.setItem('claude-howto-theme', isDark ? 'dark' : 'light');
+          } catch (e) {}
+        });
+      }
+      var navToggle = document.getElementById('nav-toggle');
+      var sidebar = document.getElementById('sidebar');
+      var backdrop = document.getElementById('sidebar-backdrop');
+      function closeSidebar() {
+        if (!sidebar) return;
+        sidebar.classList.add('-translate-x-full');
+        if (backdrop) backdrop.classList.add('hidden');
+      }
+      function openSidebar() {
+        if (!sidebar) return;
+        sidebar.classList.remove('-translate-x-full');
+        if (backdrop) backdrop.classList.remove('hidden');
+      }
+      if (navToggle && sidebar) {
+        navToggle.addEventListener('click', function () {
+          if (sidebar.classList.contains('-translate-x-full')) {
+            openSidebar();
+          } else {
+            closeSidebar();
+          }
+        });
+      }
+      if (backdrop) backdrop.addEventListener('click', closeSidebar);
+    })();
+  </script>
+</body>
+</html>
