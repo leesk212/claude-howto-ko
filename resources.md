@@ -255,7 +255,7 @@ graph TD
 | **Monitor Tool** | 폴링 대신 백그라운드 명령의 stdout 스트림을 모니터링하고 이벤트에 반응 (v2.1.98+) | [Advanced Features](09-advanced-features/) |
 | **/goal mode** | 세션 단위 완료 조건을 등록하면 달성될 때까지 Claude가 작업을 계속 수행 (v2.1.139+) | [Slash Commands](01-slash-commands/) |
 | **claude agents (Agent View)** | 터미널에서 백그라운드 에이전트 조회, 확인 및 재개 가능. 기계 판독용 출력은 `--json` 사용 (v2.1.139+, `--json`은 v2.1.145 추가) | [code.claude.com/docs/en/agent-view](https://code.claude.com/docs/en/agent-view) |
-| **/run, /verify, /run-skill-generator** | 프로젝트 실행, 수정 사항 검증, 프로젝트별 run/verify 스킬 생성 기능 제공 (v2.1.145+) | [Skills Guide](03-skills/) |
+| **/run, /verify, /run-skill-generator** | 프로젝트 실행, 수정 사항 검증, 프로젝트별 run/verify 스킬 생성 기능 제공 | [Skills Guide](03-skills/) |
 
 ---
 **최종 업데이트**: 2026년 10월 26일
@@ -273,4 +273,4 @@ graph TD
 - https://code.claude.com/docs/en/code-review
 - https://code.claude.com/docs/en/scheduled-tasks
 - https://code.claude.com/docs/en/permission-modes#available-modes
-**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

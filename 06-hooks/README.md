@@ -1,6 +1,6 @@
 <!-- i18n-source: 06-hooks/README.md -->
-<!-- i18n-source-sha: 2b530b7 -->
-<!-- i18n-date: 2026-11-06 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -67,7 +67,7 @@
 | `asyncRewake` | `true`이면 백그라운드에서 실행하고 종료 코드 2일 때 Claude를 깨웁니다. `async`를 포함합니다. | `true` |
 | `shell` | `"bash"` 또는 `"powershell"`을 받습니다. 기본값은 `"bash"`이며, Git Bash가 설치되지 않은 Windows에서는 `"powershell"`입니다. PowerShell 훅의 종료 코드 2는 v2.1.309부터만 차단하므로, PowerShell 가드 훅에 의존하기 전에 업그레이드하십시오. | `"bash"` |
 | `statusMessage` | 훅이 실행되는 동안 표시할 사용자 정의 스피너 메시지 | `"Formatting…"` |
-| `onFailure` | command 또는 HTTP 훅이 실패했을 때(시작 불가, 타임아웃, 예상하지 못한 종료 코드) 동작을 어떻게 처리할지 지정합니다: `"continue"`(기본값) 또는 `"block"`(v2.1.295+) | `"block"` |
+| `onFailure` | command 또는 HTTP 훅이 실패했을 때(시작 불가, 타임아웃, 예상하지 못한 종료 코드) 동작을 어떻게 처리할지 지정합니다: `"continue"`(기본값) 또는 `"block"`(v2.1.295+). Agent SDK 훅 콜백에서는 이 값을 matcher에 설정합니다. TypeScript에서는 `onFailure: "block"`(Agent SDK v0.3.317+), Python에서는 `on_failure="block"`(v0.2.177+)을 지정하면 콜백이 실패했을 때 동작을 실행하지 않고 차단합니다. | `"block"` |
 
 > **참고**: 일부 이벤트는 기본 타임아웃을 낮춥니다. `UserPromptSubmit`은 `command`, `http`, `mcp_tool`의 기본값을 30초로, `MessageDisplay`는 10초로 낮춥니다. `SessionEnd` 훅은 1.5초 예산을 공유하며, 설정에서 훅별 `timeout`을 더 길게 지정하면 Claude Code가 그에 맞춰 예산을 최대 60초까지 늘립니다.
 
@@ -231,7 +231,7 @@ LLM이 프롬프트를 평가하고 구조화된 결정을 반환합니다(자�
 - `"tool"` -- 해당 서버에서 호출할 도구 이름
 - `"input"` -- 도구에 전달할 선택적 인수입니다. 문자열 값은 `"${tool_input.file_path}"`처럼 훅의 JSON 입력에서 가져오는 `${path}` 치환을 지원합니다
 
-도구의 인수는 훅 입력에서 직접 오는 것이 아니라 `input`(`${path}` 치환 포함)에서 옵니다. MCP 서버 구성 방법은 [MCP 서버 설정](../05-mcp/README.md)을 참고하십시오.
+도구의 인수는 훅 입력에서 직접 오는 것이 아니라 `input`(`${path}` 치환 포함)에서 옵니다. MCP 서버 구성 방법은 [MCP 서버 설정](../05-mcp/README.md)을 참고하십시오. Claude Code가 도구의 응답을 읽을 수 없으면(예: stdio 또는 HTTP 서버가 16 MiB를 넘는 응답을 보낸 경우) `PreToolUse` `mcp_tool` 훅은 판정을 내리지 않으며 도구 호출이 거부됩니다(v2.1.321, 이전 버전에서는 훅을 건너뛰었습니다).
 
 ### 에이전트 훅
 
@@ -336,14 +336,14 @@ Claude가 도구 매개변수를 만든 뒤, 처리하기 전에 실행됩니다
   - `"allow"`는 권한 프롬프트를 건너뜁니다(사용자 상호 작용이 필요한 도구와 조직에서 `ask`로 설정한 커넥터 도구는 제외)
   - `"deny"`는 도구 호출을 막습니다
   - `"ask"`는 사용자에게 확인을 요청하며, 프롬프트에 훅이 속한 플러그인이나 스킬의 이름이 표시됩니다(v2.1.301). 자동 모드에서는 호출이 분류기 대신 프롬프트로 전달됩니다. 다만 Claude Code 자체 검사가 표시한 호출(보호된 경로, 샌드박스 없는 재시도)은 분류기가 여전히 거부할 수 있으며, `SubagentHandback` 호출은 프롬프트 없이 실행되므로 이를 막으려면 `"deny"`를 반환하세요
-  - `"defer"`는 나중에 도구를 재개할 수 있도록 턴을 종료하며, `-p`를 사용한 비대화형 모드에서만 동작합니다(대화형 세션에서는 경고를 기록하고 무시합니다). 결과에는 `stop_reason: "tool_deferred"`가 포함됩니다. 이 값에서는 `permissionDecisionReason`, `updatedInput`, `additionalContext`가 모두 무시됩니다
+  - `"defer"`는 나중에 도구를 재개할 수 있도록 턴을 종료하며, `-p`를 사용한 비대화형 모드에서, 그리고 Claude가 해당 턴에서 도구를 하나만 호출할 때만 동작합니다(대화형 세션에서는 경고를 기록하고 무시합니다). 결과에는 `stop_reason: "tool_deferred"`가 포함됩니다. 이 값에서는 `permissionDecisionReason`, `updatedInput`, `additionalContext`가 모두 무시됩니다. 적용할 수 없는 `defer`가 더 이상 다른 훅의 `ask`를 버리지 않습니다(v2.1.321). 재개할 때 지연된 호출의 도구가 없으면(`stop_reason: "tool_deferred_unavailable"`) 호출은 보류 상태로 남고 실행은 종료 코드 1로 끝납니다(v2.1.319). 이 호출을 버리려면 프롬프트와 함께 `CLAUDE_CODE_DROP_UNAVAILABLE_DEFERRED_TOOL=1`을 설정해 재개하십시오.
   - 훅이 무엇을 반환하든 deny 및 ask 규칙은 여전히 평가됩니다. 여러 `PreToolUse` 훅의 결정이 다르면 우선순위는 `deny` > `defer` > `ask` > `allow`입니다
 - `permissionDecisionReason`: 결정에 대한 설명입니다. `"ask"`에서는 (Claude가 아닌) 사용자에게, `"deny"`에서는 Claude에게 표시되며, `"allow"`와 `"defer"`에서는 디버그 로그에만 기록됩니다
 - `updatedInput`: 대체할 도구 입력입니다(입력 객체 전체를 대체). v2.1.300부터 Claude 자신의 입력처럼 검증되어, 알 수 없는 키는 제거되고 도구가 거부하는 입력은 호출을 거부합니다. 같은 호출에 대해 여러 `PreToolUse` 훅이 `updatedInput`을 반환하면 Claude Code는 재작성 내용을 병합하지 않으며 어떤 입력으로 도구가 실행될지 보장하지 않으므로, 특정 도구의 입력은 하나의 훅만 재작성하도록 하십시오.
 
 ### PostToolUse
 
-도구가 완료된 직후 실행됩니다. 검증, 로깅, Claude에게 컨텍스트를 다시 제공하는 용도로 사용합니다.
+도구가 완료된 직후 실행됩니다. v2.1.319부터는 도구가 실행 중일 때 `Ctrl+Enter`로 보낸 메시지가 턴을 끝내고 그 뒤 도구가 완료되더라도, `PostToolUse` 훅이 그 결과에 대해 여전히 실행되며 10초 안에 끝나야 합니다(더 오래 걸리는 작업에는 `async: true`를 사용하십시오). `Esc`를 누르면 이 훅이 취소됩니다. 검증, 로깅, Claude에게 컨텍스트를 다시 제공하는 용도로 사용합니다.
 
 **구성:**
 ```json
@@ -1657,8 +1657,8 @@ chmod +x ~/.claude/hooks/*.sh
 
 ---
 
-**최종 업데이트**: 2026년 11월 1일
-**Claude Code 버전**: 2.1.316
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/hooks
 - https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
@@ -1689,4 +1689,9 @@ chmod +x ~/.claude/hooks/*.sh
 - https://code.claude.com/docs/en/hooks#json-output
 - https://code.claude.com/docs/en/env-vars#variables
 - https://code.claude.com/docs/en/model-config#extended-context
-**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+- https://code.claude.com/docs/en/agent-sdk/hooks#block-the-action-when-a-callback-fails
+- https://code.claude.com/docs/en/hooks#mcp-tool-hook-fields
+- https://code.claude.com/docs/en/changelog#2-1-321
+- https://code.claude.com/docs/en/changelog#2-1-319
+- https://code.claude.com/docs/en/hooks#posttooluse-after-an-interrupt
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

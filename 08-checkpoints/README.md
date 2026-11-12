@@ -1,6 +1,6 @@
 <!-- i18n-source: 08-checkpoints/README.md -->
-<!-- i18n-source-sha: 2b530b7 -->
-<!-- i18n-date: 2026-11-06 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -257,7 +257,7 @@ Claude Code는 **최근 100개 체크포인트**의 스냅숏만 보관하며, �
 - **버전 관리 시스템 대체 불가** - 영구적이고 감사 가능한 변경 이력은 Git을 사용해야 함
 - **서브에이전트 편집은 복원되지 않음** - 대화에서 Claude가 아직 편집하지 않은 파일을 서브에이전트가 편집하면 추적되지 않으므로 `/rewind`는 이를 그대로 둠(git으로 되돌려야 함). 예외적으로 포그라운드 `context: fork` 스킬의 편집은 메인 세션과 마찬가지로 복원됨
 
-> **v2.1.216 업데이트**: `/rewind`는 더 이상 추적 경로의 심볼릭 링크나 하드 링크를 통해 파일을 복원하거나 삭제하지 않습니다. 추적 경로가 심볼릭 링크나 하드 링크로 해석되면 링크를 따라가지 않고 건너뛰며, 이 이유로 건너뛴 경로 수를 보고합니다.
+> **v2.1.216 업데이트**: `/rewind`는 더 이상 추적 경로의 심볼릭 링크나 하드 링크를 통해 파일을 복원하거나 삭제하지 않습니다. 추적 경로가 심볼릭 링크나 하드 링크로 해석되면 링크를 따라가지 않고 건너뛰며(v2.1.319부터는 디렉터리 심볼릭 링크도 따라가지 않습니다), 이 이유로 건너뛴 경로 수를 보고합니다.
 
 ## 문제 해결(Troubleshooting)
 
@@ -278,6 +278,7 @@ Claude Code는 **최근 100개 체크포인트**의 스냅숏만 보관하며, �
 - 커밋되지 않은 변경 사항 충돌 여부 확인
 - 체크포인트 손상 여부 확인
 - 다른 체크포인트로 되감기 시도
+- `/branch` 이전의 체크포인트로 코드를 복원할 때 `No files were restored`가 표시되는 문제: v2.1.319에서 수정되었으므로 Claude Code를 업데이트하십시오
 
 ## Git과의 통합
 
@@ -352,8 +353,8 @@ Claude Code는 **최근 100개 체크포인트**의 스냅숏만 보관하며, �
 
 ---
 
-**최종 업데이트**: 2026년 11월 1일
-**Claude Code 버전**: 2.1.316
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/checkpointing
 - https://code.claude.com/docs/en/settings
@@ -368,4 +369,6 @@ Claude Code는 **최근 100개 체크포인트**의 스냅숏만 보관하며, �
 - https://code.claude.com/docs/en/checkpointing#external-changes-not-tracked
 - https://code.claude.com/docs/en/changelog#2-1-311
 - https://code.claude.com/docs/en/checkpointing#rewind-and-summarize
-**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+- https://code.claude.com/docs/en/errors#no-files-were-restored
+- https://code.claude.com/docs/en/changelog#2-1-319
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

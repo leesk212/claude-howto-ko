@@ -1,6 +1,6 @@
 <!-- i18n-source: 09-advanced-features/README.md -->
-<!-- i18n-source-sha: 2b530b7 -->
-<!-- i18n-date: 2026-11-06 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -233,7 +233,7 @@ claude --model opusplan "design and implement the new API"
 
 **자동 활성화**:
 - 모든 모델 (Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 모델, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Sonnet 4.6, Haiku 4.5)에 기본적으로 활성화되어 있습니다.
-- Opus 5 / Opus 4.8: 노력 수준이 있는 적응형 추론: `low` (○), `medium` (◐), `high` (●), `xhigh`, `max`. 기본값은 Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5에서 `medium`이고, Opus 5 (v2.1.219), Sonnet 5, Opus 4.8 (v2.1.154), Opus 4.6, Sonnet 4.6에서 `high`이며, Opus 4.7에서 `xhigh`입니다. `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다 (Opus 4.6 / Sonnet 4.6에서는 `high`로 대체됩니다). `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동합니다 (세션 전용). Haiku 4.5에는 노력 수준이 없습니다. Opus 5, Opus 4.8, Opus 4.7은 1M 토큰의 기본 컨텍스트 창을 가집니다 (1M 컨텍스트 수정은 v2.1.117에 적용됨 — 이전에는 `/context`가 Opus 4.7을 200K 창에 대해 잘못 계산하여 조기 자동 압축을 트리거했습니다). v2.1.129부터 `/context`는 UI 내에서만 시각화를 표시합니다. ASCII 시각화는 더 이상 대화 컨텍스트로 유출되지 않으므로 (호출당 약 1.6k 토큰 절약), `/context`는 자유롭게 호출해도 안전합니다.
+- Opus 5 / Opus 4.8: 노력 수준이 있는 적응형 추론: `low` (○), `medium` (◐), `high` (●), `xhigh`, `max`. 기본값은 Fable 5.2, Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5에서 `medium`이고, Fable 5.1, Fable 5, Opus 5 (v2.1.219), Sonnet 5, Opus 4.8 (v2.1.154), Opus 4.6, Sonnet 4.6에서 `high`이며, Opus 4.7에서 `xhigh`입니다. `xhigh`는 Fable 모델, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다 (Opus 4.6 / Sonnet 4.6에서는 `high`로 대체됩니다). `max`는 Fable 모델, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동합니다 (세션 전용). Haiku 4.5에는 노력 수준이 없습니다. Opus 5, Opus 4.8, Opus 4.7은 1M 토큰의 기본 컨텍스트 창을 가집니다 (1M 컨텍스트 수정은 v2.1.117에 적용됨 — 이전에는 `/context`가 Opus 4.7을 200K 창에 대해 잘못 계산하여 조기 자동 압축을 트리거했습니다). v2.1.129부터 `/context`는 UI 내에서만 시각화를 표시합니다. ASCII 시각화는 더 이상 대화 컨텍스트로 유출되지 않으므로 (호출당 약 1.6k 토큰 절약), `/context`는 자유롭게 호출해도 안전합니다.
 - Opus 4.6 / Sonnet 4.6의 Pro/Max 구독자: v2.1.117에서 기본 노력 수준이 `medium`에서 `high`로 상향 조정되었습니다.
 - 다른 모델: 최대 31,999 토큰의 고정 예산
 
@@ -247,9 +247,9 @@ claude --model opusplan "design and implement the new API"
 export MAX_THINKING_TOKENS=1024
 ```
 
-**노력 수준** (Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6에서 지원 — Haiku 4.5 제외):
+**노력 수준** (Fable 모델, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6에서 지원 — Haiku 4.5 제외):
 ```bash
-export CLAUDE_CODE_EFFORT_LEVEL=high   # low (○), medium (◐), high (●), xhigh (Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7), or max — default is high on Opus 5 and Opus 4.8
+export CLAUDE_CODE_EFFORT_LEVEL=high   # low (○), medium (◐), high (●), xhigh (Fable models, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7), or max — default is high on Opus 5 and Opus 4.8
 ```
 
 **CLI 플래그**:
@@ -262,7 +262,7 @@ claude --effort high "complex architectural review"
 /effort high
 ```
 
-> **참고:** 프롬프트의 "ultrathink" 키워드는 심층 추론 모드를 활성화합니다. v2.1.311부터 대화형 터미널에서 이 키워드를 입력하면 Anthropic API를 통해 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 해당 턴을 `xhigh` 노력 수준으로 실행합니다(적용 가능하면 단어가 무지개색으로 바뀌며, Claude가 작업하는 중에 입력하면 그 턴의 나머지 부분의 노력 수준을 높입니다. VS Code는 v2.1.316부터 지원). Bedrock이나 다른 모델에서는 대신 노력 수준을 설정하십시오. `CLAUDE_CODE_DISABLE_ULTRATHINK=1`(v2.1.316)로 이 키워드를 끌 수 있습니다. 노력 수준 `low`, `medium`, `high`, `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6에서 지원됩니다 (Haiku 4.5는 지원하지 않음). `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다. 기본 노력 수준은 Opus 5.5, Sonnet 5.5, Haiku 5.5에서 `medium`이고, Opus 5, Sonnet 5, Opus 4.8 (및 Opus 4.6 / Sonnet 4.6)에서 `high`이며, Opus 4.7에서 `xhigh`입니다. 첫 실행 시 기본 노력 수준을 고정하는 Opus 4.8 및 Opus 4.7과 달리 Opus 5에는 그런 고정이 없으므로, 이전에 설정한 수준이 그대로 유지됩니다. `/effort` 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on|off]`)도 있는데, 이는 모델 노력 수준이 **아니며** 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하도록 합니다. v2.1.284부터는 더 이상 `xhigh`를 강제하지 않고 수준을 바꿔도 켜진 상태로 유지됩니다. `--effort ultracode`와 Agent SDK의 `effortLevel: "ultracode"`는 여전히 `xhigh`를 설정합니다.
+> **참고:** 프롬프트의 "ultrathink" 키워드는 심층 추론 모드를 활성화합니다. v2.1.311부터 대화형 터미널에서 이 키워드를 입력하면 Anthropic API를 통해 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.2(v2.1.321+), Fable 5.1에서 해당 턴을 `xhigh` 노력 수준으로 실행합니다(적용 가능하면 단어가 무지개색으로 바뀌며, Claude가 작업하는 중에 입력하면 그 턴의 나머지 부분의 노력 수준을 높입니다. VS Code는 v2.1.316부터 지원). Bedrock이나 다른 모델에서는 대신 노력 수준을 설정하십시오. `CLAUDE_CODE_DISABLE_ULTRATHINK=1`(v2.1.316)로 이 키워드를 끌 수 있습니다. 노력 수준 `low`, `medium`, `high`, `max`는 Fable 모델, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6에서 지원됩니다 (Haiku 4.5는 지원하지 않음). `xhigh`는 Fable 모델, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다. 기본 노력 수준은 Fable 5.2, Opus 5.5, Sonnet 5.5, Haiku 5.5에서 `medium`이고, Fable 5.1, Fable 5, Opus 5, Sonnet 5, Opus 4.8 (및 Opus 4.6 / Sonnet 4.6)에서 `high`이며, Opus 4.7에서 `xhigh`입니다. 첫 실행 시 기본 노력 수준을 고정하는 Opus 4.8 및 Opus 4.7과 달리 Opus 5에는 그런 고정이 없으므로, 이전에 설정한 수준이 그대로 유지됩니다. `/effort` 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on|off]`)도 있는데, 이는 모델 노력 수준이 **아니며** 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하도록 합니다. v2.1.284부터는 더 이상 `xhigh`를 강제하지 않고 수준을 바꿔도 켜진 상태로 유지됩니다. `--effort ultracode`와 Agent SDK의 `effortLevel: "ultracode"`는 여전히 `xhigh`를 설정합니다.
 
 ### Opus 5의 안전 분류기 대체 동작
 
@@ -273,7 +273,7 @@ claude --effort high "complex architectural review"
 
 여기서 이것이 중요한 이유: Opus 5에서 [보안 검토 서브에이전트](../04-subagents/README.md)나 CTF/침투 테스트 작업을 실행한다면, 사이버 보안 프롬프트는 Opus 4.8(노력 상한과 컨텍스트 창이 다름)에서 조용히 재실행되고, 생물학 관련 프롬프트는 즉시 거부될 수 있다고 예상하십시오. 이 동작이 방해된다면 다른 모델을 명시적으로 고정하십시오.
 
-**전환 제어** — `switchModelsOnFlag` 설정(v2.1.170+, 기본값 `true`)은 대체가 조용히 일어날지 결정합니다. `false`로 설정하면 Claude Code가 대신 일시 중지하여 모델 전환과 프롬프트 수정 중 하나를 선택할 수 있게 합니다. `/config`에서 **Switch models when a message is flagged**로 표시됩니다.
+**전환 제어** — `switchModelsOnFlag` 설정(v2.1.170+, 기본값 `true`)은 대체가 조용히 일어날지 결정합니다. `false`로 설정하면 Claude Code가 대신 일시 중지하여 모델 전환과 프롬프트 수정 중 하나를 선택할 수 있게 합니다. 이 일시 중지는 메인 대화에만 해당합니다. 서브에이전트는 절대 일시 중지하지 않으므로, **Ask each time**(`false`)에서는 플래그가 지정된 서브에이전트 요청이 모델을 전환하는 대신 실패합니다(v2.1.318; 이전 버전은 대체 모델로 다시 실행했습니다). `/config`에서 **Switch models when a message is flagged**로 표시됩니다.
 
 ```json
 {
@@ -367,7 +367,7 @@ Migration path: When you reach 50k+ users or specific modules need independent s
 # Set thinking token budget
 export MAX_THINKING_TOKENS=16000
 
-# Set effort level (Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6): low (○), medium (◐), high (●), xhigh (Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7), or max — default is high on Opus 5 and Opus 4.8
+# Set effort level (Fable models, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6): low (○), medium (◐), high (●), xhigh (Fable models, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7), or max — default is high on Opus 5 and Opus 4.8
 export CLAUDE_CODE_EFFORT_LEVEL=high
 ```
 
@@ -627,7 +627,7 @@ Claude: 📢 백그라운드 작업 bg-1234 완료:
 
 ### 백그라운드 작업 관리
 
-`/tasks`(별칭 `/bashes`)를 실행하면 실행 중인 셸과 서브에이전트를 나열하고, 하나를 열어 출력을 보거나 중지할 수 있습니다. `/task` 하위 명령어는 없습니다.
+`/tasks`(별칭 `/bashes`)를 실행하면 실행 중인 셸과 서브에이전트를 나열하고, 하나를 열어 출력을 보거나 중지할 수 있습니다. v2.1.319부터는 **Earlier in this session** 행에 완료된 서브에이전트가 나열되며, 재시작한 뒤에도 이를 다시 열고 메시지를 보낼 수 있습니다. v2.1.321부터는 1,000자가 넘는 명령어의 경우 백그라운드 명령어 알림과 `TaskStop` 결과가 Claude에게 명령어의 시작과 끝 부분만 보여 주므로 컨텍스트를 절약합니다. `/task` 하위 명령어는 없습니다.
 
 ```text
 User: /tasks
@@ -673,7 +673,7 @@ export CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
 
 동시 실행 수도 백그라운드 작업 설정이 아닙니다. 한 번에 실행되는 에이전트 수는 `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`(기본값 `20`)가 결정합니다.
 
-백그라운드 Bash 및 PowerShell 명령어는 무인 세션에서만 시간 제한이 있습니다(v2.1.288). `-p` 실행, Agent SDK 세션, CI 또는 클라우드 세션에서 `run_in_background`로 시작한 명령어는 `timeout`(기본 30분, 최대 2시간) 후 중지되며, 중지되면 Claude에 알림이 갑니다. 터미널, 데스크톱 앱 또는 VS Code 세션의 백그라운드 명령어에는 시간 제한이 없습니다(v2.1.285–v2.1.287에서는 모든 세션에 제한이 적용되었습니다).
+백그라운드 Bash 및 PowerShell 명령어는 무인 세션에서만 시간 제한이 있습니다(v2.1.288). `-p` 실행, Agent SDK 세션, CI 또는 클라우드 세션에서 `run_in_background`로 시작한 명령어는 `timeout`(기본 30분, 프롬프트를 `--input-format stream-json` 대신 텍스트로 전달하는 `-p` 실행에서는 10분, 최대 2시간) 후 중지되며, 중지되면 Claude에 알림이 갑니다. 터미널, 데스크톱 앱 또는 VS Code 세션의 백그라운드 명령어에는 시간 제한이 없습니다(v2.1.285–v2.1.287에서는 모든 세션에 제한이 적용되었습니다).
 
 ---
 
@@ -682,6 +682,8 @@ export CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
 > **v2.1.98에 새로 추가**: 모니터 도구를 사용하면 Claude가 백그라운드 명령어의 stdout을 관찰하고 일치하는 이벤트가 나타나는 즉시 반응할 수 있습니다. 장기 실행 프로세스를 기다리기 위한 폴링 루프와 `sleep`을 대체합니다.
 
 모니터는 stdout에 쓰는 모든 셸 명령어에 연결됩니다. 명령어에서 나오는 각 stdout 줄은 세션을 깨우는 알림이 됩니다. Claude가 명령어를 지정하면, 하네스가 출력을 스트리밍하고 이벤트가 발생하면 전달합니다. 기반 프로세스 실행에 대해서는 관련 [백그라운드 작업](#백그라운드-작업) 섹션을 참조하십시오.
+
+모니터는 WebSocket을 열고 들어오는 각 메시지를 이벤트로 취급할 수도 있습니다. v2.1.319부터 모든 Bash 명령어에 대한 거부 규칙(`Bash` 또는 `Bash(*)`)이 있으면 이러한 감시가 거부되고, 그런 ask 규칙이 있으면 항상 확인을 요청합니다. 모니터 허용 규칙, `bypassPermissions` 모드 또는 자동 모드 분류기가 대신 승인할 수 없습니다. 프록시 뒤에서 감시가 `could not resolve <host>` 오류로 실패하면 `CLAUDE_CODE_PROXY_RESOLVES_HOSTS=1`로 다시 시작하십시오.
 
 > **기한 (v2.1.271)**: 이제 모든 모니터 감시에는 기한이 있습니다. 최대 30분이며, 단일 프롬프트 `-p` 실행에서는 10분입니다. 기한이 지나면 Claude에 알림이 가서 감시를 다시 설정할 수 있습니다. 시간 제한이 없는 감시를 설정하는 방법은 더 이상 없습니다.
 
@@ -748,7 +750,7 @@ v2.1.219부터 동적 워크플로의 기본값은 **중간 크기 지침(에이
 
 ## 예약된 작업
 
-예약된 작업을 사용하면 반복적인 일정 또는 일회성 알림으로 프롬프트를 자동으로 실행할 수 있습니다. 작업은 세션 범위이며, Claude Code가 활성 상태일 때 실행되고 세션이 종료되면 지워집니다. v2.1.72+부터 사용할 수 있습니다.
+예약된 작업을 사용하면 반복적인 일정 또는 일회성 알림으로 프롬프트를 자동으로 실행할 수 있습니다. 작업은 세션 범위이며, Claude Code가 실행 중일 때만 실행됩니다. `--resume` 또는 `--continue`로 재개하면 Claude Code는 만료되지 않은 작업을 복원하며, 예정 시각이 지난 일회성 작업과 자체 페이스 `/loop`는 예외입니다(다시 시작하려면 `/loop`를 다시 실행하십시오). v2.1.72+부터 사용할 수 있습니다.
 
 > **"Routines"는 이제 "클라우드 예약 작업"입니다 (2026년 10월)**: Anthropic 문서는 `/schedule`(별칭 `/routines`, 아래 참조)로 만드는 클라우드 작업인 Routines의 이름을 **클라우드 예약 작업(이전 명칭 routines)**으로 바꾸었고, 이 페이지의 `/loop` 및 크론 작업은 **세션 범위 예약 작업**이라고 부릅니다. 이전 이름은 `claude.ai/code/routines` URL, `/fire` API, 관리자 토글 **Scheduled tasks (Was Routines)**에 남아 있습니다.
 
@@ -783,18 +785,18 @@ in 45 minutes, run the integration tests
 
 **제한 및 동작**:
 - 세션당 최대 **50개의 예약된 작업**
-- 세션 범위 — 세션이 종료되면 지워집니다
-- 반복 작업은 **3일** 후 자동 만료됩니다
+- 세션 범위 — 만료되지 않았다면 `--resume`/`--continue` 시 복원됩니다
+- 반복 작업은 생성 후 **7일**이 지나면 자동 만료됩니다(마지막으로 한 번 실행된 뒤 스스로 삭제됩니다)
 - Claude Code가 실행 중일 때만 작업이 발생합니다 — 놓친 작업에 대한 따라잡기는 없습니다
 
 ### 동작 세부 정보
 
 | 측면 | 세부 사항 |
 |--------|--------|
-| **반복 지터** | 간격의 최대 10% (최대 15분) |
-| **일회성 지터** | :00/:30 경계에서 최대 90초 |
+| **반복 지터** | 다음 실행까지 간격의 최대 절반만큼 늦게 실행되며 최대 30분; `*/5 * * * *` 작업(`/loop 5m`이 만드는 작업)은 지연되지 않고 15초 일찍 시작됩니다 |
+| **일회성 지터** | `:00` 또는 `:30`으로 예약하면 최대 90초 일찍 실행됩니다 |
 | **놓친 발동** | 따라잡기 없음 — Claude Code가 실행 중이 아니면 건너뜀 |
-| **영속성** | 재시작 시 영속되지 않음 |
+| **영속성** | `--resume`/`--continue` 시 복원됨. 단, 만료된 작업, 예정 시각이 지난 일회성 작업, 자체 페이스 `/loop`는 제외; 놓친 실행은 따라잡지 않음 |
 
 ### 클라우드 예약 작업
 
@@ -973,6 +975,8 @@ cat error.log | claude -p "Analyze these errors"
 - name: AI Code Review
   run: claude -p "Review PR"
 ```
+
+v2.1.319부터 자동 모드의 `-p` 실행에서 사용할 수 있는 안전 검사가 없어 작업이 거부된 경우, 0 대신 종료 코드 1로 종료합니다(텍스트 및 JSON 출력).
 
 ### 추가 인쇄 모드 사용 예시
 
@@ -1167,6 +1171,8 @@ claude --resume auth-refactor --fork-session "alternative approach"
 > **OTEL 텔레메트리 — `safety_event` (v2.1.307, v2.1.312부터 더 이상 전송되지 않음)**: 권한 규칙, 자동 모드, 안전 검사, 훅 또는 샌드박스가 거부하거나, 승인을 요청하거나, 되돌려 보낸 각 도구 호출에 대해 `claude_code.safety_event` 로그 이벤트가 발생했으며, `category`, `decision`(`accept`/`reject`/`sent_back`), `decision_source` 속성을 포함했습니다. 명령어 텍스트, 파일 경로, 호스트 이름은 포함하지 않습니다. v2.1.312 변경 로그에 따르면 Claude Code는 더 이상 이 이벤트를 보내지 않지만, 모니터링 문서에는 여전히 나열되어 있습니다.
 
 > **OTEL 텔레메트리 — 조인 속성 (v2.1.310)**: `tool_decision` 및 `tool_result` 이벤트에 호출을 API 응답과 조인하기 위한 `request_id`가 추가되고, 서브에이전트 이벤트에는 `parent_agent_id`가 포함됩니다.
+
+> **OTEL 텔레메트리 — 플랜 및 공급자 속성 (v2.1.317)**: 이제 메트릭, 이벤트, 스팬에 `anthropic.plan`, `anthropic.seat_type`, `anthropic.provider`, `anthropic.custom_base_url`이 포함됩니다.
 
 **요약 동작 제어:**
 
@@ -1522,7 +1528,7 @@ User: Deploy to prodcution<Backspace><Backspace>uction
 
 > **참고**: 독립형 `/output-style` 명령어는 v2.1.73에서 지원 중단(deprecated)되고 v2.1.91에서 제거되었지만, **v2.1.269에서 다시 도입되었으며** v2.1.278에서 사용할 수 있습니다. 헤드리스 및 원격 제어 세션에서 작동합니다. `/config`와 `outputStyle` 설정도 여전히 작동합니다.
 
-출력 스타일은 Claude Code가 세션 시작 시 한 번 읽는 시스템 프롬프트의 일부이므로, 변경 사항은 `/clear` 후 또는 새 세션에서 적용됩니다.
+v2.1.251부터 세션 중에 스타일을 바꾸면 다음 메시지부터 적용되며, Claude Code는 새 스타일의 지침을 대화 속 메시지로 전달합니다. 이전 버전에서는 `/clear` 후 또는 새 세션에서만 새 스타일이 적용되었습니다. 터미널에서는 스타일 파일을 시작할 때 읽으므로, 파일을 만들거나 수정한 뒤에는 Claude Code를 다시 시작하세요.
 
 ### 사용자 지정 출력 스타일
 
@@ -1813,6 +1819,7 @@ claude remote-control --name "Auth Refactor"
 |------|-------------|
 | `--name "title"` | 쉬운 식별을 위한 사용자 지정 세션 제목 |
 | `--verbose` | 상세 연결 로그 표시 |
+| `--settings <file>` | 서버가 시작하는 모든 세션에 설정 파일을 적용합니다(v2.1.321). 파일이 바뀌면 `claude remote-control`을 다시 시작할 때까지 새 세션이 시작되지 않습니다. `remote-control` 뒤에 두십시오. 동사 앞에 `--settings`를 두면 원격 제어가 시작을 거부합니다 |
 
 > **참고 (v2.1.300)**: `claude remote-control`은 더 이상 `--sandbox`나 `--no-sandbox`를 허용하지 않습니다(원래 아무 효과가 없었으며, 이제 둘 중 하나를 전달하면 오류와 함께 종료됩니다). 원격 제어 세션을 샌드박싱하려면 설정 파일에서 `sandbox.enabled`를 설정하십시오.
 
@@ -1844,6 +1851,7 @@ claude remote-control --name "Auth Refactor"
 - 대화형 Claude Code 프로세스당 하나의 원격 세션 — 서버 모드(`claude remote-control`)는 여러 세션을 동시에 제공합니다(`--capacity`, 기본값 32)
 - 호스트 컴퓨터에서 터미널이 열려 있어야 합니다
 - 네트워크에 연결할 수 없으면 서버 모드는 약 10분 후 종료되며, 대화형 세션은 계속 재시도하다가 네트워크가 복구되면 다시 연결됩니다
+- 세션은 시작된 폴더에 머물며, 연결된 클라이언트가 다른 폴더로 옮길 수 없습니다(v2.1.321)
 
 ### 사용 사례
 
@@ -2451,7 +2459,7 @@ export ANTHROPIC_API_KEY=sk-ant-...
 
 # 사고 구성
 export MAX_THINKING_TOKENS=16000
-export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7), or max — default is high on Opus 5 and Opus 4.8 (supported on Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6)
+export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Fable models, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7), or max — default is high on Opus 5 and Opus 4.8 (supported on Fable models, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 4.6)
 
 # 기능 토글
 export CLAUDE_CODE_DISABLE_AUTO_MEMORY=1    # 자동 메모리 비활성화 (자동 메모리 파일을 만들거나 로드하지 않음)
@@ -2620,13 +2628,19 @@ User: /config
 > **변경 로그 기반 (v2.1.222, v2.1.232)**: 이러한 강화 내용은 변경 로그에서 가져온 것이며,
 > 설정 참조 문서에는 아직 자세히 나와 있지 않습니다.
 
-최근 릴리스에서 반복되는 주제는 보안 관련 설정을 복제한 저장소가 더 이상 넓힐 수 없다는 것입니다. 알아 두어야 할 변경 사항은 세 가지입니다.
+최근 릴리스에서 반복되는 주제는 보안 관련 설정을 복제한 저장소가 더 이상 넓힐 수 없다는 것입니다. 알아 두어야 할 변경 사항은 여섯 가지입니다.
 
 **중첩된 저장소는 자체 신뢰 확인이 필요합니다 (v2.1.232).** 신뢰된 상위 디렉터리 안에 있는 Git 저장소는 더 이상 그 신뢰를 상속하지 않습니다. `~/work/monorepo`를 신뢰하고 그 안에 벤더링된 서브모듈이 있다면, Claude Code가 처음 그 서브모듈 안에서 작업할 때 서브모듈을 별도로 신뢰할지 묻습니다.
 
 **`sandbox.ripgrep`은 사용자 범위 전용입니다 (v2.1.232).** 샌드박스가 사용하는 ripgrep 바이너리를 지정하는 이 설정은 사용자 설정, 관리형 설정 또는 `--settings`에서만 적용됩니다. 프로젝트 설정으로는 더 이상 샌드박스가 다른 바이너리를 가리키게 할 수 없습니다.
 
 **원격 제어 자동 시작은 사용자 범위 전용입니다 (v2.1.222).** 저장소 로컬 설정으로는 원격 제어 자동 시작을 활성화할 수 없으며, 사용자 범위에서 `/config`를 통해서만 켤 수 있습니다.
+
+**`--add-dir` 마켓플레이스는 해당 디렉터리의 신뢰가 필요합니다 (v2.1.319).** `--add-dir`로 추가한 디렉터리는 그 디렉터리 자체의 신뢰 대화 상자가 수락된 뒤에만 플러그인 마켓플레이스를 등록합니다.
+
+**자동 모드의 서버 측 검사는 꺼진 상태로 유지됩니다 (v2.1.319).** 프로젝트 외부에서 자동 모드의 서버 측 검사를 끈 뒤에는 프로젝트의 설정 파일이나 플러그인이 이를 다시 켤 수 없습니다.
+
+**관리형 네트워크에서 `CLAUDE_CODE_PROXY_RESOLVES_HOSTS`는 환경 변수 전용입니다 (v2.1.319).** 호스트가 네트워크를 관리하는 환경에서는 설정 파일로 `CLAUDE_CODE_PROXY_RESOLVES_HOSTS`를 더 이상 설정할 수 없으므로, 프로세스 환경에서 설정하십시오.
 
 기억해야 할 패턴: 어떤 설정이 커밋된 파일로 Claude Code가 사용자 머신에서 할 수 있는 일을 확장하게 한다면, 이제 그 설정은 사용자 범위 전용이라고 가정하십시오.
 
@@ -2749,8 +2763,8 @@ Claude Code 및 관련 기능에 대한 자세한 정보는 다음을 참조하�
 
 ---
 
-**최종 업데이트**: 2026년 11월 1일
-**Claude Code 버전**: 2.1.316
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/permission-modes#turn-off-the-critical-path-removal-prompt-in-bypasspermissions-mode
 - https://github.com/anthropics/claude-code/releases/tag/v2.1.314
@@ -2840,4 +2854,18 @@ Claude Code 및 관련 기능에 대한 자세한 정보는 다음을 참조하�
 - https://code.claude.com/docs/en/auto-mode-config#generate-environment-entries-with-auto-mode-setup
 - https://code.claude.com/docs/en/remote-control#requirements
 - https://code.claude.com/docs/en/cli-reference#cli-flags
-**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+- https://code.claude.com/docs/en/scheduled-tasks#seven-day-expiry
+- https://code.claude.com/docs/en/scheduled-tasks#jitter
+- https://code.claude.com/docs/en/scheduled-tasks#limitations
+- https://code.claude.com/docs/en/model-config#subagents-switch-or-fail-without-asking
+- https://code.claude.com/docs/en/changelog#2-1-318
+- https://code.claude.com/docs/en/tools-reference#time-limit-for-background-commands
+- https://code.claude.com/docs/en/changelog#2-1-321
+- https://code.claude.com/docs/en/changelog#2-1-319
+- https://code.claude.com/docs/en/errors#not-carried-over-to-the-sessions-remote-control-starts
+- https://code.claude.com/docs/en/changelog#2-1-317
+- https://code.claude.com/docs/en/permissions#what-runs-before-you-trust-a-folder
+- https://code.claude.com/docs/en/headless
+- https://code.claude.com/docs/en/tools-reference#bash-rules-that-deny-or-prompt-for-websocket-watches
+- https://code.claude.com/docs/en/tools-reference#addresses-and-hosts-denied-to-websocket-watches
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

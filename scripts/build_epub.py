@@ -17,7 +17,7 @@ Usage:
         --root, -r      Root directory containing markdown files (default: repo root)
         --output, -o    Output EPUB file path (default: <root>/claude-howto-guide.epub)
         --verbose, -v   Enable verbose logging
-        --lang          Language tree to build: en, vi, zh, ja or ko (default: en)
+        --lang          Language tree to build: en, vi, zh, ja, ko or fa (default: en)
 
     The script uses inline script dependencies (PEP 723), so uv will
     automatically install required packages in an isolated environment.
@@ -130,6 +130,8 @@ class EPUBConfig:
     ja_subtitle: str = "週末で Claude Code をマスターする"
     ko_title: str = "Claude Code 사용 가이드"
     ko_subtitle: str = "주말 동안 Claude Code 마스터하기"
+    fa_title: str = "راهنمای Claude Code"
+    fa_subtitle: str = "Claude Code را در یک آخر هفته بیاموزید"
 
     # Cover Settings
     cover_width: int = 600
@@ -457,11 +459,19 @@ class MermaidRenderer:
         return rendered
 
 
+# A ```mermaid fence with an optional info string. The `indent` group is
+# re-emitted so a fence nested in a list item stays there. Keep in sync
+# with build_website.py and check_mermaid.py.
+MERMAID_BLOCK_RE = re.compile(
+    r"^(?P<indent>[ \t]*)```[ \t]*mermaid(?:[ \t][^`\n]*)?\n(?P<code>.*?)```",
+    re.DOTALL | re.MULTILINE,
+)
+
+
 def extract_all_mermaid_blocks(
     md_files: list[tuple[Path, str]], logger: logging.Logger
 ) -> list[tuple[int, str]]:
     """Extract all unique Mermaid code blocks from markdown files."""
-    pattern = r"```mermaid\n(.*?)```"
     seen: set[str] = set()
     diagrams: list[tuple[int, str]] = []
     counter = 0
@@ -469,8 +479,8 @@ def extract_all_mermaid_blocks(
     for file_path, _ in md_files:
         try:
             content = file_path.read_text(encoding="utf-8")
-            for match in re.finditer(pattern, content, flags=re.DOTALL):
-                code = match.group(1).strip()
+            for match in MERMAID_BLOCK_RE.finditer(content):
+                code = match.group("code").strip()
                 if code not in seen:
                     seen.add(code)
                     counter += 1
@@ -827,11 +837,14 @@ def handle_svg_image(
 def process_mermaid_blocks(
     md_content: str, book: epub.EpubBook, state: BuildState, logger: logging.Logger
 ) -> str:
-    """Find mermaid code blocks and replace with image references."""
-    pattern = r"```mermaid\n(.*?)```"
+    """Find mermaid code blocks and replace with image references.
+
+    The image keeps the fence's indentation, so a diagram nested in a list
+    item stays inside it.
+    """
 
     def replace_mermaid(match: re.Match[str]) -> str:
-        cache_key = match.group(1).strip()
+        cache_key = match.group("code").strip()
 
         if cache_key in state.mermaid_cache:
             img_data, img_name = state.mermaid_cache[cache_key]
@@ -845,13 +858,13 @@ def process_mermaid_blocks(
                 )
                 book.add_item(img_item)
                 state.mermaid_added_to_book.add(img_name)
-            return f"\n![Diagram](images/{img_name})\n"
+            return f"\n{match.group('indent')}![Diagram](images/{img_name})\n"
         else:
             # This should not happen in strict mode since we pre-fetch all diagrams
             logger.error("Mermaid diagram not found in cache")
             raise MermaidRenderError("Mermaid diagram not found in cache")
 
-    return re.sub(pattern, replace_mermaid, md_content, flags=re.DOTALL)
+    return MERMAID_BLOCK_RE.sub(replace_mermaid, md_content)
 
 
 def convert_internal_links(
@@ -1164,10 +1177,11 @@ def main() -> int:
         "--lang",
         type=str,
         default="en",
-        choices=["en", "vi", "zh", "ja", "ko"],
+        choices=["en", "vi", "zh", "ja", "ko", "fa"],
         help=(
             "Language code: 'en' for English, 'vi' for Vietnamese, "
-            "'zh' for Chinese, 'ja' for Japanese, 'ko' for Korean (default: en)"
+            "'zh' for Chinese, 'ja' for Japanese, 'ko' for Korean, "
+            "'fa' for Persian (default: en)"
         ),
     )
 
@@ -1185,6 +1199,7 @@ def main() -> int:
         "zh": (repo_root / "zh", "claude-howto-guide-zh.epub", EPUBConfig.zh_title),
         "ja": (repo_root / "ja", "claude-howto-guide-ja.epub", EPUBConfig.ja_title),
         "ko": (repo_root / "ko", "claude-howto-guide-ko.epub", EPUBConfig.ko_title),
+        "fa": (repo_root / "fa", "claude-howto-guide-fa.epub", EPUBConfig.fa_title),
     }
     root, default_output_name, title = lang_map[args.lang]
     output = args.output or (repo_root / default_output_name)

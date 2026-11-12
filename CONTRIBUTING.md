@@ -1,6 +1,6 @@
 <!-- i18n-source: CONTRIBUTING.md -->
-<!-- i18n-source-sha: 2b530b7 -->
-<!-- i18n-date: 2026-11-06 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
@@ -105,7 +105,7 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-첫 실행 시 Mermaid 훅용 Node.js 22(pre-commit이 직접 준비하므로 시스템에 Node.js가 없어도 동작합니다)와 버전이 고정된 Pele 번들을 `scripts/.vendor-cache/pele/`에 내려받으며, 이후 실행은 오프라인에서도 동작합니다. Mermaid 훅은 strict 모드로 실행되며 Pele를 실행할 수 없으면 실패합니다. 첫 다운로드 전에 오프라인으로 커밋해야 한다면 `SKIP=mermaid,vietnamese-mermaid,japanese-mermaid,korean-mermaid`로 이 훅들을 건너뛰세요.
+첫 실행 시 Mermaid 훅용 Node.js 22(pre-commit이 직접 준비하므로 시스템에 Node.js가 없어도 동작합니다)와 버전이 고정된 Pele 번들을 `scripts/.vendor-cache/pele/`에 내려받으며, 이후 실행은 오프라인에서도 동작합니다. Mermaid 훅은 strict 모드로 실행되며 Pele를 실행할 수 없으면 실패합니다. 첫 다운로드 전에 오프라인으로 커밋해야 한다면 `SKIP=mermaid,vietnamese-mermaid,japanese-mermaid,korean-mermaid,persian-mermaid`로 이 훅들을 건너뛰세요.
 
 모든 커밋에서 실행되는 훅은 다음과 같습니다.
 
@@ -395,4 +395,4 @@ git diff
 **Claude Code 버전**: 2.1.220
 **출처**:
 - https://code.claude.com/docs/en/overview
-**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

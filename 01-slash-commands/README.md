@@ -1,6 +1,6 @@
 <!-- i18n-source: 01-slash-commands/README.md -->
-<!-- i18n-source-sha: 2b530b7 -->
-<!-- i18n-date: 2026-11-06 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -43,23 +43,23 @@
 | `/color [color\|default]` | 프롬프트 바 색상을 설정합니다. 인자 없이 `/color`를 사용하면 임의의 세션 색상을 선택합니다 (v2.1.128+). 색상 이름 또는 16진수를 전달하여 명시적으로 설정합니다. |
 | `/compact [instructions]` | 선택적 포커스 지침을 사용하여 대화를 압축합니다. 압축에 실패하면 이제 아무 일도 없이 넘어가지 않고 UI에 오류로 표시됩니다 (v2.1.216) |
 | `/config` | 설정 열기 (별칭: `/settings`) |
-| `/context` | 컨텍스트 사용량을 컬러 그리드로 시각화합니다. 사용량이 컨텍스트 창 한도를 넘으면 명시적인 경고를 표시합니다 (v2.1.216) |
+| `/context` | 컨텍스트 사용량을 컬러 그리드로 시각화합니다. 사용량이 컨텍스트 창 한도를 넘으면 명시적인 경고를 표시합니다 (v2.1.216). v2.1.319부터 Claude는 그리드가 아니라 표만 읽으며, 터미널에서는 그 표가 짧게 유지됩니다. 각 목록은 가장 큰 10개 행만 남기고, 필요할 때 로드되는 MCP 도구는 호출되기 전까지 서버당 한 행으로 묶입니다. |
 | `/copy [N]` | 어시스턴트 응답을 클립보드에 복사합니다. `w`는 파일에 씁니다 |
 | `/cost` | `/usage`의 타이핑 단축 별칭 — 비용 탭을 엽니다 (v2.1.118+) |
 | `/desktop` | 데스크톱 앱에서 계속 (별칭: `/app`) |
 | `/diff` | 커밋되지 않은 변경 사항에 대한 대화형 Diff 뷰어. 전체 화면 렌더링에서는 대신 대화 옆에 Diff 패널을 열어 작업을 계속하는 동안 열린 상태로 유지합니다 — 추가/삭제된 줄 수와 함께 변경된 파일을 나열하며, Claude가 파일을 편집하거나 셸 명령을 실행할 때마다 새로 고칩니다. `/diff`를 다시 실행하거나 `✕`를 클릭하면 닫힙니다 (v2.1.260+). 클래식 렌더러는 프롬프트 자리에 뷰어를 엽니다 |
 | `/doctor` | 설치 상태를 진단합니다 — Claude가 응답 중일 때도 열 수 있습니다. 번들 스킬로서 Claude가 설정을 점검하고 수정 사항을 제안하며, 사용자가 확인하면 적용합니다(`claude doctor`는 읽기 전용 진단을 실행). Pro, Max, Ultra, Team, Enterprise 플랜에서는 점검 시 `/usage`가 권장하는 변경 사항도 제안합니다 (v2.1.305, 원격 제어가 연결된 동안에는 건너뜀). `/doctor prompt-audit`(또는 `/checkup prompt-audit`)는 CLAUDE.md 파일, 스킬, 에이전트, 명령어에서 이전 모델용으로 작성된 프롬프트 패턴을 점검합니다 (v2.1.283) |
-| `/effort [low\|medium\|high\|xhigh\|max\|auto\|ultracode [on\|off]]` | 대화형 화살표 키 슬라이더로 노력 수준을 설정합니다. 수준: `low` → `medium` → `high` → `xhigh` (v2.1.111에 새로 추가) → `max`. 기본값은 Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5에서 `medium`, Opus 5, Sonnet 5, Opus 4.8에서 `high`, Opus 4.7에서 `xhigh`입니다. `xhigh`는 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8 또는 Opus 4.7이 필요합니다. `max`는 Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동합니다. `/effort`가 모델별 설정이 되기 전에 저장된 수준은 Opus 5.5처럼 새로 출시된 모델에는 적용되지 않습니다 (v2.1.280). 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on\|off]`)도 있습니다 — 모델 노력 수준이 아니며, 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하게 합니다. v2.1.284부터 더 이상 `xhigh`를 강제하지 않으며 수준을 바꿔도 켜진 상태로 유지됩니다. `/effort ultracode`는 세션 동안 유지되며, `ultracode` 설정을 사용하면 영구적으로 유지됩니다. Claude가 작업 중일 때 실행하면 새 수준은 다음 메시지부터 적용됩니다. 현재 턴 안에서 바꾸려면 Claude가 도구 호출을 실행하는 동안 메시지(예: `keep going`)를 대기열에 넣으세요 |
+| `/effort [low\|medium\|high\|xhigh\|max\|auto\|ultracode [on\|off]]` | 대화형 화살표 키 슬라이더로 노력 수준을 설정합니다. 수준: `low` → `medium` → `high` → `xhigh` (v2.1.111에 새로 추가) → `max`. 기본값은 Opus 5.5(v2.1.280부터 기본 모델), Sonnet 5.5, Haiku 5.5, Fable 5.2에서 `medium`, Fable 5.1, Fable 5, Opus 5, Sonnet 5, Opus 4.8에서 `high`, Opus 4.7에서 `xhigh`입니다. `xhigh`는 Fable 5.2, Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8 또는 Opus 4.7이 필요합니다. `max`는 Fable 5.2, Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6 및 Sonnet 4.6에서 작동합니다. `/effort`가 모델별 설정이 되기 전에 저장된 수준은 Opus 5.5처럼 새로 출시된 모델에는 적용되지 않습니다 (v2.1.280). 슬라이더에는 **Ultracode** 토글(Tab 또는 `/effort ultracode [on\|off]`)도 있습니다 — 모델 노력 수준이 아니며, 세션이 실행 중인 노력 수준에서 Claude가 동적 워크플로를 조율하게 합니다. v2.1.284부터 더 이상 `xhigh`를 강제하지 않으며 수준을 바꿔도 켜진 상태로 유지됩니다. `/effort ultracode`는 세션 동안 유지되며, `ultracode` 설정을 사용하면 영구적으로 유지됩니다. Claude가 작업 중일 때 실행하면 새 수준은 다음 메시지부터 적용됩니다. 현재 턴 안에서 바꾸려면 Claude가 도구 호출을 실행하는 동안 메시지(예: `keep going`)를 대기열에 넣으세요 |
 | `/exit` | REPL 종료 (별칭: `/quit`) |
 | `/export [filename]` | 현재 대화를 파일 또는 클립보드로 내보냅니다 |
 | `/usage-credits` | 속도 제한을 위한 추가 사용량 구성 (v2.1.144에서 `/extra-usage`에서 이름 변경, `/extra-usage`는 여전히 별칭으로 작동) |
-| `/fast [on\|off]` | 빠른 모드 전환. Opus 5.5(v2.1.280부터 빠른 모드 기본값), Opus 5, Opus 4.8에 적용됩니다. Opus 4.8의 빠른 모드는 2026년 10월 30일부로 지원 중단(deprecated)되었으며 2026년 11월 30일에 제거됩니다. 그 이후에는 Opus 4.8에 대한 빠른 요청이 표준 속도로 대체되지 않고 오류를 반환하므로, 속도 향상을 유지하려면 Opus 5.5로 전환하세요 (v2.1.316) |
+| `/fast [on\|off]` | 빠른 모드 전환. Fable 5.2(v2.1.321+), Opus 5.5(v2.1.280부터 빠른 모드 기본값), Opus 5, Opus 4.8에 적용됩니다. Opus 4.8의 빠른 모드는 2026년 10월 30일부로 지원 중단(deprecated)되었으며 2026년 11월 30일에 제거됩니다. 그 이후에는 Opus 4.8에 대한 빠른 요청이 표준 속도로 대체되지 않고 오류를 반환하므로, 속도 향상을 유지하려면 Opus 5.5로 전환하세요 (v2.1.316) |
 | `/feedback` | 피드백 제출. v2.1.141부터 최근 세션(지난 24시간 또는 7일)을 첨부할 수 있어 여러 세션에 걸친 보고서에 컨텍스트가 포함됩니다. v2.1.178부터 `/bug`는 제출 전에 설명이 필요합니다. |
 | `/focus` | 포커스 뷰 전환 (v2.1.110에 추가, 포커스 토글용 `Ctrl+O`를 대체) |
 | `/goal <statement>` | 세션 수준 완료 조건을 등록합니다. Claude는 목표가 달성될 때까지 계속 작업합니다. `/goal clear`는 이를 제거합니다. 활성 목표는 상태 표시줄에 나타나며, 경과 시간, 턴 수, 토큰 사용량을 보여주는 라이브 오버레이 패널이 함께 표시됩니다 (v2.1.139에 추가). |
 | `/help` | 도움말 표시 |
 | `/hooks` | 훅 구성 보기 |
-| `/ide` | IDE 통합 관리 |
+| `/ide` | IDE 통합 관리. v2.1.318부터 IDE의 통합 터미널에서 `claude`를 시작해도 더 이상 IDE 확장을 설치하거나 업데이트하지 않습니다. 편집기의 확장 보기에서 설치하세요(또는 외부 터미널에서 `/ide`를 실행하세요). 설치되기 전까지 `/ide`는 "No available IDEs detected"를 보고합니다. |
 | `/init` | `CLAUDE.md` 초기화. 대화형 흐름을 위해 `CLAUDE_CODE_NEW_INIT=1` 설정 |
 | `/insights` | 세션 분석 보고서 생성 |
 | `/install-github-app` | GitHub Actions 앱 설정 |
@@ -71,7 +71,7 @@
 | `/mcp` | MCP 서버 및 OAuth 관리 |
 | `/memory` | `CLAUDE.md` 편집, 자동 메모리 전환 |
 | `/mobile` | 모바일 앱용 QR 코드 (별칭: `/ios`, `/android`) |
-| `/model [model]` | 모델을 선택하고 왼쪽/오른쪽 화살표로 노력 수준을 조정합니다. v2.1.153부터 선택은 새 세션의 **기본값으로 저장됩니다** (IDE와 동일). 선택 후 `s`를 누르면 현재 세션에만 적용합니다. (`modelPicker:setAsDefault` 키 바인딩이 `modelPicker:thisSessionOnly`로 이름이 변경되었고, 이전 `d` 동작은 이제 `s`입니다.) v2.1.219부터 선택기는 병합된 Opus 행을 "Opus (1M context)"로 표시했으며, v2.1.283은 Opus가 이미 1M 창을 가진 Opus 및 Default 행에서 해당 레이블을 제거합니다 (창 크기는 변하지 않음). |
+| `/model [model]` | 모델을 선택하고 왼쪽/오른쪽 화살표로 노력 수준을 조정합니다. v2.1.153부터 선택은 새 세션의 **기본값으로 저장됩니다** (IDE와 동일). 선택 후 `s`를 누르면 현재 세션에만 적용합니다. (`modelPicker:setAsDefault` 키 바인딩이 `modelPicker:thisSessionOnly`로 이름이 변경되었고, 이전 `d` 동작은 이제 `s`입니다.) v2.1.219부터 선택기는 병합된 Opus 행을 "Opus (1M context)"로 표시했으며, v2.1.283은 Opus가 이미 1M 창을 가진 Opus 및 Default 행에서 해당 레이블을 제거합니다 (창 크기는 변하지 않음). v2.1.319부터 이전 모델은 **More models** 행 아래에 묶이며, v2.1.321부터 이 행은 다른 모든 행 아래에 번호 없이 놓이므로 열어도 나머지 행의 번호가 바뀌지 않습니다. |
 | `/output-style [name]` | 출력 스타일을 나열하고 전환합니다 (v2.1.91에서 제거된 후 v2.1.269에서 다시 추가). 인자가 없으면 스타일 목록을 보여주고 현재 스타일을 표시합니다. 헤드리스 및 원격 제어 세션에서도 작동하며, 선택은 `.claude/settings.local.json`에 저장됩니다 |
 | `/passes` | Claude Code 무료 주간 이용권 공유 |
 | `/permissions` | 권한 보기/업데이트 (별칭: `/allowed-tools`) |
@@ -101,7 +101,7 @@
 | `/stickers` | Claude Code 스티커 주문 |
 | `/status` | 버전, 모델, 계정, 그리고 `background job · attached`, `background job · unattended` 또는 `interactive`를 표시하는 `Session kind` 행을 보여줍니다 (행은 v2.1.221에 추가). Claude가 응답 중일 때도 열 수 있습니다 |
 | `/statusline` | 상태 표시줄 구성 |
-| `/tasks` | 백그라운드 작업 나열/관리 |
+| `/tasks` | 백그라운드 작업 나열/관리. v2.1.319부터 **Earlier in this session** 행에 완료된 서브에이전트가 나열되므로, 목록에서 사라지거나 다시 시작한 뒤에도 서브에이전트를 다시 열어 메시지를 보낼 수 있습니다. |
 | `/team-onboarding` | 지난 30일간의 Claude Code 세션, 명령어, MCP 사용량으로 팀원 온보딩 가이드를 생성합니다. Team 및 Enterprise 플랜에서는 공유 링크도 반환합니다 (v2.1.101에 새로 추가) |
 | `/teleport` | 웹의 Claude Code 세션을 이 터미널에서 재개합니다. 웹 세션 선택기를 엽니다 (별칭: `/tp`). claude.ai 구독이 필요합니다 |
 | `/terminal-setup` | 터미널 키 바인딩 구성 |
@@ -122,7 +122,7 @@
 | Skill | 목적 |
 |-------|---------|
 | `/batch <instruction>` | 워크트리를 사용하여 대규모 병렬 변경을 조율합니다 |
-| `/claude-api` | 프로젝트 언어에 맞는 Claude API 참조를 로드합니다. 하위 명령어로 `api-version`(코드를 최신 API 버전으로 이전, v2.1.307+)과 `managed-agents-secure`(Managed Agent의 설정 점검, v2.1.304+)가 있습니다 |
+| `/claude-api` | 프로젝트 언어에 맞는 Claude API 참조를 로드합니다. 하위 명령어로 `api-version`(코드를 최신 API 버전으로 이전, v2.1.307+), `managed-agents-secure`(Managed Agent의 설정 점검, v2.1.304+), `latency-optimize`(Claude API 코드에서 사용자를 기다리게 하는 부분을 찾아 평가(eval)에 대해 더 빠른 설정을 시도, v2.1.319+)가 있습니다 |
 | `/dataviz` | 실행 가능한 색상 팔레트 검증기를 포함한 차트 및 대시보드 디자인 가이드 (v2.1.198) |
 | `/debug [description]` | 디버그 로깅 활성화 |
 | `/design [description]` | **디자인 캔버스**를 만듭니다 — 아티팩트로 게시되고 코드가 아닌 시각적으로 다듬는 다중 아트보드 비주얼 디자인(UI 목업, 화면 흐름, 랜딩 페이지, 포스터)입니다. 레이아웃 자체를 반복 개선하고 싶을 때 HTML을 직접 작성하는 대신 사용하십시오. v2.1.265+, 아티팩트를 사용할 수 있는 세션, Design 템플릿이 있는 계정이 필요하며, Bedrock, Vertex, Foundry, Claude Platform on AWS에서는 사용할 수 없습니다. 독립형 Claude Design(claude.ai/design)은 2026년 12월 14일까지 종료됩니다. `/design consent`와 `/design revoke`는 Claude Design에 대한 Claude의 접근 권한을 부여하거나 철회합니다. Claude가 `/design consent` 실행을 요청하면 프롬프트에 직접 입력하십시오. |
@@ -659,8 +659,8 @@ Deploy the application to production:
 
 ---
 
-**최종 업데이트**: 2026년 11월 1일
-**Claude Code 버전**: 2.1.316
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/output-styles
 - https://code.claude.com/docs/en/skills
@@ -702,6 +702,10 @@ Deploy the application to production:
 - https://code.claude.com/docs/en/feature-availability#ultra-plan
 - https://code.claude.com/docs/en/changelog#2-1-316
 - https://code.claude.com/docs/en/model-config#when-a-new-effort-level-starts
-**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+- https://code.claude.com/docs/en/changelog#2-1-321
+- https://code.claude.com/docs/en/changelog#2-1-319
+- https://code.claude.com/docs/en/vs-code#run-cli-in-vs-code
+- https://code.claude.com/docs/en/changelog#2-1-318
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5
 
 *[Claude How To](../) 가이드 시리즈의 일부입니다*

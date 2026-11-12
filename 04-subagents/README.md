@@ -1,6 +1,6 @@
 <!-- i18n-source: 04-subagents/README.md -->
-<!-- i18n-source-sha: 2b530b7 -->
-<!-- i18n-date: 2026-11-06 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -144,7 +144,7 @@ to solving problems.
 | `hooks` | 아니요 | 이 서브에이전트가 활성화된 동안에만 실행되는 훅. 모든 훅 이벤트를 지원하며, 가장 흔한 것은 `PreToolUse`, `PostToolUse`, `Stop`(`SubagentStop`으로 실행)입니다 |
 | `memory` | 아니요 | 영구 메모리 디렉터리 범위: `user`, `project` 또는 `local` |
 | `background` | 아니요 | 서브에이전트는 이미 기본적으로 백그라운드에서 실행됩니다(v2.1.198). v2.1.302부터는 데스크톱 앱과 VS Code에서 주 대화의 서브에이전트도 백그라운드에서 시작합니다. 포크 모드가 켜져 있는 동안(기본값) Claude는 이를 기다릴 수 없습니다. `claude -p`, Agent SDK, 데스크톱 앱, VS Code에서 서브에이전트 자신의 Agent 호출은 기본적으로 포그라운드에서 실행됩니다. 항상 백그라운드로 *강제*하고 인라인 실행을 막으려면 `true`로 설정합니다 |
-| `effort` | 아니요 | 추론 노력 수준: `low`, `medium`, `high`, `xhigh` 또는 `max`. 세션의 노력 수준을 재정의하며, 사용 가능한 수준은 모델에 따라 다릅니다. Claude가 Agent 도구를 호출할 때 `effort` 값을 전달할 수도 있습니다(v2.1.292). 어디에서도 수준을 지정하지 않으면 `CLAUDE_CODE_SUBAGENT_EFFORT`가 세션 수준 대신 서브에이전트가 실행될 수준을 설정합니다(v2.1.316). |
+| `effort` | 아니요 | 추론 노력 수준: `low`, `medium`, `high`, `xhigh` 또는 `max`. 세션의 노력 수준을 재정의하며, 사용 가능한 수준은 모델에 따라 다릅니다. Claude가 Agent 도구를 호출할 때 `effort` 값을 전달할 수도 있습니다(v2.1.292). 어디에서도 수준을 지정하지 않으면 `CLAUDE_CODE_SUBAGENT_EFFORT`가 세션 수준 대신 서브에이전트가 실행될 수준을 설정합니다(v2.1.316). 메인 대화와 다른 모델에서 실행되는 서브에이전트는 세션의 수준을 사용하지 않고, 해당 모델에 저장된 노력 수준 또는 그 모델의 기본값으로 실행됩니다(v2.1.317). 따라서 수준을 직접 고르려면 여기서 `effort`를 설정하세요. |
 | `isolation` | 아니요 | 서브에이전트에 자체 git 워크트리를 제공하려면 `worktree`로 설정 |
 | `initialPrompt` | 아니요 | 서브에이전트가 주 에이전트로 실행될 때 자동으로 제출되는 첫 번째 턴 |
 | `color` | 아니요 | 작업 목록과 트랜스크립트에서 서브에이전트의 표시 색상. `red`, `blue`, `green`, `yellow`, `purple`, `orange`, `pink`, `cyan` 중 하나 |
@@ -534,7 +534,7 @@ graph LR
 
 ## 백그라운드 서브에이전트
 
-서브에이전트는 기본적으로 백그라운드에서 실행됩니다(v2.1.198). v2.1.302부터는 데스크톱 앱과 VS Code에서 주 대화의 서브에이전트도 백그라운드에서 시작합니다. 포크 모드가 켜져 있는 동안(기본값) Claude는 이를 기다릴 수 없습니다. `claude -p`, Agent SDK, 데스크톱 앱, VS Code에서 서브에이전트 자신의 Agent 호출은 기본적으로 포그라운드에서 실행됩니다. 서브에이전트가 실행되는 동안 Claude는 주 대화 작업을 계속하고 서브에이전트가 끝나면 알림을 받으므로, 더 이상 서브에이전트가 돌아올 때까지 기다렸다가 진행할 필요가 없습니다. VS Code(v2.1.304+)에서는 백그라운드 서브에이전트가 모든 단계를 채팅에 스트리밍하는 대신 Agent 카드 아래에 한 줄의 상태 표시로 나타납니다. `/tasks`를 열고 해당 항목을 클릭하면 도구 호출과 트랜스크립트를 볼 수 있습니다.
+서브에이전트는 기본적으로 백그라운드에서 실행됩니다(v2.1.198). v2.1.302부터는 데스크톱 앱과 VS Code에서 주 대화의 서브에이전트도 백그라운드에서 시작합니다. 포크 모드가 켜져 있는 동안(기본값) Claude는 이를 기다릴 수 없습니다. `claude -p`, Agent SDK, 데스크톱 앱, VS Code에서 서브에이전트 자신의 Agent 호출은 기본적으로 포그라운드에서 실행됩니다. 서브에이전트가 실행되는 동안 Claude는 주 대화 작업을 계속하고 서브에이전트가 끝나면 알림을 받으므로, 더 이상 서브에이전트가 돌아올 때까지 기다렸다가 진행할 필요가 없습니다. 백그라운드 서브에이전트의 셸 명령이 3분이 지나도 계속 실행 중이면 백그라운드로 옮겨지므로, 실행되는 동안 프롬프트 캐시가 만료되지 않습니다(v2.1.318). 실행 중인 백그라운드 서브에이전트에 `SendMessage`를 보내면 실행 중인 명령을 중지하지 않고 백그라운드로 옮기므로 메시지가 더 빨리 도착합니다(v2.1.317). VS Code(v2.1.304+)에서는 백그라운드 서브에이전트가 모든 단계를 채팅에 스트리밍하는 대신 Agent 카드 아래에 한 줄의 상태 표시로 나타납니다. `/tasks`를 열고 해당 항목을 클릭하면 도구 호출과 트랜스크립트를 볼 수 있습니다.
 
 ### 구성
 
@@ -783,7 +783,7 @@ claude --teammate-mode tmux
 
 ### 팀원 모델 선택
 
-v2.1.234부터 `/config`의 "Default teammate model" 설정이 제거되었습니다. 이제 생성 호출에서 다른 모델을 명시적으로 지정하지 않는 한, 팀원은 기본적으로 팀 리더의 모델을 상속합니다.
+v2.1.234부터 `/config`의 "Default teammate model" 설정이 제거되었습니다. 이제 생성 호출에서 다른 모델을 명시적으로 지정하지 않는 한, 팀원은 기본적으로 팀 리더의 모델을 상속합니다. v2.1.317부터 팀 리더와 다른 모델에서 실행되는 팀원은 리더 세션의 수준이 아니라 해당 모델에 저장된 노력 수준 또는 그 모델의 기본값으로 실행됩니다.
 
 ### 아키텍처
 
@@ -1356,8 +1356,8 @@ graph TD
 
 ---
 
-**최종 업데이트**: 2026년 11월 1일
-**Claude Code 버전**: 2.1.316
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/sub-agents
 - https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
@@ -1394,4 +1394,7 @@ graph TD
 - https://code.claude.com/docs/en/changelog#2-1-316
 - https://code.claude.com/docs/en/sub-agents#choose-a-model
 - https://code.claude.com/docs/en/errors#a-command-line-deny-rule-cannot-be-handed-to-a-teammate-intact
-**호환 모델**: Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+- https://code.claude.com/docs/en/model-config#effort-level-of-subagents-and-teammates
+- https://code.claude.com/docs/en/changelog#2-1-317
+- https://code.claude.com/docs/en/changelog#2-1-318
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

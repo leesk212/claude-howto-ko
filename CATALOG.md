@@ -1,6 +1,6 @@
 <!-- i18n-source: CATALOG.md -->
-<!-- i18n-source-sha: 2b530b7 -->
-<!-- i18n-date: 2026-11-06 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
@@ -94,7 +94,7 @@
 | `/stats` | `/usage`의 통계 탭을 여는 단축 별칭 (v2.1.118+) | 세션 통계 확인 |
 | `/statusline` | 상태 표시줄 구성 | 상태 표시 사용자 지정 |
 | `/stickers` | Claude Code 스티커 주문 | 재미 요소 |
-| `/fast` | 빠른 출력 모드 전환. **Opus 5.5**(v2.1.280부터 기본값), **Opus 5, Opus 4.8**에 적용(Opus 4.8 빠른 모드는 2026년 10월 30일부터 지원 중단되었으며 2026년 11월 30일에 제거될 예정이므로 Opus 5.5로 옮기세요) | 응답 속도 향상 |
+| `/fast` | 빠른 출력 모드 전환. **Fable 5.2**(v2.1.321+), **Opus 5.5**(v2.1.280부터 기본값), **Opus 5, Opus 4.8**에 적용(Opus 4.8 빠른 모드는 2026년 10월 30일부터 지원 중단되었으며 2026년 11월 30일에 제거될 예정이므로 Opus 5.5로 옮기세요) | 응답 속도 향상 |
 | `/terminal-setup` | 터미널 연동 설정 | 터미널 기능 설정 |
 | `/undo` | `/rewind`의 별칭 (v2.1.108) | `/rewind`와 동일 |
 | `/upgrade` | 상위 플랜으로 전환하는 업그레이드 페이지 열기 | 플랜 업그레이드 |
@@ -252,7 +252,7 @@ cp -r 03-skills/* ~/.claude/skills/
 | `/artifact-capabilities` | 게시된 아티팩트가 사용할 수 있는 런타임 기능(커넥터, 파일 다운로드)에 대한 참조 자료 로드 | 이러한 기능을 사용하는 아티팩트 페이지를 만들기 전 |
 | `/artifact-diagramming` *(v2.1.221+)* | 아티팩트용 다이어그램 가이드 로드: 다이어그램이 도움이 되는 경우, 무엇을 그릴지, 라이트·다크 테마에서 모두 읽기 쉬운 인라인 SVG | 아티팩트에 다이어그램을 그릴 때 |
 | `/batch` | 큰 변경을 5–30개의 독립 단위로 나누고, 각 단위를 자체 worktree의 백그라운드 서브에이전트가 실행 | 대규모 병렬 리팩터링 |
-| `/claude-api [subcommand]` | Claude API를 사용한 애플리케이션 개발. 하위 명령어로 `migrate`, `api-version`(코드를 `2026-10-21` 같은 최신 API 버전으로 갱신, v2.1.307+), `managed-agents-secure`(Managed Agents 에이전트 설정을 Anthropic 보안 가이드와 비교, `ant` CLI 필요, v2.1.304+)가 있음 | API 개발 |
+| `/claude-api [subcommand]` | Claude API를 사용한 애플리케이션 개발. 하위 명령어로 `migrate`, `api-version`(코드를 `2026-10-21` 같은 최신 API 버전으로 갱신, v2.1.307+), `managed-agents-secure`(Managed Agents 에이전트 설정을 Anthropic 보안 가이드와 비교, `ant` CLI 필요, v2.1.304+), `latency-optimize`(Claude API 코드에서 사용자를 기다리게 하는 지점을 찾아 eval로 더 빠른 설정을 시험, v2.1.319+)가 있음 | API 개발 |
 | `/claude-in-chrome [task]` | Claude in Chrome을 통해 브라우저에서 작업 수행(페이지 테스트, 양식 작성, 콘솔 로그 읽기). Chrome 연동이 활성화된 경우 사용 가능 | 브라우저 작업 |
 | `/dataviz [request]` | 차트, 그래프, 대시보드 디자인 가이드: 차트 형태, 역할별 색상, 색맹 안전성과 대비를 위한 팔레트 검증 | 차트나 대시보드를 만들 때 |
 | `/debug [description]` | 세션의 디버그 로깅을 켜고 세션 디버그 로그로 문제 해결 | Claude Code 자체 디버깅 |
@@ -263,13 +263,13 @@ cp -r 03-skills/* ~/.claude/skills/
 | `/doctor [prompt-audit [path]]` | 설치, 설정, 확장 기능, `CLAUDE.md` 문제를 진단하고 수정 방법을 제안하는 설정 점검. 별칭: `/checkup` | 설정 문제 해결 |
 | `/fewer-permission-prompts` | 대화 기록을 분석하여 우선순위가 지정된 허용 목록 제안 | 반복적인 권한 요청 감소 |
 | `/loop` | 일정 간격으로 프롬프트 실행 | 반복 작업 |
-| `/run` *(v2.1.145+)* | 프로젝트 애플리케이션을 실행하여 변경 사항 확인 | 실제 애플리케이션에서 변경 사항 검증 |
-| `/run-skill-generator` *(v2.1.145+)* | 특정 프로젝트에서 `/run`/`/verify`를 사용할 수 있도록 설정 | `/run` 최초 프로젝트 설정 |
+| `/run` | 프로젝트 애플리케이션을 실행하여 변경 사항 확인 | 실제 애플리케이션에서 변경 사항 검증 |
+| `/run-skill-generator` | 특정 프로젝트에서 `/run`/`/verify`를 사용할 수 있도록 설정 | `/run` 최초 프로젝트 설정 |
 | `/code-review [low\|medium\|high\|xhigh\|max\|ultra] [--fix] [--comment] [pr#\|branch\|path]` | 현재 diff 또는 PR, 브랜치, 경로를 검토하여 정확성 버그 확인. `--fix`는 발견 사항을 적용하고 `--comment`는 PR 인라인 댓글로 게시. 수준을 지정하지 않으면 마지막으로 입력한 수준을 재사용(v2.1.223). 낮은 effort 수준은 v2.1.218에서 **백그라운드 서브에이전트**로 옮겨졌고 `high`, `xhigh`, `max`도 v2.1.232에서 뒤따라, 리뷰 출력이 더 이상 대화를 채우지 않음 | 코드 작성 후, PR 병합 전 |
 | `/slides [brief]` *(v2.1.265+)* | 브리프를 바탕으로 Claude Slides 아티팩트로 새 프레젠테이션 생성. 아티팩트와 Slides 템플릿 필요 | 슬라이드 덱 만들기 |
 | `/simplify` *(v2.1.154부터 다시 독립 기능)* | 정리만 수행하는 리뷰(재사용, 단순화, 효율성, 추상화 수준)를 실행하고 수정 사항을 적용. 버그 탐지는 수행하지 않음 | 버그 탐지 없이 코드 정리 |
 | `/update-config [request]` | 설정 변경 내용(명령어 허용, 환경 변수 설정, 훅 추가)을 설명하면 Claude가 해당 `settings.json`을 편집 | JSON을 직접 편집하지 않고 설정 변경 |
-| `/verify` *(v2.1.145+)* | 애플리케이션을 빌드, 실행 및 확인하여 수정 사항이 제대로 동작하는지 검증 | 수정 사항의 전체 동작 검증 |
+| `/verify` | 애플리케이션을 빌드, 실행 및 확인하여 수정 사항이 제대로 동작하는지 검증 | 수정 사항의 전체 동작 검증 |
 | `/workflow-authoring` *(v2.1.248+)* | 동적 워크플로 스크립트 작성용 참조 자료(스크립트 API, 재개, 품질 패턴) 로드. 동적 워크플로가 활성화된 경우 사용 가능 | 워크플로 스크립트 작성 또는 편집 |
 
 ---
@@ -596,8 +596,8 @@ chmod +x ~/.claude/hooks/*.sh
 
 ---
 
-**최종 업데이트**: 2026년 11월 1일
-**Claude Code 버전**: 2.1.316
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/sub-agents
 - https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
@@ -642,4 +642,6 @@ chmod +x ~/.claude/hooks/*.sh
 - https://code.claude.com/docs/en/feature-availability#ultra-plan
 - https://code.claude.com/docs/en/ultrareview#pricing-and-free-runs
 - https://code.claude.com/docs/en/changelog#2-1-316
-**호환 모델**: Claude Fable 5.1, Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+- https://code.claude.com/docs/en/changelog#2-1-321
+- https://code.claude.com/docs/en/changelog#2-1-319
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

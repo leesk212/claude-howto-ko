@@ -1,6 +1,6 @@
 <!-- i18n-source: claude_concepts_guide.md -->
-<!-- i18n-source-sha: 2b530b7 -->
-<!-- i18n-date: 2026-11-06 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
@@ -564,15 +564,15 @@ Claude Code에는 설치 없이 바로 쓸 수 있는 번들 스킬이 포함되
 | 스킬 | 명령어 | 목적 |
 |-------|---------|---------|
 | **Batch** | `/batch` | 여러 파일 또는 항목에 걸쳐 작업 실행 |
-| **Claude API** | `/claude-api` | 프로젝트 언어에 맞는 Claude API 및 Managed Agents 참조 자료를 로드합니다. 코드가 `anthropic` 또는 `@anthropic-ai/sdk`를 import하면 자동으로 활성화됩니다. 하위 명령어로 `api-version`(v2.1.307), `managed-agents-secure`(v2.1.304) 등이 있습니다 |
+| **Claude API** | `/claude-api` | 프로젝트 언어에 맞는 Claude API 및 Managed Agents 참조 자료를 로드합니다. 코드가 `anthropic` 또는 `@anthropic-ai/sdk`를 import하면 자동으로 활성화됩니다. 하위 명령어로 `api-version`(v2.1.307), `managed-agents-secure`(v2.1.304), `latency-optimize`(v2.1.319) 등이 있으며, `latency-optimize`는 Claude API 코드에서 사용자를 기다리게 하는 지점을 찾아 eval로 더 빠른 설정을 시험합니다 |
 | **Code Review** | `/code-review` | 선택한 노력 수준으로 현재 diff의 정확성 버그를 리뷰합니다. 품질/재사용 정리를 담당하는 `/simplify`와는 별개의 스킬이며, v2.1.154에서 다시 분리되었습니다. v2.1.246부터는 모든 환경에서 Claude가 스스로 시작할 수도 있습니다 |
 | **Simplify** | `/simplify` | 품질, 재사용, 정리 리뷰 — v2.1.154부터 다시 `/code-review`와 별개 |
 | **Debug** | `/debug` | 현재 세션의 디버그 로깅을 켜고 세션 디버그 로그를 읽어 문제를 해결 |
 | **Fewer Permission Prompts** | `/fewer-permission-prompts` | 트랜스크립트를 스캔해 자주 쓰는 읽기 전용 도구에 대한 우선순위별 허용 목록을 제안 |
 | **Loop** | `/loop` | 타이머로 반복 작업 예약 |
-| **Run** | `/run` | 프로젝트 앱을 실행·조작해 변경 사항을 검증(v2.1.145+) |
-| **Run Skill Generator** | `/run-skill-generator` | `/run`과 `/verify`에 앱 빌드·실행·조작 방법을 알려 주는 프로젝트별 스킬을 작성(v2.1.145+) |
-| **Verify** | `/verify` | 변경 사항이 실제로 동작하는지 검증(v2.1.145+). v2.1.215부터 명시적 호출로만 실행 |
+| **Run** | `/run` | 프로젝트 앱을 실행·조작해 변경 사항을 검증 |
+| **Run Skill Generator** | `/run-skill-generator` | `/run`과 `/verify`에 앱 빌드·실행·조작 방법을 알려 주는 프로젝트별 스킬을 작성 |
+| **Verify** | `/verify` | 변경 사항이 실제로 동작하는지 검증. v2.1.215부터 명시적 호출로만 실행 |
 
 이 번들 스킬들은 항상 사용할 수 있으며 설치나 설정이 필요하지 않습니다.
 
@@ -1288,7 +1288,7 @@ Esc + Esc
 **활성화:**
 - 세션 중 `Alt+T`(macOS에서는 `Option+T`)로 전환
 - Opus 4.7+, Sonnet 5+, Haiku 5.5, Fable은 항상 적응형 추론(adaptive reasoning)을 사용하므로 고정 `MAX_THINKING_TOKENS` 예산이 적용되지 않습니다. 깊이는 `/effort`로 제어하세요
-- 프롬프트에 `ultrathink`를 입력하면 Anthropic API를 통한 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.1에서 해당 턴 하나를 `xhigh` 노력 수준으로 실행합니다(터미널 v2.1.311+, VS Code v2.1.316+). `CLAUDE_CODE_DISABLE_ULTRATHINK`로 이 키워드를 끌 수 있습니다
+- 프롬프트에 `ultrathink`를 입력하면 Anthropic API를 통한 Opus 5.5, Sonnet 5.5, Haiku 5.5, Fable 5.2(v2.1.321+), Fable 5.1에서 해당 턴 하나를 `xhigh` 노력 수준으로 실행합니다(터미널 v2.1.311+, VS Code v2.1.316+). `CLAUDE_CODE_DISABLE_ULTRATHINK`로 이 키워드를 끌 수 있습니다
 
 ```bash
 # 노력 수준으로 추론 깊이 제어
@@ -1421,6 +1421,9 @@ Claude Code는 적응형 추론 노력(reasoning effort)을 지원하는 다음 
 
 | 모델 | 컨텍스트 창 | 노력 수준 | 기본 노력 수준(Claude Code) |
 |-------|----------------|---------------|------------------------------|
+| Claude Fable 5.2 | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `medium` — v2.1.321부터 기본 Fable 모델(Claude Code v2.1.321+ 필요) |
+| Claude Fable 5.1 | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `high`(Claude Code v2.1.257+ 필요) |
+| Claude Fable 5 | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `high` |
 | Claude Opus 5.5 | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `medium` — v2.1.280부터 기본 모델이자 기본 Opus 모델(Claude Code v2.1.280+ 필요) |
 | Claude Sonnet 5.5 | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `medium` — v2.1.284부터 Anthropic API의 기본 Sonnet 모델(Claude Code v2.1.284+ 필요) |
 | Claude Haiku 5.5 | 1M 토큰(네이티브) | `low`, `medium`, `high`, `xhigh`, `max` | `medium` — v2.1.293부터 Anthropic API의 기본 Haiku 모델(Claude Code v2.1.293+ 필요) |
@@ -1431,7 +1434,7 @@ Claude Code는 적응형 추론 노력(reasoning effort)을 지원하는 다음 
 | Claude Sonnet 4.6 | 1M 토큰 | `low`, `medium`, `high`, `max` | `high`(Pro/Max 구독자는 v2.1.117에서 `medium`에서 상향) |
 | Claude Haiku 4.5 | 200K 토큰 | — (노력 수준 미지원) | — |
 
-> **참고**: `xhigh`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다. `max`는 Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6, Sonnet 4.6에서 동작합니다(세션 한정). Haiku 4.5는 노력 수준을 지원하지 않습니다.
+> **참고**: `xhigh`는 Fable 모델, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 사용할 수 있습니다. `max`는 Fable 모델, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8/4.7/4.6, Sonnet 4.6에서 동작합니다(세션 한정). Haiku 4.5는 노력 수준을 지원하지 않습니다.
 
 > **참고**: v2.1.117에서 Opus 4.7 세션이 네이티브 1M 창 대신 200K 기준으로 `/context`를 계산하던 버그가 수정되었습니다. Opus 4.7에서 실제로 1M 컨텍스트를 사용하려면 v2.1.117 이상으로 업그레이드하세요. Opus 5와 Opus 4.8도 네이티브 1M 토큰 창을 제공합니다.
 
@@ -1445,8 +1448,8 @@ Claude Code는 적응형 추론 노력(reasoning effort)을 지원하는 다음 
 - [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook)
 
 ---
-**최종 업데이트**: 2026년 11월 1일
-**Claude Code 버전**: 2.1.316
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/plugins/manifest-reference
 - https://code.claude.com/docs/en/plugins/create
@@ -1475,4 +1478,5 @@ Claude Code는 적응형 추론 노력(reasoning effort)을 지원하는 다음 
 - https://code.claude.com/docs/en/skills#work-on-claude-api-projects
 - https://code.claude.com/docs/en/model-config#adjust-effort-level
 - https://code.claude.com/docs/en/model-config#use-ultrathink-for-one-off-deep-reasoning
-**호환 모델**: Claude Fable 5.1, Claude Fable 5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 4.5
+- https://code.claude.com/docs/en/changelog#2-1-319
+**호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5
