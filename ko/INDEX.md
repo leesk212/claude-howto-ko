@@ -1,6 +1,6 @@
 <!-- i18n-source: INDEX.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: bc03fd7 -->
+<!-- i18n-date: 2026-11-12 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -903,8 +903,8 @@ Run tests in background
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/tools-reference#task-tool-availability
 - https://code.claude.com/docs/en/workflows#set-a-size-guideline
@@ -926,6 +926,9 @@ Run tests in background
 - https://code.claude.com/docs/en/headless#auto-approve-tools
 - https://code.claude.com/docs/en/permission-modes#which-mode-a-non-interactive-run-starts-in
 - https://code.claude.com/docs/en/scheduled-tasks
+- https://code.claude.com/docs/en/permission-modes#allow-only-pre-approved-tools-with-dontask-mode
+- https://code.claude.com/docs/en/cross-session-messaging
+- https://code.claude.com/docs/en/whats-new/2026-w34
 **호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5
 **총 예시 수**: 100개 이상 파일
 **카테고리**: 10가지 기능
