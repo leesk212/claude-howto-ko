@@ -1,6 +1,6 @@
 <!-- i18n-source: 03-skills/README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: 7af3b2f -->
+<!-- i18n-date: 2026-11-14 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../../resources/logos/claude-howto-logo-dark.svg">
@@ -103,7 +103,7 @@ sequenceDiagram
 
 ### 자동 검색
 
-**중첩 디렉터리**: 하위 디렉터리에서 파일 작업을 할 때, Claude Code는 중첩된 `.claude/skills/` 디렉터리에서 스킬을 자동으로 검색합니다. 예를 들어, `packages/frontend/`의 파일을 편집하는 경우, Claude Code는 `packages/frontend/.claude/skills/`에서도 스킬을 찾습니다. 이는 패키지마다 자체 스킬을 갖는 모노레포 설정에 유용합니다. 중첩된 스킬이 저장소 루트 스킬과 이름이 같으면 **둘 다 로드됩니다**. 예를 들어 루트와 `apps/web/.claude/skills/`에 모두 `deploy` 스킬이 있으면 `/deploy`는 루트 스킬을, `/apps/web:deploy`는 중첩된 스킬을 실행합니다.
+**중첩 디렉터리**: 하위 디렉터리에서 파일 작업을 할 때, Claude Code는 중첩된 `.claude/skills/` 디렉터리에서 스킬을 자동으로 검색합니다. 예를 들어, `packages/frontend/`의 파일을 편집하는 경우, Claude Code는 `packages/frontend/.claude/skills/`에서도 스킬을 찾습니다. 이는 패키지마다 자체 스킬을 갖는 모노레포 설정에 유용합니다. 중첩된 스킬이 저장소 루트 스킬과 이름이 같으면 **둘 다 로드됩니다**. 예를 들어 루트와 `apps/web/.claude/skills/`에 모두 `deploy` 스킬이 있으면 `/deploy`는 루트 스킬을, `/apps/web:deploy`는 중첩된 스킬을 실행합니다. 변경 로그에는 스킬 문서에 아직 나오지 않은 두 가지 예외가 추가되었습니다. Bash 샌드박스가 켜져 있으면(v2.1.319+) 시작 폴더 아래의 중첩된 `.claude/skills` 폴더에 있는 스킬은 Claude Code를 그 폴더에서 시작하거나 `/cd`로 그 폴더로 이동한 경우에만 로드됩니다. 또한 `~/.claude/plugins` 안의 `.claude/skills` 폴더는 Claude가 그곳의 파일을 작업할 때 더 이상 로드되지 않습니다(v2.1.321+).
 
 **`--add-dir` 디렉터리**: `--add-dir`을 통해 추가된 디렉터리의 스킬은 라이브 변경 감지와 함께 자동으로 로드됩니다. 해당 디렉터리의 스킬 파일에 대한 모든 편집 내용은 Claude Code를 다시 시작할 필요 없이 즉시 적용됩니다. 추가된 디렉터리의 스킬이 엔터프라이즈, 개인, 프로젝트 스킬 또는 먼저 추가된 디렉터리의 스킬과 이름이 같으면 접두사가 붙은 이름으로 실행됩니다. 예를 들어 `--add-dir ../cli`를 사용하고 두 곳 모두에 `verify` 스킬이 있으면 `/verify`는 프로젝트의 스킬을, `/cli:verify`는 `../cli`의 스킬을 실행합니다(v2.1.309+).
 
@@ -161,7 +161,7 @@ user-invocable: false                       # 슬래시 메뉴에서 숨김
 allowed-tools: Read, Grep, Glob             # 스킬 실행 중 이 도구들을 사전 승인(권한 프롬프트 없음)
 disallowed-tools: Write, Edit               # 활성 상태일 때 특정 도구 제거 (v2.1.152)
 model: opus                                 # 사용할 특정 모델
-effort: high                                # 노력 수준 재정의 (low, medium, high, xhigh, max)
+effort: high                                # 현재 턴의 나머지 동안 적용할 노력 수준 (low, medium, high, xhigh, max)
 context: fork                               # 격리된 서브에이전트에서 실행
 agent: Explore                              # 컨텍스트가 fork일 때 에이전트 유형
 background: false                           # fork 스킬은 백그라운드에서 실행(기본값 true); false = 포그라운드
@@ -179,7 +179,7 @@ paths: "src/api/**/*.ts"               # 스킬 활성화 시기를 제한하는
 | Field | Description |
 |-------|-------------|
 | `name` | 권장(이식성): 소문자, 숫자, 하이픈만 사용 (최대 64자). Claude Code에서 `anthropic-skills`와 `synced`는 예약어입니다. |
-| `description` | 스킬이 무엇을 하고 언제 사용해야 하는지. `description`과 `when_to_use`를 합친 텍스트는 스킬 목록에서 1,536자에서 잘립니다(`skillListingMaxDescChars`로 설정 가능). 자동 호출 매칭에 중요합니다. |
+| `description` | 스킬이 무엇을 하고 언제 사용해야 하는지. `description`과 `when_to_use`를 합친 텍스트는 스킬 목록에서 1,536자에서 잘립니다(`skillListingMaxDescChars`로 설정 가능). 자동 호출 매칭에 중요합니다. 꺾쇠괄호는 `&lt;`와 `&gt;`로 표시되므로, 자리 표시자는 `[branch]`처럼 쓰거나 `argument-hint`에 넣으세요. |
 | `when_to_use` | Claude가 스킬을 호출해야 하는 시점에 대한 추가 컨텍스트. 스킬 목록에서 `description` 뒤에 덧붙으며 1,536자 제한에 포함됩니다. |
 | `argument-hint` | `/` 자동 완성 메뉴에 표시되는 힌트 (예: `"[filename] [format]"`). |
 | `disable-model-invocation` | `true` = 사용자만 `/name`을 통해 호출할 수 있습니다. Claude는 자동 호출하지 않습니다. |
@@ -187,7 +187,7 @@ paths: "src/api/**/*.ts"               # 스킬 활성화 시기를 제한하는
 | `allowed-tools` | 스킬이 권한 프롬프트 없이 사용할 수 있는 도구들의 쉼표로 구분된 목록. 관리형 설정의 `strictPluginOnlyCustomization`에 `hooks`가 포함되어 있으면, 프런트매터에 `hooks`를 선언한 개인 또는 프로젝트 스킬은 이 사전 승인을 잃습니다(v2.1.304). 해당 `hooks`를 제거하거나 스킬을 플러그인으로 옮기세요. |
 | `disallowed-tools` | 스킬이 활성 상태일 때 제거할 도구들의 쉼표로 구분된 목록 (`allowed-tools`를 보완합니다). v2.1.152에 추가됨. |
 | `model` | 스킬이 활성 상태일 때 모델 재정의 (예: `opus`, `sonnet`). |
-| `effort` | 스킬이 활성 상태일 때 노력 수준 재정의: `low`, `medium`, `high`, `xhigh` 또는 `max`. 다섯 가지 모두 Fable 5.2, Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 지원됩니다. 기본 노력 수준은 노력 설정을 지원하는 모든 모델에서 `high`이며, 예외로 Fable 5.2, Opus 5.5, Sonnet 5.5, Haiku 5.5는 `medium`, Opus 4.7은 `xhigh`가 기본값입니다. |
+| `effort` | 현재 턴의 나머지 동안 적용할 노력 수준입니다(`context: fork`인 경우에는 포크된 서브에이전트의 수준). 세션 노력 수준을 재정의하지만 `CLAUDE_CODE_EFFORT_LEVEL` 환경 변수는 재정의하지 않습니다. 값: `low`, `medium`, `high`, `xhigh` 또는 `max`. 다섯 가지 모두 Fable 5.2, Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, Haiku 5.5, Opus 5, Sonnet 5, Opus 4.8, Opus 4.7에서 지원됩니다. 기본 노력 수준은 노력 설정을 지원하는 모든 모델에서 `high`이며, 예외로 Fable 5.2, Opus 5.5, Sonnet 5.5, Haiku 5.5는 `medium`, Opus 4.7은 `xhigh`가 기본값입니다. |
 | `context` | `fork`는 스킬을 자체 컨텍스트 창을 가진 포크된 서브에이전트 컨텍스트에서 실행합니다. |
 | `agent` | `context: fork`일 때 서브에이전트 유형 (예: `Explore`, `Plan`, `general-purpose`). |
 | `background` | `context: fork`와 함께 쓸 때만 의미가 있습니다. `context: fork` 스킬의 기본값은 `true`이므로 백그라운드에서 실행됩니다. 포그라운드에서 실행하려면 `false`로 설정합니다. v2.1.218에 추가됨. |
@@ -849,7 +849,7 @@ Claude Code는 설치 없이 항상 사용할 수 있는 내장 스킬 세트와
 | Skill | Description |
 |-------|-------------|
 | `/batch <instruction>` | git 작업 트리를 사용하여 코드베이스 전반에 걸쳐 대규모 병렬 변경을 조율합니다. |
-| `/claude-api` | Claude API/SDK 참조를 로드합니다. `anthropic`/`@anthropic-ai/sdk` 가져오기 시 자동 활성화됩니다. `/claude-api api-version`은 코드를 `2026-10-21` 같은 최신 API 버전으로 업데이트합니다(v2.1.307+). `/claude-api managed-agents-secure [<agent-id>]`는 Managed Agent의 설정을 Anthropic 보안 가이드와 비교해 점검하며, 아무것도 변경하지 않습니다(`ant` CLI 필요, v2.1.304+). |
+| `/claude-api` | Claude API/SDK 참조를 로드합니다. `anthropic`/`@anthropic-ai/sdk` 가져오기 시 자동 활성화됩니다. `/claude-api api-version`은 코드를 `2026-10-21` 같은 최신 API 버전으로 업데이트합니다(v2.1.307+). `/claude-api managed-agents-secure [<agent-id>]`는 Managed Agent의 설정을 Anthropic 보안 가이드와 비교해 점검하며, 아무것도 변경하지 않습니다(`ant` CLI 필요, v2.1.304+). `/claude-api latency-optimize`는 Claude API 코드에서 사용자를 기다리게 하는 부분을 찾아 평가(eval)에 대해 더 빠른 설정을 시도합니다(v2.1.319+). |
 | `/dataviz` | 실행 가능한 색상 팔레트 검증기를 포함한 차트 및 대시보드 디자인 가이드 (v2.1.198) |
 | `/debug [description]` | 디버그 로그를 읽어 현재 세션을 문제 해결합니다. |
 | `/deep-research <question>` | 스킬이 아닌 번들 **워크플로**입니다. 웹 검색을 병렬로 수행하고 출처가 달린 보고서로 종합합니다(v2.1.218부터 명시적 호출 전용 — Claude가 스스로 트리거하지 않음). |
@@ -910,8 +910,8 @@ chmod +x ~/.claude/skills/my-skill/scripts/*.py
 
 ---
 
-**최종 업데이트**: 2026년 10월 26일
-**Claude Code 버전**: 2.1.310
+**최종 업데이트**: 2026년 11월 12일
+**Claude Code 버전**: 2.1.322
 **출처**:
 - https://code.claude.com/docs/en/skills
 - https://code.claude.com/docs/en/slash-commands
@@ -941,4 +941,9 @@ chmod +x ~/.claude/skills/my-skill/scripts/*.py
 - https://code.claude.com/docs/en/skills#frontmatter-reference
 - https://code.claude.com/docs/en/skills#skill-not-triggering
 - https://code.claude.com/docs/en/skills#work-on-claude-api-projects
+- https://code.claude.com/docs/en/model-config#set-the-effort-level
+- https://code.claude.com/docs/en/skills#angle-brackets-in-a-skill-description
+- https://code.claude.com/docs/en/changelog#2-1-319
+- https://code.claude.com/docs/en/skills#load-skills-in-monorepos-and-subdirectories
+- https://code.claude.com/docs/en/changelog#2-1-321
 **호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

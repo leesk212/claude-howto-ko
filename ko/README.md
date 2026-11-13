@@ -1,6 +1,6 @@
 <!-- i18n-source: README.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: 7af3b2f -->
+<!-- i18n-date: 2026-11-14 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -16,7 +16,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/luongnv89/claude-howto?style=flat&color=gold)](https://github.com/luongnv89/claude-howto/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/luongnv89/claude-howto?style=flat)](https://github.com/luongnv89/claude-howto/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](../LICENSE)
-[![Version](https://img.shields.io/badge/version-2.1.310-brightgreen)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.1.323-brightgreen)](CHANGELOG.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-2.1+-purple)](https://code.claude.com)
 
 🌐 **Language / Ngôn ngữ / 语言 / Мова / 언어:** [English](../README.md) | [Tiếng Việt](../vi/README.md) | [中文](../zh/README.md) | [Українська](../uk/README.md) | [日本語](../ja/README.md) | [한국어](README.md) | [فارسی](../fa/README.md)
@@ -106,7 +106,7 @@ Claude Code의 진정한 강점은 기능 조합에 있습니다. 슬래시 명�
 
 - Claude Code를 매일 사용하는 개발자들의 **GitHub Star**
 - 팀 워크플로에 맞게 가이드를 확장하기 위한 **Fork**
-- **지속적인 유지보수** — Claude Code의 모든 릴리스에 맞춰 업데이트 (최신 버전: v2.1.310, 2026년 10월)
+- **지속적인 유지보수** — Claude Code의 모든 릴리스에 맞춰 업데이트 (최신 버전: v2.1.323, 2026년 11월)
 - **커뮤니티 중심 운영** — 실전 설정을 공유하는 개발자들의 기여
 
 [![Star History Chart](https://api.star-history.com/svg?repos=luongnv89/claude-howto&type=Date)](https://star-history.com/#luongnv89/claude-howto&Date)
@@ -144,7 +144,7 @@ Claude Code의 진정한 강점은 기능 조합에 있습니다. 슬래시 명�
 
 ## 15분 안에 시작하기
 
-> **설치 참고 사항**: v2.1.113부터 Claude Code는 macOS, Linux, Windows용 네이티브 바이너리로 제공됩니다. 권장 설치 방법은 네이티브 설치 프로그램(`curl -fsSL https://claude.ai/install.sh | bash`)입니다. 공식 README에서 npm 설치는 지원 중단(deprecated)되었으므로 네이티브 설치 프로그램, Homebrew(`brew install --cask claude-code`) 또는 WinGet(`winget install Anthropic.ClaudeCode`)을 사용하세요. 참고로 `npm install -g @anthropic-ai/claude-code`는 설치 시 플랫폼별 선택적 의존성을 통해 같은 네이티브 바이너리를 가져옵니다. v2.1.116부터는 다운로드가 `https://downloads.claude.ai/claude-code-releases`에서 제공되므로, 기업 환경의 프록시에서는 해당 호스트를 허용 목록에 추가해야 합니다.
+> **설치 참고 사항**: v2.1.113부터 Claude Code는 macOS, Linux, Windows용 네이티브 바이너리로 제공됩니다. 권장 설치 방법은 네이티브 설치 프로그램(`curl -fsSL https://claude.ai/install.sh | bash`)입니다. 공식 README에서 npm 설치는 지원 중단(deprecated)되었으므로 네이티브 설치 프로그램, Homebrew(`brew install --cask claude-code`) 또는 WinGet(`winget install Anthropic.ClaudeCode`)을 사용하세요. 참고로 `npm install -g @anthropic-ai/claude-code`는 설치 시 플랫폼별 선택적 의존성을 통해 같은 네이티브 바이너리를 가져옵니다. npm 12에서는 Claude Code의 postinstall 단계를 기본적으로 건너뛰므로 이 설치가 `Error: claude native binary not installed.`로 끝납니다. 네이티브 설치 프로그램으로 바꾸거나 [Fix an npm 12 install](https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install)을 따르세요. v2.1.116부터는 다운로드가 `https://downloads.claude.ai/claude-code-releases`에서 제공되므로, 기업 환경의 프록시에서는 해당 호스트를 허용 목록에 추가해야 합니다.
 
 ```bash
 # 1. Clone the guide
@@ -205,7 +205,7 @@ cp -r 03-skills/code-review-specialist ~/.claude/skills/
 네. MIT 라이선스로 제공되며 영구적으로 무료입니다. 라이선스 고지만 유지하면 개인 프로젝트, 회사 업무, 팀 프로젝트 등 어디에서나 사용할 수 있습니다.
 
 **계속 유지보수되나요?**
-네. Claude Code의 모든 릴리스에 맞춰 지속적으로 업데이트됩니다. 현재 버전은 v2.1.310(2026년 10월)이며 Claude Code 2.1+와 호환됩니다.
+네. Claude Code의 모든 릴리스에 맞춰 지속적으로 업데이트됩니다. 현재 버전은 v2.1.323(2026년 11월)이며 Claude Code 2.1+와 호환됩니다.
 
 **공식 문서와 어떤 차이가 있나요?**
 공식 문서는 기능 참조용 문서입니다. 이 가이드는 다이어그램, 실전 템플릿, 단계별 학습 경로를 제공하는 튜토리얼입니다. 두 자료는 상호 보완적입니다. 학습은 이 가이드로 시작하고, 세부 사항이 필요할 때 공식 문서를 참고하세요.
@@ -886,8 +886,8 @@ MIT License - 자세한 내용은 [LICENSE](../LICENSE)를 참고하세요. 자�
 
 ---
 
-**최종 업데이트**: 2026년 11월 12일
-**Claude Code 버전**: 2.1.322
+**최종 업데이트**: 2026년 11월 13일
+**Claude Code 버전**: 2.1.323
 **출처**:
 - https://code.claude.com/docs/en/tools-reference#task-tool-availability
 - https://code.claude.com/docs/en/hooks
@@ -910,5 +910,8 @@ MIT License - 자세한 내용은 [LICENSE](../LICENSE)를 참고하세요. 자�
 - https://code.claude.com/docs/en/headless#auto-approve-tools
 - https://code.claude.com/docs/en/permission-modes#which-mode-a-non-interactive-run-starts-in
 - https://code.claude.com/docs/en/mcp#example-query-your-postgresql-database
+- https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install
 - https://code.claude.com/docs/en/model-config#work-with-fable
+- https://www.npmjs.com/package/@anthropic-ai/claude-code
+- https://code.claude.com/docs/en/changelog#2-1-323
 **호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5
