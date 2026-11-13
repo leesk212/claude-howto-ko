@@ -1,6 +1,6 @@
 <!-- i18n-source: 09-advanced-features/planning-mode-examples.md -->
-<!-- i18n-source-sha: bc03fd7 -->
-<!-- i18n-date: 2026-11-12 -->
+<!-- i18n-source-sha: 7af3b2f -->
+<!-- i18n-date: 2026-11-14 -->
 
 # 계획 모드 예제(Planning Mode Examples)
 

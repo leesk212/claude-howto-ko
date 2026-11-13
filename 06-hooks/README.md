@@ -1,6 +1,6 @@
 <!-- i18n-source: 06-hooks/README.md -->
-<!-- i18n-source-sha: bc03fd7 -->
-<!-- i18n-date: 2026-11-12 -->
+<!-- i18n-source-sha: 7af3b2f -->
+<!-- i18n-date: 2026-11-14 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -69,7 +69,7 @@
 | `statusMessage` | 훅이 실행되는 동안 표시할 사용자 정의 스피너 메시지 | `"Formatting…"` |
 | `onFailure` | command 또는 HTTP 훅이 실패했을 때(시작 불가, 타임아웃, 예상하지 못한 종료 코드) 동작을 어떻게 처리할지 지정합니다: `"continue"`(기본값) 또는 `"block"`(v2.1.295+). Agent SDK 훅 콜백에서는 이 값을 matcher에 설정합니다. TypeScript에서는 `onFailure: "block"`(Agent SDK v0.3.317+), Python에서는 `on_failure="block"`(v0.2.177+)을 지정하면 콜백이 실패했을 때 동작을 실행하지 않고 차단합니다. | `"block"` |
 
-> **참고**: 일부 이벤트는 기본 타임아웃을 낮춥니다. `UserPromptSubmit`은 `command`, `http`, `mcp_tool`의 기본값을 30초로, `MessageDisplay`는 10초로 낮춥니다. `SessionEnd` 훅은 1.5초 예산을 공유하며, 설정에서 훅별 `timeout`을 더 길게 지정하면 Claude Code가 그에 맞춰 예산을 최대 60초까지 늘립니다.
+> **참고**: 일부 이벤트는 기본 타임아웃을 낮춥니다. `UserPromptSubmit`은 `command`, `http`, `mcp_tool`의 기본값을 30초로, `MessageDisplay`는 10초로 낮춥니다. `SessionEnd` 훅은 1.5초 예산을 공유하며, 설정에서 훅별 `timeout`을 더 길게 지정하면 Claude Code가 그에 맞춰 예산을 최대 60초까지 늘립니다. `claude -p` 및 Agent SDK 세션에서는 훅이 오래 실행되는 동안 Claude Code가 30초마다 진행 상황 하트비트를 보내므로(v2.1.323), Claude Desktop 같은 호스트가 이 버전을 포함하게 되면 턴을 멈춘 것으로 보고 종료하지 않습니다.
 
 ### 매처 패턴
 
@@ -1232,7 +1232,7 @@ if __name__ == "__main__":
 
 ### 예시 7: auto 모드 권한 시드(일회성 설정 스크립트)
 
-Claude Code의 auto 모드 기준선과 동등한 안전한 권한 규칙(기본 37개, 모든 카테고리 플래그를 켜면 최대 63개)을 `~/.claude/settings.json`에 시드하는 일회성 설정 스크립트입니다. 훅을 사용하지 않으며 이후 선택을 기억하지도 않습니다. 한 번만 실행하면 되며, 다시 실행해도 안전합니다(이미 있는 규칙은 건너뜀).
+Claude Code의 auto 모드 기준선과 동등한 안전한 권한 규칙(기본 32개, 모든 카테고리 플래그를 켜면 최대 58개)을 `~/.claude/settings.json`에 시드하는 일회성 설정 스크립트입니다. 훅을 사용하지 않으며 이후 선택을 기억하지도 않습니다. 한 번만 실행하면 되며, 다시 실행해도 안전합니다(이미 있는 규칙은 건너뜀).
 
 **파일:** `09-advanced-features/setup-auto-mode-permissions.py`
 
@@ -1254,7 +1254,7 @@ python3 09-advanced-features/setup-auto-mode-permissions.py
 | Git 쓰기(로컬) | `Bash(git add:*)`, `Bash(git commit:*)`, `Bash(git checkout:*)` |
 | 패키지 관리자 | `Bash(npm ci:*)`, `Bash(npm install:*)`, `Bash(pip install:*)`, `Bash(pip3 install:*)` |
 | 빌드 및 테스트 | `Bash(make:*)`, `Bash(pytest:*)`, `Bash(go test:*)` |
-| 일반 셸 | `Bash(ls:*)`, `Bash(cat:*)`, `Bash(find:*)` |
+| 일반 셸 | `Bash(ls:*)`, `Bash(cat:*)`, `Bash(wc:*)` |
 | GitHub CLI | `Bash(gh pr view:*)`, `Bash(gh pr create:*)`, `Bash(gh issue list:*)` |
 
 **의도적으로 제외되는 항목**(이 스크립트는 절대 추가하지 않음):
@@ -1657,8 +1657,8 @@ chmod +x ~/.claude/hooks/*.sh
 
 ---
 
-**최종 업데이트**: 2026년 11월 12일
-**Claude Code 버전**: 2.1.322
+**최종 업데이트**: 2026년 11월 13일
+**Claude Code 버전**: 2.1.323
 **출처**:
 - https://code.claude.com/docs/en/hooks
 - https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md
@@ -1694,4 +1694,5 @@ chmod +x ~/.claude/hooks/*.sh
 - https://code.claude.com/docs/en/changelog#2-1-321
 - https://code.claude.com/docs/en/changelog#2-1-319
 - https://code.claude.com/docs/en/hooks#posttooluse-after-an-interrupt
+- https://code.claude.com/docs/en/changelog#2-1-323
 **호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

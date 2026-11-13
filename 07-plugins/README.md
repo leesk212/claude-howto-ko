@@ -1,6 +1,6 @@
 <!-- i18n-source: 07-plugins/README.md -->
-<!-- i18n-source-sha: bc03fd7 -->
-<!-- i18n-date: 2026-11-12 -->
+<!-- i18n-source-sha: 7af3b2f -->
+<!-- i18n-date: 2026-11-14 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -100,6 +100,7 @@ sequenceDiagram
 | `lspServers` | string \| array \| object | 코드 인텔리전스(정의로 이동, 참조 찾기, 진단)를 위한 LSP 서버. 보통 `"./.lsp.json"`입니다. [LSP 서버 구성](#lsp-서버-구성) 참고 |
 | `channels` | array | 메시지 주입을 위한 채널 선언(Telegram, Slack, Discord 방식) |
 | `dependencies` | array | 이 플러그인이 필요로 하는 다른 플러그인. 선택적으로 semver 버전 제약 지정 가능 |
+| `engines` | object | `engines["claude-code"]`는 플러그인이 지원하는 Claude Code 버전 범위를 지정합니다. Claude Code는 이 범위를 벗어난 플러그인을 설치, 업데이트, 로드하지 않으며, 설치와 업데이트 시 범위에 맞는 최신 플러그인 버전을 선택합니다(v2.1.323, 변경 로그 기준이며 매니페스트 레퍼런스에는 아직 나와 있지 않음) |
 | `keywords` | array | 마켓플레이스를 탐색·검색할 때 사용하는 검색 태그 |
 | `metadata` | object | 사용 권한(entitlement)이나 카탈로그 필드 등 자체 데이터를 위한 자유 형식 객체 |
 | `experimental.themes` | string \| array | 색상 테마 파일 또는 디렉터리(기본 `themes/`를 대체) |
@@ -129,7 +130,7 @@ my-plugin/
 ├── .mcp.json             # MCP 서버 구성
 ├── .lsp.json             # 코드 인텔리전스를 위한 LSP 서버 구성
 ├── bin/                  # 플러그인 활성화 중 Bash 도구의 PATH에 추가되는 실행 파일(샌드박스 밖의 PowerShell 명령어도 찾음, v2.1.302)
-├── settings.json         # 플러그인 활성화 시 적용되는 기본 설정(`agent`와 `subagentStatusLine` 키만 적용됨)
+├── settings.json         # 플러그인 활성화 시 적용되는 기본 설정(`agent` 키만 적용되며, 그 키는 v2.1.323부터 지원 중단 예정)
 ├── themes/               # 선택 사항: 사용자 정의 Claude Code 테마 제공(v2.1.118+)
 ├── templates/
 │   └── issue-template.md
@@ -237,6 +238,8 @@ my-plugin/
 - **코드 탐색** — 정의로 이동, 참조 찾기, 구현 찾기
 - **호버 정보** — 마우스를 올리면 타입 시그니처와 문서를 표시
 - **심볼 목록** — 현재 파일 또는 워크스페이스의 심볼 탐색
+
+플러그인의 언어 서버가 시작되지 않으면 `/plugin`의 **Errors** 탭에 실패 내용과 그 이유가 표시되며, v2.1.323부터는 Claude Code가 해당 서버와 확인할 사항을 알려 주는 경고도 표시합니다.
 
 ### `bin/` 디렉터리를 `PATH`에 추가
 
@@ -383,7 +386,7 @@ $ my-tool --help
 
 ## 플러그인 설정
 
-플러그인은 기본 구성을 제공하기 위해 `settings.json` 파일을 포함할 수 있습니다. 적용되는 키는 `agent`와 `subagentStatusLine` 두 가지이며, 그 외의 키는 모두 무시됩니다. v2.1.319부터는 플러그인이 제공하는 `subagentStatusLine` 명령에서 `${CLAUDE_PLUGIN_ROOT}`가 치환되므로, 플러그인 자체의 스크립트를 실행할 수 있습니다. `agent`는 플러그인 에이전트 중 하나의 이름을 받아 이를 메인 스레드로 실행합니다.
+플러그인은 기본 구성을 제공하기 위해 `settings.json` 파일을 포함할 수 있습니다. `agent` 키만 적용되며, 그 외의 키는 모두 무시됩니다. v2.1.323에서 `subagentStatusLine` 설정이 제거되어 서브에이전트 행은 항상 기본 모양을 사용하며, 이 키가 아직 남아 있는 설정 파일도 이전처럼 로드됩니다. `agent`는 플러그인 에이전트 중 하나의 이름을 받아 이를 메인 스레드로 실행합니다. v2.1.323부터 이 키는 지원 중단 예정(deprecated)입니다. 여전히 적용되지만, Claude Code는 시작 시, `claude plugin list`, `claude plugin validate`에서 이에 대해 경고합니다.
 
 ```json
 {
@@ -429,9 +432,10 @@ $ my-tool --help
 
 **파일:** `commands/review-pr.md`
 
+이 파일은 `/pr-review:review-pr`가 됩니다. 플러그인 `name`에 파일 이름을 더한 것입니다.
+
 ```markdown
 ---
-name: Review PR
 description: 보안 및 테스트 검증을 포함한 종합적인 PR 리뷰 시작
 ---
 
@@ -464,17 +468,65 @@ Specializes in finding security vulnerabilities:
 - Secure configuration
 ```
 
+**파일:** `hooks/hooks.json`
+
+사용자가 플러그인의 명령어 중 하나를 입력하면 `hooks/pre-review.js`를 실행합니다. 이 스크립트는 git 저장소 밖에서는 명령어를 차단합니다(종료 코드 2). 매처는 `command_name`과 비교되는데, Claude Code 2.1.322에서 플러그인 명령어의 `command_name`은 `pr-review:review-pr`였습니다. 매처는 접두사 없는 `review-pr` 형태도 허용합니다. `args`(exec 형식)는 스크립트 경로를 하나의 인수로 전달하므로 따옴표 처리가 필요 없습니다.
+
+```json
+{
+  "hooks": {
+    "UserPromptExpansion": [
+      {
+        "matcher": "^(pr-review:)?(review-pr|check-security|check-tests)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/pre-review.js"],
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**파일:** `.mcp.json`
+
+GitHub의 공식 MCP 서버를 읽기 전용으로 선언하며, 토큰은 `GITHUB_TOKEN`에서 가져옵니다. 이미지는 [v2.1.0 릴리스](https://github.com/github/github-mcp-server/releases/tag/v2.1.0) 태그로 고정되어 있으므로, 태그를 바꾸거나 배포자가 태그를 다시 push할 때만 바뀝니다. digest로 고정하면 더 엄격합니다. `:v2.1.0`을 2026-11-12 기준 v2.1.0의 digest인 `@sha256:f6056fc10bfffcc8c81a6417a2e9ca12808647e8dd6049642a4feaadee0e0f8a`로 바꾸세요. 이 파일은 태그로 고정합니다.
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "-e", "GITHUB_READ_ONLY",
+        "ghcr.io/github/github-mcp-server:v2.1.0"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}",
+        "GITHUB_READ_ONLY": "1"
+      }
+    }
+  }
+}
+```
+
 **설치:**
 
 ```bash
+claude plugin validate ./07-plugins/pr-review
 claude --plugin-dir ./07-plugins/pr-review
 
-# Result:
-# ✅ 3 slash commands installed
-# ✅ 3 subagents configured
-# ✅ 2 MCP servers connected
-# ✅ 4 hooks registered
-# ✅ Ready to use!
+# Loads:
+# ✅ 3 slash commands: /pr-review:review-pr, /pr-review:check-security, /pr-review:check-tests
+# ✅ 3 subagents
+# ✅ 1 MCP server: plugin:pr-review:github
+# ✅ 1 hook: UserPromptExpansion → pre-review.js
 ```
 
 ### 예제 2: DevOps 플러그인
@@ -492,9 +544,8 @@ devops-automation/
 │   ├── deployment-specialist.md
 │   ├── incident-commander.md
 │   └── alert-analyzer.md
-├── mcp/
-│   └── kubernetes-config.json
 ├── hooks/
+│   ├── hooks.json        # PreToolUse/PostToolUse on Bash
 │   ├── pre-deploy.js
 │   └── post-deploy.js
 └── scripts/
@@ -502,6 +553,8 @@ devops-automation/
     ├── rollback.sh
     └── health-check.sh
 ```
+
+`hooks/hooks.json`은 각 Bash 호출 전에 `pre-deploy.js`를, 호출 후에 `post-deploy.js`를 실행합니다. 두 스크립트는 훅의 JSON 입력에서 명령어를 읽고, `kubectl apply`나 `deploy.sh` 같은 배포 명령어에만 동작합니다. `pre-deploy.js`는 `kubectl`이 클러스터에 연결할 수 없으면 종료 코드 2로 배포를 차단합니다. 이 플러그인에는 MCP 서버가 없습니다. 훅과 스크립트가 `kubectl`을 직접 호출합니다.
 
 ### 예제 3: Documentation 플러그인
 
@@ -518,12 +571,11 @@ documentation/
 │   ├── api-documenter.md
 │   ├── code-commentator.md
 │   └── example-generator.md
-├── mcp/
-│   └── github-docs-config.json
-└── templates/
-    ├── api-endpoint.md
-    ├── function-docs.md
-    └── adr-template.md
+├── templates/
+│   ├── api-endpoint.md
+│   ├── function-docs.md
+│   └── adr-template.md
+└── .mcp.json             # GitHub MCP server
 ```
 
 ## 플러그인 마켓플레이스
@@ -871,7 +923,7 @@ claude plugin init <name>                    # 새 플러그인 스캐폴드 생
 | `plugin validate` | `--strict` | 경고를 오류로 처리 |
 | `plugin validate` | `--json` | 기계가 읽을 수 있는 검증 보고서 출력(v2.1.259+) |
 
-`claude plugin validate`는 `.mcp.json` 항목도 검사하며(v2.1.281+), `outputStyles`, `themes`, `monitors`, `lspServers` 경로가 없거나 플러그인 디렉터리 밖을 가리키면 실패합니다(v2.1.283+). 또한 플러그인 README에 마켓플레이스에서 설치하는 줄이 없으면 붙여 넣을 줄과 함께 `Advice` 블록을 출력합니다. 이 조언은 `--strict`를 사용해도 판정이나 종료 코드를 바꾸지 않습니다(v2.1.295+).
+`claude plugin validate`는 `.mcp.json` 항목도 검사하며(v2.1.281+), `outputStyles`, `themes`, `monitors`, `lspServers` 경로가 없거나 플러그인 디렉터리 밖을 가리키면 실패합니다(v2.1.283+). 또한 플러그인 README에 마켓플레이스에서 설치하는 줄이 없으면 붙여 넣을 줄과 함께 `Advice` 블록을 출력합니다. 이 조언은 `--strict`를 사용해도 판정이나 종료 코드를 바꾸지 않습니다(v2.1.295+). v2.1.323부터는 플러그인의 TypeScript 훅 모듈도 타입 검사하여 각 발견 사항을 경고로 보고하므로 `--strict`에서는 실패합니다. 또한 mod의 `engine.create` 훅이 추가, 보류 또는 대체하는 `$` 명사를 나열하고, `engine.create` 훅이 허용되는 단 하나의 형식으로 작성되지 않은 mod는 실패로 처리합니다. 이미 설치된 mod는 계속 로드됩니다. 이 세 가지 추가 사항은 변경 로그 기준이며 CLI 레퍼런스에는 아직 나와 있지 않습니다.
 
 예시: `claude plugin tag ./my-plugin`은 버전 문자열이 아니라 플러그인 **경로**를 받습니다. `plugin.json`에서 도출한 `{name}--v{version}` git 태그를 생성하며, `plugin.json`과 이를 감싸는 마켓플레이스 항목이 일치하는지 검증합니다. 배포를 위한 플러그인 릴리스를 만드는 권장 방법입니다.
 
@@ -907,7 +959,7 @@ claude plugin eval --help     # 전체 옵션 목록
 
 ### `--json`으로 기계가 읽을 수 있는 출력 (v2.1.268+)
 
-`--json`은 `install`, `uninstall`, `update`, `enable`, `disable`에서 사용할 수 있어 CI에서 플러그인 관리를 스크립트로 처리할 수 있습니다. `claude plugin list --json`의 각 행에는 `errorDetails`와 `noteDetails`도 포함되므로, 실패한 플러그인의 원인을 별도 명령어 없이 확인할 수 있습니다.
+`--json`은 `install`, `uninstall`, `update`, `enable`, `disable`에서 사용할 수 있어 CI에서 플러그인 관리를 스크립트로 처리할 수 있습니다. `claude plugin list --json`의 각 행에는 `errorDetails`와 `noteDetails`도 포함되므로, 실패한 플러그인의 원인을 별도 명령어 없이 확인할 수 있습니다. v2.1.323부터 `claude plugin install --json` 결과에는 아직 설정되지 않은 `userConfig` 옵션의 개수인 `unsetOptionCount`도 포함됩니다(변경 로그 기준이며 CLI 레퍼런스의 JSON 결과 형식에는 아직 나와 있지 않음).
 
 ```bash
 claude plugin install my-plugin@my-marketplace --json
@@ -1152,8 +1204,8 @@ claude --plugin-url https://example.com/releases/my-plugin-0.3.0.zip
 ## 포함 항목
 - 다양한 리뷰 유형을 위한 슬래시 명령어 3개
 - 특화된 서브에이전트 3개
-- GitHub 및 CodeQL MCP 통합
-- 자동화된 보안 스캔 훅
+- GitHub MCP 통합
+- git 저장소를 확인하는 리뷰 전(pre-review) 훅
 
 ## 설치
 ```bash
@@ -1168,16 +1220,16 @@ claude --plugin-dir ./07-plugins/pr-review
 ✅ 성능 영향 분석
 
 ## 사용 방법
-```bash
-/review-pr
-/check-security
-/check-tests
+```text
+/pr-review:review-pr
+/pr-review:check-security
+/pr-review:check-tests
 ```
 
 ## 요구 사항
 - Claude Code 2.1+
-- GitHub 접근 권한
-- CodeQL(선택 사항)
+- Node.js와 Docker
+- `GITHUB_TOKEN`에 설정된 GitHub 개인 액세스 토큰
 ````
 
 ## 플러그인과 수동 구성 비교
@@ -1309,10 +1361,10 @@ claude plugin update plugin-name
 ### PR Review 플러그인 전체 워크플로
 
 ```
-1. 사용자: /review-pr
+1. 사용자: /pr-review:review-pr
 
 2. 플러그인 실행:
-   ├── pre-review.js 훅이 Git 저장소를 검증
+   ├── pre-review.js 훅(UserPromptExpansion)이 Git 저장소를 검증
    ├── GitHub MCP가 PR 데이터를 가져옴
    ├── security-reviewer 서브에이전트가 보안을 분석
    ├── test-checker 서브에이전트가 테스트 커버리지를 검증
@@ -1346,7 +1398,7 @@ claude plugin update plugin-name
 - 환경 변수가 올바르게 설정되었는지 확인
 - MCP 서버가 정상적으로 설치 및 실행 중인지 확인
 - `/mcp`로 MCP 서버 상태 확인
-- `mcp/` 디렉터리의 MCP 구성 확인
+- 플러그인의 `.mcp.json`에서 MCP 구성 확인
 
 ### 설치 후 명령어를 사용할 수 없는 경우
 
@@ -1378,8 +1430,8 @@ git 소스 플러그인에 대해 `claude plugin list`가 `Version: unknown`을 
 
 ---
 
-**최종 업데이트**: 2026년 11월 12일
-**Claude Code 버전**: 2.1.322
+**최종 업데이트**: 2026년 11월 13일
+**Claude Code 버전**: 2.1.323
 **출처**:
 - https://code.claude.com/docs/en/plugins
 - https://code.claude.com/docs/en/plugins-reference
@@ -1449,4 +1501,6 @@ git 소스 플러그인에 대해 `claude plugin list`가 `Version: unknown`을 
 - https://code.claude.com/docs/en/changelog#2-1-318
 - https://code.claude.com/docs/en/changelog#2-1-319
 - https://code.claude.com/docs/en/plugins/org#require-a-marketplace-and-its-plugins
+- https://code.claude.com/docs/en/changelog#2-1-323
+- https://code.claude.com/docs/en/plugins/troubleshooting#language-server-doesnt-start
 **호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

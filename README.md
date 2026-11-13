@@ -1,6 +1,6 @@
 <!-- i18n-source: README.md -->
-<!-- i18n-source-sha: bc03fd7 -->
-<!-- i18n-date: 2026-11-12 -->
+<!-- i18n-source-sha: 7af3b2f -->
+<!-- i18n-date: 2026-11-14 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="resources/logos/claude-howto-logo-dark.svg">
@@ -16,7 +16,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/leesk212/claude-howto-ko?style=flat&color=gold)](https://github.com/leesk212/claude-howto-ko/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/leesk212/claude-howto-ko?style=flat)](https://github.com/leesk212/claude-howto-ko/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.1.322-brightgreen)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.1.323-brightgreen)](CHANGELOG.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-2.1+-purple)](https://code.claude.com)
 
 🌐 **Language / Ngôn ngữ / 语言 / Мова / 언어:** [English](https://github.com/luongnv89/claude-howto) | [Tiếng Việt](https://github.com/luongnv89/claude-howto/tree/main/vi) | [中文](https://github.com/luongnv89/claude-howto/tree/main/zh) | [Українська](https://github.com/luongnv89/claude-howto/tree/main/uk) | [日本語](https://github.com/luongnv89/claude-howto/tree/main/ja) | [한국어](README.md) | [فارسی](https://github.com/luongnv89/claude-howto/tree/main/fa)
@@ -109,7 +109,7 @@ Claude Code의 진정한 강점은 기능 조합에 있습니다. 슬래시 명�
 
 - Claude Code를 매일 사용하는 개발자들의 **GitHub Star**
 - 팀 워크플로에 맞게 가이드를 확장하기 위한 **Fork**
-- **지속적인 유지보수** — Claude Code의 모든 릴리스에 맞춰 업데이트 (최신 버전: v2.1.322, 2026년 11월)
+- **지속적인 유지보수** — Claude Code의 모든 릴리스에 맞춰 업데이트 (최신 버전: v2.1.323, 2026년 11월)
 - **커뮤니티 중심 운영** — 실전 설정을 공유하는 개발자들의 기여
 
 [![Star History Chart](https://api.star-history.com/svg?repos=leesk212/claude-howto-ko&type=Date)](https://star-history.com/#leesk212/claude-howto-ko&Date)
@@ -208,7 +208,7 @@ cp -r 03-skills/code-review-specialist ~/.claude/skills/
 네. MIT 라이선스로 제공되며 영구적으로 무료입니다. 라이선스 고지만 유지하면 개인 프로젝트, 회사 업무, 팀 프로젝트 등 어디에서나 사용할 수 있습니다.
 
 **계속 유지보수되나요?**
-네. Claude Code의 모든 릴리스에 맞춰 지속적으로 업데이트됩니다. 현재 버전은 v2.1.322(2026년 11월)이며 Claude Code 2.1+와 호환됩니다.
+네. Claude Code의 모든 릴리스에 맞춰 지속적으로 업데이트됩니다. 현재 버전은 v2.1.323(2026년 11월)이며 Claude Code 2.1+와 호환됩니다.
 
 **공식 문서와 어떤 차이가 있나요?**
 공식 문서는 기능 참조용 문서입니다. 이 가이드는 다이어그램, 실전 템플릿, 단계별 학습 경로를 제공하는 튜토리얼입니다. 두 자료는 상호 보완적입니다. 학습은 이 가이드로 시작하고, 세부 사항이 필요할 때 공식 문서를 참고하세요.
@@ -649,14 +649,14 @@ Claude:
 ### DevOps 배포
 
 ```markdown
-# Uses: Plugins + MCP + Hooks
+# Uses: Plugins + Subagents + Hooks
 
-User: /deploy production
+User: /devops-automation:deploy production
 
 Claude:
 1. Runs pre-deploy hook (validates environment)
 2. Delegates to deployment-specialist subagent
-3. Executes deployment via Kubernetes MCP
+3. Runs the deploy script (kubectl)
 4. Monitors progress
 5. Runs post-deploy hook (health checks)
 6. Reports status
@@ -889,8 +889,8 @@ MIT License - 자세한 내용은 [LICENSE](LICENSE)를 참고하세요. 자유�
 
 ---
 
-**최종 업데이트**: 2026년 11월 12일
-**Claude Code 버전**: 2.1.322
+**최종 업데이트**: 2026년 11월 13일
+**Claude Code 버전**: 2.1.323
 **출처**:
 - https://code.claude.com/docs/en/tools-reference#task-tool-availability
 - https://code.claude.com/docs/en/hooks
@@ -916,4 +916,5 @@ MIT License - 자세한 내용은 [LICENSE](LICENSE)를 참고하세요. 자유�
 - https://code.claude.com/docs/en/troubleshoot-install#fix-an-npm-12-install
 - https://code.claude.com/docs/en/model-config#work-with-fable
 - https://www.npmjs.com/package/@anthropic-ai/claude-code
+- https://code.claude.com/docs/en/changelog#2-1-323
 **호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5

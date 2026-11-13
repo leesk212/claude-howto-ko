@@ -1,6 +1,6 @@
 <!-- i18n-source: 10-cli/README.md -->
-<!-- i18n-source-sha: bc03fd7 -->
-<!-- i18n-date: 2026-11-12 -->
+<!-- i18n-source-sha: 7af3b2f -->
+<!-- i18n-date: 2026-11-14 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -249,6 +249,8 @@ claude -p --system-prompt-file ./prompts/code-reviewer.txt "review main.py"
 
 > **권한 강화 (v2.1.319–v2.1.321)**: 이제 Bash 도구는 조회/표시 집합에 속하지 않는 플래그로 `which`를 실행하기 전에 확인을 요청합니다. 단순한 `timeout DURATION`으로 감싼 읽기 전용 명령(예: `timeout 30 rg foo`)은 더 이상 확인을 요청하지 않습니다. 더 넓은 거부 규칙이 명령을 포함하면 세션의 정확한 Bash 또는 PowerShell 요청(ask) 규칙은 묻지 않고 거부됩니다 (v2.1.319). `/bin/cp`처럼 경로로 쓴 `cp`와 `mv`도 `cp`, `mv`와 같은 경로 검사를 받으며, 디렉터리로 `cp` 또는 `mv`할 때 기록되는 파일에도 이제 거부 규칙과 보호 파일 프롬프트가 적용됩니다 (v2.1.321).
 
+> **권한 강화 (v2.1.323)**: Claude Code는 시작 시 변수 값에 `*`가 들어 있는 Bash 허용 규칙(예: `Bash(PORT=* npm run dev)`)에 대해 경고합니다. 와일드카드가 붙어 있는 허용 규칙(예: `Bash(ls*)`)이 일부 경우 권한 프롬프트를 건너뛰던 문제가 수정되었으며, 변수 이름을 지정하는 규칙(예: `Bash(NODE_ENV*)`)은 이제 확인을 요청합니다. Bash 거부 및 확인(ask) 규칙이 `sudo`, `env` 및 유사한 래퍼를 통해 실행되는 일부 명령을 더 이상 놓치지 않으며, Write 및 Edit 도구가 `Read` 거부 규칙이 적용되는 경로에 쓸 수 있던 사례도 수정되었습니다. `plansDirectory`가 설정된 경우, 프로젝트 안에 머문다는 것을 보장할 수 없는 계획 파일 쓰기는 거부됩니다. Bash 프롬프트는 `.git`이나 `.claude` 같은 민감한 경로에 쓰는 명령에 대해 더 이상 "don't ask again"을 제공하지 않습니다(저장된 규칙이 다음 프롬프트를 막지 못했습니다). 또한 비밀 정보를 담고 있는 것처럼 보이는 허용 규칙이나 git이 추적하는 `settings.local.json`에 저장될 허용 규칙에 대한 "don't ask again"은 해당 세션 동안만 유지되며 저장되지 않습니다.
+
 ### 권한 예시
 
 ```bash
@@ -416,11 +418,11 @@ claude purge --all --interactive
 | `--json-schema` | 유효성 검사된 JSON 출력 | `claude -p --json-schema '{"type":"object"}' "q"` |
 | `--ax-screen-reader` | 스크린 리더용 일반 텍스트 렌더링 모드 (v2.1.208) | `claude --ax-screen-reader` |
 
-### 플랫폼 및 테마 참고 사항 (v2.1.112)
+### 플랫폼 및 테마 참고 사항 (v2.1.111)
 
 - **Windows의 PowerShell 도구**: Windows에 전용 PowerShell 도구가 출시되고 있으며 환경 변수를 통해 제어할 수 있습니다.
 - **자동 (터미널 일치) 테마**: 새로운 "자동 (터미널 일치)" 테마는 Claude Code의 밝기/어둡기 외관을 터미널과 동기화합니다.
-- **더 조용한 권한 프롬프트**: 읽기 전용 `Bash` 호출 및 `Glob` 패턴은 더 이상 권한 프롬프트를 트리거하지 않습니다.
+- **더 조용한 권한 프롬프트**: `ls *.ts`처럼 glob 패턴을 사용하는 읽기 전용 Bash 명령과 `cd <project-dir> &&`로 시작하는 명령은 더 이상 권한 프롬프트를 트리거하지 않습니다.
 
 ### 고급 예시
 
@@ -913,7 +915,7 @@ export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Fable models,
 | `SLASH_COMMAND_TOOL_CHAR_BUDGET` | 슬래시 명령어 도구의 문자 예산 |
 | `ENABLE_TOOL_SEARCH` | 도구 검색 기능을 활성화합니다 |
 | `MAX_MCP_OUTPUT_TOKENS` | MCP 도구 출력의 최대 토큰 |
-| `CLAUDE_CODE_PERFORCE_MODE` | Perforce 모드를 활성화하려면 `1`로 설정합니다 — 파일을 기본적으로 읽기 전용으로 처리합니다 (Perforce/P4 버전 제어 워크플로용) (v2.1.98에 추가됨) |
+| `CLAUDE_CODE_PERFORCE_MODE` | Perforce 인식 쓰기 보호를 활성화하려면 `1`로 설정합니다. 대상 파일에 owner-write 비트가 없으면 Edit, Write, NotebookEdit가 `p4 edit <file>` 힌트와 함께 실패합니다. Perforce는 동기화된 파일에서 `p4 edit`로 열 때까지 이 비트를 지웁니다 (v2.1.98에 추가됨). v2.1.323부터는 Perforce 설정이 발견되었는데 이 모드가 꺼져 있으면 시작 시 이 변수를 알려 주는 일회성 알림이 표시됩니다 |
 | `DISABLE_UPDATES` | 수동 `claude update`를 포함한 모든 업데이트 경로를 차단합니다. 백그라운드 자동 업데이트만 차단하는 `DISABLE_AUTOUPDATER`보다 엄격합니다 (v2.1.118+) |
 | `CLAUDE_CODE_HIDE_CWD` | `1`로 설정하면 시작 로고에 현재 작업 디렉터리를 숨깁니다 (개인 정보 보호 / 화면 공유 사용) (v2.1.119+) |
 | `CLAUDE_CODE_FORK_SUBAGENT` | 포크 서브에이전트를 끄려면 `0`으로 설정합니다. v2.1.302부터 터미널, `claude -p`, Agent SDK, 데스크톱 앱, VS Code에서 기본적으로 켜져 있습니다. v2.1.302 이전에는 `claude -p`와 Agent SDK에서 켜려면 `1`로 설정했습니다. |
@@ -954,7 +956,7 @@ export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Fable models,
 | `CLAUDE_CODE_WEBFETCH_DEADLINE_MS` | v2.1.268에 도입된 WebFetch의 300초 마감 시간을 재정의합니다. 마감 시간을 없애려면 `0`으로 설정합니다 (v2.1.268) |
 | `CLAUDE_CODE_WORKFLOW_MAX_CONCURRENT_AGENTS` | Workflow 도구의 실행당 동시 에이전트 한도를 높입니다. 1–256 허용 (v2.1.269) |
 | `CLAUDE_CODE_AUTO_MODE_SERVER` | 서버 측 검토 대신 Claude Code 자체의 자동 모드 분류기 요청을 사용하려면 `0`으로 설정합니다 — Bedrock, Vertex, Foundry, 게이트웨이에서는 v2.1.278부터, 직접 Anthropic API 연결에서는 v2.1.281부터 (후자에서는 로컬 분류기가 사용량에 포함되며 `1`로 옵트인) |
-| `CLAUDE_CODE_AUTO_MODE_MODEL` | 클라이언트 측 자동 모드 분류기에 사용할 전체 모델 ID(예: `claude-sonnet-4-6`). 지정하지 않으면 Sonnet 5를 사용하며, 서버 측 자동 모드의 모델은 바꾸지 않습니다. Opus 5, Sonnet 5.5, Opus 5.5 또는 조직 정책에서 제외한 모델이면 무시됩니다 (v2.1.302) |
+| `CLAUDE_CODE_AUTO_MODE_MODEL` | 클라이언트 측 자동 모드 분류기에 사용할 전체 모델 ID(예: `claude-sonnet-4-6`). 지정하지 않으면 Sonnet 5를 사용하며, 서버 측 자동 모드의 모델은 바꾸지 않습니다. Opus 5, Sonnet 5.5, Opus 5.5 또는 조직 정책에서 제외한 모델이면 무시됩니다 (v2.1.302). v2.1.323부터는 서드파티 제공자의 Claude Desktop 세션용 관리형 설정에서도 작동하며, Claude Desktop에 해당 버전이 포함되면 적용됩니다 |
 | `CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT` | 실행 환경에서 `1`로 설정하면 중요 경로 `rm` 프롬프트가 바뀝니다. `--dangerously-skip-permissions` (bypassPermissions) 모드에서는 터미널 프롬프트에 시간 제한이 없어지고 VS Code 채팅 패널은 사용자에게 묻습니다. 자동 모드에서는 터미널, VS Code 패널, `-p` 실행, Agent SDK 세션 모두에서 분류기가 대신 결정합니다. 설정하지 않으면 무인 세션이 계속 진행되도록 터미널 프롬프트가 2분 후 다시 작성 힌트와 함께 명령을 거부합니다 (v2.1.281) |
 | `CLAUDE_CODE_DISABLE_MOUNTED_DRIVE_RM_PROMPT` | `/Volumes/USB`나 WSL의 `/mnt/c` 같은 마운트된 드라이브 경로에 대한 재귀 `rm` 프롬프트를 끄려면 실행 환경에서 `1`로 설정합니다(설정 `env` 블록에서는 무시됨) (v2.1.304) |
 | `CLAUDE_CODE_DISABLE_ULTRAREVIEW_TRUST_CHECK` | CI처럼 신뢰 여부를 물을 수 없는 폴더에서 `claude ultrareview`가 `Error: Workspace not trusted`로 종료하지 않도록 실행 환경에서 `1`로 설정합니다. 모든 실행이 신뢰할 수 있는 폴더에서 시작되는 경우에만 사용하십시오 (v2.1.309) |
@@ -966,6 +968,8 @@ export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, xhigh (Fable models,
 | `CLAUDE_CODE_MODEL_CATALOG` | `off`로 설정하면 Bedrock, Mantle, Vertex, Foundry의 Claude Code가 `downloads.claude.ai`의 서명된 파일에서 모델 설정을 불러오지 않습니다 (v2.1.311) |
 | `CLAUDE_CODE_DISABLE_ULTRATHINK` | `1`로 설정하면 `ultrathink` 키워드를 끕니다 (v2.1.316) |
 | `CLAUDE_CODE_SUBAGENT_EFFORT` | 다른 곳에서 지정하지 않았을 때 서브에이전트가 세션의 노력 수준을 상속하는 대신 사용할 노력 수준 (v2.1.316). v2.1.317부터 메인 대화와 다른 모델을 쓰는 서브에이전트는 세션의 노력 수준 대신 해당 모델의 저장된 노력 수준 또는 기본값을 사용합니다 |
+| `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES` | `1`로 설정하면 서브에이전트 진행 상황 요약과 이를 작성하는 요청을 끕니다. v2.1.318부터 사용할 수 있으며 v2.1.323 변경 로그에서 발표되었습니다. env-vars 문서 페이지에는 아직 나와 있지 않습니다 |
+| `CLAUDE_CODE_RESUME_HINT_COMMAND` | Claude Code를 시작하는 프로그램이 이 변수를 설정하면 종료 시 힌트에 해당 프로그램 자체의 재개(resume) 명령이 표시됩니다 (v2.1.323; 변경 로그 기반이며 env-vars 문서 페이지에는 아직 나와 있지 않음) |
 | `CLAUDE_CODE_ENABLE_TODO_TOOLS` | 할 일/작업 추적 도구(`TaskCreate`/`Get`/`Update`/`List`, `TodoWrite`)를 복원하려면 `1`로 설정합니다. 이 도구는 기본적으로 Claude 3.x 모델, Opus 4~4.7, Sonnet 4~4.6, Haiku 4.5에서만 사용할 수 있습니다 (v2.1.268) |
 | `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` | WebFetch가 가져온 URL을 캐시하는 기간. 기본값 15분 (v2.1.233) |
 | `CLAUDE_CODE_TOOL_MEMORY_LIMIT` | Linux 전용: Bash 명령에 메모리 cgroup을 적용하도록 옵트인합니다 (v2.1.233) |
@@ -1131,8 +1135,8 @@ claude -p --output-format json "query"
 
 ---
 
-**최종 업데이트**: 2026년 11월 12일
-**Claude Code 버전**: 2.1.322
+**최종 업데이트**: 2026년 11월 13일
+**Claude Code 버전**: 2.1.323
 **출처**:
 - https://code.claude.com/docs/en/agent-sdk/agent-loop#turns-and-messages
 - https://code.claude.com/docs/en/permission-modes#time-limits-and-denials-in-auto-and-bypasspermissions-modes
@@ -1226,4 +1230,6 @@ claude -p --output-format json "query"
 - https://code.claude.com/docs/en/env-vars#features-that-need-feature-flag-fetching
 - https://code.claude.com/docs/en/settings-reference#permissions-denyinsteadofprompting
 - https://code.claude.com/docs/en/changelog#2-1-317
+- https://code.claude.com/docs/en/changelog#2-1-323
+- https://code.claude.com/docs/en/permissions#wildcard-patterns
 **호환 모델**: Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.8, Claude Haiku 5.5, Claude Haiku 4.5
