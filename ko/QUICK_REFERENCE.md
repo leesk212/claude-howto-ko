@@ -1,6 +1,6 @@
 <!-- i18n-source: QUICK_REFERENCE.md -->
-<!-- i18n-source-sha: b968f42 -->
-<!-- i18n-date: 2026-10-31 -->
+<!-- i18n-source-sha: 7af3b2f -->
+<!-- i18n-date: 2026-11-14 -->
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="../resources/logos/claude-howto-logo-dark.svg">
@@ -101,7 +101,7 @@ claude --plugin-dir ./07-plugins/pr-review \
 # plan               - 읽기 전용 분석, 수정 없음
 # auto               - 백그라운드 분류기가 권한을 자동 결정
 # dontAsk            - 사전 승인된 도구만 실행, 나머지는 모두 거부
-# bypassPermissions  - 모든 작업 자동 승인(--permission-mode bypassPermissions, --dangerously-skip-permissions와 동일)
+# bypassPermissions  - 거부 규칙과 어떤 모드도 자동 승인하지 않는 일부 작업을 제외한 모든 작업 자동 승인(--permission-mode bypassPermissions, --dangerously-skip-permissions와 동일)
 
 # 세션 관리
 /resume                # 이전 대화 이어서 진행(인수 없으면 과거 세션 선택기)
